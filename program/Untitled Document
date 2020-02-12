@@ -1,0 +1,26 @@
+xuanleng@Alienware-15:~$ timedatectl 
+      Local time: Mon 2018-10-22 20:19:36 CST
+  Universal time: Mon 2018-10-22 12:19:36 UTC
+        RTC time: Mon 2018-10-22 12:19:36
+       Time zone: Asia/Shanghai (CST, +0800)
+ Network time on: yes
+NTP synchronized: yes
+ RTC in local TZ: no
+xuanleng@Alienware-15:~$ sudo timedatectl set-local-rtc 1
+[sudo] password for xuanleng: 
+xuanleng@Alienware-15:~$ timedatectl 
+      Local time: Mon 2018-10-22 20:20:14 CST
+  Universal time: Mon 2018-10-22 12:20:14 UTC
+        RTC time: Mon 2018-10-22 20:20:14
+       Time zone: Asia/Shanghai (CST, +0800)
+ Network time on: yes
+NTP synchronized: yes
+ RTC in local TZ: yes
+
+Warning: The system is configured to read the RTC time in the local time zone.
+         This mode can not be fully supported. It will create various problems
+         with time zone changes and daylight saving time adjustments. The RTC
+         time is never updated, it relies on external facilities to maintain it.
+         If at all possible, use RTC in UTC by calling
+         'timedatectl set-local-rtc 0'.
+
