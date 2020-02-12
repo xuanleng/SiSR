@@ -232,7 +232,7 @@
     framexleftmargin=6mm, xleftmargin=6mm   % tweak margins
 }
 %----------------------------------------------------------------------------------------------------------------------%
-%\includeonly{chapters/Programming}
+\includeonly{chapters/Programming}
 
 
 
@@ -488,7 +488,39 @@ Recoll
 
 
 \subsection{git}
-参考：bilibili 搜索git，如尚硅谷官方、庄七
+参考：bilibili 搜索git，如尚硅谷官方。基本概念，略！
+
+\subsubsection{初始操作}
+\begin{itemize}
+\item[(1)] 本地库初始化（建立本地库）
+\begin{itemize}
+\item git init\\
+进入项目目录，在命令行输入 git init，会产生一个.git的子目录，存放的是本地库相关的目录和文件，不要删除和胡乱修改。
+\end{itemize}
+
+\item[(2)] 设置签名
+\begin{itemize}
+\item git config user.name XX
+\item git config user.email XX
+\end{itemize}
+
+\item [(3)] 配置
+\begin{itemize}
+\item \verb|git config --global core.editor  "vim"| : 使用Vim作为编辑器
+\end{itemize}
+
+\end{itemize}
+
+
+
+\subsubsection{具体操作}
+\begin{enumerate}
+\item git status: 查看状态
+\item \verb|git add <file>|： 添加追踪文件到缓存区 / \verb|git rm --cached <file>| ：移除缓存区追踪文件
+\item \verb|git commit <file>|：提交文件到库
+\item \verb|git commit -a <file>|：直接将修改文件提交到库（也可以分成两步，先git add更新缓存区，再git commit提交到库）
+\item \verb|git commit -m ``xxx'' <file>|：跳过消息编辑器步骤，直接提交“xxx”更新记录
+\end{enumerate}
 
 
 
