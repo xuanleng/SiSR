@@ -1,0 +1,770 @@
+\chapter{Linux基本概念}
+\section{发音}
+对Linux的发音大致有这么几种： “里那克斯”、“里你克斯”与“里扭克斯”等。其实官方的标准发音为 \verb|['li:nэks]|，因为这个发音是创始人Linus的发音。如果你不认识这个音标，那么就读成“里那克斯”。当然你发音成什么，并没有人会说你，完全是一个人的习惯而已。
+
+
+\section{来源}
+Linux是根据UNIX演变过来的。当年linus就是因为接触到了UNIX而后才自己想开发一个简易的系统内核的，他开发的简易系统内核其实就是Linux。当时linus把开发的这个系统内核丢到网上提供大家下载，由于它的精致小巧，越来越多的爱好者去研究它。人们对这个内核添枝加叶，而后成为了一个系统。Linux是免费的。其实这里的免费只是说Linux的内核免费。在Linux内核的基础上而产生了众多Linux的版本。
+
+
+\section{发行版}
+Linux的发行版说简单点就是将Linux内核与应用软件做一个打包。较知名的发行版有：Ubuntu、RedHat、CentOS、Debain、Fedora、SuSE、OpenSUSE、TurboLinux、BluePoint、RedFlag、Xterm、SlackWare等。
+
+
+\section{系统目录结构}
+在Linux中，所有设备都是用文件名来表示的，这与我们所熟悉的Windows系统有很大不同，Linux中并没有所谓C盘、D盘之类的说法，并且在Linux中只有文件和目录，所有文件和目录都是以倒树状结构挂载在“/”（读做根目录）目录下，也正是因此Linux系统的管理员被称为root（树根）。
+
+\begin{itemize}
+\item \textbf{/bin——Shell命令}
+
+\qquad bin是Binary(二进制)的缩写。这个目录存放着最经常使用的命令，也就是Shell命令。提供给所有用户和脚本程序使用。所以，即使其他文件系统还没有被挂接时，他们也要能够工作，这是将这些内容放在根文件系统或根分区下的主要原因。/bin 目录不得包含任何子目录。
+
+\item \textbf{/sbin——必备的系统软件}
+
+\qquad 必备的系统软件存放处。用于系统维护的软件和某些只限root用户使用的命令存储在/sbin、/usr/sbin以及/usr/local/sbin目录下。/sbin目录存储的则是那些在系统启动、恢复、还原以及修复过程中必备的系统工具，也是对/bin下内容的补充。在/usr被挂载才需要的程序一般放在/usr/sbin目录下。用户自行安装的系统管理程序放在/usr/local/sbin目录下。
+
+\item \textbf{/boot——启动过程所需内容}
+
+\qquad 该目录包含了Linux启动过程所需要的所有内容。更为专业一点地说，/boot 目录下所保存的数据是用于内核开始执行用户级程序之前使用的东西。说白了就是跟内核有关的那点东西，引导加载器、内核镜像等。这里也可能包含备份的主引导扇区信息和扇区映像文件。
+
+\item \textbf{/cdrom——}
+
+\item \textbf{/dev——设备文件}
+
+\qquad dev是Device(设备)的缩写。该目录下存放的是Linux的外部设备，在Linux中访问设备的方式和访问文件的方式是相同的。
+
+\item \textbf{/etc——配置文件}
+
+\qquad 这个目录用来存放所有的系统管理所需要的配置文件和子目录。
+
+\item \textbf{/home——用户专有}
+
+\qquad /home为用户专有目录，每个用户都会在/home目录下有其对应的子目录，而且这个子目录一般与他的用户名相同。没有任何程序会依赖于这个目录，这个目录也不属于根文件系统。
+
+\qquad 同一个程序，不同的用户有不同的配置方式，这些用户独有的配置文件就保存在它的home目录中，一般以“.”开头（隐藏文件）。如果某个程序需要创建多个配置文件，它就会在用户的home目录下创建一个以“.”开头的目录（隐藏目录），这些配置文件放入目录中。这种情况下，配置文件不再需要以“.”开头了。
+
+\qquad 一个用户拥有对其home目录绝对的控制权，可以做任何事情。不仅仅是保存自己的图片、文档、音乐等，还能在这里安装软件，甚至在home目录下模拟整套Linux文件的系统布局都没问题。
+
+\item \textbf{/root——root专有}
+
+\qquad 这是root账户专有的home目录，除root之外，任何人不具备访问权限。而对于普通账户的home目录，root是可以随意访问。是否为root账户提供专有home目录取决于开发者或者用户的使用习惯，不过还是建议提供这个/root目录。
+
+\item \textbf{/lib——共享库和内核模块}
+
+\qquad 这个目录存放着必备的共享库和内核模块。在系统启动阶段和运行根文件系统上的各种命令时，都要用到这些共享库。
+
+\item \textbf{/lost+found——}
+
+\qquad 这个目录一般情况下是空的，当系统非法关机后，这里就存放了一些文件。
+
+\item \textbf{/media——可移动设备}
+
+\qquad Linux系统会自动识别一些设备，例如U盘、光驱等等，当识别后，Linux会把识别的设备挂载到这个目录下。曾经出现过很多其他名称的挂载点，如/cdrom、/mnt或/mnt/cdrom等，现在统一规范到/media中。虽然很多人习惯将这些可移动设备挂载在/mnt子目录中，但这与传统不符，因为/mnt实际上只是临时挂载点。如果系统中有不止一个同类的驱动器，则在其挂载类型目录后面带有一个0起始的数字，比如“cdrom0、cdrom1……”
+
+\item \textbf{/mnt——临时挂载}
+
+\qquad 系统提供该目录是为了让用户临时挂载别的文件系统的，此目录的内容属于局部问题，不应该影响任何程序的运行。
+
+\item \textbf{/opt——额外安装软件}
+
+\qquad 这里是系统额外安装软件的目录。每个软件会在/opt下拥有一个自己的目录，那里面存放着它所有的可执行程序和静态数据。这个专有目录名应该与它本身的名字相一致，这样用户就很容易管理它们。也可以使用厂商名称，不过这个厂商名称必须是在Linux名称与号码分配管理局注册过的。厂商名下面还应该是软件名，毕竟同一个厂商可以有多个软件。
+
+\qquad /opt/bin、/opt/doc、/opt/include、/opt/info、/opt/lib和/opt/man 是保留给本地系统管理员使用的。有些软件包可能会提供一个前端文件（链接或副本），系统管理员可以将这个文件放在这些保留目录中，但是在缺少这些保留目录时也要保证可以正常工作。
+
+\qquad 用户调用的程序必须放在软件包目录下的bin子目录中。如果包含联机帮助，则要将它们放在对应软件包的share/man子目录下，而且必须拥有与/usr/share/man目录中相同的组织结构。
+
+\qquad 软件有可变文件，必须将这些可变文件安装在/var/opt目录下。本机专有的配置文件必须安装在/etc/opt目录下。没有哪些附加软件会将它们的文件放在/opt、/var/opt和/etc/opt之外，除非那个软件的某些文件必须放在特定位置，否在不能正常工作。比如，设备锁文件必须放在/var/lock中，设备文件必须放在/dev中。
+
+\item \textbf{/proc——}
+
+\qquad /proc这个目录是一个虚拟的目录，它是系统内存的映射，我们可以通过直接访问这个目录来获取系统信息。这个目录的内容不在硬盘上而是在内存里，我们也可以直接修改里面的某些文件，比如可以通过下面的命令来屏蔽主机的ping命令，使别人无法ping你的机器：
+
+\item \textbf{/run——}
+
+\item \textbf{/srv——服务进程所需数据}
+
+\qquad 某些服务进程启动之后，它们需要读取的数据会放在/srv 目录中。提供/srv 目录一方面为了方便用户找到特定服务的数据文件，另一方面也为某些服务放置它们的执行脚本（如CGI脚本）、只读或可写数据提供一个合适的地方。提供给特定用户的数据应该放在那个用户的home目录下。
+
+\qquad 目前还没有规范的/srv下子目录的命令方法。有一种方式是按照协议构造/srv下的数据，如ftp、rsync、www、cvs等等。对于大型系统，可能利用功能管辖范围构造/srv下的内容，如/srv/physics/www、/srv/compsci/cvs等。它的具体内容在不同主机间会有很大的差异，因此，没有程序会依赖于/srv下特定的子目录结构，也没有哪个程序必须在/srv下保存数据。不过，/srv目录始终会作为服务进程数据存放地而一直存在着。
+
+\item \textbf{/sys——}
+
+\qquad /sys 这是linux2.6内核的一个很大的变化。该目录下安装了2.6内核中新出现的一个文件系统 sysfs ，sysfs文件系统集成了下面3种文件系统的信息：针对进程信息的proc文件系统、针对设备的devfs文件系统以及针对伪终端的devpts文件系统。该文件系统是内核设备树的一个直观反映。当一个内核对象被创建的时候，对应的文件和目录也在内核对象子系统种被创建。
+
+\item \textbf{/tmp——临时文件}
+
+\qquad /tmp必须能够被任何程序、任何用户访问，它存放临时文件。任何程序都 不用对/tmp目录下任何文件或目录负责，尽管如此，还是建议系统重启后，清楚/tmp目录下的内容。
+
+\item \textbf{/usr目录组织结构}
+
+\qquad /usr是整个文件系统的第二个主要区段。用户的很多应用程序和文件都放在这个目录下，类似与
+Windows下的program files目录。
+	\begin{itemize}
+	\item /usr/bin
+	
+	\qquad 系统中绝大多数的可执行文件都放置在这里。脚本语言的解释器或扩展部分都存放在这里。这是因为Shell脚本解释器（Shell脚本的第一行往往带有一个!\#<path>类型的注释）不能依赖于某个特别的目录，这就要求必须标准化它们的位置。Bourn Shell 和 C Shell 解释器已经被锁定在/bin目录中，而Perl、Python和TCL却经常被放置在不同的地方，于是/usr/bin下的内容往往是到其实际位置的符号链接。
+	
+	\item /usr/sbin
+	
+	\qquad 那些非必要的系统管理软件的可执行文件存放在这里。那些用于还原、更新、修复系统，以及挂载/usr目录的系统管理程序都必须放在/sbin目录下。
+	
+	\item /usr/include
+	
+	\qquad 系统内所有通用的C语言头文件都放置在这里。
+	
+	\item /usr/lib
+	
+	\qquad /usr/lib 内的内容是库和目标文件，它们都是二进制文件，但不被用户和Shell脚本直接执行。应用程序可以在这里创建独立的子目录。如果应用程序在这里创建了独立的子目录，它所有的与体系结构有关的执行数据都必须放在这个子目录中。
+	
+	\item /usr/local
+	
+	\qquad /usr/local 是整个文件系统的第三个主要区段，是供系统管理员安装局域性软件使用的。它保证了当系统更新时不会把它们覆盖掉。其中包含局域性bin、etc、include、lib、man、sbin、share、src等目录或符号链接。如果/usr/local/include和/use/include有相同的头文件时，前者优先被搜索。局部优先于全局，/usr/local/bin的优先级也高于/usr/bin。
+	
+	\item /usr/share
+	
+	\qquad 这里存放着所有与体系结构无关的数据文件，它的内容可以共享给运行在任何体系结构下的操作系统。例如，某个站点可能由i386、Alpha和PPC三种体系结构平台构成，但它们可能共同维护唯一的一个挂载自某处的/usr/share目录。需要注意的是，虽然/usr/share可以共享于不同体系结构之间，但必须保证它们运行的是不同系统结构平台的相同操作系统。任何程序或软件包包含或需要的不用修改的与体系结构无关的数据都应该保存在/usr/share（如果安装的是局域性软件，应该是/usr/local/share）目录中。
+	
+	\item /usr/share/man
+	
+	\qquad 这个目录是专门为联机帮助而准备的，它包含了“/”和“/usr”下大部分程序的帮助信息。组织结构看似相当复杂，但还是有章可循的。各联机帮助页面被储存在<mandir>/<locale>/man<section>/<arch>这一路径中。/usr/share/man目录下有如man1、man2……man8这样的子目录，它们的具体分工如下：
+		\begin{itemize}
+		\item man1：存放公共可用的命令或软件的指南页面
+		\item man2：存放所有系统调用的说明
+		\item man3：存放库函数的说明信息
+		\item man4：存放特种文件的说明，如/dev目录下的设备文件和提供网络协议支持的内核接口等
+		\item man5：存放大部分数据文件的格式说明，这包括各种包含文件、程序输出文件和系统文件
+		\item man6：存放游戏程序、演示程序和一些不太重要的程序的说明文档
+		\item man7：存放其他类型的在线帮助信息，如troff等文本处理宏的信息
+		\item man8：存放系统维护程序文档。
+		\end{itemize}
+	上述目录也必须出现在/usr/share/man/<locale>中，除非它们里面没有任何内容。这是为了提供多语言版本支持而提供的，其中<locale>代表了不同的语言。<locale>可能的名称是en、fr、ko、ja等。同理，如果某些内容与体系结构有关的话，如设备驱动器或底层系统管理命令，则需要将这些内容放置在对应的<arch>目录下。/usr/local下的软件在线帮助信息保存在/usr/local/man中，组织结构与/usr/share/man是相同的。
+	
+	\qquad 数字1至8为前面讲述的<section>。通常，每个帮助页都有一个独立文件，这个文件带有“.<section>”的后缀，如ctrlatlde1.8。另外，某些大型软件系统的帮助文档可能不遵循这一规则，反倒会使用它们自己定义的后缀。如 X Window 就会使用.x作为后缀。其他位置的帮助文档，提供多语言版本支持时，同样遵循/usr/share/man的多语言版本支持规则。
+	
+	\item /usr/share/misc
+	
+	\qquad 那些不需要在/usr/share目录下拥有自己目录的应用程序，会将它们的体系结构无关的数据放置在这里。
+	\end{itemize}
+	
+\item /var目录组织结构
+
+\qquad /var目录包含着系统中绝大多数的随时变化的数据，比如系统日志。/var的某些内容是不能共享给其他系统的，最典型的就是/var/logs、/var/lock和/var/run。当然，某些内容是可以共享给其他系统的，特别是/var/mail、/var/cache/man和/var/spool/news。/var的创建是为了能够以只读的方式挂载/usr目录。/usr里面的东西一旦有被写入的要求，则必须转移到/var下。
+
+	\begin{itemize}
+		\item /var/cache
+		
+		\qquad 该目录的内容是来自应用程序的缓存数据，这些内容可以加快费事的运算或I/O处理任务。应用程序必须能够再生或恢复这些数据。与/var/spool不同，删除缓存文件不会造成数据丢失错误。
+
+		\item /var/lib
+		
+		\qquad 该目录保存着与某个应用程序或系统有关的状态信息。所谓状态信息，就是程序运行过程中不断修改的数据，且仅与具体系统有关。对于控制程序的具体行为，用户不应通过修改/var/lib下的文件来完成。在应用程序启动期间或同一个程序不同实例之间，状态信息通常是用于保存程序所处的状态的。一个应用程序（或一组相关联的应用程序）必须为其状态数据占有/var/lib下的一个子目录。不过还有一个misc子目录，专门提供给那些不需要占用一个子目录的程序。其他子目录仅提供给那些包含在发行版中有这一需求的应用程序。
+		
+		\item /var/lock
+		
+		\qquad 锁文件必须被保存在/var/lock目录结构中。锁文件用于硬件设备和其他被多个应用程序共享的资源，例如串行设备锁文件，最初可能放在/usr/spool/locks或/usr/spool/uucp中，现在必须放在/var/lock中。锁文件的命令方式必须是”LCK..“后接设备及本名。例如，/dev/ttyS0的锁文件名为”LCK..ttyS0“。锁文件的内容组织格式，必须是HDB UUCP锁文件格式。HDB格式以10字节ASCII数值字符储存进程ID，尾部带有换行符。例如，进程1230，它的锁文件将包含11字符：空格、空格、空格、空格、空格、空格、1、2、3、0和换行符。
+		
+		\item /var/log
+		
+		\qquad 该目录包含了各种日志文件。大多数日志文件都保存在这里或相应的子目录中。
+		
+		\item /var/mail
+		
+		\qquad 此处是用户邮件文件的存放处，所有邮箱文件必须是以UNIX邮箱格式存储。mail spool必须能够访问/var/mail，而且mail spool文件取自具体用户。此目录移自/var/spool/mail，就是为了能够与几乎所有的UNIX实现相一致。这一改变，使得一个/var/mail共享于多个主机以及多个不同的Unix实现成为可能。更为重要的是，这不需要转移mail spool的物理位置，不过，程序和头文件还需要转移到/var/mail中。
+		
+		\item /var/opt
+		
+		\qquad /opt下软件包的可变数据都应该安装到/var/opt下对应的子目录中去，这个子目录名称应该与/opt下的子目录名称相一致，里面内容的组织结构没有特殊要求。
+		
+		\item /var/run
+		
+		\qquad 从系统启动开始至当前的系统运行状态信息保存在这目录。该目录下的文件，在系统启动进程执行开始，必须被清空。程序可以在/var/run 下拥有一个子目录，鼓励程序使用不止一个运行时文件。进程标识文件（PID文件），原来是放置在/etc中的，现在必须放置在/var/run中。PID文件的命名规则是“<程序名>.pid”，例如：crond的PID文件名就是crond.pid。PID文件的内部格式依然保持不变，必须以ASCII码的数字字符描述进程标识符，同时末尾带有换行符。如，若crond的进程ID为25，则/var/run/crond.pid将包含三个字符：2、5和换行符。记录当前谁正在使用系统的utmp文件也保存在这里。那些使用Unix-domian套接字的系统程序，必须将它们的套接字文件放置在该目录中。
+		
+		\item /var/spool
+		
+		\qquad /var/spool中的数据就是供以后用的，一旦被处理完毕，就会被删除。
+		
+		\item /var/tmp
+		
+		\qquad /var/tmp目录使得应用程序要求在系统重启期间保护临时文件或目录成为可能，因此，保存在/var/tmp中的数据，比/tmp中的数据得到更多的保护。/var/tmp中的文件或目录，在系统启动时不得删除。
+	\end{itemize}
+\end{itemize}
+
+在Linux系统中，有几个目录是比较重要的，平时需要注意不要误删除或者随意更改内部文件。/etc： 上边也提到了，这个是系统中的配置文件，如果你更改了该目录下的某个文件可能会导致系统不能启动。/bin、 /sbin、 /usr/bin、 /usr/sbin： 这是系统预设的执行文件的放置目录，比如 ls 就是在/bin/ls 目录下的。值得提出的是，/bin、/usr/bin 是给系统用户使用的指令（除root外的通用户），而/sbin、 /usr/sbin 则是给root使用的指令。 /var： 这是一个非常重要的目录，系统上跑了很多程序，那么每个程序都会有相应的日志产生，而这些日志就被记录到这个目录下，具体在/var/log 目录下，另外mail的预设放置也是在这里。
+
+
+
+\section{文件属性}
+用ls -l 查看当前目录下的文件时，共显示了9列内容（用空格划分列），都代表了什么含义呢？
+
+第1列，包含的东西有该文件类型和所属主、所属组以及其他用户对该文件的权限。第一列共10位。其中第一位用来描述该文件的类型。上例中，我们看到的类型有“d”， “-” ，其实除了这两种外还有“l”， “b”， “c”，”s”等。
+
+d 表示该文件为目录；
+
+- 表示该文件为普通文件；
+
+l 表示该文件为连接文件（linux file），上边提到的软连接即为该类型；
+
+b 表示该文件为块设备文件，比如磁盘分区；
+
+c 表示该文件为串行端口设备，例如键盘、鼠标。
+
+s 表示该文件为套接字文件（socket），用于进程间通信。
+
+后边的9位，每三个为一组。均为rwx 三个参数的组合。其中r 代表可读，w代表可写，x代表可执行。前三位为所属主（user）的权限，中间三位为所属组（group）的权限，最后三位为其他非本群组（others）的权限。下面拿一个具体的例子来述说一下。
+
+一个文件的属性为-rwxr-xr-- ，它代表的意思是，该文件为普通文件，文件拥有者可读可写可执行，文件所属组对其可读不可写可执行，其他用户对其只可读。
+
+对于一个目录来讲，打开这个目录即为执行这个目录，所以任何一个目录必须要有x权限才能打开并查看该目录。例如一个目录的属性为 drwxr--r-- 其所属主为root，那么除了root外的其他用户是不能打开这个目录的。
+
+第2列，表示为连接占用的节点（inode），若为目录时，通常与该目录地下还有多少目录有关系，关于连接（link）在以后章节详细介绍。
+
+第3列，表示该文件的所属主。
+
+第4列，表示该文件的所属组。
+
+第5列，表示该文件的大小。
+
+第6列、第7列和第8列为该文件的创建日期或者最近的修改日期，分别为月份日期以及时间。
+
+第9列，文件名。如果前面有一个. 则表示该文件为隐藏文件。
+
+
+\section{文件类型}
+在前面的内容中简单介绍了普通文件(-)，目录(d)等，在linux文件系统中，主要有以下几种类型的文件。
+
+1）正规文件（regular file）：就是一般类型的文件，当用ls –l 查看某个目录时，第一个属性为”-“的文件就是正规文件，或者叫普通文件。正规文件又可分成纯文字文件（ascii）和二进制文件（binary）。纯文本文件是可以通过cat, more, less等工具直接查看内容的，而二进制文件并不能。例如我们用的命令/bin/ls 这就是一个二进制文件。
+
+2）目录（directory）：这个很容易理解，就是目录，跟windows下的文件夹一个意思，只不过在linux中我们不叫文件夹，而是叫做目录。ls –l 查看第一个属性为”d”。
+
+3）连接档（link）：ls –l 查看第一个属性为 “l”，类似windows下的快捷方式。这种文件在linux中很常见，而且笔者在日常的系统运维工作中用的很多，所以你要特意留意一下这种类型的文件。在后续章节笔者会介绍。
+
+4）设备档（device）：与系统周边相关的一些档案，通常都集中在 /dev 这个目录之下！通常又分为两种：区块 (block) 设备档 ：就是一些储存数据，以提供系统存取的接口设备，简单的说就是硬盘啦！例如你的一号硬盘的代码是 /dev/hda1 等等的档案啦！第一个属性为 “ b “；字符 (character) 设备档 ：亦即是一些串行端口的接口设备，例如键盘、鼠标等等！第一个属性为 “ c “。
+
+* linux 文件后缀名
+
+对于后缀名这个概念，相信你不陌生吧。在linux系统中，文件的后缀名并没有具体意义，也就是说，你加或者不加，都无所谓。但是为了容易区分，linux爱好者们都习惯给文件加一个后缀名，这样当用户看到这个文件名时就会很快想到它到底是一个什么文件。例如1.sh, 2.tar.gz, my.cnf, test.zip等等，如果你首次接触这些文件，你也许会感到很晕，没有关系，随着学习的深入，你就会逐渐的了解这些文件了。笔者所列举的几个文件名中1.sh代表它是一个shell script ，2.tar.gz 代表它是一个压缩包，my.cnf 代表它是一个配置文件，test.zip 代表它是一个压缩文件。
+
+另外需要你知道的是，早期Unix系统文件名最多允许14个字符，而新的Unix或者linux系统中，文件名最长可以到达 256 个字符！
+
+
+\section{库文件}
+\subsection{什么是Linux库}
+在Windows平台和Linux平台下都大量存在着库。本质上来说库是一种可执行代码的二进制形式，可以被操作系统载入内存执行。由于Windows和Linux的本质不同，因此二者库的二进制是不兼容的。这里仅限于介绍Linux下的库。  
+
+
+\subsection{库的种类}
+ Linux库有两种：静态库和共享库。二者的不同点在于代码被载入的时刻不同。静态库的代码在编译过程中已经被载入可执行程序，因此体积较大。共享库的代码是在可执行程序运行时才载入内存的，在编译过程中仅简单的引用，因此代码体积较小。   
+
+
+\subsection{库存在的意义}
+  库是别人写好的现有的，成熟的，可以复用的代码，你可以使用但要记得遵守许可协议。现实中每个程序都要依赖很多基础的底层库，不可能每个人的代码都从零开始，因此库的存在意义非同寻常。共享库的好处是，不同的应用程序如果调用相同的库，那么在内存里只需要有一份该共享库的实例。  
+
+
+\subsection{库文件是如何产生的}
+在linux下静态库的后缀是 .a，它的产生分两步 ：
+
+Step 1. 由源文件编译生成一堆 .o，每个 .o 里都包含这个编译单元的符号表 
+  
+Step 2. ar 命令将很多 .o 转换成  .a，成文静态库。 动态库的后缀是 .so，它由gcc加特定参数编译产生。 例如：\verb|$ gcc -fPIC -c *.c $ gcc -shared -Wl,-soname, libfoo.so.1 -o libfoo.so.1.0 *.| 
+
+
+
+\subsection{Linux .o a .so .la .lo的区别}
+\begin{itemize}
+\item o: 编译的目标文件
+\item a: 静态库，其实就是把若干o文件打了个包
+\item so: 动态链接库（共享库）
+\item lo: 使用libtool编译出的目标文件，其实就是在o文件中添加了一些信息
+\item la: 使用libtool编译出的库文件，其实是个文本文件，记录同名动态库和静态库的相关信息
+\end{itemize}
+
+(1) libtool的工作原理 
+libtool 是一个通用库支持脚本，将使用动态库的复杂性隐藏在统一、可移植的接口中；使用libtool的标准方法，可以在不同平台上创建并调用动态库。可以认为libtool是gcc的一个抽象，其包装了gcc（或者其他的编译器），用户无需知道细节，只要告诉libtool需要编译哪些库即可，libtool将处理库的依赖等细节。libtool只与后缀名为lo、la为的libtool文件打交道。 
+
+libtool主要的一个作用是在编译大型软件的过程中解决了库的依赖问题；将繁重的库依赖关系的维护工作承担下来，从而释放了程序员的人力资源。libtool提供统一的接口，隐藏了不同平台间库的名称的差异等细节，生成一个抽象的后缀名为la高层库libxx.la（其实是个文本文件），并将该库对其它库的依赖关系，都写在该la的文件中。该文件中的dependency\_libs记录该库依赖的所有库（其中有些是以.la文件的形式加入的）；libdir则指出了库的安装位置；library\_names记录了共享库的名字；old\_library记录了静态库的名字。 
+
+当编译过程到link阶段的时候，如果有下面的命令： 
+
+\$libtool --mode=link gcc -o myprog -rpath /usr/lib –L/usr/lib –la 
+
+libtool会到/usr/lib路径下去寻找liba.la，然后从中读取实际的共享库的名字（library\_names中记录了该名字，比如liba.so）和路径(lib\_dir中记录了，比如libdir=’/usr/lib’)，返回诸如/usr/lib/liba.so的参数给激发出的gcc命令行。 
+
+如果liba.so依赖于库/usr/lib/libb.so，则在liba.la中将会有dependency\_libs=’-L/usr/lib -lb’或者dependency\_libs=’/usr/lib/libb.la’的行，如果是前者，其将直接把“-L/usr/lib –lb”当作参数传给gcc命令行；如果是后者，libtool将从/usr/lib/libb.la中读取实际的libb.so的库名称和路径，然后组合成参数“/usr/lib/libb.so”传递给gcc命令行。 
+
+当要生成的文件是诸如libmylib.la的时候，比如： 
+
+\$libtool --mode=link gcc -o libmylib.la -rpath /usr/lib –L/usr/lib –la 
+
+其依赖的库的搜索基本类似，只是在这个时候会根据相应的规则生成相应的共享库和静态库。 
+
+注意：libtool在链接的时候只会涉及到后缀名为la的libtool文件；实际的库文件名称和库安装路径以及依赖关系是从该文件中读取的。 
+
+(2) 为何使用 -Wl,--rpath-link -Wl,DIR？ 
+使用libtool解决编译问题看上去没什么问题：库的名称、路径、依赖都得到了很好的解决。但下结论不要那么着急，一个显而易见的问题就是：并不是所有的库都是用libtool编译的。 
+
+
+\subsection{库文件命名规范}  
+在linux下，库文件一般放在/usr/lib /lib下，静态库的名字一般为libxxxx.a，其中xxxx是该lib的名称。动态库的名字一般为libxxxx.so.major.minor，xxxx是该lib的名称，major是主版本号， minor是副版本号。
+
+ 一般 libxxx.so 是一个链接文件，链接到 libxxx.so.0 等这样的文件。这样即使库版本更新了，文件名升级，调用方也不需要关心。只要重新做个软链接就行。
+
+
+\subsection{如何知道一个可执行程序依赖哪些库}
+  ldd命令可以查看一个可执行程序依赖的共享库，例如\# ldd /bin/lnlibc.so.6   => /lib/libc.so.6 (0×40021000)/lib/ld-linux.so.2   => /lib/ld- linux.so.2 (0×40000000)   可以看到ln命令依赖于libc库和ld-linux库  
+
+ 
+\subsection{可执行程序在执行的时候如何定位共享库文件}
+当系统加载可执行代码时候，能够知道其所依赖的库的名字，但是还需要知道绝对路径此时就需要系统动态载入器(dynamic linker/loader)对于elf格式的可执行程序，是由ld-linux.so*来完成的，它先后搜索elf文件的 \verb|DT_RPATH|段—环境变量 \verb|LD_LIBRARY_PATH—/etc/ld.so.cache|文件列表—/lib/,/usr/lib目录找到库文件后将其载入内存    
+
+
+\subsection{在新安装一个库之后如何让系统能够找到他} 
+如果安装在/lib或者/usr/lib下，那么ld默认能够找到，无需其他操作。   如果安装在其他目录，需要将其添加到/etc/ld.so.cache文件中，步骤如下：
+ 
+1.编辑/etc/ld.so.conf文件，加入库文件所在目录的路径  
+
+2.运行ldconfig，该命令会重建/etc/ld.so.cache文件
+
+
+
+\section{Linux编译使用链接库}
+以GCC 命令参数为例。
+
+为什么会出现undefined reference to 'xxxxx'错误？首先这是链接错误，不是编译错误，也就是说如果只有这个错误，说明你的程序源码本身没有问题，是你用编译器编译时参数用得不对，没有指定链接程序要用到得库，比如你的程序里用到了一些数学函数，那么你就要在编译参数里指定程序要链接数学库，方法是在编译命令行里加入-lm。
+
+
+\subsection{-l和-L参数}
+ -L 指定库的路径， -l 指定需连接的库名。
+
+-l参数就是用来指定程序要链接的库，-l参数紧接着就是库名，那么库名跟真正的库文件名有什么关系呢？就拿数学库来说，他的库名是m，他的库文件名是libm.so，很容易看出，把库文件名的头lib和尾.so去掉就是库名了。
+
+好了现在我们知道怎么得到库名了，比如我们自已要用到一个第三方提供的库名字叫libtest.so，那么我们只要把libtest.so拷贝到/usr/lib里，编译时加上-ltest参数，我们就能用上libtest.so库了（当然要用libtest.so库里的函数，我们还需要与libtest.so配套的头文件）。
+
+放在/lib和/usr/lib和/usr/local/lib里的库直接用-l参数就能链接了，但如果库文件没放在这三个目录里，而是放在其他目录里，这时我们只用-l参数的话，链接还是会出错，出错信息大概是：“/usr/bin/ld: cannot find -lxxx”，也就是链接程序ld在那3个目录里找不到libxxx.so。这时另外一个参数-L就派上用场了，比如常用的X11的库，它放在/usr/X11R6/lib目录下，我们编译时就要用-L/usr/X11R6/lib -lX11参数，-L参数跟着的是库文件所在的目录名。再比如我们把libtest.so放在/aaa/bbb/ccc目录下，那链接参数就是-L/aaa/bbb/ccc -ltest另外，大部分libxxxx.so只是一个链接，以RH9为例，比如libm.so它链接到/lib/libm.so.x，/lib/libm.so.6又链接到/lib/libm-2.3.2.so，
+
+如果没有这样的链接，还是会出错，因为ld只会找libxxxx.so，所以如果你要用到xxxx库，而只有libxxxx.so.x或者libxxxx-x.x.x.so，做一个链接就可以了ln -s libxxxx-x.x.x.so libxxxx.so手工来写链接参数总是很麻烦的，还好很多库开发包提供了生成链接参数的程序，名字一般叫xxxx-config，一般放在/usr/bin目录下，比如gtk1.2的链接参数生成程序是gtk-config，执行gtk-config --libs就能得到以下输出"-L/usr/lib -L/usr/X11R6/lib -lgtk -lgdk -rdynamic -lgmodule -lglib -ldl -lXi -lXext -lX11 -lm"，这就是编译一个gtk1.2程序所需的gtk链接参数，xxx-config除了--libs参数外还有一个参数是--cflags用来生成头文件包含目录的，也就是-I参数，在下面我们将会讲到。你可以试试执行gtk-config --libs --cflags，看看输出结果。现在的问题就是怎样用这些输出结果了，最笨的方法就是复制粘贴或者照抄，聪明的办法是在编译命令行里加入这个`xxxx-config --libs --cflags`，比如编译一个gtk程序：gcc gtktest.c `gtk-config --libs --cflags`这样就差不多了。注意`不是单引号，而是1键左边那个键。
+
+除了xxx-config以外，现在新的开发包一般都用pkg-config来生成链接参数，使用方法
+跟xxx-config类似，但xxx-config是针对特定的开发包，但pkg-config包含很多开发包的链接参数的生成，用pkg-config --list-all命令可以列出所支持的所有开发包，pkg-config的用法就是pkg
+
+-config pagName --libs --cflags，其中pagName是包名，是pkg-config--list-all里
+列出名单中的一个，比如gtk1.2的名字就是gtk+，pkg-config gtk+ --libs --cflags的作用跟gtk-config --libs --cflags是一样的。比如：gcc gtktest.c `pkg-config gtk+ --libs --cflags`。
+
+
+\subsection{-include和-I参数}
+-include用来包含头文件，但一般情况下包含头文件都在源码里用\#include xxxxxx实现，-include参数很少用。-I参数是用来指定头文件目录，/usr/include目录一般是不用指定的，gcc知道去那里找，但是如果头文件不在/usr/include里我们就要用-I参数指定了，比如头文件放在/myinclude目录里，那编译命令行就要加上-I/myinclude参数了，如果不加你会得到一个"xxxx.h: No such file or directory"的错误。-I参数可以用相对路径，比如头文件在当前目录，可以用-I.来指定。上面我们提到的--cflags参数就是用来生成-I参数的。
+
+
+\subsection{-O参数}
+这是一个程序优化参数，一般用-O2就是，用来优化程序用的，比如gcc test.c -O2，优
+化得到的程序比没优化的要小，执行速度可能也有所提高（我没有测试过）。
+
+
+
+\section{图形界面还是命令行界面}
+{{\kai 对于linux的应用，我想大多数都是用在服务器领域，对于服务器来讲真的没有必要跑一个图形界面。所以我们平时安装linux操作系统时往往是不安装图形界面的。说到这里也许你会有疑问，图形界面还能选择装或者不装？
+
+是的，虽然linux和微软的windows一样同位操作系统，但是它们有一个很大的区别就是windows操作系统的图形界面是和内核一体的，俗称微内核，而linux操作系统图形界面就像一个软件一样，和内核并不是一体的。所以linux你可以选择不安装图形界面，这样不仅不影响服务器的正常使用还可以节省系统资源的开销，何乐而不为呢？
+
+如果你对linux超级感兴趣，想使用linux就像使用windows一样，那你可以安装图形界面，可以像windows一样来体验linux也是蛮不错的。但是如果你想成为一个专业的linux系统工程师，那我建议你从第一天开始就不要去安装图形界面，从命令窗口开始熟悉它。
+
+另外一点值得说的是，日常应用中，我们都是远程管理服务器的，不可能开着图形界面来让你去操作，虽然目前也有相应的工具支持远程图形连接服务器，可是那样太消耗网络带宽资源，所以从这方面来考虑还是建议你不要使用图形界面。}
+
+对于日常使用，还是图形界面方便。苹果电脑的操作系统就是unix，界面多漂亮。当然真正发挥linux的作用还得用命令行界面，熟悉命令行界面才称得上是linux玩家吧。
+
+
+\section{路径的概念}
+\begin{itemize}
+\item 路径：要到达一个目录所要经过的目录集合，如要到达\verb|/usr/share/doc|这个目录就要经过\verb|/usr/share|。这很好理解，Linux的文件系统是倒树型的文件结构，所有文件都是从根目录“/”开始的
+
+\item 绝对路径：总是从根目录开始的路径，如\verb|/usr/share/doc|
+
+\item 相对路径：总是从当前路径开始算起的路径，如用户的当前目录为\verb|/usr|，那么表示和\verb|/usr/share/doc|一样的目录的相对路径为\verb|/share/doc|
+\end{itemize}
+
+绝对路径和相对路径的本质区别就是计算的起点不同，一个总是从根目录开始算起，而另一个则总是从当前目录算起。
+
+
+\subsection{命令查找顺序}
+。现在我们知道系统里面其实有不少的 ls 命令， 或者是包括内建的 echo 命令，那么来想一想，如果一个命令 (例如 ls) 被下达时， 到底是哪一个 ls 被拿来运行？很有趣吧！基本上，命令运行的顺序可以这样看：
+
+以相对/绝对路径运行命令，例如『 /bin/ls 』或『 ./ls 』；
+由 alias 找到该命令来运行；
+由 bash 内建的 (builtin) 命令来运行；
+透过 \$PATH 这个变量的顺序搜寻到的第一个命令来运行。
+举例来说，你可以下达 /bin/ls 及单纯的 ls 看看，会发现使用 ls 有颜色但是 /bin/ls 则没有颜色。 因为 /bin/ls 是直接取用该命令来下达，而 ls 会因为『 alias ls='ls --color=tty' 』这个命令别名而先使用！ 如果想要了解命令搜寻的顺序，其实透过 type -a ls 也可以查询的到啦！上述的顺序最好先了解喔！
+
+
+
+
+\section{环境变量}
+Linux环境变量能帮助提升Linux Shell体验。很多程序和脚本都是通过环境变量来获取系统信息、存储临时数据和配置信息。
+
+\subsection{什么是环境变量}
+Bash Shell 用一个称作环境变量（environment variables）的特性来存储有关Shell会话和工作环境的信息。这也是它们为什么被称作环境变量的原因。环境变量不仅对Shell会话可见，对所有Shell创建的子进程也可见。自定义变量则只对创建它们的Shell可见。这让环境变量对那些子进程中需要获得父进程信息的程序来说非常有用。举例来说，能不能在任何目录下运行某个命令，与 PATH 这个变量有很大的关系。例如运行 ls 这个命令时，系统就是透过 PATH 这个变量里面所记录的路径顺序来搜寻命令。如果在搜寻完 PATH 变量内的路径还找不到 ls 这个命令时， 就会在屏幕上显示“command not found ”的错误信息。
+
+如果说的专业一点，那么由于在 Linux System 下面，所有的线程都是需要一个运行码， 而就如“真正以 Shell 来跟 Linux 沟通，是在正确的登陆 Linux 之后！”这句话说的，这个时候你就有一个 Bash 的运行程序，也才可以真正的经由 Bash 来跟系统沟通。而在进入 Shell 之前，由于系统需要一些变量来提供他数据的存取 (或者是一些环境的配置参数值， 例如是否要显示彩色等等的) ，所以就有一些所谓的“环境变量” 需要来读入系统中了。这些环境变量例如 PATH、HOME、MAIL、SHELL 等等，都是很重要的。 为了区别与自定义变量的不同，环境变量一律使用全大写字母来表示。
+
+
+为什么环境变量的数据可以被子程序所引用呢？这是因为内存配置的关系！理论上是这样的：
+
+当启动一个 shell，操作系统会分配一记忆区块给 shell 使用，此内存内之变量可让子程序取用
+若在父程序利用 export 功能，可以让自定义变量的内容写到上述的记忆区块当中(环境变量)；
+当加载另一个 shell 时 (亦即启动子程序，而离开原本的父程序了)，子 shell 可以将父 shell 的环境变量所在的记忆区块导入自己的环境变量区块当中。
+透过这样的关系，我们就可以让某些变量在相关的程序之间存在，以帮助自己更方便的操作环境喔！ 不过要提醒的是，这个『环境变量』与『bash 的操作环境』意思不太一样，举例来说， PS1 并不是环境变量， 但是这个 PS1 会影响到 bash 的接口 (提示字符嘛)！相关性要厘清喔！
+
+在不同的地方，或许说的是全局变量和局部变量。基本上可以认为 “环境变量=全局变量”、 “自定义变量=局部变量”。
+
+
+
+
+
+\subsection{查看环境变量——env}
+用env可以查看环境变量，env就是environment的缩写。下面列出一些比较重要的环境变量：
+\begin{itemize}
+\item HOME
+
+代表用户的家目录。使用 \verb|cd ~| 去到自己的家目录或者直接敲cd不接任何路径回到用户家目录，就是取用这个变量。 有很多程序都可能会取用到这个变量的值。
+
+\item SHELL
+
+设置目前这个环境使用哪种Shell，Linux 默认使用 /bin/bash 。
+
+\item HISTSIZE
+
+设置历史命令记录的条数。
+
+\item PATH
+
+设置运行文件搜寻的路径，目录与目录中间以冒号(:)分隔， 由于文件的搜寻是依序由 PATH 的变量内的目录来查询，所以，目录的顺序也是重要。
+
+\item LANG
+
+设置语系数据。很多信息都会用到， 举例来说，当我们在启动某些 perl 的程序语言文件时，它会主动的去分析语系数据文件， 如果发现有它无法解析的编码语系，可能会产生错误。一般来说，我们中文编码通常是 zh\_TW.Big5 或者是 zh\_TW.UTF-8，这两个编码偏偏不容易被解译出来，所以，有的时候，可能需要修订一下语系数据。 
+
+\item RANDOM
+
+这是随机数的变量。目前大多数的发行版都会有随机数生成器，那就是 /dev/random 这个文件。 我们可以透过这个随机数文件相关的变量 (\$RANDOM) 来随机取得随机数值。在 BASH 的环境下，这个 RANDOM 变量的内容，介于 $0\sim32767$ 之间（$2^{15}=32768$），所以，只要 echo \$RANDOM 时，系统就会主动的随机取出一个介于 $0\sim32767$ 的数值。如果想要使用 $0\sim9$ 之间的数值，可以利用 declare 宣告数值类型， 然后这样做就可以了：
+
+\verb|declare -i number=$RANDOM*10/32767 ; echo $number|
+\end{itemize}
+
+env命令还有一个常用的功能是给脚本指定解释程序，如：
+
+\verb|#!/usr/bin/env python|
+
+由于在Ubuntu中Shell输入python默认调用的是python2.*，所以这是指定解释器为python2.*类版本。又如
+
+\verb|#!/usr/bin/env python3|
+
+由于python存在python2.*和python3.*两类版本而不兼容，所有这是指定解释器为python3.*类版本。
+
+``\#!''是脚本中的约定符号，用来指定解释器的版本。
+
+
+
+\subsection{查看所有变量——set}
+Bash不只有环境变量，还有一些与 Bash 操作接口有关的变量，以及用户自己定义的变量存在的。要查看这些变量可以使用 set 命令。 set 除了环境变量之外， 还会将其他在 Bash 内的变量通通显示出来。一般来说，不论是否为环境变量，只要跟我们目前这个 Shell 的操作接口有关的变量， 通常都会用大写字母表示。也就是说，基本上，在 Linux 默认的情况中，使用大写的字母来表示的变量一般为系统内定需要的变量。下面说下这些变量中比较重要的几个：
+\begin{itemize}
+\item PS1：提示字符的配置
+
+\qquad 这是 PS1 (数字的 1 不是英文字母)，这个东西就是命令提示字符。当我们每次按下 [Enter] 按键去运行某个命令后，最后要再次出现提示字符时， 就会主动去读取这个变量值。上头 PS1 内显示的是一些特殊符号，这些特殊符号可以显示不同的信息， 每个发行版的 Bash 默认的 PS1 变量内容可能有些许的差异，不要紧，”习惯你自己的习惯“就好了。 可以用 man bash去查询一下 PS1 的相关说明，以理解底下的一些符号意义。
+\begin{itemize}
+\item \verb|\d| ：可显示出“星期 月 日”的日期格式，如：“Mon Feb 2”
+\item \verb|\H| ：完整的主机名
+\item \verb|\h| ：仅取主机名在第一个小数点之前的名字
+\item \verb|\t| ：显示时间，为 24 小时格式的“HH:MM:SS”
+\item \verb|\T| ：显示时间，为 12 小时格式的“HH:MM:SS”
+\item \verb|\A| ：显示时间，为 24 小时格式的“HH:MM”
+\item \verb|\@| ：显示时间，为 12 小时格式的“am/pm”样式
+\item \verb|\u |：目前使用者的账号名称，如“root”
+\item \verb|\v| ：BASH 的版本信息，如版本为 3.2.25(1)，仅取“3.2”显示
+\item \verb|\w| ：完整的工作目录名称，由根目录写起的目录名称。但家目录会以\verb| ~| 取代
+\item \verb|\W| ：利用 basename 函数取得工作目录名称，所以仅会列出最后一个目录名
+\item \verb|\#| ：下达的第几个命令
+\item \verb|\$| ：提示字符，如果是 root 时，提示字符为 \# ，否则就是 \$ 
+\end{itemize}
+
+\item \$：关于本 shell 的 PID
+
+\qquad \$本身也是个变量。它代表的是“目前这个 Shell 的线程代号”，即是所谓的 PID (Process ID)。 想要知道我们的 Shell 的 PID ，就可以用：\verb|echo $$|，出现的数字就是你的 PID 号码。
+
+\item ?：关于上个运行命令的回传值
+
+\qquad 问号也是一个特殊的变量。在 Bash 里面这个变量很重要。 这个变量是：“上一个运行的命令所回传的值”， 上面这句话的重点是“上一个命令”与“回传值”两个地方。当我们运行某些命令时， 这些命令都会回传一个运行后的代码。一般来说，如果成功的运行该命令， 则会回传一个 0 值，如果运行过程发生错误，就会回传“错误代码”，一般就是以非为 0 的数值来取代。
+\end{itemize}
+
+
+
+\subsection{设置环境变量——export}
+当你登陆 Linux 并取得一个 bash 之后，你的 bash 就是一个独立的程序，被称为 PID 的就是。 接下来你在这个 bash 底下所下达的任何命令都是由这个 bash 所衍生出来的，那些被下达的命令就被称为子程序了。因为子程序仅会继承父程序的环境变量， 子程序不会继承父程序的自定义变量啦！所以你在原本 bash 的自定义变量在进入了子程序后就会消失不见， 一直到你离开子程序并回到原本的父程序后，这个变量才会又出现！
+
+换个角度来想，也就是说，如果我能将自定义变量变成环境变量的话，那不就可以让该变量值继续存在于子程序了？ 呵呵！没错！此时，那个 export 命令就很有用啦！如你想要让该变量内容继续的在子程序中使用，那么就请运行：
+
+\verb|export 变量名称|
+
+ 如果仅下达 export 而没有接变量时，那么此时将会把所有的『环境变量』秀出来喔！
+
+设置环境变量的方法是先创建一个自定义变量然后再把它导入到环境变量中。如下所示：
+\begin{lstlisting}[language=sh]
+$ test=''testing a long string''
+$ echo $test
+testing a long string
+$ exprot test
+$ bash
+$ echo $test
+tesing a long string
+$
+\end{lstlisting}
+
+导出自定义变量test后，启动了子Shell进程在子Shell中查看了test环境变量的值。这次，因为export命令让它变成了环境变量，环境变量保持了它的值。注意在导出自定义变量时，不能用美元符\$去引用变量名。
+
+\textbf{永久性的设置可以采用Shell的配置文件来设置。}
+
+
+
+
+\subsection{设置PATH环境变量}
+PATH环境变量是Linux系统上造成最多问题的变量。它定义了命令行输入命令的搜索路径。如果找不到命令，它会产生“command not found”的错误。
+
+问题是通常应用会把可执行程序放到不在PATH环境变量中的目录。解决办法是保证PATH环境变量包含了所有存放应用的目录。可以添加新的搜索目录到现有的PATH环境变量，无需从头定义。PATH中的目录之间是用冒号分隔的，所以只需引用原来的PATH值，然后再给字符添加新目录就可以了。通常将单点符加到PATH环境变量中，这个单点符代表当前目录，即：\verb|PATH=$PATH|。
+
+\textbf{永久性的设置可以采用Shell的配置文件来设置。}
+
+
+
+\subsection{取消环境变量}
+参见declare命令。
+
+
+
+\section{用户和组}
+\subsection{用户和组的概念}
+Linux是一个地道的多用户操作系统，可以添加$2^{32}-1$个用户。对用户这个概念的理解还不能仅限于字面含义。在Linux系统中还有一些用户是用来完成特定任务的，比如nobody、admin、ftp等。需要注意的是，在Linux中不管用户名有多么NB，只要不是root，它就一定是普通用户，权利大小都是相同的。很多资料上说的所谓用户角色的那些概念，尤其是说角色不同权限不同的观点不是十分精准，很容易造成Linux用户有权限大小的印象。其实所谓的权限，则是不同的用户所能访问的文件不同产生的一种假象。而这种假象又不是单独一个用户的概念能够决定的，还要用到用户组的概念。
+
+用户组是对某项功能具有相同权限的用户的集合。比较巧合的是用户名和用户组名相同，一个用户可以属于多个用户组，而且一个用户至少应该属于一个用户组。用户组能够在更高的层面来抽象用户所能够访问文件的数量，所以结合不同的用户组，就能够给每个用户构建出独一无二的文件访问列表，而且不同的用户之间还能做到交错纵横，有条不紊。在用户之间的协作上和隐私的保护上达到了一个良好的平衡。这才是用户角色存在的真实目的所在。
+
+虽然用户角色不能跟权限靠上关系，但不同的角色有些时候还是有差别的，即是否拥有密码、home目录以及Shell\footnote{严格说还是分配Shell了的，只是分配的是/sbin/nologin这个特殊的Shell，从其命名上看就是阻止你登录，实际上就是没由任何功能的Shell（也可能显示几行声明文字）}这些资源。有用户的主要任务就是运行某些服务程序以确保安全性，比如nobody用户就可以用于Nginx\footnote{Nginx是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP代理服务器。它以极强的稳定性、丰富的功能集、极低的系统资源消耗、灵活多变的配置文件而闻名}的工作进程。对于这类的用户一般是不分配密码和Shell的，甚至home目录也没有。
+
+
+
+
+
+\newpage
+\subsection{/etc/passwd文件}
+/etc/passwd文件，根目录“/”下的“etc”文件夹下的passwd文件，从文件名上看，应该是跟密码有关。的确是这样，只是已经成为历史了。现在保存密码的文件是/etc/shadow，也就是传说中的影子文件。
+
+/etc/passwd文件是用来存放用户基本信息的。例如，我现在使用的系统中这个文件的内容如下：
+\begin{verbatim}
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
+gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+libuuid:x:100:101::/var/lib/libuuid:
+syslog:x:101:104::/home/syslog:/bin/false
+messagebus:x:102:106::/var/run/dbus:/bin/false
+... ...
+hplip:x:114:7:HPLIP system user,,,:/var/run/hplip:/bin/false
+pulse:x:115:122:PulseAudio daemon,,,:/var/run/pulse:/bin/false
+phileas:x:1000:1000:phileas,,,:/home/phileas:/bin/bash
+\end{verbatim}
+
+文件的每一个行都代表一个用户。换句话说，这个文件有几行，系统中就有个用户。每行由冒号“:”分割成7个字段，其结构如下：
+
+\centerline{\textbf{用户名：密码：用户ID：组ID：用户全名：home目录：Shell}}
+
+“密码”字段，虽然是这么叫的，但是没有密码放在这里，有的只是一个字母“x”。这个文件比较重要的是用户UID(User ID)和GID(Group ID)，无论是用户还是用户组，Linux只靠它们来识别。为了区别不同的用户或用户组，需要保持它们自身在系统中的唯一性。UID和GID是可以相同的，因为它们代表的是不同的概念。都为0的UID和GID是Linux系统中比较特殊的，它们分配给root用户和root用户组。虽然系统只区别0和非零的UID或GID，但是在使用习惯上还是进行了一些分段。0自然不用说，就是给root的；1～499是属于系统用户的，比如前面提到的那些待遇比较差的和一些甚至是占坑的就属于这类；500～4294967295是分配给普通用户的。
+
+为了看起来方便，完整的passwd文件整理为表格如下：\\
+{\qihao
+\begin{tabular}{l|l|l|l|l|l|l}
+用户名&密码&用户ID&组ID&用户全名&home目录&Shell\\
+\hline
+root&x&0&0&root&/root&/bin/bash\\
+daemon&x&1&1&daemon&/usr/sbin&/usr/sbin/nologin\\
+bin&x&2&2&bin&/bin&/usr/sbin/nologin\\
+sys&x&3&3&sys&/dev&/usr/sbin/nologin\\
+sync&x&4&65534&sync&/bin&/bin/sync\\
+games&x&5&60&games&/usr/games&/usr/sbin/nologin\\
+man&x&6&12&man&/var/cache/man&/usr/sbin/nologin\\
+lp&x&7&7&lp&/var/spool/lpd&/usr/sbin/nologin\\
+mail&x&8&8&mail&/var/mail&/usr/sbin/nologin\\
+news&x&9&9&news&/var/spool/news&/usr/sbin/nologin\\
+uucp&x&10&10&uucp&/var/spool/uucp&/usr/sbin/nologin\\
+proxy&x&13&13&proxy&/bin&/usr/sbin/nologin\\
+www-data&x&33&33&www-data&/var/www&/usr/sbin/nologin\\
+backup&x&34&34&backup&/var/backups&/usr/sbin/nologin\\
+list&x&38&38&Mailing List Manager&/var/list&/usr/sbin/nologin\\
+irc&x&39&39&ircd&/var/run/ircd&/usr/sbin/nologin\\
+gnats&x&41&41&Gnats Bug-Reporting System (admin)&/var/lib/gnats&/usr/sbin/nologin\\
+nobody&x&65534&65534&nobody&/nonexistent&/usr/sbin/nologin\\
+libuuid&x&100&101&&/var/lib/libuuid&\\
+syslog&x&101&104&&/home/syslog&/bin/false\\
+messagebus&x&102&106&&/var/run/dbus&/bin/false\\
+usbmux&x&103&46&usbmux daemon,,,&/home/usbmux&/bin/false\\
+dnsmasq&x&104&65534&dnsmasq,,,&/var/lib/misc&/bin/false\\
+avahi-autoipd&x&105&113&Avahi autoip daemon,,,&/var/lib/avahi-autoipd&/bin/false\\
+kernoops&x&106&65534&Kernel Oops Tracking Daemon,,,&/&/bin/false\\
+rtkit&x&107&114&RealtimeKit,,,&/proc&/bin/false\\
+saned&x&108&115&&/home/saned&/bin/false\\
+whoopsie&x&109&116&&/nonexistent&/bin/false\\
+speech-dispatcher&x&110&29&Speech Dispatcher,,,&/var/run/speech-dispatcher&/bin/sh\\
+avahi&x&111&117&Avahi mDNS daemon,,,&/var/run/avahi-daemon&/bin/false\\
+lightdm&x&112&118&Light Display Manager&/var/lib/lightdm&/bin/false\\
+colord&x&113&121&colord colour management daemon,,,&/var/lib/colord&/bin/false\\
+hplip&x&114&7&HPLIP system user,,,&/var/run/hplip&/bin/false\\
+pulse&x&115&122&PulseAudio daemon,,,&/var/run/pulse&/bin/false\\
+phileas&x&1000&1000&phileas,,,&/home/phileas&/bin/bash\\
+\end{tabular}
+}
+
+
+\subsection{/etc/group文件}
+/etc/group文件存放的是用户组的基本信息，是/etc/passwd中用户ID的来源。这个文件的部分内容如下：
+\begin{verbatim}
+root:x:0:
+daemon:x:1:
+bin:x:2:
+sys:x:3:
+adm:x:4:syslog,xuanleng
+tty:x:5:
+disk:x:6:
+lp:x:7:
+... ...
+utempter:x:112:
+avahi-autoipd:x:113:
+rtkit:x:114:
+saned:x:115:
+whoopsie:x:116:
+avahi:x:117:
+lightdm:x:118:
+nopasswdlogin:x:119:
+bluetooth:x:120:
+colord:x:121:
+pulse:x:122:
+pulse-access:x:123:
+xuanleng:x:1000:
+sambashare:x:124:xuanleng
+bumblebee:x:999:syslog,xuanleng
+\end{verbatim}
+
+与/etc/passwd文件类似，同样是每行代表一个用户组，只是这个文件比较简单，被冒号“:”分割成了四个字段。行结构如下所示：
+
+\centerline{\textbf{用户组名：用户组密码：用户组ID：用户组内的用户名}}
+
+从/etc/group文件的结构可以看出，不但用户有密码，用户组也是由密码的。用户组密码是给用户管理员用的，不过目前很少要配置用户组管理员。与/etc/passwd一样，组密码也是储存在影子文件中，/etc/group的影子文件是/etc/gshadow。
+
+需要注意的是很多用户组并没有使用“用户组内的用户名”这个字段，而使用这个字段的，则会使用逗号“,”来分隔每个用户名。一个用户可以加入多个用户组，只要用户加入了这个用户组，则用户的名字就会出现在这个字段里。
+
+
+\newpage
+为了看起来方便，完整的group文件整理为表格如下：\\
+{\liuhao
+\begin{center}
+\begin{longtable}{|l|l|l|l|}
+用户组名&用户组密码&用户组ID&用户组内的用户名\\
+\hline
+root&x&0&\\
+daemon&x&1&\\
+bin&x&2&\\
+sys&x&3&\\
+adm&x&4&syslog,xuanleng\\
+tty&x&5&\\
+disk&x&6&\\
+lp&x&7&\\
+mail&x&8&\\
+news&x&9&\\
+uucp&x&10&\\
+man&x&12&\\
+proxy&x&13&\\
+kmem&x&15&\\
+dialout&x&20&\\
+fax&x&21&\\
+voice&x&22&\\
+cdrom&x&24&xuanleng\\
+floppy&x&25&\\
+tape&x&26&\\
+sudo&x&27&xuanleng\\
+audio&x&29&pulse\\
+dip&x&30&xuanleng\\
+www-data&x&33&\\
+backup&x&34&\\
+operator&x&37&\\
+list&x&38&\\
+irc&x&39&\\
+src&x&40&\\
+gnats&x&41&\\
+shadow&x&42&\\
+utmp&x&43&\\
+video&x&44&\\
+sasl&x&45&\\
+plugdev&x&46&xuanleng\\
+staff&x&50&\\
+games&x&60&\\
+users&x&100&\\
+nogroup&x&65534&\\
+libuuid&x&101&\\
+netdev&x&102&\\
+crontab&x&103&\\
+syslog&x&104&\\
+fuse&x&105&\\
+messagebus&x&106&\\
+ssl-cert&x&107&\\
+lpadmin&x&108&xuanleng\\
+scanner&x&109&saned\\
+mlocate&x&110&\\
+ssh&x&111&\\
+utempter&x&112&\\
+avahi-autoipd&x&113&\\
+rtkit&x&114&\\
+saned&x&115&\\
+whoopsie&x&116&\\
+avahi&x&117&\\
+lightdm&x&118&\\
+nopasswdlogin&x&119&\\
+bluetooth&x&120&\\
+colord&x&121&\\
+pulse&x&122&\\
+pulse-access&x&123&\\
+xuanleng&x&1000&\\
+sambashare&x&124&xuanleng\\
+bumblebee&x&999&syslog,xuanleng
+\end{longtable}
+\end{center}}
+
+
+
+\section{一些注意}
+\begin{enumerate}
+\item Linux系统比windows精准，他区分大小写。
+\item 注意命令中的空格
+\item 在终端中输入密码时，密码是不回显的，就是说，密码不会被显示成“*”。
+输入完密码直接按回车就好了。
+\item 直接在命令行中输入cd命令而不加任何参数，可以马上回到用户的主目录（home）
+\end{enumerate}
+
+
+\section{名词解释}
+\begin{enumerate}
+\item GUI：Graphics User Interface图形用户接口 
+\item CLI ：command line interface 命令行接口
+\end{enumerate}
+
+
+
+
+
+

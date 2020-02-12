@@ -1,0 +1,161 @@
+\chapter{Linux的基本操作}
+\section{软件安装}
+Linux下的软件安装方法，基本分为以下几种：
+\begin{itemize}
+\item 源代码安装
+\item 软件管理工具rpm/dpkg安装
+\item 命令行网络在线安装
+\item 图形化网络在线安装
+\end{itemize}
+
+这几种方法，对新手而言，可以说由底层到高级，由复杂到简单。图形化网络在线安装是命令行网络在线安装的一种图形化表达，即有个图形化的软件来管理安装软件。一般说来，大部分常用软件都被收录到软件仓库中，使用在线安装就能搞定。需要采用源代码安装的一般是新出的软件或者个人作品。依据需要安装的软件，自行选择安装方法。不过，能通过在线安装的尽量用在线安装的方式。
+
+
+
+
+\subsection{源代码安装}
+从源代码安装软件是Linux系统中最原始也是最有效的一种方式。采用这种方式可以安装所有针对Linux系统开发的软件，以及绝大部分针对类Unix系统开发的软件。从源代码安装软件主要有以下几个步骤：
+\begin{itemize}
+\item \textbf{安装前的工作}
+	\begin{itemize}
+	\item 解压源码，cd到源码目录。
+	
+	\item 检查源码中是否包含上次编译过的目标文件（*.O），用 make clean 		或 make distclean 去除目标文件，保证新编译出来的可执行文件是在自己机器上编译完成的。
+
+	\item 阅读源码安装包目录下的 README 或 INSTALL 相关的文件，一般这		些文件已经说清楚了怎么安装。
+	\end{itemize}
+	
+\item
+\textbf{配置：./configure} \\
+设置参数，它被用来检查安装源码的Linux系统的相关软件属性，创建Makefile文件。这一步很关键，随后需要的安装信息都是从这一步中获取的。
+
+\item 
+\textbf{编译：make} \\
+根据 Makefile 文件的指示展开编译工作，利用 gcc 将源码编译成目标文件。这些目标文件通过函数库连接产生一个完整的可执行文件。此时这个可运行文件还没有被安装到预定的目录，仍然在当前编译目录下。也就是说，在当前编译目录下虽然已经有了实际可用的软件程序，但是从这个目录下运行程序不太方便，还需安装到 Linux 系统上的常见位置上。
+
+\item
+\textbf{安装：sudo make install}\\
+make 根据 Makefile文件里面关于 install 的项目，将上一个步骤所编译完成的文件安装到预定的目录中。一般有 etc、lib、bin和 man 等目录分别代表配置文件、函数库、执行文件、线上说明文件。由于是安装到系统目录中，所以要临时开启超级用户权限，即在 make 命令前加上 sudo。
+\end{itemize}
+
+利用源码安装软件有一定的灵活性，但是在大多情况下，利用源码安装是费力不讨好的事。这种方式安装的软件因为没有做软件相关检查会导致它依赖的其他软件不存在或这版本不正确，从而有可能无法正常运行。现在的Linux发行版大多有自己优秀的软件管理工具，先用软件管理工具安装，实在不行再源码安装。
+
+
+
+\subsection{软件管理工具rpm/dpkg安装}
+君子善假于物，由于从源码安装存在软件依赖性的问题，Linux引入了软件管理机制进行软件包的安装、更新和卸载。软件发行商需要在固定的操作系统平台上将需要安装或升级的软件及其相关软件打包成一个特殊格式的文件。这个软件包中包含了软件包描述文件，其提供了软件包的各种信息，例如软件包的名字、版本、类别、说明摘要、创建时要执行什么指令、安装时要执行什么操作，以及软件包所要包含的文件列表等等。用户得到了软件包在系统中执行特定的命令后，软件包会根据内部的脚本检测需要的软件是否存在。若安装环境OK的话，安装工具就有条不紊地开展安装工作。在安装完成后安装工具还会将信息写入软件管理机制提供今后升级、删除、查询与验证。
+
+下面用表格的形式简单说明一下Linux系统上最通用的两个软件管理工具 rpm和dpkg。
+\newpage
+\begin{center}
+{\wuhao
+\begin{tabular}{c|c|c}
+\hline
+& RPM & DPKG\\
+\hline
+全称 & Red Hat Package Manager(Red Hat 包管理器)& Debian Package(Debian 软件包管理器)\\
+\hline
+文件名 &\tabincell{c}{RPM软件包的命令遵循名称-版本-修正版-类\\型这种格式。例如 Magiclinux-3.0.2-1.i386.rpm} & \tabincell{c}{DEB软件包的命令遵循名称-版本-修正版-类\\型这种格式。例如Magiclinux-3.0.2-1.i386.deb}\\
+\hline
+\tabincell{c}{软件包\\内容} & \tabincell{l}{软件包描述文件(SPEC)、预安装脚本、多\\个二进制文件、安装后脚本}&\tabincell{l}{源码包xxx\_x.x-x.tar.gz、源代码信息总结包\\xxx\_x.x-x.dsc、用dpkg管理的完整二进制包\\xxx\_x.x-x-xxxx.deb、供dput使用的包\\xxx\_x.x-x-xxxx.change。\\ dsc包提供了control文件、copyright文件、\\changelog文件、Rules文件、Compat文件和\\dirs文件。control文件声明了重要的变量，\\dpkg通过这些变量来管理软件包。}\\
+\hline
+安装 & \tabincell{l}{rpm -ivh <rpm软件包名>，如\\ rpm-ivh Mysoftware-1.2-1.i386.rpm} & dpkg -i <deb软件包名>\\
+\hline
+查询 & \tabincell{l}{当知道软件名称，在卸载前需要确定这个软件\\的完整名称时，可以使用
+rpm -qa xxx*查找\\RPM包软件。 xxx指软件名称开头的几个字\\母。\\查找次软件向系统写入的文件列表，使用：\\ rpm -ql <rpm包名>} &
+\tabincell{l}{统配符模式进行模糊查询\\ dpkg -l xxx* \\ 查询系统中属于xxx软件的文件：\\ dpkg --listfiles xxx}\\
+\hline
+卸载  & \tabincell{l}{rpm -e <rpm 软件名>，如 rpm -e Mysoftware\\(注意此处是软件名而不是软件包名)} &
+dpkg -e <deb 软件名>\\
+\hline
+\end{tabular}}
+\end{center} 
+
+这里只是简单介绍下 RPM 和 DPKG，更详细的介绍参见后续章节。 需要说明的是RPM 在被安装之前，为了避免文件被错误安装会先检查系统的硬派容量、操作系统版本等，所以RPM文件必须要在相同的Linux环境下才能够安装。为了避免我们的环境与作者打包的Linux环境不同的问题，很多软件作者除了提供RPM包外，还提供了以 ***.src.rpm这种格式来命令的SRPM包。 SRPM提供了参数配置档，即configure与makefile。这样虽然SRPM内容是源码，但仍含由所需要的相依赖软件说明、以及所有RPM文件所提供的数据。在安装该软件时，先将该软件以RPM管理的方式编译RPM文件，然后将编译完成的RPM文件安装到Linux系统当中。
+
+
+
+\subsection{命令行网络在线安装}
+虽然使用软件工具 rpm/dpkg使Linux下软件安装简单不少，但是dpkg/rpm这些机制并没有完全解决软件依赖性的问题。例如在安装PHP软件包时，系统就可能会提示一些错误信息，指出需要其他一些软件包的支持。再去系统安装盘或网上找到这些软件安装是很麻烦的。如果要在原先已经部署好的Linux服务器中追加一些应用服务时，更是很难避免不出现软件包的依赖问题。于是出现了更为方便的网络在线安装策略。
+
+很多Linux开发商都提供网络在线升级策略。这种策略的实施过程是系统先制作这些相依赖的软件列表，在安装某个软件包的时候，先到这个列表上去找，同时与系统已安装的软件相比较。这样没安装的相依赖软件就能一次性全部安装起来。不同Linux开发商采用的工具不同，dpkg管理机制出现了APT在线安装升级机制，而RPM则根据开发商的不同所采用工具也不一样，其中有Red Hat系统的yum，SUSE系统的 Yast Online Update(YOU)，Mandriva的 urpm软件等。现在来介绍下Linux系统上最流行的两个在线安装升级工具：apt和yum。
+
+yum：Yellowdog Updater Modified 的缩写， yellowdog 是一个 Linux 的发行版。 Red Hat 将这种升级技术利用到自己的发行版中形成了现在的 yum。
+
+基本操作：
+\begin{itemize}
+\item
+安装： yum install <package\_name>
+\item
+升级：yum update <package\_name>
+\item
+卸载：yum remove <package\_name>
+\item
+查询
+	\begin{itemize}
+	\item	查找软件包： yum search <keyword>
+	\item	列出所有已安装的软件包： yum list installed
+	\item 	获取软件包信息： yum info <package\_name>
+	\item 	列出软件包提供哪些文件： yum provides <package\_name>
+	\end{itemize} 
+\item 清除缓存：下载的软件包和header储存在cache中不会自动删除。使用 yum clean 完成清楚硬盘空间的工作
+	\begin{itemize}
+	\item 	清除header：yum clean headers
+	\item 	清除下载的rpm包：yum clean packages
+	\item 	清楚缓存的软件包及旧headers：yum clean all
+	\end{itemize} 
+\end{itemize} 
+
+
+apt： Advance Packaging Tool 的缩写。它包含以''apt-''开头的多个工具：apt-get、apt-cache和apt-cdrom等，在 Debian/Ubuntu 发行版中使用。
+
+基本操作：
+\begin{itemize}
+\item 安装： apt-get install <package\_name>
+\item 升级
+	\begin{itemize}
+	\item 刷新软件源，建立更新软件包列表：apt-get update
+	\item 将系统中的所有软件包一次性升级到最新版本：apt-get upgrade
+	\end{itemize}
+\item 卸载
+	\begin{itemize}
+	\item 卸载软件：apt-get remove <package\_name>
+	\item 卸载软件的同时清除配置：apt-get purge remove  <package\_name>
+	\end{itemize}
+\item
+查询
+	\begin{itemize}
+	\item	查找软件包：apt-cache search <keyword> or <regular expression>
+	\item	获取指定软件包的详细信息：apt-cache show <package\_name>
+	\item 	获取软件包版本和软件包的依赖关系： apt-cache showpkg <package\_name>
+	\end{itemize} 
+\item 清除缓存
+	\begin{itemize}
+	\item 	清除整个软件包缓存区：apt-get clean
+	\item 	按照依赖关系清理缓存区中多余的软件包：apt-get autoclean
+	\end{itemize} 
+\end{itemize} 
+
+yum和apt的原理类似，但apt的执行效率要高于使用Python写成的yum。既然yum是利用Pthyon脚本语言实现的，所以在Python升级问题上要慎重，否在会导致yum工作不正常，系统无法实现在线安装升级。这里只是简单介绍，更详细的介绍参见相关章节。
+
+
+
+\subsection{图形化网络在线安装}
+图形化网络在线安装是命令行网络在线安装的一种图形化表达，即使用图形化的安装升级软件。在Ubuntu上有专门的软件中心来管理安装软件类似苹果系统的软件商店。类似的还有Synaptic，Fedora也用这个，在SUSE和openSUSE系统上使用YaST2。
+
+
+
+
+\section{实用快捷键}
+\begin{itemize}
+\item
+Tab： 这个键是最有用的键了，也应该是敲击概率最高的一个键。因为当你打一个命令打一半时，它会帮你补全的。不光是命令，当你打一个目录时，同样可以补全。
+\item
+Ctrl + L： 清屏，使光标移动到第一行。
+\item
+Ctrl + D： 退出当前终端，同样你也可以输入exit。
+\item
+Ctrl + C：这个是用来终止当前命令的快捷键，当然你也可以输入一大串字符，不想让它运行直接Ctrl + C，光标就会跳入下一行。 
+\item
+Ctrl + Z： 暂停当前进程，比如你正运行一个命令，突然觉得有点问题想暂停一下，就可以使用这个快捷键。暂停后，可以使用fg 恢复它。
+\end{itemize}
