@@ -476,7 +476,7 @@ Recoll
 
 
 
-\section{程序和文档版本管理}
+\section{程序和文档版本管理——Git\& Github}
 以我们的量子耗散动力学、光谱计算为例
 \begin{enumerate}
 \item 找个合适的模型作为标准模型；
@@ -486,11 +486,18 @@ Recoll
 \end{enumerate}
 
 
+参考：bilibili 搜索git，如\underline{尚硅谷官方}、庄七。
 
-\subsection{git}
-参考：bilibili 搜索git，如尚硅谷官方。基本概念，略！
+Git基本概念
+\begin{itemize}
+\item 工作区：写代码
+\item 暂存区：临时存储
+\item 本地库：历史版本
+\end{itemize}
 
-\subsubsection{初始操作}
+分支管理
+
+\subsection{初始操作}
 \begin{itemize}
 \item[(1)] 本地库初始化（建立本地库）
 \begin{itemize}
@@ -513,7 +520,7 @@ Recoll
 
 
 
-\subsubsection{具体操作}
+\subsection{提交操作}
 \begin{enumerate}
 \item git status: 查看状态
 \item \verb|git add <file>|： 添加追踪文件到缓存区 / \verb|git rm --cached <file>| ：移除缓存区追踪文件
@@ -524,9 +531,56 @@ Recoll
 
 
 
-\subsection{github}
-参考：bilibili 搜索git，庄七
+\subsection{版本穿梭操作}
+\begin{enumerate}
+\item \verb|git log|：历史记录查询\\
+精炼形式：\verb|git reflog| 
 
+\item \verb|git reset --hard <index>|：历史版本选择\\
+注意，还有其他两个参数\verb|--soft|、\verb|--mixed|。基于这个功能，可以实现删除文件并找回，但前提是文件存在时的状态必须提交到了本地库。
+\end{enumerate}
+
+
+
+\subsection{比较文件差异}
+\begin{enumerate}
+\item git diff <file> ：将工作区中的文件和暂存区进行比较
+\item git diff <本地库中某个历史版本> <file>：将工作区中的文件和本地库中历史文件进行比较
+\end{enumerate}
+
+
+
+\subsection{分支管理}
+\begin{enumerate}
+\item \verb|git branch -v |：查看分支
+\item \verb|git branch <name>| ：创建分支
+\item \verb|git checkout <name>|：切换分支
+\item 合并分支
+\begin{itemize}
+\item 切换到要合并到的分支
+\item \verb|git merge <branch name>|：
+\end{itemize}
+\item 解决合并冲突
+\begin{itemize}
+\item  编辑文件，删除特殊符号
+\item 把文件修改到满意的程度，保存退出
+\item \verb|git commit -m | ``日志信息''。注意此时不能带文件名。
+\end{itemize}
+\end{enumerate}
+
+
+
+\subsection{远程仓库Github}
+\begin{itemize}
+\item[(1)] 创建远程仓库：略！
+
+\item[(2)] 推送到远程仓库
+\begin{itemize}
+\item \verb|git remote -v|：查看远程库
+\item \verb|git remote add <name> <https://address> |：添加远程库
+\item \verb|git push <name> <branch>|：推送分支
+\end{itemize}
+\end{itemize}
 
 
 
