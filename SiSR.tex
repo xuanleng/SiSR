@@ -1,135 +1,12 @@
 % !TEX program = xelatex
 % !Mode:: "TeX:UTF-8"
-\documentclass[a4paper,11pt,twoside]{book}
-\usepackage[slantfont,boldfont]{xeCJK} % 允许斜体和粗体
+\documentclass[cn,11pt,chinese]{elegantbook}
 \usepackage{indentfirst}%首行缩进宏包
 \usepackage{titlesec}%定义章节标题宏包
 \usepackage{verbatim}%提供多行注释\begin{comment}....\end{comment}
-\usepackage[fleqn]{amsmath}% 数学公式增强版,选项[fleqn]是公式左对齐
-\usepackage{amssymb}
-\usepackage{amsfonts}
-\usepackage{mathrsfs }%支持花体
-\usepackage{pdflscape}%支持页面横向\begin{landscape}....\end{landscape}
-%\usepackage[framed,numbered]{mcode}%该宏包可以在论文中生成漂亮的matlab代码，更有甚者，直接读入一个m文件，很方便。mcode实际基于listings宏包开发的。
-\usepackage{latexsym}
-\usepackage{bm}
-\usepackage{upgreek}
 \usepackage{longtable}
-\usepackage{mathpazo}
-\usepackage{comment}
-%\usepackage{pifont}%生成带圈字符宏包
-\usepackage{graphicx}
-\usepackage{color}
-\usepackage{enumerate}
-\usepackage{fancyhdr}
-\usepackage[top=2.5cm,bottom=2.0cm,left=2.2cm,right=1.8cm]{geometry}
-\usepackage{listings}%listings 是专用于代码排版的 LaTeX 宏包，可对关键词、注释和字符串等使用不同的字体和颜色或颜色，也可以为代码添加边框、背景等风格。listings 宏包支持大约近百种计算机语言。
-\usepackage[
-   unicode,
-   colorlinks,
-   %linkcolor=blue,
-   %anchorcolor=blue,
-   %citecolor=green,
-   allcolors=blue,
-   CJKbookmarks=true,
-   backref,
-   bookmarksopenlevel=2,
-   bookmarksnumbered,
-   pdfstartview=FitH,
-   pdftitle={计算机的使用},
-   pdfauthor={冷轩},
-   pdfkeywords={Linux,Ubuntu,Shell,C,C++,CUDA,Fortran}
-]{hyperref}
-%\usepackage{attachfile2} %必须放在hyperref宏包后面
-\usepackage{navigator}
 
 
-\usepackage[onlyps]{altfont}
-\DefaultRMFont{ptm}
-\DefaultSFFont{pcr}
-\DefaultTTFont{phv}
-%=========================Ubuntu的字体方案==============================%
-%\setmainfont{DejaVu Sans Mono}%{Times New Roman} %衬线字体
-%\setsansfont{DejaVu Sans} %无衬线字体
-\setmonofont{Consolas}%{DejaVu Sans Mono}%等宽字体
-\setCJKmainfont[BoldFont={WenQuanYi Zen Hei},ItalicFont={AR PL UKai CN}]{AR PL UMing CN}
-\setCJKsansfont{WenQuanYi Zen Hei}
-\setCJKmonofont{WenQuanYi Micro Hei Mono}
-\setCJKfamilyfont{song}{AR PL UMing CN}
-\setCJKfamilyfont{kai}{AR PL UKai CN}
-\setCJKfamilyfont{hei}{WenQuanYi Zen Hei}
-\newcommand{\song}{\CJKfamily{song}}
-\newcommand{\kai}{\CJKfamily{kai}}   
-\newcommand{\hei}{\CJKfamily{hei}}
-
-%=========================Adobe 的字体方案========================%
-%adobe的四套简体字体下载地址：http://ishare.iask.sina.com.cn/f/15105086.html
-%\setmainfont{Nimbus Roman No9 L}
-%\setsansfont{Arial}
-%\setmonofont{Courier New}
-%\setCJKmainfont[BoldFont={Adobe Heiti Std},ItalicFont={Adobe Kaiti Std}]{Adobe Song Std}
-%\setCJKsansfont{Adobe Heiti Std}
-%\setCJKmonofont{Adobe Kaiti Std}
-%\setCJKfamilyfont{song}{Adobe Song Std}
-%\setCJKfamilyfont{hei}{Adobe Heiti Std}
-%\setCJKfamilyfont{fs}{Adobe Fangsong Std}
-%\setCJKfamilyfont{kai}{Adobe Kaiti Std}
-%\setCJKfamilyfont{li}{Adobe Kaiti Std}
-%\setCJKfamilyfont{you}{Adobe Kaiti Std}
-%\newcommand{\song}{\CJKfamily{song}}
-%\newcommand{\fs}{\CJKfamily{fs}}
-%\newcommand{\kai}{\CJKfamily{kai}}
-%\newcommand{\hei}{\CJKfamily{hei}}
-%\newcommand{\li}{\CJKfamily{li}}
-%\newcommand{\you}{\CJKfamily{you}}
-%\def\songti{\song}
-%\def\fangsong{\fs}
-%\def\kaishu{\kai}
-%\def\heiti{\hei}
-%\def\lishu{\li}
-%\def\youyuan{\you}
-
-%======================windows的字体方案=======================%
-%	\setCJKmainfont{宋体}
-%	\setCJKsansfont{微软雅黑}
-%	\setCJKmonofont{微软雅黑}
-%	\setCJKfamilyfont{song}{宋体}
-%	\setCJKfamilyfont{kai}{楷体}
-%	\setCJKfamilyfont{hei}{黑体}
-%	\setCJKfamilyfont{fs}{仿宋}
-%	\setCJKfamilyfont{li}{隶书}
-%	\setCJKfamilyfont{you}{幼圆}
-%	\setCJKfamilyfont{yh}{微软雅黑}
-%	\newcommand\song{\CJKfamily{song}}
-%	\newcommand\kai{\CJKfamily{kai}}
-%	\newcommand\hei{\CJKfamily{hei}}
-%	\newcommand\fs{\CJKfamily{fs}}
-%	\newcommand\li{\CJKfamily{li}}
-%	\newcommand\you{\CJKfamily{you}}
-%	\newcommand\yh{\CJKfamily{yh}}
-%	\punctstyle{kaiming}
-%-------------------------------------------------------------------------------------------------------------------------%
-
-
-
-%============================定义字号=============================%
-	\newcommand{\chaoda}{\fontsize{55pt}{\baselineskip}\selectfont}
-	\newcommand{\chuhao}{\fontsize{42pt}{\baselineskip}\selectfont}
-	\newcommand{\xiaochuhao}{\fontsize{36pt}{\baselineskip}\selectfont}
-	\newcommand{\yihao}{\fontsize{28pt}{\baselineskip}\selectfont}
-	\newcommand{\erhao}{\fontsize{21pt}{\baselineskip}\selectfont}
-	\newcommand{\xiaoerhao}{\fontsize{18pt}{\baselineskip}\selectfont}
-	\newcommand{\sanhao}{\fontsize{15.75pt}{\baselineskip}\selectfont}
-	\newcommand{\xiaosanhao}{\fontsize{15pt}{\baselineskip}\selectfont}
-	\newcommand{\sihao}{\fontsize{14pt}{\baselineskip}\selectfont}
-	\newcommand{\xiaosihao}{\fontsize{12pt}{14pt}\selectfont}
-	\newcommand{\wuhao}{\fontsize{10.5pt}{12.6pt}\selectfont}
-	\newcommand{\xiaowuhao}{\fontsize{9pt}{11pt}{\baselineskip}\selectfont}
-	\newcommand{\liuhao}{\fontsize{7.875pt}{\baselineskip}\selectfont}
-	\newcommand{\qihao}{\fontsize{5.25pt}{\baselineskip}\selectfont}
-	\linespread{1.25}
-%用法:{\liuhao 文本}
-%-------------------------------------------------------------------------------------------------------------------------%
 
 
 
@@ -146,9 +23,8 @@
   %\Acrobatmenu{FirstPage}{首页}\quad
   %\Acrobatmenu{LastPage}{Last}\quad
   %\Acrobatmenu{ShowBookmarks}{展开书签}\quad
-\hyperref[content]{目录}\quad
-  \Acrobatmenu{GoBack}{返回}
-  }
+\hyperref[content]{目录}
+}
 %--------------------------------------------------------------------------------------------------------------------------%
 
 
@@ -165,19 +41,6 @@
 
 
 
-%=========================定义章节标题样式========================%
-%\renewcommand{\thechapter}{\Roman{chapter}}
-\titleformat{\chapter}[display]
-{\bfseries\Large}
-{\filleft\MakeUppercase{\chaptertitlename} \Huge\thechapter}
-{4ex}
-{\titlerule
-\vspace{2ex}%
-\filright}
-[\vspace{2ex}%
-\titlerule]
-%------------------------------------------------------------------------------------------------------------------------%
-
 
 
 
@@ -190,16 +53,6 @@
 
 
 
-%===========================其他设置==============================%
-\renewcommand{\baselinestretch}{1.2} % 行距
-\setlength{\parskip}{2.0ex plus0.1ex minus0.2ex} % 段落间距
-\setlength{\parindent}{0.6cm} % 段首缩进
-\renewcommand{\CJKglue}{\hskip 0pt plus 0.08\baselineskip} % 汉字字距
-\renewcommand{\contentsname}{\sanhao 目\quad 录}%注意空格
-\renewcommand{\ge}{\geqslant }%两种不同的大于等于符号
-\renewcommand{\le}{\leqslant }%\geqslant需要\usepackage{ amssymb }宏包，报错说无定义就说明缺相应宏包，到时查就是了。
-\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
-%-------------------------------------------------------------------------------------------------------------------------%
 
 
 %=======================Fortran源码环境设置========================%
@@ -234,6 +87,22 @@
 %----------------------------------------------------------------------------------------------------------------------%
 %\includeonly{chapters/Programming}
 
+\title{科研中计算机的使用}
+\subtitle{Skills in Scientific Researches}
+
+\author{冷轩}
+%\institute{Elegant\LaTeX{} Program}
+\date{\today}
+%\version{3.10}
+%\bioinfo{自定义}{信息}
+\extrainfo{献给那些帮助过我的人们}
+
+%\logo{logo-blue.png}
+\cover{cover.png}
+
+
+
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
 
 
 \begin{document}
@@ -298,294 +167,42 @@
 \allowdisplaybreaks[4]  % \eqnarray如果很长，影响分栏、换行和分页（整块挪动，造成页面空白），可以设置成为自动调整模式
 %-----------------------------------------------------------------------------------------------------------------------%
 
-\title{科研中计算机的使用\\
-Skills in Scientific Researches}
-\author{冷\ 轩}
+
 \maketitle
-
-
-
-\thispagestyle{empty}
-\vspace*{\stretch{1}}
-\noindent\begin{center}
-这页是背面
-\end{center} 
-\vspace{\stretch{1}}
-
-
-\newpage
-\thispagestyle{empty}
-\vspace*{\stretch{1}}
-\noindent\begin{center}
-{\chuhao \kai 献给那些帮助过我的人们}
-\end{center} 
-\vspace{\stretch{1}}
-
-
-
-\newpage
-\thispagestyle{empty}
-\vspace*{\stretch{1}}
-\noindent\begin{center}
-这页还是背面
-\end{center} 
-\vspace{\stretch{1}}
-
-
-
 \frontmatter
-\tableofcontents  \label{content}
-\newpage
+
+%\thispagestyle{empty}
+%\vspace*{\stretch{1}}
+%\noindent\begin{center}
+%这页是背面
+%\end{center} 
+%\vspace{\stretch{1}}
+
+%\newpage
+%\thispagestyle{empty}
+%\vspace*{\stretch{1}}
+%\noindent\begin{center}
+%{献给那些帮助过我的人们}
+%\end{center} 
+%\vspace{\stretch{1}}
+
+%\newpage
+%\thispagestyle{empty}
+%\vspace*{\stretch{1}}
+%\noindent\begin{center}
+%这页还是背面
+%\end{center} 
+%\vspace{\stretch{1}}
+
+
+\tableofcontents
+\label{content}
+%\listofchanges
 \mainmatter
 
 
-\chapter*{前言}
-\addcontentsline{toc}{chapter}{前言}
-\section*{文档定位}
-\addcontentsline{toc}{section}{文档定位}
-\begin{enumerate}
-\item 自己使用过程的积累，大部分转载自网上，我会尽量写明转载地址，难免有些忘了，还请见谅。
-\item 对一个程序的应用不熟，看它的说明文档来的最快！
-\end{enumerate}
 
-科研心得
-
-
-\section*{前言一}
-\addcontentsline{toc}{section}{前言一}
-    Ubuntu 更新很快，每年都发布两个版本，4月一个，10月一个，很多技术技巧很快会成为历史\footnote{但是 Linux 的那些基本的东西可以说是不会变的}，注意技术技巧的时间是很有必要的。
-
-    我使用 Ubuntu 的过程可谓是曲曲折折、磕磕碰碰、一步一步走来。最开始接触到 Ubuntu 是08年在学校 BBS 上看到相关的帖子，被 Ubuntu 的 3D 特效和开放源代码所吸引。最开始是怎么装的 Ubuntu 记得不是很清楚，好像是下载光盘镜像刻录在光盘上，用光盘装的，装的是双系统。遇到的最大问题是，上外网的问题，学校上外网是用客户端的，按流量计费。但是在 Ubuntu 下搞定这个客户端一直没有很好解决。还有一个没有很好解决的是显卡驱动的问题。而最最重要的是 Windows  XP 下的很多软件在 Ubuntu 下没有很好的对应版本，如 QQ 和 银行网盾。学校玩 Ubuntu 的人也很少。于是虽说是双系统，但大部分还是在用 XP， Ubuntu 成为一个摆设。后来因为占用硬盘，干脆格掉了。这是第一个时期。过了一段时间，手又痒了，这次学会了用 U盘装，还是双系统。虽然Ubuntu 下有网页登录客户端，但始终没有摆脱 Windows，Ubuntu 再次成为摆设。没有摆脱Windows，Ubuntu 的使用始终是很难发展的。第三个时期，也就是现在，可以总算对 Windows 说再见了。毕业了，没有了客户端，上网直接拨号，上网问题不存在了；电脑换了，Ubuntu 也发展了很多，显卡驱动问题不存在了；WebQQ 也完善了许多，QQ 问题不在了；Ubuntu 有了专门的软件商店，里面有很多免费的开放源代码的软件，再加上虚拟机 Virtualbox 功能强大，我在 Ubuntu 下设了个虚拟机装了 XP 来应对一些目前没法替代的软件，其实也就是网购、网银那些了，这样软件的问题可以说也不存在了。时至今日，我终于才迈过 Ubuntu 的门槛，而这花了我四年时间。这个时间真是有点长，有各种因素，最本质的还是自己真正花在这上面的时间太少。欣慰的是，我终究没有放弃这。
-    
- 这个使用记是伴随 Ubuntu 的更新一起前进的，最开始是基于11.10，现在基于12.04 。有些技巧会过时，有些基本的却不会变，这得自己好好斟酌体会。
- 
-\rightline{——20120505\qquad}
-
-
-
-\section*{前言二}
-\addcontentsline{toc}{section}{前言二}
-这是这份笔记结构的第一次重大调整，原名叫《Ubuntu 使用记》，主要是我使用 Ubuntu 过程中的记录。最开始写这份笔记的时候是2012年，现在已经是2014年，近两年了。为什么现在才考虑进行结构调整并改名为《计算机的使用》，或许是现在对计算机了解的更深入，使用的更多吧。本笔记的主题将是自己对计算机所有相关的学习记录，包括系统 Linux 和其中一个发行版 Ubuntu 的使用，也有脚本语言 Shell 的学习，也有 Fortran、C、C++等语言的学习。
-
-\rightline{——20140307\qquad}
-
-定位为纯粹的个人的计算机学习记录，记的都是自己想记下的东西。
-
-\rightline{——20140719\qquad}
-
-
-
-\section*{前言三}
-\addcontentsline{toc}{section}{前言三}
-这是这份文档的第二次重大调整，原名叫《计算机的使用》，现改名叫《科研中计算机的使用》。
-缩小范围，针对科研服务的。
-
- 
-
-
-
-
-
-
-
-
-\section*{Ubuntu 使用大事件}
-\addcontentsline{toc}{section}{Ubuntu 使用大事件}
-\subsection*{2014.7.30——Ubuntu和Win7双系统安装最终解决之道}
-\addcontentsline{toc}{subsection}{Ubuntu和Win7双系统安装最终解决之道}
-%\centerline{{\sanhao Ubuntu和Win7双系统安装最终解决之道}}
-这两天，真的是备受煎熬。由于历史原因，没想到自己对 Linux 系统的需求性越来越强，当时给笔记本安装 Ubuntu 时分配的硬盘空间太小了，不够用，要重装。说实话，自己是很不愿意重装的，毕竟用了很久了，很多东西要重新安装，配置，很麻烦的。一重装，问题就来了，这也确定了我接下来两天煎熬的日子。安装 Ubuntu 的时候，不能识别已经有的 Win7。怀疑系统版本问题，怀疑启动盘没制作好，怀疑电脑硬盘分区问题。最后已经存在的 Win7 也重装了，电脑系统算是彻底重装了。Win7 系统版本不好，装了不满意，网上下载，那天却莫名其妙的断网。重装了几次 Win7，硬盘分区也试了很多次，安装 Ubuntu 的时候总是检测不到已有的 Win7。很烦躁，不知道自己能不能搞定，甚至质疑自己当初重装系统的决定。不过，这个决定是正确的，这条路必须走，问题必须拿下。问题到了第二天有了转机，终于在网上搜到问题的解释。迷雾渐渐消散，我也似乎领会到了解决之道。
-
-自己分区安装 Ubuntu，然后在 Win7 下用软件 EasyBCD 建立引导。 Linux 文件系统清晰明了，很喜欢，我只分三个区就行了。 1、/ boot 分区， 包含了操作系统的内核和在启动系统过程中所要用到的文件，一般 200 MB 就行了；2、 /swap 交换分区，物理内存大于512MB时分配与物理内存等容量，也是一种文件系统，它的作用是作为 Linux 的虚拟内存。 在 Windows 下， 虚拟内存是一个文件， pagefile.sys，而在 Linux 下，虚拟内存需要使用独立分区； 3、/分区，剩下的容量都用于根分区了，觉得没必要细分，细分反而麻烦。 至于如何在 Win7 下用软件 EasyBCD 建立引导，网上资料较多，搜索便是。
-
-安装方法是正确的但也不是很顺利，安装过程不太正常，试了两次都是这样。怀疑制作安装盘的U盘出问题了。不巧，没其他U盘了，又开始借U盘，也不是很顺利，跟技术没关系就不讲了。果真是U盘的问题，期待许久的界面终于在第二天晚上快要回宿舍的时间见到了。这次折腾，不是没又收获，其实还挺大的。对Ubuntu的安装有了深入的了解，可以说学会了终极安装的方法。在这个过程中，也发现了新的东西。只是希望，以后折腾是在风险可控的范围内尝试。虽然这次数据备份了，但是我只有这台笔记本，安装不上，那真是麻烦了。
-
-失败确实是成功之母。我真的是在屡屡失败之中成长起来的。心态也要锻炼起来，不要起伏波动太大，从容应对。
-
-no zuo no die。 就在写这个的过程中，我又折腾了。在试 nvidia 的显卡驱动，结果图形界面进不去了。好在还有命令行界面，多年的折腾经验告诉我，镇定，要镇定。果断网上搜索，一堆看法。后来想到，卸载nivdia驱动就行了，于是敲入 \verb|sudo apt-get --purge remove nvidia-*| 命令。然后，图形界面又回来了。果断还是用系统默认的显卡驱动吧。
-
-做事之前，先做风险评估。尝试固然很好，但要做风险评估。
-
-
-
-\subsection*{2014.9.11——双显卡驱动最终解决之道}
-\addcontentsline{toc}{subsection}{双显卡驱动最终解决之道}
-%\centerline{{\sanhao 双显卡驱动最终解决之道}}
-Ubuntu 的显卡驱动问题一直都是很头疼的问题。这次不是手贱了。一次更新后，开机在5个点亮完就没反应了。进入修复模式，偶然瞥到“load fallback graphics devices [fail]”，不用说又是显卡驱动问题。其实没这个提示，出现这个问题也大概猜到是显卡驱动的问题。 回想到上次的经历，这次问题的处理心里大概有个底。首先想办法进入命令行模式。以往版本的系统启动时都有这个选项的，14.04版本隐藏了。本来想想办法调出这个模式的引导的。但在这之前抱着运气的态度再次尝试了修复模式。在修复模式下，选择进入低画质模式，虽然成功登陆，但是桌面空白，只有鼠标，可以理解，本来就是显卡驱动出问题了嘛。突然想起进入命令行模式的快捷键，Ctrl+Alt+F1，果然进入了。然后就是按照上次的经历，输入命令，移除所有关于 nvidia 的官方驱动，即：\\
-\verb|apt-get --purge remove nvidia-*|
-
-成功了！图形界面进去了。可是问题没完，ubuntu 的开源显卡驱动，不太好。首先，显示面只占了方形区域，两边空白，鼠标还有闪烁，很不好用。安装 nivida 官方驱动又出问题，怎么办？ 我想先查看下我的电脑的显卡信息吧，\verb[lspci |grep VGA[，赫然显示：
-
-00:02.0 VGA compatible controller: Intel Corporation 2nd Generation Core Processor Family Integrated Graphics Controller (rev 09)
-
-01:00.0 VGA compatible controller: NVIDIA Corporation GF108M [GeForce GT 630M] (rev ff)
-
-我的电脑是双显卡，立即想起关于双显卡驱动的 Bumblebee Project。 打开主页 \url{http://www.bumblebee-project.org}， 按照说明，安装Bumblebee，重启，无需再额外装 nvidia 驱动了，世界平静了。
-
-
-\subsection*{2014.10.15——又进不了系统了}
-\addcontentsline{toc}{subsection}{又进不了系统了}
-%\centerline{{\sanhao 又进不了系统了}}
-今天弹出软件更新，看着就更新了下。可是没想到，在下载flash插件的时候一直卡着下载不下来。我下意识的就知道问题要来了，但也没办法只能强关。重启后，果然出了问题，无线网卡打不开。我知道是之前更新的问题，于是想着重新更新下。可是还是卡在flash插件的更新那了。只能再次强关，这次就没那么幸运，系统果断进不了了。网上查询了下，貌似用 Ubuntu  启动优盘启动，然后在运行命令修护。虽然操作看着还会，只是挺麻烦的。后来想着开机时有修护模式，就试着进入了修护模式。但是第一次进入修护模式还是老问题。后来第二次进入修护模式，选了较低版本的内核，成功进入了修护模式。运行了软件包修护选项，经过一系列的修护后，终于又进入系统了。后来重启也正常了第一次进入修护模式没有成功，大概是最新的内核在更新的时候出了问题吧，所以选用久了内核成功了。Linux 系统真的好折腾人啊，不敢再更新了。
-
-也别一朝被蛇咬，十年怕井绳。以后更新的时候，注意看看更新文件。那个可能引起麻烦的，Ubuntu 用了这么多年了，心里也有个数。不要因为困难而停止进步。
-
-
-
-\section*{学习及参考资料}
-\addcontentsline{toc}{section}{学习及参考资料}
-\textbf{参考书}
-\begin{itemize}
-\item 《鸟哥的Linux私房菜：基础学习篇》鸟哥，王世江；
-\item 《Linux就是这个范儿》赵鑫磊，张洁；
-\item 《Linux命令行与Shell脚本编程大全》Richard Blum，Christine Bresnahan，武海峰（译）；
-\item 《Unix\&Linux大学教程》Harley Hahn，张杰良（译）
-\end{itemize}
-
-\textbf{不错的学习网站}
-\begin{itemize}
-\item \url{http://www.92csz.com/study/linux/}
-
-\item \url{http://vbird.dic.ksu.edu.tw/}
-
-\item Python学习：\url{http://www.w3cschool.cc/python/python-tutorial.html}
-\end{itemize}
-
-
-
-
-\chapter{科研入门技能及心得}
-\section{一些该注册的}
-gmail: 至少两个。一个注册用，一个通讯用。真名。
-
-research gate
-
-google scholar
-
-ocrc
-
-\section{文献检索与管理}
-google scholar 检索
-
-zotero 管理
-
-\section{Pdf批量全文搜索}
-Recoll
-
-\url{http://www.linuxdown.net/install/faq/20160318_how_linux_5065.html}
-
-
-
-\section{程序和文档版本管理——Git\&Github}
-以我们的量子耗散动力学、光谱计算为例
-\begin{enumerate}
-\item 找个合适的模型作为标准模型；
-\item 只要新增内容，就新复制一个，说明改进；
-\item 所有新功能先在标准模型上实现，再应用；
-\item 结合git版本控制。
-\end{enumerate}
-
-
-参考：bilibili 搜索git，如\underline{尚硅谷官方}、庄七。
-
-Git基本概念
-\begin{itemize}
-\item 工作区：写代码
-\item 暂存区：临时存储
-\item 本地库：历史版本
-\end{itemize}
-
-分支管理
-
-\subsection{初始操作}
-\begin{itemize}
-\item[(1)] 本地库初始化（建立本地库）
-\begin{itemize}
-\item git init\\
-进入项目目录，在命令行输入 git init，会产生一个.git的子目录，存放的是本地库相关的目录和文件，不要删除和胡乱修改。
-\end{itemize}
-
-\item[(2)] 设置签名
-\begin{itemize}
-\item git config user.name XX
-\item git config user.email XX
-\end{itemize}
-
-\item [(3)] 配置
-\begin{itemize}
-\item \verb|git config --global core.editor  "vim"| : 使用Vim作为编辑器
-\end{itemize}
-
-\end{itemize}
-
-
-
-\subsection{提交操作}
-\begin{enumerate}
-\item git status: 查看状态
-\item \verb|git add <file>|： 添加追踪文件到缓存区 / \verb|git rm --cached <file>| ：移除缓存区追踪文件
-\item \verb|git commit <file>|：提交文件到库
-\item \verb|git commit -a |：直接将所有修改文件提交到库（也可以分成两步，先git add更新缓存区，再git commit提交到库）
-\item \verb|git commit -m ``xxx'' <file>|：跳过消息编辑器步骤，直接提交“xxx”更新记录
-\end{enumerate}
-
-
-
-\subsection{版本穿梭操作}
-\begin{enumerate}
-\item \verb|git log|：历史记录查询\\
-精炼形式：\verb|git reflog| 
-
-\item \verb|git reset --hard <index>|：历史版本选择\\
-注意，还有其他两个参数\verb|--soft|、\verb|--mixed|。基于这个功能，可以实现删除文件并找回，但前提是文件存在时的状态必须提交到了本地库。
-\end{enumerate}
-
-
-
-\subsection{比较文件差异}
-\begin{enumerate}
-\item git diff <file> ：将工作区中的文件和暂存区进行比较
-\item git diff <本地库中某个历史版本> <file>：将工作区中的文件和本地库中历史文件进行比较
-\end{enumerate}
-
-
-
-\subsection{分支管理}
-\begin{enumerate}
-\item \verb|git branch -v |：查看分支
-\item \verb|git branch <name>| ：创建分支
-\item \verb|git checkout <name>|：切换分支
-\item 合并分支
-\begin{itemize}
-\item 切换到要合并到的分支
-\item \verb|git merge <branch name>|：
-\end{itemize}
-\item 解决合并冲突
-\begin{itemize}
-\item  编辑文件，删除特殊符号
-\item 把文件修改到满意的程度，保存退出
-\item \verb|git commit -m | ``日志信息''。注意此时不能带文件名。
-\end{itemize}
-\end{enumerate}
-
-
-
-\subsection{远程仓库Github}
-\begin{itemize}
-\item[(1)] 创建远程仓库：略！
-
-\item[(2)] 推送到远程仓库
-\begin{itemize}
-\item \verb|git remote -v|：查看远程库
-\item \verb|git remote add <name> <https://address> |：添加远程库
-\item \verb|git push <name> <branch>|：推送分支
-\end{itemize}
-
-\item [(3)] ssh免密推送
-\end{itemize}
-
-
-
+\include{chapters/chapter0}
 
 \part{Linux}
 \include{chapters/Linux_foundation}
