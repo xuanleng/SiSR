@@ -126,9 +126,30 @@ apt（Advanced Package Tool）工具可以完成所有的软件包的管理工�
 \chapter{安装及软件应用}
 \section{Ubuntu Desktop} 
  \subsection{下载}
-    到官网\url{http://www.ubuntu.org.cn}下载桌面版镜像，镜像有CD版、DVD版，CD版约700兆，正如官网描述的，DVD版比CD版多是各种语言包。所以CD版就够了，需要的语言包等安装好下载就是了。
+  到官网\url{http://ubuntu.com}下载所需要的镜像。 
+
 \subsection{安装}   
- 官网已经说的很清楚了。我用的是方法是在windows下制作U盘安装盘。具体见官网。由于我是只装ubuntu系统。所以是一键完成，没出现要分区的操作，很简单。需要注意的是，安装时有问你，要不要带网络安装，带网络安装会更新一些文件和获取语言包，除非你对自己的网速很自信，那就不要带网络安装。我是带网络安装的，那个更新下载过程真是耗时呀，两个多小时，搞的退又不能退，进又很慢，只能慢慢等了。所以不要带网络安装，等装好了，再统一更新。
+ 官网已经说的很清楚了。我用的方法是在windows下制作U盘安装盘。具体见官网。由于我是只装ubuntu系统。所以是一键完成，没出现要分区的操作，很简单。需要注意的是，安装时有问你，要不要带网络安装，带网络安装会更新一些文件和获取语言包，除非你对自己的网速很自信，那就不要带网络安装。我是带网络安装的，那个更新下载过程真是耗时呀，两个多小时，搞的退又不能退，进又很慢，只能慢慢等了。所以不要带网络安装，等装好了，再统一更新。
+ 
+第一次安装完，需要选择最优更新源，并更新！
+
+安装编译基本要素 \verb|sudo apt install build-essential| 包含了gcc。
+
+“Another way to install gcc compiler is to install it as part of build-essential package. build-essential package will also install additional libraries as well as g++ compiler. In most cases or if unsure this is exactly what you need this”.
+
+注意：有更新就更新，一次安装大量更新容易出现问题。
+
+Confirm your installation by checking for GCC version:
+
+\begin{verbatim}
+$ gcc --version
+gcc (Ubuntu 7.2.0-18ubuntu2) 7.2.0
+Copyright (C) 2017 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+\end{verbatim}
+
+
 
 
 \section{Fcitx}
