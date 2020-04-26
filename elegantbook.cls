@@ -8,7 +8,7 @@
 %%%%%%%%%%%%%%%%%%%%%
 % % !Mode:: "TeX:UTF-8"
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{elegantbook}[2020/02/10 v3.10 ElegantBook document class]
+\ProvidesClass{elegantbook}[2020/04/12 v3.11 ElegantBook document class]
 
 \RequirePackage{kvoptions}
 \RequirePackage{etoolbox}
@@ -20,7 +20,6 @@
 \DeclareStringOption[en]{lang}
 \DeclareStringOption[answer]{result}
 \DeclareStringOption[fancy]{mode}
-\DeclareStringOption[show]{base}
 \DeclareStringOption[normal]{device}
 \DeclareStringOption[cm]{math}
 \DeclareStringOption[marginfalse]{marginpar}
@@ -43,15 +42,13 @@
 
 \DeclareVoidOption{en}{\ekv{lang=en}}
 \DeclareVoidOption{cn}{\ekv{lang=cn}}
+\DeclareVoidOption{it}{\ekv{lang=it}}
 
 \DeclareVoidOption{fancy}{\ekv{mode=fancy}}
 \DeclareVoidOption{simple}{\ekv{mode=simple}}
 
 \DeclareVoidOption{answer}{\ekv{result=answer}}
 \DeclareVoidOption{noanswer}{\ekv{result=noanswer}}
-
-\DeclareVoidOption{hide}{\ekv{base=hide}}
-\DeclareVoidOption{show}{\ekv{base=show}}
 
 \DeclareVoidOption{normal}{\ekv{device=normal}}
 \DeclareVoidOption{pad}{\ekv{device=pad}}
@@ -87,6 +84,25 @@
 \ProcessKeyvalOptions*\relax
 % \ProcessOptions*\relax
 \LoadClass[a4paper,oneside]{book}
+
+\RequirePackage{setspace}
+\RequirePackage{hyperref}
+\hypersetup{
+  breaklinks,
+  unicode,
+  linktoc=all,
+  bookmarksnumbered=true,
+  bookmarksopen=true,
+  pdfkeywords={ElegantBook},
+  colorlinks,
+  linkcolor=winered,
+  citecolor=winered,
+  urlcolor=winered,
+  plainpages=false,
+  pdfstartview=FitH,
+  pdfborder={0 0 0},
+  linktocpage
+}
 
 %% device settings
 \RequirePackage{geometry}
@@ -157,6 +173,11 @@
   \newcommand{\citshape}{\kaishu}
 \else
   \newcommand{\citshape}{\itshape}
+\fi
+\ifcsname kaishu\endcsname
+  \newcommand{\cnormal}{\kaishu}
+\else
+  \newcommand{\cnormal}{\normalfont}
 \fi
 
 \ifcsname fangsong\endcsname
@@ -251,21 +272,6 @@
 \definecolor{winered}{rgb}{0.5,0,0}
 \definecolor{bule}{RGB}{18,29,57}
 
-
-\newcommand{\base}[2]{%
-  \nointerlineskip \vspace{0.1\baselineskip}\hspace{\fill}
-  {\color{#1}
-    \resizebox{0.3\linewidth}{1.5ex}
-    {{%
-        {\begin{tikzpicture}
-          \node  (C) at (0,0) {};
-          \node (D) at (4,0) {};
-          \path (C) to [ornament=#2] (D);
-          \end{tikzpicture}}}}}%
-  \hspace{\fill}
-  \par\nointerlineskip \vspace{0.1\baselineskip}
-}
-
 % ----- Title Style -----
 \ifdefstring{\ELEGANT@titlestyle}{hang}{\def\style{hang}}{\relax}
 \ifdefstring{\ELEGANT@titlestyle}{display}{\def\style{display}}{\relax}
@@ -289,9 +295,8 @@
 
 \newcommand{\question}[1]{{\par\citshape #1}\\[0.2ex]}
 
-\RequirePackage[\ELEGANT@cite,sort&compress]{natbib}
-\setlength{\bibsep}{0.0pt}
-\def\bibfont{\footnotesize}
+\ifdefstring{\ELEGANT@lang}{cn}{\relax}{
+  \RequirePackage[\ELEGANT@cite,sort&compress]{natbib}}
 
 \RequirePackage{enumerate}
 % list/itemize/enumerate setting
@@ -325,13 +330,13 @@
 \RequirePackage{graphicx}
 %\RequirePackage{enumerate}
 \RequirePackage{amsmath,mathrsfs,amsfonts,amssymb}
-
+% \providecommand\qed{}
+% \renewcommand{\qed}{\hfill\ensuremath{\square}}
 \RequirePackage{booktabs}
 \RequirePackage{multicol,multirow}
 \RequirePackage{xcolor}
 \RequirePackage{fancyvrb}
-\RequirePackage{makecell,lipsum,hologo,setspace}
-
+\RequirePackage{makecell,lipsum,hologo}
 %%中文结构名字
 \ifdefstring{\ELEGANT@lang}{cn}{
   \renewcommand{\contentsname}{目录}
@@ -349,11 +354,16 @@
   \ifdefstring{\ELEGANT@scheme}{chinese}{
     \renewcommand{\chaptername}{第~\zhnumber{\arabic{chapter}}~章}}{
     \renewcommand{\chaptername}{第~\thechapter{}~章}}
-  \newcommand{\authorname}{\textit{作者：}}
-  \newcommand{\institutename}{\textit{组织：}}
-  \newcommand{\datename}{\textit{时间：}}
-  \newcommand{\versionname}{\textit{版本：}}
-  \RequirePackage[\ELEGANT@cite]{gbt7714}
+  \newcommand{\authorname}{\citshape 作者：}
+  \newcommand{\institutename}{\citshape 组织：}
+  \newcommand{\datename}{\citshape 时间：}
+  \newcommand{\versionname}{\citshape 版本：}
+  \RequirePackage{gbt7714}
+  \ifdefstring{\ELEGANT@cite}{authoryear}{
+    \bibliographystyle{gbt7714-author-year}}{
+    \bibliographystyle{gbt7714-numerical}}
+  \ifdefstring{\ELEGANT@cite}{numbers}{
+    \citestyle{numbers}}{\relax}
   \newcommand{\notename}{笔记}
   \renewcommand*{\proofname}{证明}
   \newcommand{\problemname}{例题}
@@ -373,10 +383,9 @@
   \newcommand{\propertyname}{性质}
   \newcommand{\introductionname}{内容提要}
   \newcommand{\problemsetname}{习题}
-  \newcommand\bioinfo[2]{\gdef\@bioinfo{\textit{#1}：\textit{#2}}}
+  \newcommand\bioinfo[2]{\gdef\@bioinfo{{\citshape #1}：#2}}
   \newcommand{\updatename}{更新：}
-  \newcommand{\historyname}{版本更新历史}
-}{\relax}
+  \newcommand{\historyname}{版本更新历史}}{\relax}
 \ifdefstring{\ELEGANT@lang}{en}{
   \setlength\parindent{2em}
   \newcommand\figref[1]{\textbf{Figure}~\ref{#1}}
@@ -411,6 +420,44 @@
   \newcommand{\historyname}{Version History}
 }{\relax}
 
+\ifdefstring{\ELEGANT@lang}{it}{
+  \RequirePackage[italian]{babel}
+  \setlength\parindent{2em}
+  \newcommand\figref[1]{\textbf{Figura}~\ref{#1}}
+  \newcommand\tabref[1]{\textbf{Tabella}~\ref{#1}}
+  \renewcommand{\chaptername}{Capitolo \arabic{chapter}}
+  \newcommand{\authorname}{\textbf{Autore: }}
+  \newcommand{\institutename}{\textbf{Istituto: }}
+  \newcommand{\datename}{\textbf{Data: }}
+  \newcommand{\versionname}{\textbf{Versione: }}
+  \bibliographystyle{\ELEGANT@bibstyle}
+  \newcommand{\notename}{Nota}
+  \newcommand{\proofname}{Dimostrazione}
+  \newcommand{\problemname}{Problema}
+  \newcommand{\definitionname}{Definizione}
+  \newcommand{\theoremname}{Teorema}
+  \newcommand{\axiomname}{Assioma}
+  \newcommand{\postulatename}{Postulato}
+  \newcommand{\lemmaname}{Lemma}
+  \newcommand{\propositionname}{Proposizione}
+  \newcommand{\corollaryname}{Corollario}
+  \newcommand{\examplename}{Esempio}
+  \newcommand{\exercisename}{Esercizio}
+  \newcommand{\remarkname}{Commento}
+  \newcommand{\assumptionname}{Assunto}
+  \newcommand{\conclusionname}{Conclusione}
+  \newcommand{\solutionname}{Soluzione}
+  \newcommand{\propertyname}{Proprietà}
+  \newcommand{\introductionname}{Introduzione}
+  \newcommand{\problemsetname}{Esercizio}
+  \newcommand\bioinfo[2]{\gdef\@bioinfo{\textbf{#1}: #2}}
+  \newcommand{\updatename}{Aggiornamenti:}
+  \newcommand{\historyname}{Cronologia delle versioni}
+}{\relax}
+
+\setlength{\bibsep}{0.0pt}
+\def\bibfont{\footnotesize}
+
 \RequirePackage{xpatch}
 \xpatchcmd{\part}{
   \thispagestyle{plain}}{
@@ -421,7 +468,7 @@
 
 \graphicspath{{./figure/}{./figures/}{./image/}{./images/}{./graphics/}{./graphic/}{./pictures/}{./picture/}}
 
-\usepackage{pgfornament} %% load tikz without tikz
+\usepackage{tikz} %% load tikz without tikz
 \usetikzlibrary{backgrounds,calc,shadows}
 \newcommand*\circled[1]{\tikz[baseline=(char.base)]{
             \node[shape=circle,draw,inner sep=1pt] (char) {#1};}}
@@ -439,24 +486,6 @@
 \setlist[itemize,3]{label={\eitemiii}}
 
 
-\RequirePackage{hyperref}
-\hypersetup{
-  breaklinks,
-  unicode,
-  linktoc=all,
-  bookmarksnumbered=true,
-  bookmarksopen=true,
-  pdfkeywords={ElegantBook},
-  colorlinks,
-  linkcolor=winered,
-  citecolor=winered,
-  urlcolor=winered,
-  plainpages=false,
-  pdfstartview=FitH,
-  pdfborder={0 0 0},
-  linktocpage
-}
-
 %%   章节设置
 \RequirePackage[center,pagestyles]{titlesec}
 \RequirePackage{apptools}
@@ -465,7 +494,7 @@
 \setcounter{secnumdepth}{5}
 
 \titleformat{\chapter}[\style]{\bfseries}
-{\filcenter\LARGE\enspace\bfseries{\color{structurecolor}\IfAppendix{\appendixname}{\chaptername}\enspace}}{1pt}{\bfseries\color{structurecolor}\LARGE\filcenter}[\ifdefstring{\ELEGANT@base}{hide}{}{\filcenter\base{structurecolor}{88}}]
+{\filcenter\LARGE\enspace\bfseries{\color{structurecolor}\IfAppendix{\appendixname}{\chaptername}\enspace}}{1pt}{\bfseries\color{structurecolor}\LARGE\filcenter}[]
 
 \titleformat{\section}[hang]{\bfseries}{
   \Large\bfseries{\color{structurecolor}\thesection}\enspace}{1pt}{%
@@ -613,7 +642,7 @@
 \renewcommand{\theexam}{\thechapter.\arabic{exam}}
 \newenvironment{example}[1][]{
   \refstepcounter{exam}
-  \par\noindent\textbf{\color{main}{\examplename}\theexam #1 }\rmfamily}{
+  \par\noindent\textbf{\color{main}{\examplename} \theexam #1 }\rmfamily}{
   \par\ignorespacesafterend}
 
 %% Exercise with counter
@@ -624,7 +653,7 @@
   \refstepcounter{exer}
   \par\noindent\makebox[-3pt][r]{
     \scriptsize\color{red!90}\HandPencilLeft\quad}
-    \textbf{\color{main}{\exercisename}\theexer #1 }\rmfamily}{
+    \textbf{\color{main}{\exercisename} \theexer #1 }\rmfamily}{
     \par\ignorespacesafterend}
 
 %% Problem with counter
@@ -633,7 +662,7 @@
 \renewcommand{\theprob}{\thechapter.\arabic{prob}}
 \newenvironment{problem}[1][]{
   \refstepcounter{prob}
-  \par\noindent\textbf{\color{main}{\problemname}\theprob #1 }\rmfamily}{
+  \par\noindent\textbf{\color{main}{\problemname} \theprob #1 }\rmfamily}{
   \par\ignorespacesafterend}
 
 \newenvironment{note}{
@@ -707,29 +736,14 @@
 \RequirePackage{fancyhdr}
 \fancyhf{}
 
-\ifdefstring{\ELEGANT@base}{hide}{
-  \fancyfoot[c]{\color{structurecolor}\scriptsize\thepage}
-  \if@twoside
-  \fancyhead[ER]{\color{structurecolor}\citshape\leftmark}
-  \fancyhead[OL]{\color{structurecolor}\citshape\rightmark}
-  \else
-  \fancyhead[R]{\color{structurecolor}\citshape\rightmark}
-  \fi
-}{\relax}
 
-
-\ifdefstring{\ELEGANT@base}{show}{
-  \fancyfoot[c]{\catcode`\$=3\relax\base{structurecolor}{88}}
-  \if@twoside
-  \fancyhead[EL,OR]{\color{structurecolor}--\;\thepage\;--}
-  \fancyhead[ER]{\color{structurecolor}\citshape\leftmark}
-  \fancyhead[OL]{\color{structurecolor}\citshape\rightmark}
-  \else
-  \fancyhead[R]{\color{structurecolor}--\;\thepage\;--}
-  \fancyhead[L]{\color{structurecolor}\citshape\rightmark}
-  \fi
-}{\relax}
-
+\fancyfoot[c]{\color{structurecolor}\scriptsize\thepage}
+\if@twoside
+  \fancyhead[ER]{\color{structurecolor}\cnormal\leftmark}
+  \fancyhead[OL]{\color{structurecolor}\cnormal\rightmark}
+\else
+  \fancyhead[R]{\color{structurecolor}\cnormal\rightmark}
+\fi
 
 \renewcommand{\headrule}{\color{structurecolor}\hrule width\textwidth}
 \pagestyle{fancy}
@@ -781,12 +795,12 @@
     {\renewcommand{\arraystretch}{0.618}
     \begin{tabular}{l}
       % \ifcsname @author\endcsname \authorname \@author\\\fi
-      \ifx\@author\empty\else\authorname\@author\\ \fi
-      \ifcsname @institute\endcsname \institutename \@institute\\ \fi
+      \ifx\@author\empty\else\authorname\cnormal\@author\\ \fi
+      \ifcsname @institute\endcsname \institutename \cnormal\@institute\\ \fi
       % \ifcsname @date\endcsname  \@date\\\fi
-      \ifx\@date\empty\else\datename\@date \\ \fi
-      \ifcsname @version\endcsname \versionname \@version\\ \fi
-      \ifcsname @bioinfo\endcsname \@bioinfo\\ \fi
+      \ifx\@date\empty\else\datename\cnormal\@date \\ \fi
+      \ifcsname @version\endcsname \cnormal\versionname\@version\\ \fi
+      \ifcsname @bioinfo\endcsname \cnormal\@bioinfo\\ \fi
     \end{tabular}}
   \end{minipage}
   \begin{minipage}[c]{0.27\linewidth}
@@ -803,7 +817,7 @@
   \vfill
   \begin{center}
     \setstretch{1.3}
-    \parbox[t]{0.7\textwidth}{\centering \itshape 
+    \parbox[t]{0.7\textwidth}{\centering \citshape 
       \ifcsname @extrainfo\endcsname\@extrainfo\fi}
   \end{center}
   \vfill
@@ -832,7 +846,7 @@
   breaklines=true,
   keywordstyle=\color{winered},
   commentstyle=\color{gray},
-  emph={elegantpaper,fontenc,fontspec,xeCJK,FiraMono,xunicode,newtxmath,figure,fig,image,img,table,itemize,enumerate,newtxtext,newtxtt,ctex,microtype,description,times,booktabs,tabular,PDFLaTeX,XeLaTeX,type1cm,BibTeX,device,color,mode,lang,amsthm,tcolorbox,titlestyle,cite,ctex,listings,base,math,scheme,toc,esint,chinesefont,amsmath,bibstyle,gbt7714,natbib},
+  emph={elegantpaper,fontenc,fontspec,xeCJK,FiraMono,xunicode,newtxmath,figure,fig,image,img,table,itemize,enumerate,newtxtext,newtxtt,ctex,microtype,description,times,booktabs,tabular,PDFLaTeX,XeLaTeX,type1cm,BibTeX,device,color,mode,lang,amsthm,tcolorbox,titlestyle,cite,ctex,listings,base,math,scheme,toc,esint,chinesefont,amsmath,bibstyle,natbib,pgfornament},
   emphstyle={\color{frenchplum}},
   morekeywords={DeclareSymbolFont,SetSymbolFont,toprule,midrule,bottomrule,institute,version,includegraphics,setmainfont,setsansfont,setmonofont ,setCJKmainfont,setCJKsansfont,setCJKmonofont,RequirePackage,figref,tabref,email,maketitle,keywords,definecolor,extrainfo,logo,cover,subtitle,appendix,chapter,hypersetup,mainmatter,frontmatter,tableofcontents,elegantpar,heiti,kaishu,lstset,pagecolor,zhnumber,marginpar,part,equote,marginnote,bioinfo,datechange,listofchange,lvert,lastpage,songti,heiti,fangsong,setCJKfamilyfont,textbf},
   frame=single,
