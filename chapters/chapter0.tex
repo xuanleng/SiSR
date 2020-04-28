@@ -1,14 +1,5 @@
 \chapter{Git——程序和文档的版本管理}
-\section{基本思想}
-以我们的量子耗散动力学、光谱计算为例
-\begin{enumerate}
-\item 找个合适的模型作为标准模型；
-\item 只要新增内容，就新复制一个，说明改进；
-\item 所有新功能先在标准模型上实现，再应用；
-\item 结合git版本控制。
-\end{enumerate}
-
-
+\section{学习参考资料}
 Git 官网：\url{http://git-scm.com}
 
 Github 官网：\url{https://github.com}
@@ -20,6 +11,17 @@ Github 官网：\url{https://github.com}
 
 参考：bilibili 搜索git，如\underline{尚硅谷官方}、庄七。
 
+
+\section{基本思想和历史}
+以我们的量子耗散动力学、光谱计算为例
+\begin{enumerate}
+\item 找个合适的模型作为标准模型；
+\item 只要新增内容，就新复制一个，说明改进；
+\item 所有新功能先在标准模型上实现，再应用；
+\item 结合git版本控制。
+\end{enumerate}
+
+
 Git基本概念
 \begin{itemize}
 \item 工作区：写代码
@@ -28,6 +30,9 @@ Git基本概念
 \end{itemize}
 
 分支管理
+
+
+
 
 
 \section{软件安装}
@@ -125,12 +130,34 @@ Git基本概念
 
 
 \chapter{\LaTeX{}——编译型文档排版系统}
+\section{学习参考资料}
+\begin{itemize}
+\item 安装： 啸行，一份简短的关于\LaTeX{}安装的介绍，\url{https://github.com/OsbertWang/install-latex}
+\end{itemize}
 
+
+\section{基本思想和历史}
+
+
+
+\section{主体发行版——\TeX{} Live }
+\subsection{Win10下安装}
+注意要点：
+\begin{itemize}
+\item 全部安装占用空间比较大，。。。
+\item 手动添加编译器路径到路径环境变量：
+This PC->Advanced system settings->Advanced->Environment Variables...(右下角)->System variables->Path，点开。添加C:/texlive/2020/bin/win32。大家安装的路径可能不一样，但是选择\LaTeX{}相关编译器的路径就行。要点是，一定是编译器所在路径，上一级都不行。
+\end{itemize}
 
 
 
 
 \section{Texworks}
+注意：有时候Texworks没有自动找到\LaTeX{}相关编译器的路径。这时需要手动添加
+Edit->Perference->Tyepsetting，添加
+C:/texlive/2020/bin/win32（win10系统）。要点是，一定要是编译器所在目录，上一级都不行。
+
+
 \subsection{安装}
 官网：\url{https://www.tug.org/texworks/}\\
 \verb|sudo add-apt-repository ppa:texworks/stable|\\

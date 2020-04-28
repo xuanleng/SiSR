@@ -71,29 +71,6 @@ man的帮助文件有很多个，通常以章分类，存放在\verb|/usr/share/
 \end{itemize}
 
 
-\subsection{ls——列出文件清单命令}
-ls 命令能够显示目录内容和查看文件详细信息，ls意为“list directory contents”。 ls 命令的执行方式为：
-
-\verb*|$ls -[选项] ［文件名或者目录名］|
-
-ls 命令选项：
-\begin{itemize}
-\item -l 列出所要查看的内容详细信息，不但包括文件名，还包括文件大小、访问权限和所有者等信息。具体说明详见Linux文件属性。
-\item -a 列出所有文件，包括隐藏文件也显示出来
-\item -R 列出当前目录下的所有内容，并且将子目录的内容也一起列出来
-\item -d 仅列出目录本身，而不显示当前目录下的内容
-\end{itemize}
-如果不加任何选项的话， ls 命令仅列出当前目录下的文件和目录名。
-
-
-\begin{itemize}
-\item 查看当前目录下的目录个数：\verb?ls -l |grep "^d"|wc -l?
-\end{itemize}
-
-
-
-
-
 \subsection{pwd——查看当前路径命令}
 \verb*|pwd|，Print Working Directory的缩写。
 
@@ -102,6 +79,158 @@ ls 命令选项：
 除了pwd命令，还有一个很有用的命令，那就是tree命令，它以更为直观的树状图的形式显示目录之间的关系。但是Ubuntu默认没有安装tree，需要手动安装，具体安装方法如下：
 
 \verb*|$sudo aptitude install tree|
+
+
+\subsection{ls——列出文件清单命令}
+ls 命令能够显示目录内容和查看文件详细信息，ls意为“list directory contents”。 ls 命令的执行方式为：
+\verb*|$ls -[选项] [文件名或者目录名]|
+\footnote{参考资料：\url{https://www.cnblogs.com/jichi/p/11186974.html} }
+
+ls 命令选项：
+\begin{itemize}
+\item 不接任何选项和目录，显示当前目录下没有隐藏的文件和目录名
+\item  -a： 列出所有文件，包括隐藏文件也显示出来
+\item  -l： 显示没有隐藏的文件和文件夹的详细信息
+\item -al：显示当前目录下的所有文件和目录的详细信息
+\item -R： 列出当前目录下的所有内容，并且将子目录的内容也一起列出来
+\item -d： 仅列出目录本身，而不显示当前目录下的内容
+\end{itemize}
+
+文件详细信息详解：
+\begin{itemize}
+\item 假设执行\verb|ls -l|，有：\\
+\verb|drwxr-xr-x 1 xuanleng xuanleng     4096 Dec  2 05:44 rpm|
+
+\item 第1列：代表文件的类型。我们常见的是d和-。d代表是目录文件。-代表是普通文件。其他不常见的有。l代表链接文件，b代表块设备。c代表字符设备文件。
+
+\item 第2-10列：代表该文件的权限。三个为一组。第一组代表文件所有者的权限，第二组代表同用户组的权限，第三组代表其他用户非本用户组的权限。每组权限中的rwx，分别代表读，写，可执行的意思。
+
+\item 第11列数字，1，代表有多少文件名连接到此节点。
+每个文件都会将它的权限与属性记录到文件系统的i-node中，不过我们使用的目录树却是使用文件名来记录，因此每个文件名就会连接到一个i-node，这个属性记录的就是有多少不同的文件名连接到相同的一个i-node号码。
+
+\item 第12列的root：所属者用户名。
+
+\item 第13列的root：所属用户组。
+
+\item 第14列：容量大小，默认为B。
+
+\item 后面为创建或修改日期，最后为文件名。
+\end{itemize}
+
+命令组合使用：
+\begin{itemize}
+\item 查看当前目录下的目录个数：\verb?ls -l |grep "^d"|wc -l?
+\end{itemize}
+
+
+
+\subsection{tar——解压、压缩命令}
+\verb|tar -zxvf 文件名|：将文件直接解压到当前目录下
+
+
+
+\subsection{chmod——修改权限命令}
+每一文件或目录的访问权限都有三组，每组用三位表示，分别为文件属主的读、写和执行权限；与属主同组的用户的读、写和执行权限；系统中其他用户的读、写和执行权限。
+-代表空许可，r代表只读，w代表只写，x代表可执行。\footnote{参考资料：\url{https://www.cnblogs.com/jichi/p/11186974.html} }
+
+chmod 命令用于改变文件或目录的访问权限。该命令有两种写法：1、包含字母和操作符的方式。2、包含数字的设定方式。
+
+\subsubsection{文字设定法}
+一般形式为
+\verb*|chmod [who] [+\-\=] [mode] 文件或目录名|
+
+命令中各选项的含义：
+\begin{itemize}
+\item 操作对象who可是下述字母中的任一个或者它们的组合：
+\begin{itemize}
+\item u 表示“用户（user）”，即文件或目录的所有者。　　
+\item g 表示“同组（group）用户”，即与文件属主有相同组ID的所有用户。　　
+\item o 表示“其他（others）用户”。　　
+\item a 表示“所有（all）用户”。它是系统默认值。　
+\end{itemize}　
+
+\item 操作符号可以是：
+\begin{itemize}
+\item +添加某个权限。
+\item -取消某个权限。　　
+\item =赋予给定权限并取消其他所有权限（如果有的话）。　　
+\end{itemize}
+
+\item 设置mode所表示的权限可用下述字母的任意组合：　　
+\begin{itemize}
+\item r 可读。　　
+\item w 可写。　　
+\item x 可执行。　　
+\item u 与文件属主拥有一样的权限。
+\item g 与和文件属主同组的用户拥有一样的权限。
+\item o 与其他用户拥有一样的权限。
+\end{itemize}
+
+\item 文件名：以空格分开的要改变权限的文件列表，支持通配符。
+
+\end{itemize}
+
+在一个命令行中可给出多个权限方式，其间用逗号隔开。
+
+例如：chmod g+r，o+r example
+
+使同组和其他用户对文件example 有读权限。
+
+例如：chmod u+x startup.sh
+
+给当前用户增加对startup.sh的执行权限。
+
+
+\subsubsection{数字设定法}
+chmod ［mode］ 文件名
+
+我们将之前的rwx用数字进行替代。0表示没有权限，1表示可执行权限，2表示可写权限，4表示可读权限。数字之和，即为该文件的权限。使用文字的方式，有三组文字，数字即为3组数字之和。
+
+例子
+
+1、chmod 644 a.txt
+
+文件属主具有读，写权限，因为6=4+2。
+
+文件组具有读权限。
+
+其他用户具有读权限
+
+
+\subsection{chgrp——修改文件或目录所属组的命令}
+改变文件或目录所属的组
+
+chgrp ［选项］ group filename
+
+- R 递归式地改变指定目录及其下的所有子目录和文件的属组。
+
+group为用户组id或者为/etc/group中用户的用户组名。如果用户不是文件的属主或者超级用户，则不能改变。
+
+chgrp - R jichi /etc
+
+将etc及etc下所有文件和目录的属组都改为jichi。
+
+
+\subsection{chown——修改文件或目录所属主的命令}
+更改某个文件或目录的属主和属组。
+
+chown ［选项］ 用户或组 文件　　
+
+- R 递归式地改变指定目录及其下的所有子目录和文件的拥有者。　
+　
+- v 显示chown命令所做的工作。　　
+
+例子
+
+把文件a.txt的所有者改为jichi。
+
+chown jichi a.txt　　
+
+把目录/b及其下的所有文件和子目录的属主改成jichi，属组改成jingdian。
+
+chown - R jichi.jingdian /b
+
+
 
 
 \subsection{mkdir——创建目录命令}
