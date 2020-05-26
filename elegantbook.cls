@@ -354,7 +354,7 @@
   \ifdefstring{\ELEGANT@scheme}{chinese}{
     \renewcommand{\chaptername}{第~\zhnumber{\arabic{chapter}}~章}}{
     \renewcommand{\chaptername}{第~\thechapter{}~章}}
-  \newcommand{\authorname}{\citshape 作者：}
+  \newcommand{\authorname}{\citshape 主编：}
   \newcommand{\institutename}{\citshape 组织：}
   \newcommand{\datename}{\citshape 时间：}
   \newcommand{\versionname}{\citshape 版本：}
