@@ -164,6 +164,49 @@ This PC->Advanced system settings->Advanced->Environment Variables...(右下角)
 
 
 
+\subsection{Ubuntu下安装}
+（1）下载镜像
+直接下载DVD光盘镜像的。不建议网络安装。官网主页:\url{http://www.tug.org/texlive/}
+
+
+（2）安装
+\paragraph{(a)文字界面安装}
+%安装过程我没用图形界面，因为图形界面还要先安装一个包，觉得麻烦。
+文字界面也简单，在终端中运行 Perl 脚本install-tl。 这就是在终端中运行一个文件。 运行一个文件， 当然需要告诉电脑文件在哪里了，于是在终端输入该脚本的全路径就行了，如：\\
+\verb*|perl /home/phileas/texlive/install-tl|\\
+或先转到相应的目录下，再执行，如：\\
+\verb*|cd /home/phileas/texlive|\\
+\verb*|perl install-tl|
+
+运行后，会出现各种选项和提示。可以看到，texlive是装在文件系统中的，你可以更改安装的路径，或开启终端中的超级用户的权限，再来运行这个脚本。开启超级用户权限的方法是：在终端中输入命令：sudo -i。这样就可以安装了。
+
+\paragraph{（b）图形界面安装}
+建议使用图形安装界面，因为宏包用图形界面管理很方便，过程如下：
+\begin{enumerate}
+\item \verb*|sudo -i| 开启超级用户权限，这是因为默认安装到文件系统中，而改动文件系统是需要超级用户权限的，也可以不开启，到时选个可以安装的路径就行了。
+\item  \verb*|apt-get install perl-tk| 安装 perl-tk 包才能用图形安装界面
+\item 挂载镜像\\
+先将光盘镜像挂载到一个文件夹中，如：/home/phileas/texlive，意思是：根目录/下的home文件夹phileas中的texlive文件夹。先找出光盘镜像的全路径，很简单，选中你的光盘镜像右键属性中有写，这个路径或许当你拷贝进这个文件时你就已经知道了，我放的位置是，\\
+/home/phileas/desktop/texlive2011-20110705.iso，
+最后一项是该文件名。挂载方法是在终端中，敲命令：\\
+sudo mount /home/phileas/Desktop/texlive2011-20110705.iso/~~ /home/phileas/texlive ，
+注意两个路径之间有空格。这样就挂载好了。(注意路径区分大小写)
+\item cd挂载的镜像文件夹下，终端输入perl install-tl  - -gui
+\item 有些选项，自己看着办。注意勾选建立符号链接(symbol link)，很简单，勾选上就有了，不建立这个，之后在终端开启图形管理宏包界面的命令tlmgr - - gui就会报错说没有这个命令，其实还是要再加链接。所以这里记得勾选。（安装时没勾选也没关系，这部分内容在texlive相应版本的说明文档中说的很清楚。）
+\item 点击安装
+
+\item 如果安装时忘了勾选符号链接，则需添加环境变量。在\verb|~/.bashrc|文件中添加\\
+\verb|export PATH=$PATH:/usr/local/texlive/2018/bin/x86_64-linux|\\
+\verb|export MANPATH=$MANPATH:/usr/local/texlive/2018/texmf-dist/doc/man|\\
+\verb|export INFOPATH=$INFOPATH:/usr/local/texlive/2018/texmf-dist/doc/info|\\
+然后在终端中使环境变量生效：\\
+\verb|source ~/.bashrc|
+
+\item 调出图形管理宏包界面，在终端输入tlmgr - -gui，这时要改宏包更新源，在option选项改成网络为默认更新源。不然还是更新不了。
+\end{enumerate}
+
+
+
 
 \section{Texworks}
 注意：有时候Texworks没有自动找到\LaTeX{}相关编译器的路径。这时需要手动添加
