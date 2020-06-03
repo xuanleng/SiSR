@@ -30,52 +30,6 @@ DEB软件包间常见的依赖关系有：Depends、Recommends和Conflicts。看
 
 
 \section{Ubuntu实用工具}
-\subsection{dpkg——底层软件包管理工具}
-dpkg是Ubuntu软件包管理工具的基础，使用dpkg工具可以实现软件包的安装、卸载、查询、编译，以及打包应用程序等功能。但是由于当时受到互联网条件的制约，以及设计时忽视了DEB软件包之间复杂的依赖关系，所以dpkg工具无法自动解决DEB软件包之间的依赖关系。
-
-dpkg命令格式如下：
-
-\verb|dpkg [ -i | -r | -P | -l | -L | -s | -S ] packagefilename|
-
-这里只列出常用的，详细说明见手册（\verb|man dpkg|），选项说明如下：
-\begin{itemize}
-\item -i 安装软件包
-
-\item -r卸载软件包，但不删除软件包的配置文件
-
-\item -P完全卸载软件包，包括所有相关配置文件
-
-\item -l查看当前系统中已安装软件包的信息
-
-\item -L查看当前系统中指定软件包的所安装的相关文件
-
-\item -s查询已安装的指定软件包的详细信息
-
-\item -S查询系统中某个文件所属的软件包
-\end{itemize}
-
-具体应用实例：
-\begin{itemize}
-\item 安装软件包\quad
-\verb*|$sudo dpkg -i packagename.deb|
-
-\item 卸载已安装的软件包\quad
-\verb*|$sudo dpkg -r packagename|
-
-\item 查看软件包所包含的内容\quad
-\verb*|$sudo dpkg -c packagename.deb|
-\end{itemize}
-
-
-\subsection{alien——软件包转换工具}
-alien软件包格式转换工具是一种转换软件包格式的专业工具，支持多种linux软件包格式之间的转换。
-
-使用alien工具将RPM包转换为DEB软件包。转换后的软件包可以使用dpkg进行安装，具体操作如下：
-
-\verb|sudo alien mplayer-1.0.6-i386.rpm|
-
-
-
 \subsection{apt——高级软件包管理工具}
 apt（Advanced Package Tool）工具可以完成所有的软件包的管理工作，包括维护系统中的软件包数据库、自动检查软件包依赖关系、安装和升级软件包、从软件源镜像站点主动获取相关软件包等。apt确切地说是一组命令的组合，这些命令组合又有若干参数，这样来完成各种工作。
 \begin{itemize}
@@ -120,6 +74,55 @@ apt（Advanced Package Tool）工具可以完成所有的软件包的管理工�
 		\item \verb|apt-cache rdepends package|， 查看该包被哪些包依赖
 	\end{itemize}
 \end{itemize}
+
+
+
+\subsection{dpkg——底层软件包管理工具}
+dpkg是Ubuntu软件包管理工具的基础，使用dpkg工具可以实现软件包的安装、卸载、查询、编译，以及打包应用程序等功能。但是由于当时受到互联网条件的制约，以及设计时忽视了DEB软件包之间复杂的依赖关系，所以dpkg工具无法自动解决DEB软件包之间的依赖关系。
+
+dpkg命令格式如下：
+
+\verb|dpkg [ -i | -r | -P | -l | -L | -s | -S ] packagefilename|
+
+这里只列出常用的，详细说明见手册（\verb|man dpkg|），选项说明如下：
+\begin{itemize}
+\item -i 安装软件包
+
+\item -r卸载软件包，但不删除软件包的配置文件
+
+\item -P完全卸载软件包，包括所有相关配置文件
+
+\item -l查看当前系统中已安装软件包的信息
+
+\item -L查看当前系统中指定软件包的所安装的相关文件
+
+\item -s查询已安装的指定软件包的详细信息
+
+\item -S查询系统中某个文件所属的软件包
+\end{itemize}
+
+具体应用实例：
+\begin{itemize}
+\item 安装软件包\quad
+\verb*|$sudo dpkg -i packagename.deb|
+
+\item 卸载已安装的软件包\quad
+\verb*|$sudo dpkg -r packagename|
+
+\item 查看软件包所包含的内容\quad
+\verb*|$sudo dpkg -c packagename.deb|
+\end{itemize}
+
+
+
+\subsection{alien——软件包转换工具}
+alien软件包格式转换工具是一种转换软件包格式的专业工具，支持多种linux软件包格式之间的转换。
+
+使用alien工具将RPM包转换为DEB软件包。转换后的软件包可以使用dpkg进行安装，具体操作如下：
+
+\verb|sudo alien mplayer-1.0.6-i386.rpm|
+
+
 
 
 
