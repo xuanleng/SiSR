@@ -150,6 +150,20 @@ ssh免密推送
 \end{itemize}
 
 
+\subsection{主分支合并}
+Step 1: From your project repository, check out a new branch and test the changes.
+
+git checkout -b Limingtan11-master master
+
+git pull https://github.com/Limingtan11/SiSR.git master
+
+Step 2: Merge the changes and update on GitHub.
+
+git checkout master
+
+git merge --no-ff Limingtan11-master
+
+git push origin master
 
 
 
