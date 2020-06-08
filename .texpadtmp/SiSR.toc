@@ -28,7 +28,7 @@
 \contentsline {section}{\numberline {1.6}远程仓库Github}{11}{section.1.6}%
 \contentsline {subsection}{\numberline {1.6.1}创建远程仓库}{11}{subsection.1.6.1}%
 \contentsline {subsection}{\numberline {1.6.2}推送到远程仓库}{11}{subsection.1.6.2}%
-\contentsline {subsection}{\numberline {1.6.3}远程仓库合并}{11}{subsection.1.6.3}%
+\contentsline {subsection}{\numberline {1.6.3}拉取和获取远程仓库}{11}{subsection.1.6.3}%
 \contentsline {chapter}{\numberline {2}\LaTeX {}——编译型文档排版系统}{13}{chapter.2}%
 \contentsline {section}{\numberline {2.1}学习参考资料}{13}{section.2.1}%
 \contentsline {section}{\numberline {2.2}基本思想和历史}{13}{section.2.2}%
