@@ -1,0 +1,600 @@
+\contentsline {chapter}{前言}{1}{chapter*.2}%
+\contentsline {section}{文档定位：工欲善其事，必先利其器}{1}{section*.3}%
+\contentsline {section}{组织形式}{1}{Item.4}%
+\contentsline {section}{历任主副编}{1}{Item.6}%
+\contentsline {section}{经历分享}{1}{Item.6}%
+\contentsline {subsection}{2012——前言一}{1}{section*.4}%
+\contentsline {subsection}{2014——前言二}{2}{section*.4}%
+\contentsline {subsection}{2020——前言三}{2}{section*.4}%
+\contentsline {subsection}{2014.7.30——Ubuntu和Win7双系统安装最终解决之道}{2}{section*.4}%
+\contentsline {subsection}{2014.9.11——双显卡驱动最终解决之道}{3}{section*.4}%
+\contentsline {subsection}{2014.10.15——又进不了系统了}{4}{section*.4}%
+\contentsline {subsection}{2020.04.27——好久没这么折腾了}{4}{section*.4}%
+\contentsline {section}{第一次推送打卡}{5}{section*.4}%
+\contentsline {part}{第零部分\hspace {1em}入门必备}{7}{part.0}%
+\contentsline {chapter}{\numberline {1}Git——程序和文档的版本管理}{9}{chapter.1}%
+\contentsline {section}{\numberline {1.1}学习参考资料}{9}{section.1.1}%
+\contentsline {section}{\numberline {1.2}推荐的学习步骤与目标}{9}{section.1.2}%
+\contentsline {section}{\numberline {1.3}基本思想和历史}{9}{section.1.3}%
+\contentsline {section}{\numberline {1.4}软件安装}{10}{section.1.4}%
+\contentsline {subsection}{\numberline {1.4.1}Linux版本安装}{10}{subsection.1.4.1}%
+\contentsline {subsection}{\numberline {1.4.2}Windows版本安装}{10}{subsection.1.4.2}%
+\contentsline {section}{\numberline {1.5}配置与操作}{10}{section.1.5}%
+\contentsline {subsection}{\numberline {1.5.1}初始化}{10}{subsection.1.5.1}%
+\contentsline {subsection}{\numberline {1.5.2}提交}{10}{subsection.1.5.2}%
+\contentsline {subsection}{\numberline {1.5.3}版本穿梭}{10}{subsection.1.5.3}%
+\contentsline {subsection}{\numberline {1.5.4}比较文件差异}{10}{subsection.1.5.4}%
+\contentsline {subsection}{\numberline {1.5.5}分支管理}{11}{subsection.1.5.5}%
+\contentsline {section}{\numberline {1.6}远程仓库Github}{11}{section.1.6}%
+\contentsline {subsection}{\numberline {1.6.1}创建远程仓库}{11}{subsection.1.6.1}%
+\contentsline {subsection}{\numberline {1.6.2}推送到远程仓库}{11}{subsection.1.6.2}%
+\contentsline {subsection}{\numberline {1.6.3}远程仓库合并}{11}{subsection.1.6.3}%
+\contentsline {chapter}{\numberline {2}\LaTeX {}——编译型文档排版系统}{13}{chapter.2}%
+\contentsline {section}{\numberline {2.1}学习参考资料}{13}{section.2.1}%
+\contentsline {section}{\numberline {2.2}基本思想和历史}{13}{section.2.2}%
+\contentsline {section}{\numberline {2.3}主体发行版——\TeX {} Live }{13}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Win10下安装}{13}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Ubuntu下安装}{14}{subsection.2.3.2}%
+\contentsline {paragraph}{(a)文字界面安装}{14}{subsection.2.3.2}%
+\contentsline {paragraph}{（b）图形界面安装}{14}{subsection.2.3.2}%
+\contentsline {section}{\numberline {2.4}Texworks}{15}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}安装}{15}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}简述}{15}{subsection.2.4.2}%
+\contentsline {subsection}{\numberline {2.4.3}环境类}{16}{subsection.2.4.3}%
+\contentsline {subsection}{\numberline {2.4.4}字体}{16}{subsection.2.4.4}%
+\contentsline {subsection}{\numberline {2.4.5}希腊字母类}{17}{subsection.2.4.5}%
+\contentsline {subsection}{\numberline {2.4.6}章节命令}{17}{subsection.2.4.6}%
+\contentsline {subsection}{\numberline {2.4.7}参考文献}{17}{subsection.2.4.7}%
+\contentsline {subsection}{\numberline {2.4.8}杂项与普通命令}{17}{subsection.2.4.8}%
+\contentsline {chapter}{\numberline {3}科研入门技能及心得}{19}{chapter.3}%
+\contentsline {section}{\numberline {3.1}科研导师的选择}{19}{section.3.1}%
+\contentsline {section}{\numberline {3.2}一些该注册的}{19}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Gmail}{19}{subsection.3.2.1}%
+\contentsline {section}{\numberline {3.3}科研资源}{19}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Google学术——文献检索与推送}{19}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Zotero——免费文献管理工具}{19}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Recoll——Pdf批量全文搜索工具}{20}{section.3.6}%
+\contentsline {section}{\numberline {3.7}自然科学论文写作}{20}{section.3.7}%
+\contentsline {subsection}{\numberline {3.7.1}摘要（Abstract）}{20}{subsection.3.7.1}%
+\contentsline {subsection}{\numberline {3.7.2}引言（Introduction）}{20}{subsection.3.7.2}%
+\contentsline {section}{\numberline {3.8}PPT}{20}{section.3.8}%
+\contentsline {part}{第一部分\hspace {1em}Ubuntu}{21}{part.1}%
+\contentsline {chapter}{\numberline {4}基本概念}{23}{chapter.4}%
+\contentsline {section}{\numberline {4.1}软件包及软件仓库}{23}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Ubuntu软件包}{23}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}软件仓库（软件源）}{23}{subsection.4.1.2}%
+\contentsline {section}{\numberline {4.2}Ubuntu实用工具}{24}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}apt——高级软件包管理工具}{24}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}dpkg——底层软件包管理工具}{25}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}alien——软件包转换工具}{25}{subsection.4.2.3}%
+\contentsline {chapter}{\numberline {5}安装及软件应用}{27}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Ubuntu Desktop}{27}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}下载}{27}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}安装}{27}{subsection.5.1.2}%
+\contentsline {section}{\numberline {5.2}Fcitx}{27}{section.5.2}%
+\contentsline {section}{\numberline {5.3}uGet下载工具}{28}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Virtualbox}{28}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}安装virtualbox}{28}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.2}创建虚拟机}{28}{subsection.5.4.2}%
+\contentsline {subsection}{\numberline {5.4.3}为虚拟机启用USB设备}{28}{subsection.5.4.3}%
+\contentsline {subsection}{\numberline {5.4.4}添加增强功能}{29}{subsection.5.4.4}%
+\contentsline {subsection}{\numberline {5.4.5}遇到的问题}{29}{subsection.5.4.5}%
+\contentsline {section}{\numberline {5.5}Gnuplot}{29}{section.5.5}%
+\contentsline {subsection}{\numberline {5.5.1}安装}{29}{subsection.5.5.1}%
+\contentsline {subsection}{\numberline {5.5.2}文件设置}{30}{subsection.5.5.2}%
+\contentsline {subsubsection}{\numberline {5.5.2.1}设置数据分隔符}{30}{subsubsection.5.5.2.1}%
+\contentsline {subsubsection}{\numberline {5.5.2.2}重命名数据文件}{31}{subsubsection.5.5.2.2}%
+\contentsline {subsection}{\numberline {5.5.3}图片设置}{31}{subsection.5.5.3}%
+\contentsline {subsubsection}{\numberline {5.5.3.1}设置输出图片格式和名称}{31}{subsubsection.5.5.3.1}%
+\contentsline {subsubsection}{\numberline {5.5.3.2}设置图片/字体大小}{32}{subsubsection.5.5.3.2}%
+\contentsline {subsubsection}{\numberline {5.5.3.3}设置图片标题}{32}{subsubsection.5.5.3.3}%
+\contentsline {subsubsection}{\numberline {5.5.3.4}设置图注}{32}{subsubsection.5.5.3.4}%
+\contentsline {subsection}{\numberline {5.5.4}坐标轴设置}{33}{subsection.5.5.4}%
+\contentsline {subsubsection}{\numberline {5.5.4.1}设置/取消坐标名称}{33}{subsubsection.5.5.4.1}%
+\contentsline {subsubsection}{\numberline {5.5.4.2}设置坐标轴范围}{33}{subsubsection.5.5.4.2}%
+\contentsline {subsubsection}{\numberline {5.5.4.3}设置坐标轴标识}{34}{subsubsection.5.5.4.3}%
+\contentsline {subsection}{\numberline {5.5.5}代码示例}{34}{subsection.5.5.5}%
+\contentsline {subsubsection}{\numberline {5.5.5.1}一维绘图图}{34}{subsubsection.5.5.5.1}%
+\contentsline {subsubsection}{\numberline {5.5.5.2}二维三维绘图}{35}{subsubsection.5.5.5.2}%
+\contentsline {section}{\numberline {5.6}Intel Fortran}{40}{section.5.6}%
+\contentsline {subsection}{\numberline {5.6.1}编译器的获取}{40}{subsection.5.6.1}%
+\contentsline {subsection}{\numberline {5.6.2}编译器的安装}{40}{subsection.5.6.2}%
+\contentsline {section}{\numberline {5.7}远程登录服务器——ssh}{40}{section.5.7}%
+\contentsline {subsection}{\numberline {5.7.1}服务端}{41}{subsection.5.7.1}%
+\contentsline {subsection}{\numberline {5.7.2}用户端}{41}{subsection.5.7.2}%
+\contentsline {subsection}{\numberline {5.7.3}远程文件传输}{41}{subsection.5.7.3}%
+\contentsline {subsubsection}{\numberline {5.7.3.1}scp}{41}{subsubsection.5.7.3.1}%
+\contentsline {subsubsection}{\numberline {5.7.3.2}sftp}{42}{subsubsection.5.7.3.2}%
+\contentsline {subsection}{\numberline {5.7.4}解决ssh的``Write failed: Broken pipe"问题}{43}{subsection.5.7.4}%
+\contentsline {section}{\numberline {5.8}Linux作业管理系统——PBS}{43}{section.5.8}%
+\contentsline {subsection}{\numberline {5.8.1}Ubuntu14.04安装配置Torque}{43}{subsection.5.8.1}%
+\contentsline {subsection}{\numberline {5.8.2}重要说明}{48}{subsection.5.8.2}%
+\contentsline {subsection}{\numberline {5.8.3}PBS命令}{48}{subsection.5.8.3}%
+\contentsline {subsection}{\numberline {5.8.4}PBS 脚本文件}{49}{subsection.5.8.4}%
+\contentsline {subsection}{\numberline {5.8.5}设置最大队列数}{50}{subsection.5.8.5}%
+\contentsline {section}{\numberline {5.9}Linux 作业管理系统——LSF}{51}{section.5.9}%
+\contentsline {subsection}{\numberline {5.9.1}常用命令}{51}{subsection.5.9.1}%
+\contentsline {section}{\numberline {5.10}Gvim的使用}{51}{section.5.10}%
+\contentsline {subsection}{\numberline {5.10.1}常用配置}{51}{subsection.5.10.1}%
+\contentsline {subsection}{\numberline {5.10.2}常用命令}{52}{subsection.5.10.2}%
+\contentsline {subsection}{\numberline {5.10.3}一般模式(命令模式)}{52}{subsection.5.10.3}%
+\contentsline {paragraph}{打开文件、保存、关闭文件}{52}{subsection.5.10.3}%
+\contentsline {paragraph}{常用光标移动命令}{52}{subsection.5.10.3}%
+\contentsline {paragraph}{搜索与替换}{52}{subsection.5.10.3}%
+\contentsline {paragraph}{删除、复制与粘贴}{52}{subsection.5.10.3}%
+\contentsline {subsection}{\numberline {5.10.4}编辑模式}{53}{subsection.5.10.4}%
+\contentsline {subsection}{\numberline {5.10.5}vim中使用系统粘贴板}{53}{subsection.5.10.5}%
+\contentsline {chapter}{\numberline {6}操作配置}{55}{chapter.6}%
+\contentsline {section}{\numberline {6.1}快捷键}{55}{section.6.1}%
+\contentsline {section}{\numberline {6.2}root身份登入}{55}{section.6.2}%
+\contentsline {section}{\numberline {6.3}gedit 中文乱码的问题}{55}{section.6.3}%
+\contentsline {section}{\numberline {6.4}修改 host 文件}{55}{section.6.4}%
+\contentsline {section}{\numberline {6.5}Linux下查看文件编码及修改编码}{56}{section.6.5}%
+\contentsline {subsection}{\numberline {6.5.1}查看文件编码}{56}{subsection.6.5.1}%
+\contentsline {subsection}{\numberline {6.5.2}文件编码转换}{56}{subsection.6.5.2}%
+\contentsline {subsection}{\numberline {6.5.3}文件名编码转换}{57}{subsection.6.5.3}%
+\contentsline {section}{\numberline {6.6}字体}{57}{section.6.6}%
+\contentsline {section}{\numberline {6.7}中文字号制与点数制}{58}{section.6.7}%
+\contentsline {section}{\numberline {6.8}Win7+Ubuntu双系统时间不一致}{58}{section.6.8}%
+\contentsline {section}{\numberline {6.9}Ubuntu 开机让数字小键盘灯起来 }{59}{section.6.9}%
+\contentsline {section}{\numberline {6.10}Ubuntu安装完找不到Windows了}{59}{section.6.10}%
+\contentsline {section}{\numberline {6.11}Chromium 浏览器 flash 插件问题}{60}{section.6.11}%
+\contentsline {section}{\numberline {6.12}Chromium 浏览器插件管理}{60}{section.6.12}%
+\contentsline {section}{\numberline {6.13}右键打开当前路径下的终端}{60}{section.6.13}%
+\contentsline {section}{\numberline {6.14}pdf的剪切、合并、裁边}{60}{section.6.14}%
+\contentsline {subsection}{\numberline {6.14.1}pdf合并}{61}{subsection.6.14.1}%
+\contentsline {subsection}{\numberline {6.14.2}pdftk}{61}{subsection.6.14.2}%
+\contentsline {subsection}{\numberline {6.14.3}pdf裁边}{62}{subsection.6.14.3}%
+\contentsline {subsection}{\numberline {6.14.4}pdf转eps}{62}{subsection.6.14.4}%
+\contentsline {subsection}{\numberline {6.14.5}eps转pdf}{62}{subsection.6.14.5}%
+\contentsline {subsection}{\numberline {6.14.6}pdf转图片}{62}{subsection.6.14.6}%
+\contentsline {section}{\numberline {6.15}合并或复制用户到新的系统}{63}{section.6.15}%
+\contentsline {part}{第二部分\hspace {1em}Linux}{65}{part.2}%
+\contentsline {chapter}{\numberline {7}Linux基本概念}{67}{chapter.7}%
+\contentsline {section}{\numberline {7.1}学习及参考资料}{67}{section.7.1}%
+\contentsline {section}{\numberline {7.2}发音}{67}{section.7.2}%
+\contentsline {section}{\numberline {7.3}来源}{67}{section.7.3}%
+\contentsline {section}{\numberline {7.4}发行版}{67}{section.7.4}%
+\contentsline {section}{\numberline {7.5}系统目录结构}{68}{section.7.5}%
+\contentsline {section}{\numberline {7.6}文件属性}{74}{section.7.6}%
+\contentsline {section}{\numberline {7.7}文件类型}{74}{section.7.7}%
+\contentsline {section}{\numberline {7.8}库文件}{75}{section.7.8}%
+\contentsline {subsection}{\numberline {7.8.1}什么是Linux库}{75}{subsection.7.8.1}%
+\contentsline {subsection}{\numberline {7.8.2}库的种类}{75}{subsection.7.8.2}%
+\contentsline {subsection}{\numberline {7.8.3}库存在的意义}{76}{subsection.7.8.3}%
+\contentsline {subsection}{\numberline {7.8.4}库文件是如何产生的}{76}{subsection.7.8.4}%
+\contentsline {subsection}{\numberline {7.8.5}Linux .o a .so .la .lo的区别}{76}{subsection.7.8.5}%
+\contentsline {subsection}{\numberline {7.8.6}库文件命名规范}{77}{subsection.7.8.6}%
+\contentsline {subsection}{\numberline {7.8.7}如何知道一个可执行程序依赖哪些库}{77}{subsection.7.8.7}%
+\contentsline {subsection}{\numberline {7.8.8}可执行程序在执行的时候如何定位共享库文件}{77}{subsection.7.8.8}%
+\contentsline {subsection}{\numberline {7.8.9}在新安装一个库之后如何让系统能够找到他}{77}{subsection.7.8.9}%
+\contentsline {section}{\numberline {7.9}Linux编译使用链接库}{78}{section.7.9}%
+\contentsline {subsection}{\numberline {7.9.1}-l和-L参数}{78}{subsection.7.9.1}%
+\contentsline {subsection}{\numberline {7.9.2}-include和-I参数}{79}{subsection.7.9.2}%
+\contentsline {subsection}{\numberline {7.9.3}-O参数}{79}{subsection.7.9.3}%
+\contentsline {section}{\numberline {7.10}图形界面还是命令行界面}{79}{section.7.10}%
+\contentsline {section}{\numberline {7.11}路径的概念}{80}{section.7.11}%
+\contentsline {subsection}{\numberline {7.11.1}命令查找顺序}{80}{subsection.7.11.1}%
+\contentsline {section}{\numberline {7.12}环境变量}{80}{section.7.12}%
+\contentsline {subsection}{\numberline {7.12.1}什么是环境变量}{80}{subsection.7.12.1}%
+\contentsline {subsection}{\numberline {7.12.2}查看环境变量——env}{81}{subsection.7.12.2}%
+\contentsline {subsection}{\numberline {7.12.3}查看所有变量——set}{82}{subsection.7.12.3}%
+\contentsline {subsection}{\numberline {7.12.4}设置环境变量——export}{83}{subsection.7.12.4}%
+\contentsline {subsection}{\numberline {7.12.5}设置PATH环境变量}{84}{subsection.7.12.5}%
+\contentsline {subsection}{\numberline {7.12.6}取消环境变量}{84}{subsection.7.12.6}%
+\contentsline {section}{\numberline {7.13}用户和组}{84}{section.7.13}%
+\contentsline {subsection}{\numberline {7.13.1}用户和组的概念}{84}{subsection.7.13.1}%
+\contentsline {subsection}{\numberline {7.13.2}/etc/passwd文件}{86}{subsection.7.13.2}%
+\contentsline {subsection}{\numberline {7.13.3}/etc/group文件}{87}{subsection.7.13.3}%
+\contentsline {section}{\numberline {7.14}一些注意}{90}{section.7.14}%
+\contentsline {section}{\numberline {7.15}名词解释}{90}{section.7.15}%
+\contentsline {chapter}{\numberline {8}Linux命令}{91}{chapter.8}%
+\contentsline {section}{\numberline {8.1}命令行环境及命令格式}{91}{section.8.1}%
+\contentsline {subsection}{\numberline {8.1.1}通配符}{91}{subsection.8.1.1}%
+\contentsline {subsection}{\numberline {8.1.2}管道符}{91}{subsection.8.1.2}%
+\contentsline {subsection}{\numberline {8.1.3}作业控制}{91}{subsection.8.1.3}%
+\contentsline {section}{\numberline {8.2}获得帮助的命令}{91}{section.8.2}%
+\contentsline {subsection}{\numberline {8.2.1}help}{91}{subsection.8.2.1}%
+\contentsline {subsection}{\numberline {8.2.2}man}{92}{subsection.8.2.2}%
+\contentsline {section}{\numberline {8.3}文件和目录管理命令}{92}{section.8.3}%
+\contentsline {subsection}{\numberline {8.3.1}cd——改变当前路径的命令}{92}{subsection.8.3.1}%
+\contentsline {subsection}{\numberline {8.3.2}pwd——查看当前路径命令}{92}{subsection.8.3.2}%
+\contentsline {subsection}{\numberline {8.3.3}ls——列出文件清单命令}{93}{subsection.8.3.3}%
+\contentsline {subsection}{\numberline {8.3.4}tar——解压、压缩命令}{93}{subsection.8.3.4}%
+\contentsline {subsection}{\numberline {8.3.5}chmod——修改权限命令}{94}{subsection.8.3.5}%
+\contentsline {subsubsection}{\numberline {8.3.5.1}文字设定法}{94}{subsubsection.8.3.5.1}%
+\contentsline {subsubsection}{\numberline {8.3.5.2}数字设定法}{94}{subsubsection.8.3.5.2}%
+\contentsline {subsection}{\numberline {8.3.6}chgrp——修改文件或目录所属组的命令}{95}{subsection.8.3.6}%
+\contentsline {subsection}{\numberline {8.3.7}chown——修改文件或目录所属主的命令}{95}{subsection.8.3.7}%
+\contentsline {subsection}{\numberline {8.3.8}mkdir——创建目录命令}{95}{subsection.8.3.8}%
+\contentsline {subsection}{\numberline {8.3.9}rmdir——删除空目录命令}{95}{subsection.8.3.9}%
+\contentsline {subsection}{\numberline {8.3.10}mv——移动或更名现有的文件或目录}{96}{subsection.8.3.10}%
+\contentsline {subsection}{\numberline {8.3.11}rm——删除文件（目录）命令}{96}{subsection.8.3.11}%
+\contentsline {subsection}{\numberline {8.3.12}cp——复制命令}{96}{subsection.8.3.12}%
+\contentsline {section}{\numberline {8.4}查看命令}{97}{section.8.4}%
+\contentsline {subsection}{\numberline {8.4.1}man——查看命令手册}{97}{subsection.8.4.1}%
+\contentsline {subsection}{\numberline {8.4.2}file——检测文件类型}{97}{subsection.8.4.2}%
+\contentsline {section}{\numberline {8.5}文本处理命令}{97}{section.8.5}%
+\contentsline {subsection}{\numberline {8.5.1}awk}{97}{subsection.8.5.1}%
+\contentsline {subsubsection}{\numberline {8.5.1.1}awk常用内置变量}{97}{subsubsection.8.5.1.1}%
+\contentsline {subsubsection}{\numberline {8.5.1.2}awk统计命令}{97}{subsubsection.8.5.1.2}%
+\contentsline {subsection}{\numberline {8.5.2}grep}{98}{subsection.8.5.2}%
+\contentsline {subsection}{\numberline {8.5.3}tr}{99}{subsection.8.5.3}%
+\contentsline {subsection}{\numberline {8.5.4}cut}{100}{subsection.8.5.4}%
+\contentsline {subsection}{\numberline {8.5.5}wc}{101}{subsection.8.5.5}%
+\contentsline {subsection}{\numberline {8.5.6}sed}{101}{subsection.8.5.6}%
+\contentsline {subsubsection}{\numberline {8.5.6.1}sed删除行首行尾空格和Tab}{104}{subsubsection.8.5.6.1}%
+\contentsline {section}{\numberline {8.6}输出命令}{104}{section.8.6}%
+\contentsline {subsection}{\numberline {8.6.1}echo}{104}{subsection.8.6.1}%
+\contentsline {subsection}{\numberline {8.6.2}printf}{105}{subsection.8.6.2}%
+\contentsline {section}{\numberline {8.7}系统配置管理命令}{107}{section.8.7}%
+\contentsline {subsection}{\numberline {8.7.1}date}{107}{subsection.8.7.1}%
+\contentsline {subsection}{\numberline {8.7.2}source}{109}{subsection.8.7.2}%
+\contentsline {subsection}{\numberline {8.7.3}export}{109}{subsection.8.7.3}%
+\contentsline {subsection}{\numberline {8.7.4}ulimit}{109}{subsection.8.7.4}%
+\contentsline {subsection}{\numberline {8.7.5}history}{109}{subsection.8.7.5}%
+\contentsline {subsection}{\numberline {8.7.6}basename}{109}{subsection.8.7.6}%
+\contentsline {subsection}{\numberline {8.7.7}passwd——更改密码命令}{110}{subsection.8.7.7}%
+\contentsline {subsection}{\numberline {8.7.8}iconv——文本编码转换命令}{110}{subsection.8.7.8}%
+\contentsline {subsection}{\numberline {8.7.9}ulimit命令}{111}{subsection.8.7.9}%
+\contentsline {section}{\numberline {8.8}Makefile}{111}{section.8.8}%
+\contentsline {subsection}{\numberline {8.8.1}make命令的基本用法}{112}{subsection.8.8.1}%
+\contentsline {chapter}{\numberline {9}Shell \& Shell Script}{115}{chapter.9}%
+\contentsline {section}{\numberline {9.1}什么是Shell}{115}{section.9.1}%
+\contentsline {section}{\numberline {9.2}常见的Shell}{115}{section.9.2}%
+\contentsline {section}{\numberline {9.3}Shell的特性}{116}{section.9.3}%
+\contentsline {section}{\numberline {9.4}Bash Shell的内建命令}{117}{section.9.4}%
+\contentsline {section}{\numberline {9.5}Bash的进站与欢迎信息}{117}{section.9.5}%
+\contentsline {section}{\numberline {9.6}Shell的配置文件}{118}{section.9.6}%
+\contentsline {subsection}{\numberline {9.6.1}login与non-login Shell}{118}{subsection.9.6.1}%
+\contentsline {subsection}{\numberline {9.6.2}/etc/profile}{118}{subsection.9.6.2}%
+\contentsline {subsection}{\numberline {9.6.3}$\sim $/.bash\_profile、$\sim $/.bash\_login和$\sim $/.profile}{119}{subsection.9.6.3}%
+\contentsline {subsection}{\numberline {9.6.4}$\sim $/.bashrc}{119}{subsection.9.6.4}%
+\contentsline {subsection}{\numberline {9.6.5}其他相关配置文件}{119}{subsection.9.6.5}%
+\contentsline {section}{\numberline {9.7}通配符与特殊符号}{120}{section.9.7}%
+\contentsline {subsection}{\numberline {9.7.1}``～''后缀的文件}{121}{subsection.9.7.1}%
+\contentsline {subsection}{\numberline {9.7.2}反斜杠}{121}{subsection.9.7.2}%
+\contentsline {section}{\numberline {9.8}什么是Shell脚本}{121}{section.9.8}%
+\contentsline {subsection}{\numberline {9.8.1}Shell 脚本的第一行}{123}{subsection.9.8.1}%
+\contentsline {subsection}{\numberline {9.8.2}Shell脚本的执行}{124}{subsection.9.8.2}%
+\contentsline {subsection}{\numberline {9.8.3}Shell脚本的注释}{125}{subsection.9.8.3}%
+\contentsline {subsection}{\numberline {9.8.4}Shell脚本的文件包含}{125}{subsection.9.8.4}%
+\contentsline {section}{\numberline {9.9}输入输出重定向}{126}{section.9.9}%
+\contentsline {subsection}{\numberline {9.9.1}输出重定向}{126}{subsection.9.9.1}%
+\contentsline {subsection}{\numberline {9.9.2}输入重定向}{127}{subsection.9.9.2}%
+\contentsline {subsection}{\numberline {9.9.3}重定向深入讲解}{127}{subsection.9.9.3}%
+\contentsline {subsection}{\numberline {9.9.4}Here Document}{128}{subsection.9.9.4}%
+\contentsline {subsection}{\numberline {9.9.5}/dev/null文件}{129}{subsection.9.9.5}%
+\contentsline {section}{\numberline {9.10}变量}{130}{section.9.10}%
+\contentsline {subsection}{\numberline {9.10.1}定义变量}{130}{subsection.9.10.1}%
+\contentsline {subsection}{\numberline {9.10.2}使用变量}{130}{subsection.9.10.2}%
+\contentsline {subsection}{\numberline {9.10.3}重新定义变量}{130}{subsection.9.10.3}%
+\contentsline {subsection}{\numberline {9.10.4}只读变量}{131}{subsection.9.10.4}%
+\contentsline {subsection}{\numberline {9.10.5}删除变量}{131}{subsection.9.10.5}%
+\contentsline {subsection}{\numberline {9.10.6}变量类型}{131}{subsection.9.10.6}%
+\contentsline {subsection}{\numberline {9.10.7}特殊变量}{132}{subsection.9.10.7}%
+\contentsline {subsection}{\numberline {9.10.8}键盘读取变量}{133}{subsection.9.10.8}%
+\contentsline {subsection}{\numberline {9.10.9}变量声明}{134}{subsection.9.10.9}%
+\contentsline {section}{\numberline {9.11}替换}{135}{section.9.11}%
+\contentsline {subsection}{\numberline {9.11.1}转义字符}{135}{subsection.9.11.1}%
+\contentsline {subsection}{\numberline {9.11.2}命令替换}{135}{subsection.9.11.2}%
+\contentsline {subsection}{\numberline {9.11.3}变量替换}{136}{subsection.9.11.3}%
+\contentsline {section}{\numberline {9.12}数组}{136}{section.9.12}%
+\contentsline {subsection}{\numberline {9.12.1}定义数组}{137}{subsection.9.12.1}%
+\contentsline {subsection}{\numberline {9.12.2}读取数组}{137}{subsection.9.12.2}%
+\contentsline {subsection}{\numberline {9.12.3}获取数组的长度}{138}{subsection.9.12.3}%
+\contentsline {section}{\numberline {9.13}运算符}{138}{section.9.13}%
+\contentsline {subsection}{\numberline {9.13.1}算术运算}{139}{subsection.9.13.1}%
+\contentsline {subsection}{\numberline {9.13.2}关系运算符}{140}{subsection.9.13.2}%
+\contentsline {subsection}{\numberline {9.13.3}布尔运算符}{142}{subsection.9.13.3}%
+\contentsline {subsection}{\numberline {9.13.4}字符串运算符}{143}{subsection.9.13.4}%
+\contentsline {subsection}{\numberline {9.13.5}文件测试运算符}{144}{subsection.9.13.5}%
+\contentsline {section}{\numberline {9.14}字符串}{145}{section.9.14}%
+\contentsline {section}{\numberline {9.15}条件判断}{146}{section.9.15}%
+\contentsline {subsection}{\numberline {9.15.1}if语句}{146}{subsection.9.15.1}%
+\contentsline {subsection}{\numberline {9.15.2}if 语句中的 -a到-z}{149}{subsection.9.15.2}%
+\contentsline {subsection}{\numberline {9.15.3}case 语句}{150}{subsection.9.15.3}%
+\contentsline {section}{\numberline {9.16}循环}{152}{section.9.16}%
+\contentsline {subsection}{\numberline {9.16.1}for循环}{152}{subsection.9.16.1}%
+\contentsline {subsubsection}{\numberline {9.16.1.1}seq命令}{153}{subsubsection.9.16.1.1}%
+\contentsline {subsection}{\numberline {9.16.2}while循环}{154}{subsection.9.16.2}%
+\contentsline {subsection}{\numberline {9.16.3}until循环}{155}{subsection.9.16.3}%
+\contentsline {subsection}{\numberline {9.16.4}跳出循环}{156}{subsection.9.16.4}%
+\contentsline {subsubsection}{\numberline {9.16.4.1}break命令}{156}{subsubsection.9.16.4.1}%
+\contentsline {subsubsection}{\numberline {9.16.4.2}continue命令}{157}{subsubsection.9.16.4.2}%
+\contentsline {section}{\numberline {9.17}函数}{159}{section.9.17}%
+\contentsline {subsection}{\numberline {9.17.1}函数的定义}{159}{subsection.9.17.1}%
+\contentsline {subsection}{\numberline {9.17.2}函数返回值}{159}{subsection.9.17.2}%
+\contentsline {subsection}{\numberline {9.17.3}函数参数}{160}{subsection.9.17.3}%
+\contentsline {subsection}{\numberline {9.17.4}函数调用}{160}{subsection.9.17.4}%
+\contentsline {subsection}{\numberline {9.17.5}终端调用函数}{161}{subsection.9.17.5}%
+\contentsline {subsection}{\numberline {9.17.6}删除函数}{161}{subsection.9.17.6}%
+\contentsline {chapter}{\numberline {10}Linux的基本操作}{163}{chapter.10}%
+\contentsline {section}{\numberline {10.1}软件安装}{163}{section.10.1}%
+\contentsline {subsection}{\numberline {10.1.1}源代码安装}{163}{subsection.10.1.1}%
+\contentsline {subsection}{\numberline {10.1.2}软件管理工具rpm/dpkg安装}{164}{subsection.10.1.2}%
+\contentsline {subsection}{\numberline {10.1.3}命令行网络在线安装}{165}{subsection.10.1.3}%
+\contentsline {subsection}{\numberline {10.1.4}图形化网络在线安装}{167}{subsection.10.1.4}%
+\contentsline {section}{\numberline {10.2}实用快捷键}{167}{section.10.2}%
+\contentsline {part}{第三部分\hspace {1em}数值方法}{169}{part.3}%
+\contentsline {chapter}{\numberline {11}常微分方程$\frac {dy}{dx}=f(x,y)$的数值解法}{171}{chapter.11}%
+\contentsline {section}{\numberline {11.1}简单数值方法与基本概念}{172}{section.11.1}%
+\contentsline {subsection}{\numberline {11.1.1}欧拉法}{172}{subsection.11.1.1}%
+\contentsline {subsection}{\numberline {11.1.2}后退欧拉法（隐式）}{173}{subsection.11.1.2}%
+\contentsline {subsubsection}{\numberline {11.1.2.1}迭代法对后退欧拉公式求解}{173}{subsubsection.11.1.2.1}%
+\contentsline {subsection}{\numberline {11.1.3}梯形公式（隐式）}{174}{subsection.11.1.3}%
+\contentsline {subsection}{\numberline {11.1.4}改进欧拉法}{174}{subsection.11.1.4}%
+\contentsline {subsection}{\numberline {11.1.5}单步法的局部截断误差与阶}{175}{subsection.11.1.5}%
+\contentsline {subsubsection}{\numberline {11.1.5.1}欧拉法的局部截断误差}{176}{subsubsection.11.1.5.1}%
+\contentsline {subsubsection}{\numberline {11.1.5.2}后退欧拉法局部截断误差}{176}{subsubsection.11.1.5.2}%
+\contentsline {subsubsection}{\numberline {11.1.5.3}梯形法局部截断误差}{177}{subsubsection.11.1.5.3}%
+\contentsline {section}{\numberline {11.2}龙格—库塔法}{177}{section.11.2}%
+\contentsline {subsection}{\numberline {11.2.1}显式龙格-库塔法的一般形式}{177}{subsection.11.2.1}%
+\contentsline {subsection}{\numberline {11.2.2}二阶显式R-K法}{178}{subsection.11.2.2}%
+\contentsline {subsection}{\numberline {11.2.3}三阶显式龙格-库塔法}{180}{subsection.11.2.3}%
+\contentsline {subsection}{\numberline {11.2.4}四阶龙格-库塔法}{181}{subsection.11.2.4}%
+\contentsline {section}{\numberline {11.3}各种方法的应用举例及对比}{181}{section.11.3}%
+\contentsline {subsection}{\numberline {11.3.1}精确解}{181}{subsection.11.3.1}%
+\contentsline {subsection}{\numberline {11.3.2}欧拉法求解}{182}{subsection.11.3.2}%
+\contentsline {subsection}{\numberline {11.3.3}改进欧拉法求解}{183}{subsection.11.3.3}%
+\contentsline {subsection}{\numberline {11.3.4}四阶龙格-库塔法求解}{184}{subsection.11.3.4}%
+\contentsline {section}{\numberline {11.4}四阶龙格库塔法程序}{185}{section.11.4}%
+\contentsline {subsection}{\numberline {11.4.1}四阶龙格库塔法求解一阶微分方程组}{186}{subsection.11.4.1}%
+\contentsline {subsubsection}{\numberline {11.4.1.1}便于编程的形式}{187}{subsubsection.11.4.1.1}%
+\contentsline {subsubsection}{\numberline {11.4.1.2}举例说明}{188}{subsubsection.11.4.1.2}%
+\contentsline {subsection}{\numberline {11.4.2}定步长通用四阶龙格库塔程序}{189}{subsection.11.4.2}%
+\contentsline {subsubsection}{\numberline {11.4.2.1}一个微分方程求解举例}{190}{subsubsection.11.4.2.1}%
+\contentsline {subsubsection}{\numberline {11.4.2.2}微分方程组求解举例}{191}{subsubsection.11.4.2.2}%
+\contentsline {subsection}{\numberline {11.4.3}自适应步长通用四阶龙格库塔程序}{195}{subsection.11.4.3}%
+\contentsline {subsubsection}{\numberline {11.4.3.1}编程思想}{195}{subsubsection.11.4.3.1}%
+\contentsline {chapter}{\numberline {12}堆排序}{199}{chapter.12}%
+\contentsline {section}{\numberline {12.1}堆的定义}{199}{section.12.1}%
+\contentsline {section}{\numberline {12.2}堆的储存}{199}{section.12.2}%
+\contentsline {section}{\numberline {12.3}堆排序的思想}{200}{section.12.3}%
+\contentsline {section}{\numberline {12.4}堆排序实例}{202}{section.12.4}%
+\contentsline {chapter}{\numberline {13}差分进化算法}{205}{chapter.13}%
+\contentsline {section}{\numberline {13.1}背景}{205}{section.13.1}%
+\contentsline {section}{\numberline {13.2}具体步骤}{205}{section.13.2}%
+\contentsline {paragraph}{目的}{205}{section.13.2}%
+\contentsline {paragraph}{定义}{205}{equation.13.2.1}%
+\contentsline {paragraph}{第〇步}{206}{equation.13.2.1}%
+\contentsline {paragraph}{第一步}{206}{equation.13.2.7}%
+\contentsline {paragraph}{第二步}{206}{equation.13.2.8}%
+\contentsline {paragraph}{第三步}{207}{equation.13.2.9}%
+\contentsline {chapter}{\numberline {14}数值计算库}{209}{chapter.14}%
+\contentsline {section}{\numberline {14.1}Intel MKL}{209}{section.14.1}%
+\contentsline {subsection}{\numberline {14.1.1}Intel MKL简介}{209}{subsection.14.1.1}%
+\contentsline {subsection}{\numberline {14.1.2}命名规则}{210}{subsection.14.1.2}%
+\contentsline {subsection}{\numberline {14.1.3}使用心得}{210}{subsection.14.1.3}%
+\contentsline {section}{\numberline {14.2}FFTW}{212}{section.14.2}%
+\contentsline {subsection}{\numberline {14.2.1}FFTW的简介}{212}{subsection.14.2.1}%
+\contentsline {subsection}{\numberline {14.2.2}安装调用}{213}{subsection.14.2.2}%
+\contentsline {subsection}{\numberline {14.2.3}实例}{213}{subsection.14.2.3}%
+\contentsline {section}{\numberline {14.3}BLAS}{214}{section.14.3}%
+\contentsline {subsection}{\numberline {14.3.1}BLAS简介}{214}{subsection.14.3.1}%
+\contentsline {section}{\numberline {14.4}GLS}{214}{section.14.4}%
+\contentsline {subsection}{\numberline {14.4.1}GLS安装过程}{214}{subsection.14.4.1}%
+\contentsline {subsection}{\numberline {14.4.2}使用实例}{215}{subsection.14.4.2}%
+\contentsline {section}{\numberline {14.5}Lapack}{216}{section.14.5}%
+\contentsline {subsection}{\numberline {14.5.1}使用实例}{217}{subsection.14.5.1}%
+\contentsline {section}{\numberline {14.6}anyschroed}{217}{section.14.6}%
+\contentsline {part}{第四部分\hspace {1em}Programming}{219}{part.4}%
+\contentsline {chapter}{\numberline {15}编程日志}{221}{chapter.15}%
+\contentsline {chapter}{\numberline {16}Python}{223}{chapter.16}%
+\contentsline {section}{\numberline {16.1}准备工作}{223}{section.16.1}%
+\contentsline {subsection}{\numberline {16.1.1}安装模块}{223}{subsection.16.1.1}%
+\contentsline {subsection}{\numberline {16.1.2}Ubuntu切换Python3}{223}{subsection.16.1.2}%
+\contentsline {subsection}{\numberline {16.1.3}Python脚本编码设置}{223}{subsection.16.1.3}%
+\contentsline {subsection}{\numberline {16.1.4}设置脚本解释器的版本}{223}{subsection.16.1.4}%
+\contentsline {subsection}{\numberline {16.1.5}脚本的执行}{223}{subsection.16.1.5}%
+\contentsline {section}{\numberline {16.2}Python2.*与Python3.*的主要变化}{224}{section.16.2}%
+\contentsline {subsection}{\numberline {16.2.1}print语句改成print()函数}{224}{subsection.16.2.1}%
+\contentsline {subsection}{\numberline {16.2.2}TypeError: `str' does not support the buffer interface}{225}{subsection.16.2.2}%
+\contentsline {section}{\numberline {16.3}基本语法}{225}{section.16.3}%
+\contentsline {subsection}{\numberline {16.3.1}注释}{225}{subsection.16.3.1}%
+\contentsline {subsection}{\numberline {16.3.2}标识符}{225}{subsection.16.3.2}%
+\contentsline {subsection}{\numberline {16.3.3}保留字符}{225}{subsection.16.3.3}%
+\contentsline {subsection}{\numberline {16.3.4}缩进}{226}{subsection.16.3.4}%
+\contentsline {subsection}{\numberline {16.3.5}多行语句}{226}{subsection.16.3.5}%
+\contentsline {subsection}{\numberline {16.3.6}引号}{226}{subsection.16.3.6}%
+\contentsline {subsection}{\numberline {16.3.7}空行}{227}{subsection.16.3.7}%
+\contentsline {subsection}{\numberline {16.3.8}同一行显示多条语句}{227}{subsection.16.3.8}%
+\contentsline {subsection}{\numberline {16.3.9}多个语句构成代码组}{227}{subsection.16.3.9}%
+\contentsline {section}{\numberline {16.4}变量赋值}{227}{section.16.4}%
+\contentsline {section}{\numberline {16.5}标准数据类型}{228}{section.16.5}%
+\contentsline {subsection}{\numberline {16.5.1}数字}{228}{subsection.16.5.1}%
+\contentsline {subsection}{\numberline {16.5.2}字符串}{229}{subsection.16.5.2}%
+\contentsline {subsubsection}{\numberline {16.5.2.1}转义字符}{230}{subsubsection.16.5.2.1}%
+\contentsline {subsubsection}{\numberline {16.5.2.2}字符串运算符}{230}{subsubsection.16.5.2.2}%
+\contentsline {subsubsection}{\numberline {16.5.2.3}三引号——字符串的抄录}{231}{subsubsection.16.5.2.3}%
+\contentsline {subsubsection}{\numberline {16.5.2.4}Unicode 字符串}{231}{subsubsection.16.5.2.4}%
+\contentsline {subsubsection}{\numberline {16.5.2.5}字符串内建函数}{231}{subsubsection.16.5.2.5}%
+\contentsline {subsection}{\numberline {16.5.3}列表}{232}{subsection.16.5.3}%
+\contentsline {subsubsection}{\numberline {16.5.3.1}更新列表}{232}{subsubsection.16.5.3.1}%
+\contentsline {subsubsection}{\numberline {16.5.3.2}删除列表元素}{233}{subsubsection.16.5.3.2}%
+\contentsline {subsubsection}{\numberline {16.5.3.3}列表操作符}{233}{subsubsection.16.5.3.3}%
+\contentsline {subsubsection}{\numberline {16.5.3.4}列表截取}{234}{subsubsection.16.5.3.4}%
+\contentsline {subsubsection}{\numberline {16.5.3.5}列表内置函数}{234}{subsubsection.16.5.3.5}%
+\contentsline {subsubsection}{\numberline {16.5.3.6}列表方法}{234}{subsubsection.16.5.3.6}%
+\contentsline {subsection}{\numberline {16.5.4}元组}{234}{subsection.16.5.4}%
+\contentsline {subsubsection}{\numberline {16.5.4.1}连接元组}{235}{subsubsection.16.5.4.1}%
+\contentsline {subsubsection}{\numberline {16.5.4.2}删除元组}{236}{subsubsection.16.5.4.2}%
+\contentsline {subsubsection}{\numberline {16.5.4.3}元组运算符}{236}{subsubsection.16.5.4.3}%
+\contentsline {subsubsection}{\numberline {16.5.4.4}元组索引、截取}{236}{subsubsection.16.5.4.4}%
+\contentsline {subsubsection}{\numberline {16.5.4.5}无关闭分隔符}{237}{subsubsection.16.5.4.5}%
+\contentsline {subsubsection}{\numberline {16.5.4.6}元组内置函数}{237}{subsubsection.16.5.4.6}%
+\contentsline {subsection}{\numberline {16.5.5}字典}{237}{subsection.16.5.5}%
+\contentsline {subsubsection}{\numberline {16.5.5.1}字典键的特性}{238}{subsubsection.16.5.5.1}%
+\contentsline {subsubsection}{\numberline {16.5.5.2}修改字典}{238}{subsubsection.16.5.5.2}%
+\contentsline {subsubsection}{\numberline {16.5.5.3}删除字典}{239}{subsubsection.16.5.5.3}%
+\contentsline {subsubsection}{\numberline {16.5.5.4}字典内置函数\&方法}{239}{subsubsection.16.5.5.4}%
+\contentsline {subsection}{\numberline {16.5.6}数据类型转换}{240}{subsection.16.5.6}%
+\contentsline {subsubsection}{\numberline {16.5.6.1}不同类型的数字}{241}{subsubsection.16.5.6.1}%
+\contentsline {section}{\numberline {16.6}输入与输出}{241}{section.16.6}%
+\contentsline {subsection}{\numberline {16.6.1}读取键盘输入}{241}{subsection.16.6.1}%
+\contentsline {subsubsection}{\numberline {16.6.1.1}raw\_input函数}{241}{subsubsection.16.6.1.1}%
+\contentsline {subsubsection}{\numberline {16.6.1.2}input() 函数}{242}{subsubsection.16.6.1.2}%
+\contentsline {subsubsection}{\numberline {16.6.1.3}返回值的算术运算}{242}{subsubsection.16.6.1.3}%
+\contentsline {subsection}{\numberline {16.6.2}输出}{242}{subsection.16.6.2}%
+\contentsline {subsection}{\numberline {16.6.3}格式化输出}{243}{subsection.16.6.3}%
+\contentsline {subsection}{\numberline {16.6.4}格式化输出举例}{244}{subsection.16.6.4}%
+\contentsline {subsubsection}{\numberline {16.6.4.1}格式化输出整数}{245}{subsubsection.16.6.4.1}%
+\contentsline {subsubsection}{\numberline {16.6.4.2}格式化输出16制整数}{245}{subsubsection.16.6.4.2}%
+\contentsline {subsubsection}{\numberline {16.6.4.3}格式化输出浮点数}{245}{subsubsection.16.6.4.3}%
+\contentsline {subsubsection}{\numberline {16.6.4.4}格式化输出字符串}{246}{subsubsection.16.6.4.4}%
+\contentsline {subsection}{\numberline {16.6.5}python读入csv的三种方式}{246}{subsection.16.6.5}%
+\contentsline {section}{\numberline {16.7}文件及目录操作}{246}{section.16.7}%
+\contentsline {subsection}{\numberline {16.7.1}打开和关闭文件}{246}{subsection.16.7.1}%
+\contentsline {subsubsection}{\numberline {16.7.1.1}open函数}{247}{subsubsection.16.7.1.1}%
+\contentsline {subsubsection}{\numberline {16.7.1.2}file 对象的属性}{248}{subsubsection.16.7.1.2}%
+\contentsline {subsubsection}{\numberline {16.7.1.3}close()方法}{248}{subsubsection.16.7.1.3}%
+\contentsline {subsection}{\numberline {16.7.2}读取和写入文件}{249}{subsection.16.7.2}%
+\contentsline {subsubsection}{\numberline {16.7.2.1}write()方法}{249}{subsubsection.16.7.2.1}%
+\contentsline {subsubsection}{\numberline {16.7.2.2}read() 方法}{249}{subsubsection.16.7.2.2}%
+\contentsline {subsubsection}{\numberline {16.7.2.3}文件位置}{250}{subsubsection.16.7.2.3}%
+\contentsline {subsection}{\numberline {16.7.3}重命名和删除文件}{251}{subsection.16.7.3}%
+\contentsline {subsubsection}{\numberline {16.7.3.1}rename()方法}{251}{subsubsection.16.7.3.1}%
+\contentsline {subsubsection}{\numberline {16.7.3.2}remove()方法}{251}{subsubsection.16.7.3.2}%
+\contentsline {subsection}{\numberline {16.7.4}创建和删除目录}{252}{subsection.16.7.4}%
+\contentsline {subsubsection}{\numberline {16.7.4.1}mkdir() 方法}{252}{subsubsection.16.7.4.1}%
+\contentsline {subsubsection}{\numberline {16.7.4.2}chdir() 方法}{252}{subsubsection.16.7.4.2}%
+\contentsline {subsubsection}{\numberline {16.7.4.3}getcwd() 方法}{253}{subsubsection.16.7.4.3}%
+\contentsline {subsubsection}{\numberline {16.7.4.4}rmdir()方法}{253}{subsubsection.16.7.4.4}%
+\contentsline {section}{\numberline {16.8}运算符}{253}{section.16.8}%
+\contentsline {subsection}{\numberline {16.8.1}算术运算符}{254}{subsection.16.8.1}%
+\contentsline {subsection}{\numberline {16.8.2}比较运算符}{254}{subsection.16.8.2}%
+\contentsline {subsection}{\numberline {16.8.3}赋值运算符}{254}{subsection.16.8.3}%
+\contentsline {subsection}{\numberline {16.8.4}位运算符}{255}{subsection.16.8.4}%
+\contentsline {subsection}{\numberline {16.8.5}逻辑运算符}{255}{subsection.16.8.5}%
+\contentsline {subsection}{\numberline {16.8.6}成员运算符}{255}{subsection.16.8.6}%
+\contentsline {subsection}{\numberline {16.8.7}身份运算符}{256}{subsection.16.8.7}%
+\contentsline {subsection}{\numberline {16.8.8}运算符优先级}{257}{subsection.16.8.8}%
+\contentsline {section}{\numberline {16.9}条件语句}{257}{section.16.9}%
+\contentsline {section}{\numberline {16.10}循环语句}{259}{section.16.10}%
+\contentsline {subsection}{\numberline {16.10.1}for循环}{259}{subsection.16.10.1}%
+\contentsline {subsection}{\numberline {16.10.2}while循环}{261}{subsection.16.10.2}%
+\contentsline {subsection}{\numberline {16.10.3}循环嵌套}{263}{subsection.16.10.3}%
+\contentsline {section}{\numberline {16.11}循环控制语句}{264}{section.16.11}%
+\contentsline {subsection}{\numberline {16.11.1}break语句}{264}{subsection.16.11.1}%
+\contentsline {subsection}{\numberline {16.11.2}continue语句}{265}{subsection.16.11.2}%
+\contentsline {subsection}{\numberline {16.11.3}pass语句}{266}{subsection.16.11.3}%
+\contentsline {section}{\numberline {16.12}函数}{267}{section.16.12}%
+\contentsline {subsection}{\numberline {16.12.1}定义函数}{267}{subsection.16.12.1}%
+\contentsline {subsection}{\numberline {16.12.2}函数调用}{267}{subsection.16.12.2}%
+\contentsline {subsection}{\numberline {16.12.3}函数参数}{268}{subsection.16.12.3}%
+\contentsline {subsubsection}{\numberline {16.12.3.1}必备参数}{268}{subsubsection.16.12.3.1}%
+\contentsline {subsubsection}{\numberline {16.12.3.2}命名参数}{269}{subsubsection.16.12.3.2}%
+\contentsline {subsubsection}{\numberline {16.12.3.3}缺省参数}{270}{subsubsection.16.12.3.3}%
+\contentsline {subsubsection}{\numberline {16.12.3.4}不定长参数}{270}{subsubsection.16.12.3.4}%
+\contentsline {subsection}{\numberline {16.12.4}匿名函数}{271}{subsection.16.12.4}%
+\contentsline {subsection}{\numberline {16.12.5}return语句}{272}{subsection.16.12.5}%
+\contentsline {subsection}{\numberline {16.12.6}局部和全局变量}{272}{subsection.16.12.6}%
+\contentsline {subsection}{\numberline {16.12.7}数学常量}{273}{subsection.16.12.7}%
+\contentsline {subsection}{\numberline {16.12.8}数学函数——math模块}{273}{subsection.16.12.8}%
+\contentsline {subsection}{\numberline {16.12.9}随机数函数——random模块}{274}{subsection.16.12.9}%
+\contentsline {section}{\numberline {16.13}模块}{274}{section.16.13}%
+\contentsline {subsection}{\numberline {16.13.1}import语句}{275}{subsection.16.13.1}%
+\contentsline {subsection}{\numberline {16.13.2}from…import 语句}{275}{subsection.16.13.2}%
+\contentsline {subsection}{\numberline {16.13.3}from…import* 语句}{276}{subsection.16.13.3}%
+\contentsline {subsection}{\numberline {16.13.4}定位模块}{276}{subsection.16.13.4}%
+\contentsline {subsection}{\numberline {16.13.5}PYTHONPATH 变量}{276}{subsection.16.13.5}%
+\contentsline {subsection}{\numberline {16.13.6}命名空间和作用域}{276}{subsection.16.13.6}%
+\contentsline {subsection}{\numberline {16.13.7}dir()函数}{277}{subsection.16.13.7}%
+\contentsline {subsection}{\numberline {16.13.8}globals()和locals()函数}{278}{subsection.16.13.8}%
+\contentsline {subsection}{\numberline {16.13.9}reload() 函数}{278}{subsection.16.13.9}%
+\contentsline {subsection}{\numberline {16.13.10} Python中的包}{278}{subsection.16.13.10}%
+\contentsline {section}{\numberline {16.14}面向对象}{279}{section.16.14}%
+\contentsline {subsection}{\numberline {16.14.1}面向对象技术简介}{279}{subsection.16.14.1}%
+\contentsline {subsection}{\numberline {16.14.2}创建类}{280}{subsection.16.14.2}%
+\contentsline {subsubsection}{\numberline {16.14.2.1}实例}{280}{subsubsection.16.14.2.1}%
+\contentsline {subsubsection}{\numberline {16.14.2.2}创建实例对象}{280}{subsubsection.16.14.2.2}%
+\contentsline {subsubsection}{\numberline {16.14.2.3}访问属性}{281}{subsubsection.16.14.2.3}%
+\contentsline {subsubsection}{\numberline {16.14.2.4}完整实例}{281}{subsubsection.16.14.2.4}%
+\contentsline {subsubsection}{\numberline {16.14.2.5}Python内置类属性}{282}{subsubsection.16.14.2.5}%
+\contentsline {subsubsection}{\numberline {16.14.2.6}Python对象销毁(垃圾回收)}{283}{subsubsection.16.14.2.6}%
+\contentsline {subsubsection}{\numberline {16.14.2.7}类的继承}{284}{subsubsection.16.14.2.7}%
+\contentsline {subsubsection}{\numberline {16.14.2.8}方法重写}{286}{subsubsection.16.14.2.8}%
+\contentsline {subsubsection}{\numberline {16.14.2.9}基础重载方法}{286}{subsubsection.16.14.2.9}%
+\contentsline {subsubsection}{\numberline {16.14.2.10}运算符重载}{286}{subsubsection.16.14.2.10}%
+\contentsline {subsubsection}{\numberline {16.14.2.11}类属性与方法}{287}{subsubsection.16.14.2.11}%
+\contentsline {section}{\numberline {16.15}模块学习}{288}{section.16.15}%
+\contentsline {subsection}{\numberline {16.15.1}optparse模块}{288}{subsection.16.15.1}%
+\contentsline {subsection}{\numberline {16.15.2}os模块}{289}{subsection.16.15.2}%
+\contentsline {subsection}{\numberline {16.15.3}sys模块}{291}{subsection.16.15.3}%
+\contentsline {section}{\numberline {16.16}Python 内置特殊函数}{292}{section.16.16}%
+\contentsline {section}{\numberline {16.17}Python 数值计算库NumPy和SciPy}{294}{section.16.17}%
+\contentsline {subsection}{\numberline {16.17.1}文件存取}{294}{subsection.16.17.1}%
+\contentsline {subsubsection}{\numberline {16.17.1.1}说明文档}{294}{subsubsection.16.17.1.1}%
+\contentsline {subsubsection}{\numberline {16.17.1.2}单一数据类型的情况}{296}{subsubsection.16.17.1.2}%
+\contentsline {subsubsection}{\numberline {16.17.1.3}混合数据类型的情况}{297}{subsubsection.16.17.1.3}%
+\contentsline {chapter}{\numberline {17}Markdown}{299}{chapter.17}%
+\contentsline {section}{\numberline {17.1}简介}{299}{section.17.1}%
+\contentsline {section}{\numberline {17.2}段落文字编写}{299}{section.17.2}%
+\contentsline {subsection}{\numberline {17.2.1}空格与断行}{299}{subsection.17.2.1}%
+\contentsline {subsection}{\numberline {17.2.2}斜体与加粗}{299}{subsection.17.2.2}%
+\contentsline {subsection}{\numberline {17.2.3}引用文字}{300}{subsection.17.2.3}%
+\contentsline {subsection}{\numberline {17.2.4}标题}{300}{subsection.17.2.4}%
+\contentsline {subsection}{\numberline {17.2.5}列表}{300}{subsection.17.2.5}%
+\contentsline {section}{\numberline {17.3}超链接}{301}{section.17.3}%
+\contentsline {subsection}{\numberline {17.3.1}行内语法}{301}{subsection.17.3.1}%
+\contentsline {subsection}{\numberline {17.3.2}参考语法}{301}{subsection.17.3.2}%
+\contentsline {section}{\numberline {17.4}插图}{301}{section.17.4}%
+\contentsline {subsection}{\numberline {17.4.1}行内语法}{301}{subsection.17.4.1}%
+\contentsline {subsection}{\numberline {17.4.2}参考语法}{302}{subsection.17.4.2}%
+\contentsline {section}{\numberline {17.5}代码显示}{302}{section.17.5}%
+\contentsline {subsection}{\numberline {17.5.1}行内代码}{302}{subsection.17.5.1}%
+\contentsline {subsection}{\numberline {17.5.2}行间代码}{302}{subsection.17.5.2}%
+\contentsline {section}{\numberline {17.6}$\backslash $的作用}{302}{section.17.6}%
+\contentsline {chapter}{\numberline {18}Fortran}{303}{chapter.18}%
+\contentsline {section}{\numberline {18.1}哑元}{303}{section.18.1}%
+\contentsline {section}{\numberline {18.2}双冒号}{303}{section.18.2}%
+\contentsline {section}{\numberline {18.3}浮点型变量声明的格式}{304}{section.18.3}%
+\contentsline {section}{\numberline {18.4}输入输出的格式命令}{304}{section.18.4}%
+\contentsline {section}{\numberline {18.5}整数转字符串——产生序列文件名}{305}{section.18.5}%
+\contentsline {section}{\numberline {18.6}Fortran格式输出——不换行与换行}{307}{section.18.6}%
+\contentsline {section}{\numberline {18.7}getarg、iargc、trim的用法}{308}{section.18.7}%
+\contentsline {section}{\numberline {18.8}huge}{309}{section.18.8}%
+\contentsline {chapter}{\numberline {19}C\&C++}{311}{chapter.19}%
+\contentsline {section}{\numberline {19.1}Linux下的开源编译器}{311}{section.19.1}%
+\contentsline {section}{\numberline {19.2}数组的下标}{311}{section.19.2}%
+\contentsline {chapter}{\numberline {20}C}{313}{chapter.20}%
+\contentsline {section}{\numberline {20.1}static关键字解析}{313}{section.20.1}%
+\contentsline {section}{\numberline {20.2}文件操作}{314}{section.20.2}%
+\contentsline {subsection}{\numberline {20.2.1}文件的基本概念}{314}{subsection.20.2.1}%
+\contentsline {subsubsection}{\numberline {20.2.1.1}文件}{314}{subsubsection.20.2.1.1}%
+\contentsline {subsubsection}{\numberline {20.2.1.2}文件指针}{315}{subsubsection.20.2.1.2}%
+\contentsline {subsubsection}{\numberline {20.2.1.3}文件的打开与关闭}{315}{subsubsection.20.2.1.3}%
+\contentsline {subsection}{\numberline {20.2.2}fopen函数}{315}{subsection.20.2.2}%
+\contentsline {chapter}{\numberline {21}C++}{317}{chapter.21}%
+\contentsline {section}{\numberline {21.1}文件包含处理\#include}{317}{section.21.1}%
+\contentsline {subsection}{\numberline {21.1.1}文件包含的作用}{317}{subsection.21.1.1}%
+\contentsline {subsection}{\numberline {21.1.2}include命令的两种形式}{317}{subsection.21.1.2}%
+\contentsline {section}{\numberline {21.2}关于C++标准库}{318}{section.21.2}%
+\contentsline {chapter}{\numberline {22}LabVIEW}{319}{chapter.22}%
+\contentsline {section}{\numberline {22.1}注意事项}{319}{section.22.1}%
+\contentsline {section}{\numberline {22.2}快捷键}{319}{section.22.2}%
+\contentsline {section}{\numberline {22.3}基本特性}{319}{section.22.3}%
+\contentsline {subsection}{\numberline {22.3.1}属性节点}{319}{subsection.22.3.1}%
+\contentsline {subsection}{\numberline {22.3.2}事件}{319}{subsection.22.3.2}%
+\contentsline {subsection}{\numberline {22.3.3}子Vi}{319}{subsection.22.3.3}%
+\contentsline {section}{\numberline {22.4}用户界面设计}{319}{section.22.4}%
+\contentsline {section}{\numberline {22.5}调用DLL动态链接库}{322}{section.22.5}%
+\contentsline {subsection}{\numberline {22.5.1}DLL}{322}{subsection.22.5.1}%
+\contentsline {subsection}{\numberline {22.5.2}CLN和CIN节点}{323}{subsection.22.5.2}%
+\contentsline {subsection}{\numberline {22.5.3}LabVIEW调用DLL中的函数以及手动配置CLN节点}{323}{subsection.22.5.3}%
+\contentsline {subsection}{\numberline {22.5.4}把DLL中的函数包装成子VI}{324}{subsection.22.5.4}%
+\contentsline {subsubsection}{\numberline {22.5.4.1}应用举例}{325}{subsubsection.22.5.4.1}%
+\contentsline {subsubsection}{\numberline {22.5.4.2}调用DLL时遇见的问题}{329}{subsubsection.22.5.4.2}%
+\contentsline {section}{\numberline {22.6}NI-DAQmx 数据采集}{332}{section.22.6}%
+\contentsline {subsection}{\numberline {22.6.1}NI-DAQmx简介与安装}{332}{subsection.22.6.1}%
+\contentsline {subsection}{\numberline {22.6.2}MAX及创建NI-DAQmx虚拟设备}{332}{subsection.22.6.2}%
+\contentsline {subsection}{\numberline {22.6.3}DAQ助手}{333}{subsection.22.6.3}%
+\contentsline {subsection}{\numberline {22.6.4}NI-DAQmx VI}{334}{subsection.22.6.4}%
+\contentsline {section}{\numberline {22.7}EMCCD}{335}{section.22.7}%
+\contentsline {subsection}{\numberline {22.7.1}CDD类型简介}{335}{subsection.22.7.1}%
+\contentsline {subsection}{\numberline {22.7.2}EMCCD和ICCD的异同}{337}{subsection.22.7.2}%
+\contentsline {section}{\numberline {22.8}PI-MAX3型CCD LabVIEW参数设置学习}{337}{section.22.8}%
+\contentsline {section}{\numberline {22.9}PI-MAX3光谱采集LabVIEW程序解析}{342}{section.22.9}%
+\contentsline {part}{第五部分\hspace {1em}Parallel computing}{345}{part.5}%
+\contentsline {chapter}{\numberline {23}背景知识}{349}{chapter.23}%
+\contentsline {section}{\numberline {23.1}并行语言}{349}{section.23.1}%
