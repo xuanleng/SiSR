@@ -22,6 +22,7 @@
  	\end{itemize}
 \item Fork本文档 \url{https://github.com/xuanleng/SiSR}，建立本地库
 \item 并推送一条修改。修改内容为：编辑本文档“前言”章节中“第一次推送打卡”小节，记录下自己的第一次推送和感言。
+\item 由于本章节是文档协作之本，希望大家踊跃补充本章节忽视的内容。目标是，在看完推荐视频后，所有不熟悉的git相关操作都能在本章节中找到，不需要再花时间找第三方资料。
 \end{itemize}
 
 
@@ -130,6 +131,24 @@ Git基本概念
 
 
 \section{远程仓库Github}
+\subsection{协作基本流程}
+\begin{enumerate}
+\item  主管人创建主远程仓库。
+\item 协作人克隆主远程仓库，并拉取到本地。
+\item 协作人在本地修改，上传到协作人的克隆远程仓库。
+\item 协作人立即（或积累一定程度后），回到主远程仓库网页上，通过 Github 页面提交 pull requests。
+\begin{itemize}
+\item 首先，找到绿色的 New pull requests 按钮并点击，然后点击图中的 compare across forks；
+\item 选择要提交的内容，通过比较文件差异，确认无误之后，点击绿色的eate pull request 即可。
+\end{itemize}
+\item 主管人在接到推送通知后，首先保证自己本地库与主远程仓库一致，否在合并时仍需回到这一步。
+\item 主管人拉取协作人的远程仓库到本地，形成一个分支。
+\item 主管人合并协作人的分支到主分支上。
+\item 主管人再将合并后的最新版本推送到主远程仓库，至此完成一次协作。
+\end{enumerate}
+注意：无论是创始人还是协作人的远程仓库和本地库，都是相互独立的。
+
+
 \subsection{创建远程仓库}
 
 略！
@@ -141,7 +160,9 @@ Git基本概念
 \item \verb|git push <name> <branch>|：推送分支
 \end{itemize}
 
-ssh免密推送
+\subsubsection{ssh免密推送设置}
+
+
 
 
 \subsection{拉取和获取远程仓库}
