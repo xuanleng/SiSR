@@ -15,7 +15,7 @@
 %\lhead{}
 %\chead{}
 %\rhead{}
-\lfoot{\url{https://github.com/xuanleng/SiSR}}
+\lfoot{\href{https://github.com/xuanleng/SiSR}{工欲善其事，必先利其器}}
 \cfoot{\thepage}
 \rfoot{
 \hyperref[content]{目录}
@@ -86,7 +86,8 @@
 \title{科研中的技能技巧}
 \subtitle{\href{http://lengxuan.me/open-source-project/}{Skills in Scientific Researches}}
 
-\author{\href{xuanleng.me}{冷轩 （第一任）}}
+\author{\href{xuanleng.me}{冷轩 （第一任）}\\
+{\kaishu 项目地址}： \url{https://github.com/xuanleng/SiSR} }
 %\institute{Elegant\LaTeX{} Program}
 \date{\today}
 %\version{3.10}
@@ -172,7 +173,7 @@
 \thispagestyle{empty}
 \vspace*{\stretch{1}}
 \noindent\begin{center}
-{\large 献给那些帮助过我们的人们}
+{\fontsize{20pt}{0}\kaishu 献给那些帮助过我们的人们}
 \end{center} 
 \vspace{\stretch{1}}
 
@@ -180,7 +181,7 @@
 \thispagestyle{empty}
 \vspace*{\stretch{1}}
 \noindent\begin{center}
-工欲善其事，必先利其器
+{\fontsize{20pt}{0}\kaishu 工欲善其事，必先利其器} %70
 \end{center} 
 \vspace{\stretch{1}}
 
@@ -208,7 +209,7 @@
 \addcontentsline{toc}{section}{组织形式}
 \begin{itemize}
 \item 主编制：主要负责文档管理，可以选择多个副主编帮忙管理。不想承担管理时，可以指定新的主编。
-\item 文档结构：前言章节为固定结构，由文档定位、组织形式、历任主副编、经历分享和第一次推送打卡构成。
+\item 文档结构：前言章节为固定结构，由文档定位、组织形式、历任主副编、经历分享和第一次推送打卡等构成。
 \begin{enumerate}
 \item 经历分享：基于文档定位，这是一个避坑文档，所以鼓励大家分享踩坑、脱坑经历，写在经历分享中。
 \item 第一次推送打卡：记录自己的称呼和第一次推送感言。
@@ -269,7 +270,9 @@
 
 失败确实是成功之母。我真的是在屡屡失败之中成长起来的。心态也要锻炼起来，不要起伏波动太大，从容应对。
 
-no zuo no die。 就在写这个的过程中，我又折腾了。在试 nvidia 的显卡驱动，结果图形界面进不去了。好在还有命令行界面，多年的折腾经验告诉我，镇定，要镇定。果断网上搜索，一堆看法。后来想到，卸载nivdia驱动就行了，于是敲入 \verb|sudo apt-get --purge remove nvidia-*| 命令。然后，图形界面又回来了。果断还是用系统默认的显卡驱动吧。
+no zuo no die。 就在写这个的过程中，我又折腾了。在试 nvidia 的显卡驱动，结果图形界面进不去了。好在还有命令行界面，多年的折腾经验告诉我，镇定，要镇定。果断网上搜索，一堆看法。后来想到，卸载nivdia驱动就行了，于是敲入
+sudo apt-get --purge remove nvidia-*
+ 命令。然后，图形界面又回来了。果断还是用系统默认的显卡驱动吧。
 
 做事之前，先做风险评估。尝试固然很好，但要做风险评估。
 
@@ -313,12 +316,28 @@ Win10倒是很快很方便的还原好了，之前有备份系统。在坚果云
 
 \section*{第一次推送打卡}
 \addcontentsline{toc}{section}{第一次推送打卡}
+这里记录自己第一次推送更新的情形和感言。
 \begin{enumerate}
-
 \item 2020-05-26: xuan更新了前言内容，进一步明确了文档目的和组织形式。
 \item 2020-06-08: Liming 初次了解 Git 和 \LaTeX{}，打开文档报错 100 多个，查了 1 个小时才发现实际上只是typesetting engine 的选择和cover文件的路径出问题，第一次推送更新，算是开始正式上路了。
-
 \end{enumerate}
+
+
+\section*{更新日志}
+\addcontentsline{toc}{section}{更新日志}
+这里记录文档的更新日志，需与commit保持一致。
+\begin{enumerate}
+\item 2020-07-05: xuan更新了前言结构，补充了一些细节。
+\end{enumerate}
+
+
+\section*{编辑公告}
+\addcontentsline{toc}{section}{编辑公告}
+\begin{itemize}
+\item 文档是抛砖引玉型，勾勒了很多框架，但没来得及补充具体内容。希望大家能丰富起来～
+\item 为了保持持续更新，编辑至少要在周末做一次内容更新。
+\end{itemize}
+
 
 
 
@@ -338,11 +357,11 @@ Win10倒是很快很方便的还原好了，之前有备份系统。在坚果云
 \part{数值方法}
 \include{chapters/Numerical_analysis}
 
-\part{Programming}
+\part{编程}
 \include{chapters/Python}
 \include{chapters/Programming}
 
-\part{Parallel computing}
+\part{并行计算}
 \include{chapters/Parallel_computing}
 
 
