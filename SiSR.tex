@@ -341,6 +341,22 @@ Win10倒是很快很方便的还原好了，之前有备份系统。在坚果云
 请参考：\url{https://github.com/xuanleng/SiSR/network}
 
 
+\section*{版本比较}
+\addcontentsline{toc}{section}{版本比较}
+为方便展示大家的修改，希望有个版本比较机制。 在 \LaTeX 文档编辑过程中，通常用 latexdiff  命令比较两个文档的差异， 然后编译生成有标注的Pdf文件方便查看差异。但是它无法比较用 \verb|\input| 和 \verb|\include| 插入的子文档。这时可以用 latexpand 的命令来将所有子文件插入到主文件中，默认是屏蔽注释的。同直接使用是没问题的，但是遇到 \verb| %**|
+ 情形会报错，因为 符号 \%的存在。通常用法如下：
+\begin{verbatim}
+ latexpand --verbose --keep-comments SiSR.tex >new-SiSR-fl.tex
+\end{verbatim}
+这样就可以愉快的使用 latexdiff 命令了。
+
+Git记录了不同版本的信息，结合以上功能，我们就可以愉快的比较不同版本的差异了，更方便大家协同写文档。在Gitlab上已经存在相关项目了：
+\url{https://gitlab.com/git-latexdiff/git-latexdiff} 。但是该项目中没有考虑之前提到过的情形，在 
+\url{https://gitlab.com/xuanleng/git-latexdiff} 版本中做了补充，请大家采用后者版本。
+
+
+
+
 \section*{编辑公告}
 \addcontentsline{toc}{section}{编辑公告}
 \begin{itemize}

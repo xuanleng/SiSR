@@ -864,8 +864,6 @@ CIN节点不能调用动态链接库中的函数，只能调用按照特定方�
 
 
 \subsubsection{应用举例}
-转载：\url{http://bbs.ickey.cn/community/forum.php?mod=viewthread&tid=22795&extra%3D}
-
 Labview是一个图形化软件库，不但支持NI官网硬件，还支持众多第三方硬件，这些硬件提供的驱动基本上是DLL的方式，需要在labview里面调用。其实，labview也可以支持自制MCU硬件。只要能提供相应的DLL就行，甚至，如果能在labview和IDE开发环境之间建立接口,一个labview子VI，就可以实现在labview运行状态下，配合MCU仿真器，实现  图形化程序到MCU的下载，脱离了C代码的编写，开发更加快速很方便！
 
      今天为大家分享一个深度调用DLL的方法，为什么是深度调用DLL。因为，调用的不是DLL本身。而是由DLL生成的子VI函数。下面重点分享如何将DLL生成可以被labveiw调用的子VI。
