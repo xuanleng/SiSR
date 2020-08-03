@@ -2,6 +2,7 @@
 [转]\url{http://elegantlatex.org/2014/06/11/markdown-first-start}
 
 在 ubuntu 下可以用 ReText 编辑器。
+在 Mac OS/Windows 下可以用 typora 编辑器。
 
 \section{简介}
 Markdown 的目标是实现「易读易写」。
@@ -1392,6 +1393,89 @@ from the CameraGetDataDim VI.
 
 
 
+\chapter{R}
+
+\section{Install R on Mac}
+直接去官网下载安装即可， \url{https://cran.r-project.org/bin/macosx/}。
+然后去下载免费的代码编辑器 RStudio。
+
+\section{常用的packages}
+
+\subsection{ggplot2}
+\subsection{data.table}
+\subsection{tidyverse}
+\subsection{magritter}
+\subsection{patchwork}
+\subsection{fs}
+\subsection{rvest}
+\subsection{purr}
+\subsection{drake}
+\begin{itemize}
+\item drake$\_$plan: create a workflow data frame
+\item make: build your project
+\item vis$\_$drake$\_$graph: show an interactive visual network representation of your workflow
+\item drake$\_$history: show what you built, when you built in, and the function arguments you used
+\item loadd: load one or more built targets into your R session
+\item readd: read and return a built target
+\item outdated: see which targets will be built in the next make
+\item deps: check the dependencies of a command or function
+\item failed: list the targets that failed to build in the last make
+\item diagnose: return the full context of a build, including errors, warnings, and messages
+\end{itemize}
+
+\subsection{janitor}
+- comment style
+\subsection{httr}
+Use GET function to connect with website and get data from it.
+\subsection{V8}
+
+\section{小贴士}
+\begin{itemize}
+\item never use these two commands in the head of R script
+\begin{itemize}
+\item first (instead use here::here())
+\begin{lstlisting}[language=R]
+setwd("**/**/**")
+\end{lstlisting}
+\item second 
+\begin{lstlisting}[language=R]
+rm(list = ls())
+\end{lstlisting}
+Don't try to change the .Rprofile and affect the data
+\end{itemize}
+
+\item check the loaded packages
+\begin{lstlisting}[language=R]
+(.packages())
+\end{lstlisting}
+
+\item set the working directory
+\begin{lstlisting}[language=R]
+setwd()
+\end{lstlisting}
+I custom the short key in R with \emph{Cmd+Shift+H}.
+
+\item tidy code's formatation
+Here I just introduce the tidy method in RStudio.
+1. select the region, e.g. \emph{Cmd + A}
+2. print shortcuting \emph{Cmd + Shift + A} to format the code or run **style active file** in addin
+
+\item get file's path
+\begin{lstlisting}[language=R]
+full_path <- normalizePath(file_eg)
+dir_name<-dirname()
+file_name<-basename()
+\end{lstlisting}
+
+\item insert and run R chunck in Rmarkdown
+insert:\emph{Cmd+Opt+i}
+run: \emph{Cmd+Shift+enter}
+
+\end{itemize}
+
+\chapter{Julia}
+
+\section{Install Julia on Mac}
 
 
 
