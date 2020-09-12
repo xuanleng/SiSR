@@ -86,11 +86,16 @@ Git基本概念
 \begin{enumerate}
 \item git status: 查看状态
 \item \verb|git add <file>|： 添加追踪文件到缓存区 
-\item  \verb|git rm --cached <file>| ：移除缓存区追踪文件
+\item  \verb|git rm --cached <file>| ：移除缓（暂）存区追踪文件
+\begin{itemize}
+\item \textbf{清空缓存区文件}：所谓暂存区实质是.git目录下的index文件，只要将此文件删除，那么就可以认为暂存区被清空。于是可以采用命令：\verb|rm .git/index|
+\end{itemize}
 \item \verb|git commit <file>|：提交文件到库
+\begin{itemize}
 \item \verb|git commit -a |：直接将所有修改文件提交到库（也可以分成两步，先git add更新缓存区，再git commit提交到库）
 \item \verb|git commit -m ``xxx'' <file>|：跳过消息编辑器步骤，直接提交“xxx”更新记录
 \item \verb|git commit -a -m ``xxx''|：综合前两个命令
+\end{itemize}
 \end{enumerate}
 
 
@@ -115,22 +120,28 @@ Git基本概念
 
 
 \subsection{分支管理}
-\begin{enumerate}
+\begin{itemize}
 \item \verb|git branch -v |：查看分支
 \item \verb|git branch <name>| ：创建分支
 \item \verb|git checkout <name>|：切换分支
 \item 合并分支
-\begin{itemize}
+\begin{enumerate}
 \item 切换到要合并到的分支
 \item \verb|git merge <branch name>|：
-\end{itemize}
+\end{enumerate}
 \item 解决合并冲突
-\begin{itemize}
+\begin{enumerate}
 \item  编辑文件，删除特殊符号
 \item 把文件修改到满意的程度，保存退出
 \item \verb|git commit -m | ``日志信息''。注意此时不能带文件名。
-\end{itemize}
 \end{enumerate}
+
+\item 修改分支名称
+\begin{enumerate}
+\item 切换到要修改名称的分支
+\item \verb|git branch -m <原分支名>  <新分支名>|
+\end{enumerate}
+\end{itemize}
 
 
 
@@ -211,17 +222,33 @@ Git基本概念
 
 
 
-
-
-
-
-
 \subsection{邀请合作者}
 \begin{enumerate}
 \item 进入自己的远程仓库主页，点击“Settings”；
 \item 点击左侧“Options”栏目下的“Manage access”；
 \item 就可以用“用户名”、“邮箱”等形式邀请了。
 \end{enumerate}
+
+
+
+
+\section{Git 以分支的方式同时管理多个项目}
+\url{https://blog.csdn.net/yishengzhiai005/article/details/51096813}
+
+既然Git在创建是默认给我们的新分支指定了父亲，那么可不可以在创建是不需要呢？
+
+\begin{itemize}
+\item 强大的Git同样提供了解决方法(创建时提供--orphan 参数即可)：\\
+\verb| git checkout --orphan <分支名>|
+\item 尽管创建分支时没有了父分支，但创建成功后，原分支的文件会在创建时添加到当前暂存区的，所以需要移除（不需要的情况下）
+\item 然后再将原分支的文件从当前分支仓库中移除，这样你的分支里的文件对于其他分支来说就是独一无二的了(即使不移除原分支的文件，此文件也是新添加到当前分支的，所以跟其他分支没有任何关系)
+而其他分支也完全不可能会影响你当前分支的工作(不存在依赖关系的前提下)
+\item 不同的分支其实就是不同的目录和文件，跟其他分支没有关系的
+\end{itemize}
+
+
+
+
 
 
 
