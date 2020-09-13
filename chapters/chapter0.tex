@@ -145,6 +145,26 @@ Git基本概念
 
 
 
+\subsection{以分支的方式同时管理多个项目}
+\url{https://blog.csdn.net/yishengzhiai005/article/details/51096813}
+
+既然Git在创建是默认给我们的新分支指定了父亲，那么可不可以在创建是不需要呢？
+
+\begin{itemize}
+\item 强大的Git同样提供了解决方法(创建时提供--orphan 参数即可)：\\
+\verb| git checkout --orphan <分支名>|
+\item 尽管创建分支时没有了父分支，但创建成功后，原分支的文件会在创建时添加到当前暂存区的，所以需要移除（不需要的情况下）
+\item 然后再将原分支的文件从当前分支仓库中移除，这样你的分支里的文件对于其他分支来说就是独一无二的了(即使不移除原分支的文件，此文件也是新添加到当前分支的，所以跟其他分支没有任何关系)
+而其他分支也完全不可能会影响你当前分支的工作(不存在依赖关系的前提下)
+\item 不同的分支其实就是不同的目录和文件，跟其他分支没有关系的
+\item 分支间切换需要：\verb|git checkout -f <其他分支>|
+\end{itemize}
+
+{\color{red} 我没搞成功，切换分支总会把其他分支给删掉。}
+
+
+
+
 \section{远程仓库Github/Gitee/Gitlab}
 网上的git远程仓库很多，但是操作流程基本一样。这里以Github为主，Gitee可以参考：\url{https://www.bilibili.com/video/BV1mb411n7Nw?p=4}
 
@@ -175,20 +195,30 @@ Git基本概念
 
 
 \subsection{创建远程仓库}
-注册账户，在网页上创建。需要注意的是，在网页上创建通常会辅助产生一些文件，与本地库产生一些冲突。如两个分支是不同的版本，具有不同的提交历史。这时需要不相关历史强制合并：
-\verb|git pull origin master --allow-unrelated-histories |
+在相关网站上注册账户，并根据指示创建远程仓库。
 
 
 
 \subsection{推送到远程仓库}
 \url{https://www.bilibili.com/video/BV1pW411A7a5?p=35}
+\begin{enumerate}
+\item 添加远程仓库地址并设置别名：\verb|git remote add <name> <https://address> |，其中“name”为别名。
+\item 查看远程仓库：\verb|git remote -v|。
+\item 推送分支：\verb|git push <name> <branch>|，其中“name”为远程仓库别名，“branch”为要推送分支的名称，一般为主分支“master”。第一次推送还需要参数：\verb|-u|。
 \begin{itemize}
-\item \verb|git remote -v|：查看远程库
-\item \verb|git remote add <name> <https://address> |：添加远程库地址别名（name）
-\item \verb|git push <name> <branch>|：推送分支
+\item 特别注意： 当在网页上创建远程仓库的时候，如果勾选了相关初始文件选项，那么直接推送时会报错，如\\
+“failed to push some refs to https://github.com/guyibang/TEST2.git”\\
+这是由于新创建的远程仓库中的初始文件不在本地仓库目录中。
+\item 这时需要先进行合并再推送，即：\verb|git pull --rebase <name> <branch>|。
+\item 如果具有不同的提交历史，则需进行强制合并：\\ 
+\verb|git pull <name> <branch> --allow-unrelated-histories |
 \end{itemize}
+\end{enumerate}
 
-\subsubsection{ssh免密推送设置}
+
+
+
+\subsection{SSH免密推送设置}
 
 
 
@@ -232,19 +262,7 @@ Git基本概念
 
 
 
-\section{Git 以分支的方式同时管理多个项目}
-\url{https://blog.csdn.net/yishengzhiai005/article/details/51096813}
 
-既然Git在创建是默认给我们的新分支指定了父亲，那么可不可以在创建是不需要呢？
-
-\begin{itemize}
-\item 强大的Git同样提供了解决方法(创建时提供--orphan 参数即可)：\\
-\verb| git checkout --orphan <分支名>|
-\item 尽管创建分支时没有了父分支，但创建成功后，原分支的文件会在创建时添加到当前暂存区的，所以需要移除（不需要的情况下）
-\item 然后再将原分支的文件从当前分支仓库中移除，这样你的分支里的文件对于其他分支来说就是独一无二的了(即使不移除原分支的文件，此文件也是新添加到当前分支的，所以跟其他分支没有任何关系)
-而其他分支也完全不可能会影响你当前分支的工作(不存在依赖关系的前提下)
-\item 不同的分支其实就是不同的目录和文件，跟其他分支没有关系的
-\end{itemize}
 
 
 
