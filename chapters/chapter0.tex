@@ -55,6 +55,9 @@ Git基本概念
 
 \section{软件安装}
 \subsection{Linux版本安装}
+\url{https://git-scm.com/download/linux}
+
+
 \subsection{Windows版本安装}
 
 
@@ -330,7 +333,7 @@ This PC->Advanced system settings->Advanced->Environment Variables...(右下角)
 最后一项是该文件名。挂载方法是在终端中，敲命令：\\
 sudo mount /home/phileas/Desktop/texlive2011-20110705.iso/~~ /home/phileas/texlive ，
 注意两个路径之间有空格。这样就挂载好了。(注意路径区分大小写)
-\item cd挂载的镜像文件夹下，终端输入perl install-tl  - -gui
+\item cd挂载的镜像文件夹下，终端输入\verb|sudo perl install-tl  - -gui|。
 \item 有些选项，自己看着办。注意勾选建立符号链接(symbol link)，很简单，勾选上就有了，不建立这个，之后在终端开启图形管理宏包界面的命令tlmgr - - gui就会报错说没有这个命令，其实还是要再加链接。所以这里记得勾选。（安装时没勾选也没关系，这部分内容在texlive相应版本的说明文档中说的很清楚。）
 \item 点击安装
 
