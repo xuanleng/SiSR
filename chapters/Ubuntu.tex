@@ -741,11 +741,22 @@ sftp是Secure File Transfer Protocol的缩写，安全文件传送协议。可�
 
 
 
-\section{Linux作业管理系统——PBS}
+\section{Linux作业管理系统}
+\subsection{PBS}
+
+\url{https://tkainrad.dev/posts/copy-paste-ready-instructions-to-set-up-1-node-clusters/}
+
 PBS（Portable Batch System）最初由NASA的Ames研究中心开发，主要为了提供一个能满足异构计算网络需要的软件包，用于灵活的批处理，特别是满足高性能计算的需要，如集群系统、超级计算机和大规模并行系统。PBS的主要特点有：代码开放，免费获取；支持批处理、交互式作业和串行、多种并行作业，如MPI、PVM、HPF、MPL。PBS是功能最为齐全, 历史最悠久, 支持最广泛的本地集群调度器之一。PBS的目前包括openPBS、PBS Pro和Torque三个主要分支。 其中OpenPBS是最早的PBS系统， 目前已经没有太多后续开发；PBS pro是PBS的商业版本，功能最为丰富； Torque是Clustering公司接过了OpenPBS，并给与后续支持的一个开源版本。
 
 
 \subsection{Ubuntu14.04安装配置Torque}
+{\color{red} 很不幸！Ubuntu 18.04后兼容很不好了}
+\begin{itemize}
+\item \url{https://jabriffa.wordpress.com/2019/06/27/installing-grid-engine-on-ubuntu-18-04-lts/}
+\item \url{https://jabriffa.wordpress.com/2015/02/11/installing-torquepbs-job-scheduler-on-ubuntu-14-04-lts/}
+\end{itemize}
+
+
 [转]\url{http://blog.sina.com.cn/s/blog_4a0a8b5d0102v2p1.html}
 
 其实Ubuntu有编译好的Torque，只需要安装 torque-server torque-mom torque-scheduler，再加些配置即可。但是发现它弄得scp秘钥有问题，配置了半天rsa秘钥也没有解决日志移位的问题。所以还是自己编译吧！
@@ -982,7 +993,7 @@ Job ID                    Name             User            Time Use S Queue
 
 
 
-\subsection{重要说明}
+\subsubsection{重要说明}
 第二次安装开机自起没有配置成功。需要手动开启服务。
 进入root权限，依次输入如下命令：
 
@@ -995,7 +1006,7 @@ Job ID                    Name             User            Time Use S Queue
 \verb|trqauthd|
 
 
-\subsection{PBS命令}
+\subsubsection{PBS命令}
 PBS 提供4 条命令用于作业管理。
 
 (1) qsub 命令—用于提交作业脚本
@@ -1070,7 +1081,7 @@ qmgr -c "set server default\_queue=batch"
 
 
 
-\subsection{PBS 脚本文件}
+\subsubsection{PBS 脚本文件}
 PBS 脚本文件由脚本选项和运行脚本两部分组成。
 
 (1) PBS 作业脚本选项 （若无-C 选项，则每项前面加‘\#PBS’）
@@ -1139,7 +1150,7 @@ mpirun\_rsh –np 进程数 –hostfile \$PBS\_NODEFILE 可执行程序名
 
 
 
-\subsection{设置最大队列数}
+\subsubsection{设置最大队列数}
 \begin{verbatim}
 set value: max_running
 # qmgr
@@ -1160,11 +1171,17 @@ set queue cert max_running = 20
 
 
 
+\subsection{Slurm}
+。。。
+
+\subsection{SGE—(Son of) Grid Engine}
+。。。
 
 
 
 
-\section{Linux 作业管理系统——LSF}
+
+\subsection{LSF}
 \url{https://en.wikipedia.org/wiki/Platform_LSF}
 
 Platform Load Sharing Facility (or simply LSF) is a workload management platform, job scheduler, for distributed high performance computing. It can be used to execute batch jobs on networked Unix and Windows systems on many different architectures.[1][2] LSF was based on the Utopia research project at the University of Toronto.[3]
@@ -1178,7 +1195,7 @@ In January, 2012, Platform Computing was acquired by IBM.[5]
 
 
 
-\subsection{常用命令}
+\subsubsection{常用命令}
 \begin{itemize}
 \item bhosts
 \item bjobs -u all, bjobs -l
@@ -1190,9 +1207,18 @@ In January, 2012, Platform Computing was acquired by IBM.[5]
 
 
 
+\section{文本编辑软件}
+\subsection{gedit}
+。。。
 
-\section{Gvim的使用}
-\subsection{常用配置}
+
+\subsection{Sublime}
+。。。
+
+\subsection{Vim}
+安装：\verb|sudo apt install vim|
+
+\subsubsection{常用配置}
 \begin{verbatim}
 set nu
 set fileencodings=utf-8,gbk,default,latin1
@@ -1201,8 +1227,7 @@ let $LANG="zh_CN.UTF-8"
 \end{verbatim}
 
 
-\subsection{常用命令}
-\subsection{一般模式(命令模式)}
+\subsubsection{一般模式(命令模式)}
 \paragraph{打开文件、保存、关闭文件}
 \begin{itemize}
 \item vi filename ：打开filename文件
@@ -1261,7 +1286,7 @@ let $LANG="zh_CN.UTF-8"
 \end{itemize}
 
 
-\subsection{编辑模式}
+\subsubsection{编辑模式}
 \begin{itemize}
 \item i,I：i从当前光标所在处插入，I从当前所在行的第一个非空格处开始插入
 \item a,A：a从当前光标所在处下一个字符开始插入，a从当前所在行的最后一个非空格处开始插入。A是从所在行尾插入。
@@ -1272,7 +1297,7 @@ let $LANG="zh_CN.UTF-8"
 
 
 
-\subsection{vim中使用系统粘贴板}
+\subsubsection{vim中使用系统粘贴板}
 %\url{http://www.linuxsir.org/bbs/thread344622.html}
 用vim这么久了，始终也不知道怎么在vim中使用系统粘贴板，通常要在网上复制一段代码都是先gedit打开文件，中键粘贴后关闭，然后再用 vim打开编辑，真的不爽；上次论坛上有人问到了怎么在vim中使用系统粘贴板，印象里回复很多，有好几页的回复却没有解决问题，今天实在受不了了又在网上找办法，竟意外地找到了，贴出来分享一下。 
 
