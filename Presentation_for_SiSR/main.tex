@@ -18,7 +18,6 @@
 
 
 
-
 \input{format.tex}
 \usepackage{graphicx}
 \usepackage{mathrsfs}
@@ -29,6 +28,7 @@
 \usepackage{wrapfig}
 \usepackage{subfigure}
 \usepackage{media9}
+\usepackage{listings}
 \usepackage{hyperref}
 \hypersetup{
 pdfpagemode={FullScreen},
@@ -138,8 +138,14 @@ pdfauthor={冷轩}
 
 
 \section[\LaTeX]{文档写作工具——\LaTeX}
-\begin{frame}{\LaTeX 基本思想}
-
+\begin{frame}{\LaTeX 历史}
+\begin{itemize}
+\item \TeX：一种宏语言。
+\item Donald E. Knuth（高德纳）
+\item TAOCP（计算机程序设计艺术； The Art of Computer Programming）
+\item \LaTeX：\TeX 中的一个宏集合，是\TeX 中的一种格式 ，是建立在\TeX 基础上的宏语言，也就是说，每一个\LaTeX 命令实际上最后都会被转换解释成几个甚至上百个\TeX 命令。
+\item pdf\LaTeX、 Xe\LaTeX 等：是使用\LaTeX 的排版引擎，用来编译用\LaTeX 格式写的.tex文件。
+\end{itemize}
 \end{frame}
 
 \begin{frame}{\LaTeX 应用思路}
@@ -172,6 +178,69 @@ pdfauthor={冷轩}
 \end{frame}
 
 
+
+\section[Python]{Python}
+\begin{frame}{学习一门编程语言的基本思路}
+\begin{itemize}
+\item 边用边学，在应用中学习与升级；
+\item 手头备一本入门书，翻便基本语法，有个印象即可，随时查阅；
+\item 一个上午完成一门编程语言的学习，可以开始上手解决自己的问题；
+\item 所思即所写，充分搜索网络上自己所需的功能；
+\item 程序不通过，注意查报错；
+\item 中英文相结合搜索，分别上不同的搜索引擎。
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Python的注意事项}
+\begin{itemize}
+\item 一定要注意对齐，以对齐划分语言区域；
+\item 注意导入自己所需的库。
+\end{itemize}
+
+优点：开源语言，全世界的人都在开发各样的库来满足人们的需求。
+\end{frame}
+
+
+\begin{frame}{Python的集成开发环境——Anaconda}
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.8\textwidth]{pictures/anaconda.jpeg}
+\caption{方便管理库}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}{Python的开发环境——Spyder}
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.8\textwidth]{pictures/Spyder.png}
+\caption{和Matlab界面非常像}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}{Python的数值计算库——NumPy和SciPy}
+NumPy为Python提供了快速的多维数组处理的能力，而SciPy则在NumPy基础上添加了众多的科学计算所需的各种工具包，有了这两个库，Python就有几乎和Matlab一样的处理数据和计算的能力了。
+\end{frame}
+
+
+\begin{frame}{Python的数据类型}
+Python有五个标准的数据类型：
+\begin{itemize}
+\item Numbers（数字）
+\item String（字符串）
+\item List（列表）
+\item Tuple（元组）
+\item Dictionary（字典）
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Python程序举例}
+\centering
+Python程序举例
+\end{frame}
 
 
 \begin{frame}
