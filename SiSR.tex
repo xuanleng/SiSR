@@ -5,6 +5,8 @@
 %\usepackage{titlesec}%定义章节标题宏包
 \usepackage{verbatim}%提供多行注释\begin{comment}....\end{comment}
 \usepackage{longtable}
+\usepackage{CJKulem}
+
 
 
 
@@ -206,6 +208,22 @@
 \end{enumerate}
 
 
+\section*{RTFM与问“问题”及听取建议、意见}
+\addcontentsline{toc}{section}{RTFM与问“问题”及听取意见}
+问“问题”与听取意见是人想要进步的基本素养。——冷轩
+
+\paragraph{RTFM} is an initialism for the expression "read the fucking manual" – typically used to reply to a question that could have been easily answered from the product manual or documentation.\footnote{\url{https://en.wikipedia.org/wiki/RTFM}}
+
+大家的时间和精力都是有限的，请不要问些“简单问题”浪费别人的生命。每个人都应该具备自主学习能力，不要张口就要“答案”，这是不利于自己成长的。问别人“问题”前请反问自己两点：
+\begin{itemize}
+\item 网上搜索过了吗？
+\item 自己思考过了吗？
+\end{itemize}
+
+\paragraph{听取建议、意见}
+夫子说过“三人行必有我师焉”。无论是前辈、同学、同事、晚辈沟通，都有听取意见的时候。听取他人意见不是听取他人对自己的观点的附和，往往是与自己观点不同甚至相背的。这时候就让人很难受。但是难受是让自己进步的前兆。如果非常坚持自己的观点，那就给他人观点一个机会，先试用一下他人观点，比较一下优缺点。最终结果往往不是自己或他人观点的胜出，而是不同观点的融合。所以要经常反思，我给过别人建议、意见机会了吗？
+
+
 
 \section*{组织形式}
 \addcontentsline{toc}{section}{组织形式}
@@ -225,6 +243,58 @@
 \begin{itemize}
 \item 第一任主编：冷轩\\
 本文档创始人，初始文档页数为367页。
+\end{itemize}
+
+
+
+\section*{第一次推送打卡}
+\addcontentsline{toc}{section}{第一次推送打卡}
+这里记录自己第一次推送更新的情形和感言。
+\begin{enumerate}
+\item 2020-05-26: xuan更新了前言内容，进一步明确了文档目的和组织形式。
+\item 2020-06-08: Liming 初次了解 Git 和 \LaTeX{}，打开文档报错 100 多个，查了 1 个小时才发现实际上只是typesetting engine 的选择和cover文件的路径出问题，第一次推送更新，算是开始正式上路了。
+\item 2020-09-14: Ting学习了Git和Github，感觉受益颇多。当下，科技发展如火如荼，一定要始终坚持在学习的道路上，不断学习，勇于创新。
+\end{enumerate}
+
+
+\section*{更新日志}
+\addcontentsline{toc}{section}{更新日志}
+请参考：\url{https://github.com/xuanleng/SiSR/network}
+
+
+\section*{版本比较}
+\addcontentsline{toc}{section}{版本比较}
+为方便展示大家的修改，希望有个版本比较机制。 在 \LaTeX 文档编辑过程中，通常用 latexdiff  命令比较两个文档的差异， 然后编译生成有标注的Pdf文件方便查看差异，如图（\ref{fig:367}）所示。但是它无法比较用 \verb|\input| 和 \verb|\include| 插入的子文档。这时可以用 latexpand 的命令来将所有子文件插入到主文件中，默认是屏蔽注释的。同直接使用是没问题的，但是遇到 \verb| %**|
+ 情形会报错，因为 符号 \%的存在。通常用法如下：
+\begin{verbatim}
+ latexpand --verbose --keep-comments SiSR.tex >new-SiSR-fl.tex
+\end{verbatim}
+这样就可以愉快的使用 latexdiff 命令了。
+
+Git记录了不同版本的信息，结合以上功能，我们就可以愉快的比较不同版本的差异了，更方便大家协同写文档。在Gitlab上已经存在相关项目了：
+\url{https://gitlab.com/git-latexdiff/git-latexdiff} 。但是该项目中没有考虑之前提到过的情形，在 
+\url{https://gitlab.com/xuanleng/git-latexdiff} 版本中做了补充，请大家采用后者版本。
+
+安装成功后，和上一个文档版本比较的命令是：
+\begin{verbatim}
+ git latexdiff --xelatex --main SiSR.tex HEAD^
+\end{verbatim}
+
+
+\begin{figure}[h!]
+\centering
+\frame{\includegraphics[width=0.8\textwidth]{pictures/compare.pdf}}
+\caption{文档差异比较}
+\label{fig:367}
+\end{figure}
+
+
+
+\section*{编辑公告}
+\addcontentsline{toc}{section}{编辑公告}
+\begin{itemize}
+\item 文档是抛砖引玉型，勾勒了很多框架，但没来得及补充具体内容。希望大家能丰富起来～
+\item \sout{为了保持持续更新，编辑至少要在周末做一次内容更新。} 随心而发，不定期更新！
 \end{itemize}
 
 
@@ -325,70 +395,6 @@ Win10倒是很快很方便的还原好了，之前有备份系统。在坚果云
 技术往往对应商业产品，而这个产品要成功，也应有站得住脚的基本商业逻辑。
 
 \rightline{——冷轩\qquad}
-
-
-\section*{RTFM与问“问题”}
-\addcontentsline{toc}{section}{RTFM与问“问题”}
-\textbf{RTFM} is an initialism for the expression "read the fucking manual" – typically used to reply to a question that could have been easily answered from the product manual or documentation.\footnote{https://en.wikipedia.org/wiki/RTFM}
-
-大家的时间和精力都是有限的，请不要问些“简单问题”浪费别人的生命。每个人都应该具备自主学习能力，不要张口就要“答案”，这是不利于自己成长的。问别人“问题”前请反问自己两点：
-\begin{itemize}
-\item 网上搜索过了吗？
-\item 自己思考过了吗？
-\end{itemize}
-
-
-\section*{第一次推送打卡}
-\addcontentsline{toc}{section}{第一次推送打卡}
-这里记录自己第一次推送更新的情形和感言。
-\begin{enumerate}
-\item 2020-05-26: xuan更新了前言内容，进一步明确了文档目的和组织形式。
-\item 2020-06-08: Liming 初次了解 Git 和 \LaTeX{}，打开文档报错 100 多个，查了 1 个小时才发现实际上只是typesetting engine 的选择和cover文件的路径出问题，第一次推送更新，算是开始正式上路了。
-\item 2020-09-14: Ting学习了Git和Github，感觉受益颇多。当下，科技发展如火如荼，一定要始终坚持在学习的道路上，不断学习，勇于创新。
-\end{enumerate}
-
-
-\section*{更新日志}
-\addcontentsline{toc}{section}{更新日志}
-请参考：\url{https://github.com/xuanleng/SiSR/network}
-
-
-\section*{版本比较}
-\addcontentsline{toc}{section}{版本比较}
-为方便展示大家的修改，希望有个版本比较机制。 在 \LaTeX 文档编辑过程中，通常用 latexdiff  命令比较两个文档的差异， 然后编译生成有标注的Pdf文件方便查看差异，如图（\ref{fig:367}）所示。但是它无法比较用 \verb|\input| 和 \verb|\include| 插入的子文档。这时可以用 latexpand 的命令来将所有子文件插入到主文件中，默认是屏蔽注释的。同直接使用是没问题的，但是遇到 \verb| %**|
- 情形会报错，因为 符号 \%的存在。通常用法如下：
-\begin{verbatim}
- latexpand --verbose --keep-comments SiSR.tex >new-SiSR-fl.tex
-\end{verbatim}
-这样就可以愉快的使用 latexdiff 命令了。
-
-Git记录了不同版本的信息，结合以上功能，我们就可以愉快的比较不同版本的差异了，更方便大家协同写文档。在Gitlab上已经存在相关项目了：
-\url{https://gitlab.com/git-latexdiff/git-latexdiff} 。但是该项目中没有考虑之前提到过的情形，在 
-\url{https://gitlab.com/xuanleng/git-latexdiff} 版本中做了补充，请大家采用后者版本。
-
-安装成功后，和上一个文档版本比较的命令是：
-\begin{verbatim}
- git latexdiff --xelatex --main SiSR.tex HEAD^
-\end{verbatim}
-
-
-\begin{figure}[h!]
-\centering
-\frame{\includegraphics[width=0.8\textwidth]{pictures/compare.pdf}}
-\caption{文档差异比较}
-\label{fig:367}
-\end{figure}
-
-
-
-\section*{编辑公告}
-\addcontentsline{toc}{section}{编辑公告}
-\begin{itemize}
-\item 文档是抛砖引玉型，勾勒了很多框架，但没来得及补充具体内容。希望大家能丰富起来～
-\item 为了保持持续更新，编辑至少要在周末做一次内容更新。
-\end{itemize}
-
-
 
 
 
