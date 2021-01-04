@@ -1,33 +1,31 @@
 \chapter{Linux命令}
 \section{命令行环境及命令格式}
-（1）命令行环境的含义
+（1）\textbf{命令行环境的含义}
 
 例如：\verb*|phileas@phileas-Aspire:~/Downloads$|
 
 \verb|phileas|是用户名，\verb|phileas-Aspire|是主机名，\verb|~/Downloads|是当前目录。对普通用户来说，提示符显示为“\verb|$|”，管理员root用户提示符为“\verb|#|”。
 
 
-（2）Linux的命令格式
+（2）\textbf{Linux的命令格式}
 
-\verb*|$命令名 ［-选项］ 操作对象|
+\verb*|$命令名 [-选项] 操作对象|
 
 需要注意的是，命令名、选项或者操作对象之间都是至少要有一个空格，多个空格没有关系。选项和操作对象可以有多个，尤其是选项不是必需的，但也可以有多个。当有多个选项时，可以写在一起，前面通常要有一个“-”。操作对象也可以有0个、1个或多个。
 
 由于Linux基本是C语言编写的，所以无论命令名或选项，Linux都是严格区分大小写。
 
-\subsection{通配符}
+（3）\textbf{通配符}
+
 在bash下，可以使用*来匹配零个或多个字符，而用？匹配一个字符。
 
+（4）\textbf{管道符}
 
-
-\subsection{管道符}
 管道符``|"，就是把前面的命令运行的结果丢给后面的命令。
 
+（5）\textbf{作业控制}
 
-\subsection{作业控制}
 当运行一个进程时，你可以使它暂停（按Ctrl+z），然后使用fg命令恢复它，利用bg命令使他到后台运行，你也可以使它终止（按Ctrl+c）。
-
-
 
 
 
@@ -56,29 +54,26 @@ man的帮助文件有很多个，通常以章分类，存放在\verb|/usr/share/
 第一个man命令查找的是passwd命令的manpages，而第二个man命令查找的则是/ect/passwd文件的manpages，其中5表示配置文件手册类型，而非默认的可执行程序类型。
 
 
-\section{文件和目录管理命令}
-\subsection{cd——改变当前路径的命令}
-\verb*|$cd 路径|
+\section{查看命令}
+\subsection{man——查看命令手册}
+man：manual的缩写，用来查看命令的使用手册，如：\verb*|man  cp|，了解命令用法的很好用的命令。
 
-特殊目录的表示方法及含义
-\begin{itemize}
-\item \verb|.| 代表当前目录
-\item \verb|..| 代表上层目录
-\item \verb|~|代表当前登录用户的宿主目录
-\item \verb|~用户名| 代表进入\verb|~|后用户的宿主目录
-\item \verb|-| 代表前一目录，即进入当前目录之前操作的目录
-\item \textbf{直接在命令行中输入cd命令而不加任何参数，可以马上回到用户的主目录（home）}
-\end{itemize}
+
+\subsection{file——检测文件类型}
+ file 是检测文件类型\footnote{文件类型就文件组织的方式，通常不同的文件类型执行不同的标准。例如我们熟知的：txt , doc , xls , pdf ...}的命令。file 命令的简单用法就是：file 文件名，例如：\\
+\verb*|file data.txt|，data.txt: ASCII text。
+告诉我们，data.txt 是一个text （即txt) 类型的文件。txt 文件所采用的编码是ascii编码体系。所以 text 是文件类型；ASCII是编码体系。
+
+又如：\verb*|file my.pdf|，my.pdf: PDF document, version 1.5。
+“PDF document” 告诉我们 , my.pdf 是pdf类型的文件。版本执行的标准是：1.5 。
+像ascii , version 1.5 这些都是与文件类型密切相关的信息。如果需要更详细的信息，可以加参数：如：\verb*|file -i data.txt|。可以使用man file 查看详细用法。
 
 
 \subsection{pwd——查看当前路径命令}
-\verb*|pwd|，Print Working Directory的缩写。
-
-如果有时在操作过程中忘记了当前的路径，则可以通过次命令来查看路径。
-
-除了pwd命令，还有一个很有用的命令，那就是tree命令，它以更为直观的树状图的形式显示目录之间的关系。但是Ubuntu默认没有安装tree，需要手动安装，具体安装方法如下：
+\verb*|pwd|，Print Working Directory的缩写。如果有时在操作过程中忘记了当前的路径，则可以通过此命令来查看路径。除了pwd命令，还有一个很有用的命令，那就是tree命令，它以更为直观的树状图的形式显示目录之间的关系。但是Ubuntu默认没有安装tree，需要手动安装，具体安装方法如下：
 
 \verb*|$sudo aptitude install tree|
+
 
 
 \subsection{ls——列出文件清单命令}
@@ -124,11 +119,93 @@ ls 命令选项：
 
 
 
+\section{文件目录管理命令}
+\subsection{cd——改变当前路径的命令}
+\verb*|$cd 路径|
+
+特殊目录的表示方法及含义
+\begin{itemize}
+\item \verb|.| 代表当前目录
+\item \verb|..| 代表上层目录
+\item \verb|~|代表当前登录用户的宿主目录
+\item \verb|~用户名| 代表进入\verb|~|后用户的宿主目录
+\item \verb|-| 代表前一目录，即进入当前目录之前操作的目录
+\item \textbf{直接在命令行中输入cd命令而不加任何参数，可以马上回到用户的主目录（home）}
+\end{itemize}
+
+
+\subsection{mkdir——创建目录命令}
+\verb*|$mkdir 目录名|
+
+对于一次性建立多级目录的情况，可以使用\verb*|-p|参数：
+
+\verb*|$mkdir -p /home/dir1/dir2/dir3|
+
+
+\subsection{rmdir——删除空目录命令}
+\verb*|$rmdir 目录名|
+
+例如要删除目录\verb*|/home/hxl/directory|这个空目录，则可以执行命令：
+
+\verb*|$rmdir /home/hxl/directory|
+
+注意：\verb*|rmdir|可以删除非空目录，被删的目录下不能有文件或子目录。如果只是有子目录存在，还可以用\verb*|-p|来删除；如果含有文件，那么\verb*|-p|选项也无能为力了。
+
+
+\subsection{rm——删除文件（目录）命令}
+\verb*|rm|命令能够删除一个文件或者目录。
+
+\verb*|$rm [-选项] 文件名或者目录名|
+
+对于Ubuntu来说，这个命令是比较危险的一个命令，因为一旦使用了这个命令删除的文件如果再进行磁盘写操作后将无法再恢复。在其他版本的一些Linux中，默认情况下给\verb*|rm|命令加上一个\verb*|-i|选项，可以在删除前对操作进行确认。
+
+\verb*|rm|命令选项：
+\begin{itemize}
+\item -f：强制删除（即使设置了\verb*|-i|属性也不起作用）
+\item -r：删除目录
+\item -i：删除文件或目录前是否询问
+\end{itemize}
+
+
+\subsection{mv——移动或更名现有的文件或目录}
+linux下重命名文件或文件夹的命令mv既可以重命名，又可以移动文件或文件夹.
+
+例子：将目录A重命名为B
+
+mv A B
+
+例子：将/a目录移动到/b下，并重命名为c
+
+mv /a /b/c
+
+其实在文本模式中要重命名文件或目录的话也是很简单的，我们只需要使用mv命令就可以了，比如说我们要将一个名为abc的文件重命名为1234就可以这样来写：mv abc 1234，但是要注意的是，如果当前目录下也有个1234的文件的话，我们的这个文件是会将它覆盖的
+
+
+\subsection{cp——复制命令}
+cp命令能够复制一个文件或者生成一个不同名但是内容相同的文件。
+\begin{itemize}
+\item 复制文件：\verb*|$ cp 源文件名 目标路径|
+
+\verb*|$ cp /etc/passwd /home/hxl/|：将目录\verb|/etc|下的\verb|passwd|文件复制到\verb|/home/hxl|目录中。
+
+\item 当前目录下生成不同名但内容相同的文件：\verb*|$ cp 源文件名 目标文件名|
+
+\verb*|$ cp passwd passwd_new|
+
+\item 复制目录时要加上选项\verb*|-r|，例如在当前目录下复制目录a，并重命名为b:
+
+\verb*|$ cp -r a b|
+\end{itemize}
+
+
+
+
 \subsection{tar——解压、压缩命令}
 \verb|tar -zxvf 文件名|：将文件直接解压到当前目录下
 
 
 
+\section{文件目录权限命令}
 \subsection{chmod——修改权限命令}
 每一文件或目录的访问权限都有三组，每组用三位表示，分别为文件属主的读、写和执行权限；与属主同组的用户的读、写和执行权限；系统中其他用户的读、写和执行权限。
 -代表空许可，r代表只读，w代表只写，x代表可执行。\footnote{参考资料：\url{https://www.cnblogs.com/jichi/p/11186974.html} }
@@ -197,20 +274,6 @@ chmod ［mode］ 文件名
 其他用户具有读权限
 
 
-\subsection{chgrp——修改文件或目录所属组的命令}
-改变文件或目录所属的组
-
-chgrp ［选项］ group filename
-
-- R 递归式地改变指定目录及其下的所有子目录和文件的属组。
-
-group为用户组id或者为/etc/group中用户的用户组名。如果用户不是文件的属主或者超级用户，则不能改变。
-
-chgrp - R jichi /etc
-
-将etc及etc下所有文件和目录的属组都改为jichi。
-
-
 \subsection{chown——修改文件或目录所属主的命令}
 更改某个文件或目录的属主和属组。
 
@@ -232,94 +295,19 @@ chown - R jichi.jingdian /b
 
 
 
+\subsection{chgrp——修改文件或目录所属组的命令}
+改变文件或目录所属的组
 
-\subsection{mkdir——创建目录命令}
-\verb*|$mkdir 目录名|
+chgrp ［选项］ group filename
 
-对于一次性建立多级目录的情况，可以使用\verb*|-p|参数：
+- R 递归式地改变指定目录及其下的所有子目录和文件的属组。
 
-\verb*|$mkdir -p /home/dir1/dir2/dir3|
+group为用户组id或者为/etc/group中用户的用户组名。如果用户不是文件的属主或者超级用户，则不能改变。
 
+chgrp - R jichi /etc
 
-\subsection{rmdir——删除空目录命令}
-\verb*|$ rmdir 目录名|
+将etc及etc下所有文件和目录的属组都改为jichi。
 
-例如要删除目录\verb*|/home/hxl/directory|这个空目录，则可以执行命令：
-
-\verb*|$rmdir /home/hxl/directory|
-
-注意：\verb*|rmdir|可以删除的是非空目录，被删的目录下不能有文件或子目录。如果只是有子目录存在，还可以用\verb*|-p|来删除；如果含有文件，那么\verb*|-p|选项也无能为力了。
-
-
-\subsection{mv——移动或更名现有的文件或目录}
-linux下重命名文件或文件夹的命令mv既可以重命名，又可以移动文件或文件夹.
-
-例子：将目录A重命名为B
-
-mv A B
-
-例子：将/a目录移动到/b下，并重命名为c
-
-mv /a /b/c
-
-其实在文本模式中要重命名文件或目录的话也是很简单的，我们只需要使用mv命令就可以了，比如说我们要将一个名为abc的文件重命名为1234就可以这样来写：mv abc 1234，但是要注意的是，如果当前目录下也有个1234的文件的话，我们的这个文件是会将它覆盖的
-
-
-\subsection{rm——删除文件（目录）命令}
-\verb*|rm|命令能够删除一个文件或者目录。
-
-\verb*|$rm [-选项] 文件名或者目录名|
-
-对于Ubuntu来说，这个命令是比较危险的一个命令，因为一旦使用了这个命令删除的文件如果再进行磁盘写操作后将无法再恢复。在其他版本的一些Linux中，默认情况下给\verb*|rm|命令加上一个\verb*|-i|选项，可以在删除前对操作进行确认。
-
-\verb*|rm|命令选项：
-\begin{itemize}
-\item -f：强制删除（即使设置了\verb*|-i|属性也不起作用）
-\item -r：删除目录
-\item -i：删除文件或目录前是否询问
-\end{itemize}
-
-
-\subsection{cp——复制命令}
-cp命令能够复制一个文件或者生成一个不同名但是内容相同的文件。
-\begin{itemize}
-\item 复制文件：\verb*|$ cp 源文件名 目标路径|
-
-\verb*|$ cp /etc/passwd /home/hxl/|：将目录\verb|/etc|下的\verb|passwd|文件复制到\verb|/home/hxl|目录中。
-
-\item 当前目录下生成不同名但内容相同的文件：\verb*|$ cp 源文件名 目标文件名|
-
-\verb*|$ cp passwd passwd_new|
-
-\item 复制目录时要加上选项\verb*|-r|，例如在当前目录下复制目录a，并重命名为b:
-
-\verb*|$ cp -r a b|
-\end{itemize}
-
-
-\section{查看命令}
-\subsection{man——查看命令手册}
-man：manual的缩写，用来查看命令的使用手册，如：\verb*|man  cp|，了解命令用法的很好用的命令。
-
-
-\subsection{file——检测文件类型}
- file 是检测文件类型\footnote{文件类型就文件组织的方式，通常不同的文件类型执行不同的标准。例如我们熟知的：txt , doc , xls , pdf ...}的命令。file 命令的简单用法就是：file 文件名，例如：
-
-\verb*|file data.txt|
-
-data.txt: ASCII text
-
-就告诉我们，data.txt 是一个text （即txt) 类型的文件。txt 文件所采用的编码是ascii编码体系。所以 text 是文件类型；ASCII是编码体系。
-
-又如：
-
-\verb*|file my.pdf|
-
-my.pdf: PDF document, version 1.5
-
-“PDF document” 告诉我们 , my.pdf 是pdf类型的文件。版本执行的标准是：1.5 。
-
-像ascii , version 1.5 这些都是与文件类型密切相关的信息。如果需要更详细的信息，可以加参数：如：\verb*|file -i data.txt|。可以使用man file 查看详细用法。
 
 
 \section{文本处理命令}

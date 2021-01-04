@@ -555,9 +555,13 @@ plot datafile with image
 
 
 \newpage
-\section{Intel Fortran}
+\section{Fortran}
+\subsection{Intel visual Fortran}
+\url{https://software.intel.com/content/www/us/en/develop/articles/intel-visual-fortran-compiler-190-for-windows-release-notes-for-intel-parallel-studio-xe-2019.html}
+
+\subsection{Intel Fortran}
 %转自：\url{http://www.douban.com/note/258495128/}
-\subsection{编译器的获取}
+\subsubsection{编译器的获取}
 对于学生，可以下载 Intel 非商业版的 fortran 和 c++等编译器。
 
 下载地址：\url{http://software.intel.com/en-us/non-commercial-software-development}
@@ -570,12 +574,13 @@ plot datafile with image
 
 
 
-\subsection{编译器的安装}
+\subsubsection{编译器的安装}
 \begin{itemize}
 \item 预装Java运行环境；
 \item 预装g++，\verb*|sudo apt-get install build-essential|；
 \item 解压安装文件，进入安装文件目录；
-\item 有两个安装脚本，install.sh 和 install\_GUI.sh，前者是文本安装界面，后者（带GUI）是图形安装界面，建议采用图形安装界面。安装时注意开启超级用户权限，即\verb|sudo ./install_GUI.sh|；
+\item 有两个安装脚本，install.sh 和 install\_GUI.sh，前者是文本安装界面，后者（带GUI）是图形安装界面，建议采用图形安装界面。安装时注意开启超级用户权限，即\\
+\verb|sudo ./install_GUI.sh|；
 \item 安装过程会要求输入密钥，照实输入；
 \item 路径设置：在\verb*|~/.bashrc|中加入，\verb|sudo ~/.bashrc|\\
 \verb|source /opt/intel/composer_xe_2011_sp1.10.319/bin/compilervars.sh intel64|（不同的版本，路径或者名称不一样）
@@ -744,7 +749,6 @@ sftp是Secure File Transfer Protocol的缩写，安全文件传送协议。可�
 \section{Linux作业管理系统}
 \subsection{PBS}
 \begin{itemize}
-\item \url{https://tkainrad.dev/posts/copy-paste-ready-instructions-to-set-up-1-node-clusters/}
 \item \url{https://www.jianshu.com/p/2f6c799ca147}
 \end{itemize}
 
@@ -752,7 +756,7 @@ sftp是Secure File Transfer Protocol的缩写，安全文件传送协议。可�
 PBS（Portable Batch System）最初由NASA的Ames研究中心开发，主要为了提供一个能满足异构计算网络需要的软件包，用于灵活的批处理，特别是满足高性能计算的需要，如集群系统、超级计算机和大规模并行系统。PBS的主要特点有：代码开放，免费获取；支持批处理、交互式作业和串行、多种并行作业，如MPI、PVM、HPF、MPL。PBS是功能最为齐全, 历史最悠久, 支持最广泛的本地集群调度器之一。PBS的目前包括openPBS、PBS Pro和Torque三个主要分支。 其中OpenPBS是最早的PBS系统， 目前已经没有太多后续开发；PBS pro是PBS的商业版本，功能最为丰富； Torque是Clustering公司接过了OpenPBS，并给与后续支持的一个开源版本。
 
 
-\subsection{Ubuntu14.04安装配置Torque}
+\subsubsection{Ubuntu14.04安装配置Torque}
 {\color{red} 很不幸！Ubuntu 18.04后兼容很不好了}
 \begin{itemize}
 \item \url{https://jabriffa.wordpress.com/2019/06/27/installing-grid-engine-on-ubuntu-18-04-lts/}
@@ -1204,10 +1208,53 @@ In January, 2012, Platform Computing was acquired by IBM.[5]
 
 \subsection{Slurm}
 \begin{itemize}
+\item \url{https://tkainrad.dev/posts/copy-paste-ready-instructions-to-set-up-1-node-clusters/}
 \item \url{https://www.schedmd.com/}
 \item \url{https://slurm.schedmd.com/quickstart.html}
 \item \url{https://www.jianshu.com/p/e560b19dbd3e}
+\item \url{https://blog.csdn.net/cuxiong8996/article/details/107154425}
 \end{itemize}
+
+
+\subsubsection{启动Slurm}
+要启动SLURM，只需使用/etc/init.d/slurm中定义的管理脚本。 该脚本接受start ， stop ， restart和startclean （以忽略所有先前保存的状态）。 使用此方法启动SLURM会导致slurmctld守护程序（以及在此简单配置中的节点上的slurmd守护程序）开始：
+\begin{itemize}
+\item \verb| sudo /etc/init.d/slurmctld|
+
+\item \verb| sudo /etc/init.d/slurmd|
+\end{itemize}
+
+
+
+\subsubsection{Slurm配置}
+\paragraph{（1）允许单节点提交多个任务}
+\begin{verbatim}
+#SchedulerType=sched/backfill
+#SelectType=select/linear
+SelectType=select/cons_res
+SelectTypeParameters=CR_CPU
+\end{verbatim}
+重启Slurm生效
+\begin{verbatim}
+systemctl restart  slurmctld
+systemctl restart  slurmd
+\end{verbatim}
+
+
+\subsubsection{错误诊断}
+\paragraph{（1）}
+If somehow slurmcrld or slurmd failed to start, run the applications interactively with debug options, to check for any errors. If there is any error, adjust slurm.conf accordingly.
+\begin{itemize}
+\item \verb| sudo -u slurm slurmctld -Dcvvv |
+\item \verb| sudo slurmd -Dcvvv |
+\end{itemize}
+
+\paragraph{（2）}
+"Low socket*core*thre" - solution?
+I think if you've had the config wrong at some point in the past then slurmctld 
+will remember the error and you'll need to manually clear it with:
+
+\verb|sudo scontrol update node=${NODE} state=resume|
 
 
 
