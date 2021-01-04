@@ -224,6 +224,57 @@ Git基本概念
 \subsection{SSH免密推送设置}
 参考：\url{https://blog.csdn.net/lonyw/article/details/75392410}
 
+因为git支持两种传输协议，ssh和https方式，我们可以从github上进入项目上查看两种方式。
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.7\textwidth]{pictures/20170719225827865.jpeg}
+\caption{Git传输ttps方式}
+%\label{fig:by:table}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.7\textwidth]{pictures/20170719225703754.jpeg}
+\caption{Git传输ssh方式}
+\label{fig:g239}
+\end{figure}
+
+ssh方式实现免密pull、push步骤如下：
+
+1、在本地生成ssh密钥对。\\
+在\verb|~/.ssh|目录下，输入命令：\verb|ssh-keygen -t rsa -C ``XXX@qq.com''|。
+换成自己的邮箱，出现提示一直回车，全部设置成默认值即可。
+
+2、把在本地生成ssh公玥复制到github上。\\
+输入\verb|cat id_ras.pub|。把出现的内容包括ssh开头和已邮箱结尾的全部内容复制下来，打开github，登录进入自己的账户，点击自己账号的头像，点击setting，在打开的网页中点击屏幕左边的SSH and GPG keys，在出现的界面下，点击New SSH key,然后把之前赋值的内容复制进key下面的框内即可，title随便你取。账号头像->setting->SSH and GPG keys->New SSH key->添加title名字和公玥->Add SSH key
+
+3、验证添加的key是否成功。\\
+\verb|ssh -T git@github.com|，如果出现提示，
+“Hi lxxxxxxx6! You’ve successfully authenticated, but GitHub does not provide shell access.”
+则表明key添加成功。
+ssh会默认查找id\_rsa、id\_dsa、id\_ecdsa这三个文件。
+如果修改生成密钥名，可能会报Permission denied (publickey)的错误，建议采用默认生成的名字。
+
+4、本地提交代码免密码提交（ssh方式）。\\
+使用如下命令：git remote -v，会出现如下内容：
+\begin{verbatim}
+$ git remote -v
+origin https://github.com/lony2016/myLeetcode.git (fetch)
+origin https://github.com/lony2016/myLeetcode.git (push)
+\end{verbatim}
+出现上述内容说明还是通过https方式访问的。下面把访问方式改为ssh方式，输入如下命令：
+\begin{verbatim}
+$ git remote set-url origin git@github.com:lony2016/myLeetcode.git
+\end{verbatim}
+git@github.com:lony2016/myLeetcode.git：是你自己项目的地址，登录你的github，如图（\ref{fig:g239}）所示。找到你的上述图片红框中的地址，复制出来即可。再用git remote -v查看一下，是否设置成功，当地址出现以git@开始的就是设置成功。
+\begin{verbatim}
+$ git remote -v
+origin git@github.com:lony2016/myLeetcode.git (fetch)
+origin git@github.com:lony2016/myLeetcode.git (push)
+\end{verbatim}
+
+
+
 
 
 \subsection{拉取和获取远程仓库}
