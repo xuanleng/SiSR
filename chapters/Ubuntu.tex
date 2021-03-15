@@ -560,30 +560,23 @@ plot datafile with image
 \url{https://software.intel.com/content/www/us/en/develop/articles/intel-visual-fortran-compiler-190-for-windows-release-notes-for-intel-parallel-studio-xe-2019.html}
 
 \subsection{Intel Fortran}
-%转自：\url{http://www.douban.com/note/258495128/}
-\subsubsection{编译器的获取}
-对于学生，可以下载 Intel 非商业版的 fortran 和 c++等编译器。
+\subsubsection{编译器的获取——完全免费开放了}
+开发工具合集地址：\url{https://software.intel.com/content/www/us/en/develop/articles/free-intel-software-developer-tools.html}
 
-下载地址：\url{http://software.intel.com/en-us/non-commercial-software-development}
+各个组分地址：\url{https://software.intel.com/content/www/us/en/develop/articles/oneapi-standalone-components.html}
 
-新地址：\url{https://software.intel.com/en-us/qualify-for-free-software}
-
-按要求填写邮件和地址，之后，Intel会给该邮件发一封邮件，内有下载链接及激活的密钥。需要注意的是邮箱必需是学校的邮箱。
-
-比如下载的ifort编译器为：  \verb|l_fcompxe_ia32_2013.1.117.tgz|
-
+Fortran编译器地址：\url{https://software.intel.com/content/www/us/en/develop/articles/oneapi-standalone-components.html#fortran}
 
 
 \subsubsection{编译器的安装}
 \begin{itemize}
-\item 预装Java运行环境；
-\item 预装g++，\verb*|sudo apt-get install build-essential|；
-\item 解压安装文件，进入安装文件目录；
-\item 有两个安装脚本，install.sh 和 install\_GUI.sh，前者是文本安装界面，后者（带GUI）是图形安装界面，建议采用图形安装界面。安装时注意开启超级用户权限，即\\
-\verb|sudo ./install_GUI.sh|；
-\item 安装过程会要求输入密钥，照实输入；
-\item 路径设置：在\verb*|~/.bashrc|中加入，\verb|sudo ~/.bashrc|\\
-\verb|source /opt/intel/composer_xe_2011_sp1.10.319/bin/compilervars.sh intel64|（不同的版本，路径或者名称不一样）
+\item （可能需要）预装Java运行环境；
+\item （可能需要）预装g++，\verb*|sudo apt-get install build-essential|；
+\item 下载的编译器文件为：\verb|l_fortran-compiler_p_2021.1.2.62_offline.sh|，右键点击属性勾选为可执行文件；
+\item \verb|sudo ./l_fortran-compiler_p_2021.1.2.62_offline.sh|；
+\item 安装界面为图形化界面，采用默认安装路径；
+\item 路径设置：在\verb*|~/.bashrc|中加入：\\
+\verb|source /opt/intel/oneapi/compiler/2021.1.2/env/vars.sh|（不同的版本，路径或者名称不一样）
 \item 注销生效
 \item 查看是否安装成功：\verb|which ifort|，如果成功会显示编译器路径。
 \end{itemize}
