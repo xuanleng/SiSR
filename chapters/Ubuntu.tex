@@ -126,7 +126,7 @@ alien软件包格式转换工具是一种转换软件包格式的专业工具，
 
 
 
-\chapter{安装及软件应用}
+\chapter{系统安装}
 \section{Ubuntu Desktop} 
  \subsection{下载}
   到官网\url{http://ubuntu.com}下载所需要的镜像。 
@@ -155,41 +155,9 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 
 
-\section{Fcitx}
-Fcitx 是一款不错的中文输入法。
-\begin{itemize}
-\item \verb|sudo apt-get install fcitx-table-wbpy|
+\section{Ubuntu下基于Virtualbox应用Windows系统}
+双系统很浪费资源，但是又有时候需要用下Windows系统。随着计算机性能发展，可以在Ubuntu下通过虚拟机安装Windows系统来解决临时使用一下的问题。
 
-\item System Settings $\Longrightarrow$ Language Support $\Longrightarrow$
-Keyboard input method system 由默认IBus改成 fcitx
-
-\item reboot
-
-\item 从Ubuntu右上角顶栏的小键盘图标中打开，Configure。在 Input Method 选项下添加输入法。搜索 Pinyin 添加进去，就可以了。快捷键的设置，都在小键盘图标中。
-\end{itemize}
-
-
-
-\section{uGet下载工具}
-\url{https://blog.csdn.net/u010445843/article/details/70184121}
-
-Windows下的下载工具--迅雷，之所以下载速度快，乃是它能搜索资源、为己所用，而不是仅仅从原始地址这单一资源处下载。Ubuntu下也有类似的工具，那就是aira2。
-aira2是一个命令行下载工具，可以配合其他图形界面的下载软件使用。我用的是uget+aria2。uget本身是一个小巧实用的多线程下载工具，加上aria2作为插件，下载速度有明显提高。
-
-(1)uGet主页：\url{http://ugetdm.com}。Ubuntu安装：\\
-\verb|sudo add-apt-repository ppa:plushuang-tw/uget-stable|\\
-\verb|sudo apt update|\\
-\verb|sudo apt install uget|
-
-(2)安装aria2插件：\verb|sudo apt install aria2|
-
-(3)打开uGet在设置中找到插件，选择aria2。注意，重启生效。
-
-
-
-
-
-\section{Virtualbox}
 \subsection{安装virtualbox}
     我用的虚拟机软件是virtualbox，是SUN公司开发的，现在SUN公司被收购了。还是从软件商店装，方便，安全，简单。输入名字搜索就是了。
 \subsection{创建虚拟机}
@@ -223,7 +191,160 @@ sudo cp /home/phileas/VBoxGuestAdditions.iso /usr/share/virtualbox\\
 
 
 
-\section{Gnuplot}
+
+\section{Windows基于WSL2安装Ubuntu}
+
+
+
+
+\chapter{软件应用}
+\section{Fcitx 中文输入法}
+Fcitx 是一款不错的中文输入法。
+\begin{itemize}
+\item \verb|sudo apt-get install fcitx-table-wbpy|
+
+\item System Settings $\Longrightarrow$ Language Support $\Longrightarrow$
+Keyboard input method system 由默认IBus改成 fcitx
+
+\item reboot
+
+\item 从Ubuntu右上角顶栏的小键盘图标中打开，Configure。在 Input Method 选项下添加输入法。搜索 Pinyin 添加进去，就可以了。快捷键的设置，都在小键盘图标中。
+\end{itemize}
+
+
+
+\section{uGet下载工具}
+\url{https://blog.csdn.net/u010445843/article/details/70184121}
+
+Windows下的下载工具--迅雷，之所以下载速度快，乃是它能搜索资源、为己所用，而不是仅仅从原始地址这单一资源处下载。Ubuntu下也有类似的工具，那就是aira2。
+aira2是一个命令行下载工具，可以配合其他图形界面的下载软件使用。我用的是uget+aria2。uget本身是一个小巧实用的多线程下载工具，加上aria2作为插件，下载速度有明显提高。
+
+(1)uGet主页：\url{http://ugetdm.com}。Ubuntu安装：\\
+\verb|sudo add-apt-repository ppa:plushuang-tw/uget-stable|\\
+\verb|sudo apt update|\\
+\verb|sudo apt install uget|
+
+(2)安装aria2插件：\verb|sudo apt install aria2|
+
+(3)打开uGet在设置中找到插件，选择aria2。注意，重启生效。
+
+
+
+
+
+\section{文本编辑软件}
+\subsection{gedit}
+。。。
+
+
+\subsection{Sublime}
+。。。
+
+\subsection{Vim}
+安装：\verb|sudo apt install vim|
+
+\subsubsection{常用配置}
+\begin{verbatim}
+set nu
+set fileencodings=utf-8,gbk,default,latin1
+set encoding=utf-8
+let $LANG="zh_CN.UTF-8"
+\end{verbatim}
+
+
+\subsubsection{一般模式(命令模式)}
+\paragraph{打开文件、保存、关闭文件}
+\begin{itemize}
+\item vi filename ：打开filename文件
+\item w ：保存文件
+\item w vpser.net ：保存至vpser.net文件
+\item q ：退出编辑器，如果文件已修改则用下面的命令
+\item q! ：退出编辑器，且不保存
+\item wq ：退出编辑器，且保存文件
+\end{itemize}
+
+
+\paragraph{常用光标移动命令}
+\begin{itemize}
+\item {\color{red}注意区分大小写}
+\item h：左；ｊ：下；ｋ：上；ｌ：右；这很符合书写习惯，用下就知道了
+\item n<hjkl>移动相应字符
+\item 0：零，移动到这一行最前面的字符处
+\item \$ :移动到这一行最后面的字符处
+\item G：移动到文件的最后一行
+\item nG：n表示数字，移动到这个文件的第ｎ行
+\item n<Enter>:ｎ表示数字，光标向下移动ｎ行，等效于nj
+\item 空格键：向右
+\item Backspace :向左
+\item Enter ：移动到下一行首
+\item - ：移动到上一行首
+\end{itemize}
+
+
+\paragraph{搜索与替换}
+\begin{itemize}
+\item /word：从光标位置开始，向下搜索一个名为“word”的字符
+\item ?word：从光标位置开始，向上搜索一个名为“word”的字符
+\item n：表示“next”
+\item N：表示“previous”
+\item \%s/word1/word2/g：表示将word1替换为word2，g表示全局替换
+\item \%s/word1/word2/gc：其中多的一个c表示替换之前有个用户提示，需要确认
+\end{itemize}
+
+
+\paragraph{删除、复制与粘贴}
+\begin{itemize}
+\item x,X：小写x表示向后删除字符；大写X表示向前删除字符
+\item nx：表示向后删除n个字符
+\item dd：表示删除光标所在的整行
+\item ndd：表示包括光标所在行向下删除n行
+\item d1G：表示删除当前行到第1行所有的数据
+\item dG：删除光标所在位置到最后一行所有的数据
+\item yy：复制光标所在的一整行，也可以用 ayy 复制，a 为缓冲区，a也可以替换为a到z的任意字母，可以完成多个复制任务。
+\item nyy：n表示数字，复制光标所在的向下n行，也可以用 anyy 复制，a 为缓冲区，a也可以替换为a到z的任意字母，可以完成多个复制任务。
+\item p,P：p将已复制的数据粘贴到光标下一行，P相反，如果使用了前面的自定义缓冲区，建议使用“ap”或“aP”进行粘贴。
+\item J：将光标所在的行与下一行结合在一起
+\item u,U：小写u撤销上一步操作，大写U撤销对当前行的所有操作
+\item Ctrl+r：重做上一个操作，恢复
+\item .：重复前一个动作
+\item ：复制单个字符：首先进入正常模式（一般模式）然后按ｖ，进入visual方式，然后就可以移动方向键选中文本，然后按y，就拷贝完成。
+\end{itemize}
+
+
+\subsubsection{编辑模式}
+\begin{itemize}
+\item i,I：i从当前光标所在处插入，I从当前所在行的第一个非空格处开始插入
+\item a,A：a从当前光标所在处下一个字符开始插入，a从当前所在行的最后一个非空格处开始插入。A是从所在行尾插入。
+\item o,O：o在当前光标所在的下一行插入一个行行，O相反
+\item r,R：r会替换光标所在的那一个字符，R会一直替换光标所在的字符
+\item J ：合并光标所在行及下一行为一行（命令模式）
+\end{itemize}
+
+
+
+\subsubsection{vim中使用系统粘贴板}
+%\url{http://www.linuxsir.org/bbs/thread344622.html}
+用vim这么久了，始终也不知道怎么在vim中使用系统粘贴板，通常要在网上复制一段代码都是先gedit打开文件，中键粘贴后关闭，然后再用 vim打开编辑，真的不爽；上次论坛上有人问到了怎么在vim中使用系统粘贴板，印象里回复很多，有好几页的回复却没有解决问题，今天实在受不了了又在网上找办法，竟意外地找到了，贴出来分享一下。 
+
+如果只是想使用系统粘贴板的话直接在输入模式按Shift+Inset就可以了，下面讲一下vim的粘贴板的基础知识，有兴趣的可以看看，应该会有所收获的。 
+vim帮助文档里与粘贴板有关的内容如下： 
+
+1. vim有12个粘贴板，分别是0、1、2、...、9、a、“、＋；用:reg命令可以查看各个粘贴板里的内容。在vim中简单用y只是复制到“（双引号)粘贴板里，同样用p粘贴的也是这个粘贴板里的内容； 
+
+2. 要将vim的内容复制到某个粘贴板，需要退出编辑模式，进入正常模式后，选择要复制的内容，然后按"Ny完成复制，其中N为粘贴板号(注意是按一下双引号然后按粘贴板号最后按y)，例如要把内容复制到粘贴板a，选中内容后按"ay就可以了，有两点需要说明一下： 
+* “号粘贴板（临时粘贴板）比较特殊，直接按y就复制到这个粘贴板中了，直接按p就粘贴这个粘贴板中的内容； 
+* +号粘贴板是系统粘贴板，用"+y将内容复制到该粘贴板后可以使用Ctrl＋V将其粘贴到其他文档（如firefox、gedit）中，同理，要把在其他地方用Ctrl＋C或右键复制的内容复制到vim中，需要在正常模式下按"+p； 
+
+3. 要将vim某个粘贴板里的内容粘贴进来，需要退出编辑模式，在正常模式按"Np，其中N为粘贴板号，如上所述，可以按"5p将5号粘贴板里的内容粘贴进来，也可以按"+p将系统全局粘贴板里的内容粘贴进来。 
+
+
+
+
+
+
+\section{Gnuplot 绘图工具}
+这是自己早期经常用的绘图工具，现在已经完全用Python实现，不再使用。
+
 \subsection{安装}
 （一）
 
@@ -555,7 +676,7 @@ plot datafile with image
 
 
 \newpage
-\section{Fortran}
+\section{Fortran 编译器}
 \subsection{Intel visual Fortran}
 \url{https://software.intel.com/content/www/us/en/develop/articles/intel-visual-fortran-compiler-190-for-windows-release-notes-for-intel-parallel-studio-xe-2019.html}
 
@@ -569,13 +690,18 @@ Fortran编译器地址：\url{https://software.intel.com/content/www/us/en/devel
 
 
 \subsubsection{编译器的安装}
+参考：\url{https://software.intel.com/content/www/us/en/develop/documentation/get-started-with-intel-oneapi-base-linux/top/before-you-begin.html}
+
 \begin{itemize}
 \item （可能需要）预装Java运行环境；
-\item （可能需要）预装g++，\verb*|sudo apt-get install build-essential|；
+\item  预装suite of GNU development tools：\\
+\verb*|sudo apt -y install cmake pkg-config build-essential|；
 \item 下载的编译器文件为：\verb|l_fortran-compiler_p_2021.1.2.62_offline.sh|，右键点击属性勾选为可执行文件；
 \item \verb|sudo ./l_fortran-compiler_p_2021.1.2.62_offline.sh|；
 \item 安装界面为图形化界面，采用默认安装路径；
-\item 路径设置：在\verb*|~/.bashrc|中加入：\\
+\item 路径（环境）设置：在\verb*|~/.bashrc|中加入：\\
+\verb|source /opt/intel/oneapi/setvars.sh|\\
+或\\
 \verb|source /opt/intel/oneapi/compiler/2021.1.2/env/vars.sh|（不同的版本，路径或者名称不一样）
 \item 注销生效
 \item 查看是否安装成功：\verb|which ifort|，如果成功会显示编译器路径。
@@ -594,7 +720,7 @@ Fortran编译器地址：\url{https://software.intel.com/content/www/us/en/devel
 可以在 .bashrc 和 /root/.bashrc 中添加
 
 
-\section{远程登录服务器——ssh}
+\section{SSH远程登录服务器}
 SSH 为 Secure Shell 的缩写，由 IETF 的网络工作小组（Network Working Group）所制定；SSH 为建立在应用层和传输层基础上的安全协议。SSH 是目前较可靠，专为远程登录会话和其他网络服务提供安全性的协议。利用 SSH 协议可以有效防止远程管理过程中的信息泄露问题。SSH最初是UNIX系统上的一个程序，后来又迅速扩展到其他操作平台。SSH在正确使用时可弥补网络中的漏洞。SSH客户端适用于多种平台。几乎所有UNIX平台—包括HP-UX、Linux、AIX、Solaris、Digital UNIX、Irix，以及其他平台，都可运行SSH。
 
 SSH分为客户端和服务端。服务端是一个守护进程，一般是sshd进程，在后台运行并响应来自客户端的请求。提供了对远程请求的处理，一般包括公共密钥认证、密钥交换、对称密钥加密和非安全连接。
@@ -1266,111 +1392,6 @@ will remember the error and you'll need to manually clear it with:
 
 
 
-
-\section{文本编辑软件}
-\subsection{gedit}
-。。。
-
-
-\subsection{Sublime}
-。。。
-
-\subsection{Vim}
-安装：\verb|sudo apt install vim|
-
-\subsubsection{常用配置}
-\begin{verbatim}
-set nu
-set fileencodings=utf-8,gbk,default,latin1
-set encoding=utf-8
-let $LANG="zh_CN.UTF-8"
-\end{verbatim}
-
-
-\subsubsection{一般模式(命令模式)}
-\paragraph{打开文件、保存、关闭文件}
-\begin{itemize}
-\item vi filename ：打开filename文件
-\item w ：保存文件
-\item w vpser.net ：保存至vpser.net文件
-\item q ：退出编辑器，如果文件已修改则用下面的命令
-\item q! ：退出编辑器，且不保存
-\item wq ：退出编辑器，且保存文件
-\end{itemize}
-
-
-\paragraph{常用光标移动命令}
-\begin{itemize}
-\item {\color{red}注意区分大小写}
-\item h：左；ｊ：下；ｋ：上；ｌ：右；这很符合书写习惯，用下就知道了
-\item n<hjkl>移动相应字符
-\item 0：零，移动到这一行最前面的字符处
-\item \$ :移动到这一行最后面的字符处
-\item G：移动到文件的最后一行
-\item nG：n表示数字，移动到这个文件的第ｎ行
-\item n<Enter>:ｎ表示数字，光标向下移动ｎ行，等效于nj
-\item 空格键：向右
-\item Backspace :向左
-\item Enter ：移动到下一行首
-\item - ：移动到上一行首
-\end{itemize}
-
-
-\paragraph{搜索与替换}
-\begin{itemize}
-\item /word：从光标位置开始，向下搜索一个名为“word”的字符
-\item ?word：从光标位置开始，向上搜索一个名为“word”的字符
-\item n：表示“next”
-\item N：表示“previous”
-\item \%s/word1/word2/g：表示将word1替换为word2，g表示全局替换
-\item \%s/word1/word2/gc：其中多的一个c表示替换之前有个用户提示，需要确认
-\end{itemize}
-
-
-\paragraph{删除、复制与粘贴}
-\begin{itemize}
-\item x,X：小写x表示向后删除字符；大写X表示向前删除字符
-\item nx：表示向后删除n个字符
-\item dd：表示删除光标所在的整行
-\item ndd：表示包括光标所在行向下删除n行
-\item d1G：表示删除当前行到第1行所有的数据
-\item dG：删除光标所在位置到最后一行所有的数据
-\item yy：复制光标所在的一整行，也可以用 ayy 复制，a 为缓冲区，a也可以替换为a到z的任意字母，可以完成多个复制任务。
-\item nyy：n表示数字，复制光标所在的向下n行，也可以用 anyy 复制，a 为缓冲区，a也可以替换为a到z的任意字母，可以完成多个复制任务。
-\item p,P：p将已复制的数据粘贴到光标下一行，P相反，如果使用了前面的自定义缓冲区，建议使用“ap”或“aP”进行粘贴。
-\item J：将光标所在的行与下一行结合在一起
-\item u,U：小写u撤销上一步操作，大写U撤销对当前行的所有操作
-\item Ctrl+r：重做上一个操作，恢复
-\item .：重复前一个动作
-\item ：复制单个字符：首先进入正常模式（一般模式）然后按ｖ，进入visual方式，然后就可以移动方向键选中文本，然后按y，就拷贝完成。
-\end{itemize}
-
-
-\subsubsection{编辑模式}
-\begin{itemize}
-\item i,I：i从当前光标所在处插入，I从当前所在行的第一个非空格处开始插入
-\item a,A：a从当前光标所在处下一个字符开始插入，a从当前所在行的最后一个非空格处开始插入。A是从所在行尾插入。
-\item o,O：o在当前光标所在的下一行插入一个行行，O相反
-\item r,R：r会替换光标所在的那一个字符，R会一直替换光标所在的字符
-\item J ：合并光标所在行及下一行为一行（命令模式）
-\end{itemize}
-
-
-
-\subsubsection{vim中使用系统粘贴板}
-%\url{http://www.linuxsir.org/bbs/thread344622.html}
-用vim这么久了，始终也不知道怎么在vim中使用系统粘贴板，通常要在网上复制一段代码都是先gedit打开文件，中键粘贴后关闭，然后再用 vim打开编辑，真的不爽；上次论坛上有人问到了怎么在vim中使用系统粘贴板，印象里回复很多，有好几页的回复却没有解决问题，今天实在受不了了又在网上找办法，竟意外地找到了，贴出来分享一下。 
-
-如果只是想使用系统粘贴板的话直接在输入模式按Shift+Inset就可以了，下面讲一下vim的粘贴板的基础知识，有兴趣的可以看看，应该会有所收获的。 
-vim帮助文档里与粘贴板有关的内容如下： 
-
-1. vim有12个粘贴板，分别是0、1、2、...、9、a、“、＋；用:reg命令可以查看各个粘贴板里的内容。在vim中简单用y只是复制到“（双引号)粘贴板里，同样用p粘贴的也是这个粘贴板里的内容； 
-
-2. 要将vim的内容复制到某个粘贴板，需要退出编辑模式，进入正常模式后，选择要复制的内容，然后按"Ny完成复制，其中N为粘贴板号(注意是按一下双引号然后按粘贴板号最后按y)，例如要把内容复制到粘贴板a，选中内容后按"ay就可以了，有两点需要说明一下： 
-* “号粘贴板（临时粘贴板）比较特殊，直接按y就复制到这个粘贴板中了，直接按p就粘贴这个粘贴板中的内容； 
-* +号粘贴板是系统粘贴板，用"+y将内容复制到该粘贴板后可以使用Ctrl＋V将其粘贴到其他文档（如firefox、gedit）中，同理，要把在其他地方用Ctrl＋C或右键复制的内容复制到vim中，需要在正常模式下按"+p； 
-
-3. 要将vim某个粘贴板里的内容粘贴进来，需要退出编辑模式，在正常模式按"Np，其中N为粘贴板号，如上所述，可以按"5p将5号粘贴板里的内容粘贴进来，也可以按"+p将系统全局粘贴板里的内容粘贴进来。 
 
 
 
