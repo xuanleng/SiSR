@@ -647,9 +647,9 @@ sed命令行格式为： \verb| sed [-nefri] ‘command’ 输入文本 |
 但是要注意在KSH中，Tab并不是\verb|\t|而是直接打入一个Tab就可以了。
 
 （3）删除行首空格、多余空格已经空行
-
-\verb!cat 2dtemp|sed 's/^[ \t]*//g'|tr -s '\n'|tr -s ' ' > 2d.ods!
-
+\begin{lstlisting}
+cat 2dtemp|sed 's/^[ \t]*//g'|tr -s '\n'|tr -s ' ' > 2d.ods
+\end{lstlisting}
 
 \section{输出命令}
 \subsection{echo}

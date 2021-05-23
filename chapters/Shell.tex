@@ -149,7 +149,8 @@ login Shell与non-login Shell的区别在于有没有login：
 \end{itemize}
 
 
-\subsection{/etc/profile}
+\subsection{login Shell}
+\subsubsection{/etc/profile}
 /etc/profile，login Shell读取的配置文件。这个配置文件可以利用用户ID (UID) 来决定很多重要的变量数据， 这也是每个用户login取得 bash 时一定会读取的配置文件。 所以如果想要帮所有用户配置整体环境，那就是修改这里。不过，没事还是不要随便改这个文件。这个文件配置的变量主要有：
 \begin{itemize}
 \item PATH：会依据 UID 决定 PATH 变量要不要含有 sbin 的系统命令目录；
@@ -162,7 +163,7 @@ login Shell与non-login Shell的区别在于有没有login：
 /etc/profile 还会调用外部的配置文件，如：/etc/profile.d/*.sh，即只要用户具有r的权限，那么在 /etc/profile.d/ 这个目录内且扩展名为 .sh的文件就会被 /etc/profile调用。如果需要帮所有用户配置一些共享的命令别名时， 可以在这个目录底下自行创建扩展名为 .sh 的文件，并将所需要的数据写入即可。这样的机制让我们的 bash 操作接口变的非常友善。
 
 
-\subsection{$\sim$/.bash\_profile、$\sim$/.bash\_login和$\sim$/.profile}
+\subsubsection{$\sim$/.bash\_profile、$\sim$/.bash\_login和$\sim$/.profile}
 对于login Shell，bash 在读完了整体环境配置的 /etc/profile 并藉此调用其他配置文件后，接下来则是会读取用户的个人配置文件。 在 login shell 的 bash 环境中，所读取的个人偏好配置文件主要有三个，依序分别是：
 \begin{enumerate}
 \item \verb|~/.bash_profile|
@@ -172,8 +173,16 @@ login Shell与non-login Shell的区别在于有没有login：
 
 其实 bash 的 login shell 配置只会读取上面三个文件的其中一个， 而读取的顺序则是依照上面的顺序。也就是说，如果 \verb|~/.bash_profile|存在，那么其他两个文件不论有无存在，都不会被读取。 如果 \verb|~/.bash_profile|不存在才会去读取 \verb|~/.bash_login|，而前两者都不存在才会读取 \verb|~/.profile| 的意思。 会有这么多的文件，其实是因应其他 shell 转换过来的使用者的习惯而已。
 
+一般保证login Shell也读取用户配置信息，通常加入
+\begin{verbatim}
+ # Get the aliases and functions
+      if [ -f ~/.bashrc ]; then
+             ~/.bashrc
+      fi
+\end{verbatim}
 
-\subsection{$\sim$/.bashrc}
+
+\subsection{non-login Shell: $\sim$/.bashrc}
 当取得 non-login shell 时，该 bash 配置文件仅会读取 \verb|~/.bashrc| 而已！
 
 
