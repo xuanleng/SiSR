@@ -185,20 +185,82 @@ sudo cp /home/phileas/VBoxGuestAdditions.iso /usr/share/virtualbox\\
 
 
 
-
-
-
-
-
-
-
 \section{Windows基于WSL2安装Ubuntu}
+暂略！
+
+
+
+\section{安装或升级出现的黑屏问题}
+参考：\url{https://www.stephenwagner.com/2019/05/05/ubuntu-linux-black-screen-frozen-system-after-upgrade-install/}
+
+Temporary Fix. To get the system to boot:
+\begin{enumerate}
+\item After turning on your PC, hold the right SHIFT key to get to the GRUB bootloader if your computer uses a BIOS. If your computer uses EFI or UEFI, continuously tap the “ESC” (escape) key after turning on your PC.
+
+\item Once GRUB is open, press the “e” key to edit the first highlighted entry “Ubuntu”.
+
+\item Move your cursor down to the line that starts with “linux”, and use the right arrow key to find the section with the words “ro quiet splash”.
+
+\item Add “nomodeset” after these words.
+
+\item Feel free to remove “quiet” and “splash” for more verbosity to troubleshoot the boot process.
+
+\item Press “CTRL + X” or “F10” to boot.
+
+\item The system should now boot.
+\end{enumerate}
+
+
+Permanent Fix. To permanently resolve the issue:
+\begin{enumerate}
+\item Once the system has booted using the temporary fix, log in.
+
+\item sudo gedit /etc/default/grub
+
+\item Locate the line with the variable “GRUB\_CMDLINE\_LINUX\_DEFAULT”, and add “nomodeset” to the variables. Feel free to remove “splash” and “quiet” if you’d like text boot. Here’s an example of my line after editing (yours will look different):\\
+\verb|GRUB_CMDLINE_LINUX_DEFAULT="quiet splash nomodeset"|
+
+\item Save the file and exit the text editor 
+
+\item At the bash prompt, execute the following command to regenerate the grub.conf file on the /boot partition from your new default file:\\
+\verb|update-grub|
+
+\item Restart your system, it should now boot!
+\end{enumerate}
+
+
+
+
+\section{英伟达显卡驱动——无法进入图形界面或卡机的问题}
+参考：\url{https://www.cnblogs.com/yutingmoran/p/11881888.html}
+
+Ubuntu的显卡驱动经常引发各种问题，如开机黑屏左上角一直横杆闪烁。
+
+\begin{enumerate}
+\item 查看显卡驱动是否正确安装：nvidia-smi ，如果显示错误：
+NVIDIA-SMIna has failed because it couldn't communicate with the NVIDIA driver. Make sure that the latest NVIDIA driver is installed and running. 则说明没有安装好。
+
+\item 在“软件与更新”处明明选择安装了相应驱动。可能是安装系统时，设置了security boot密码，需要进入BIOS禁止安全启动。
+\end{enumerate}
+
+显卡驱动正常，参考如下：
+\begin{figure}[h!]
+\centering
+\frame{\includegraphics[width=0.8\textwidth]{pictures/nvidia-smi.png}}
+\caption{英伟达显卡驱动信息}
+%\label{fig:367}
+\end{figure}
+
+
+
 
 
 
 
 \chapter{软件应用}
-\section{Fcitx 中文输入法}
+\section{搜狗/Fcitx 中文输入法}
+参考：\url{https://pinyin.sogou.com/linux/}
+
 Fcitx 是一款不错的中文输入法。
 \begin{itemize}
 \item \verb|sudo apt-get install fcitx-table-wbpy|
@@ -1836,14 +1898,6 @@ cat shadow.mig >> /etc/shadow
 
 至此，完整的复制了用户信息并保留了图形界面。
 
-
-
-\section{重装显卡驱动}
-卸载：\verb|sudo apt remove --purge nvidia*|
-
-检测显卡型号以及推荐驱动型号：\verb|ubuntu-drivers devices|
-
-安装推荐驱动：\verb|sudo ubuntu-drivers autoinstall|
 
 
 
