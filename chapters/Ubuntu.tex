@@ -300,7 +300,8 @@ aira2是一个命令行下载工具，可以配合其他图形界面的下载软
 
 
 \subsection{Sublime}
-。。。
+官网有很详细的安装说明：
+\url{https://www.sublimetext.com/download}
 
 \subsection{Vim}
 安装：\verb|sudo apt install vim|
@@ -939,6 +940,18 @@ sftp是Secure File Transfer Protocol的缩写，安全文件传送协议。可�
 在linux下终端用超算也会遇到同样的问题，按上述方法解决。
 
 
+\subsection{Windows客户端—Putty}
+\url{https://www.putty.org}
+
+PuTTY is an SSH and telnet client, developed originally by Simon Tatham for the Windows platform. PuTTY is open source software that is available with source code and is developed and supported by a group of volunteers.
+
+
+\section{SSHFS 远程挂载文件夹}
+\verb| sudo apt-get install sshfs|
+
+\verb*|sshfs xuan@192.168.1.2:/home hpc1|
+其中\verb|/home|为远程目录，\verb|hpc1|为本地空目录，用来挂载远程目录。
+
 
 \section{Linux作业管理系统}
 \subsection{PBS}
@@ -1410,6 +1423,11 @@ In January, 2012, Platform Computing was acquired by IBM.[5]
 \item \url{https://www.jianshu.com/p/e560b19dbd3e}
 \item \url{https://blog.csdn.net/cuxiong8996/article/details/107154425}
 \end{itemize}
+
+
+\subsubsection{单机Slurm安装}
+
+
 
 
 \subsubsection{启动Slurm}
