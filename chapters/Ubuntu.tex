@@ -1694,7 +1694,7 @@ ubuntu11.10中有个字体查看器，用它打开字体，有个安装按钮，
 
 
 \section{Win7+Ubuntu双系统时间不一致}
- [转]\url{http://blog.sina.com.cn/s/blog_55546df90100xkf3.html}
+ [转]\url{https://blog.csdn.net/weixin_43825028/article/details/106789922}
 
 装了ubuntu和win7双系统，发现每次进入win7后时间总是不对，总是比当地时间晚8个小时，每次在win7下调整好之后，但是再一次进入win7系统后，时间又变回去了。网上搜索一下原因，原来是两个系统读取时间的机制不一样。现在来具体的说一下原因和解决办法：
 
@@ -1713,16 +1713,10 @@ Linux/Unix/Mac把硬件时间当作 UTC，操作系统中显示的时间是硬�
 这样，当PC中同时有多系统共存时，就出现了问题。
 假 如你的ubuntu设置的时区都为北京时间东八区，当前系统时间为9：00AM。则此时硬件中存储的实际是UTC 时间1:00AM。这时你重启进入Windows后，你会发现windows系统中显示的时间是 1:00AM，比ubuntu中慢了八个小时。同理，你在Windows中更改或用网络同步了系统时间后，再到Ubuntu中去看，系统就会快了8小时。 在实行 夏令时的地区，情况可能会更复杂些。
 
-解决方法显然有两种。第一种是在windows下修改，第二种是在Ubuntu下修改。觉得在windows下修改很麻烦，也没兴趣。这里 只讲Ubuntu下的修改方法。
 
-ubuntu默认开启UTC,即协调世界时，而win7是使用这种计时方式，这将导致的结果就是Windows和Ubuntu时间计算有差异。可以使用以下方法得到一致的时间：
+ubuntu默认开启UTC,即协调世界时，而win7是使用这种计时方式，这将导致的结果就是Windows和Ubuntu时间计算有差异。解决办法：禁用Ubuntu的UTC，打开终端输入以下命令
 
-sudo gedit /etc/default/rcS
-
-找到这一行：UTC=yes
-
-把 yes改为no
-
+\verb| timedatectl set-local-rtc 1 --adjust-system-clock |
 
 
 \section{Ubuntu 开机让数字小键盘灯起来  }
