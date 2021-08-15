@@ -529,9 +529,9 @@ multic =\verb|\multicolumn{}{•}{•}|
 	\item 做好笔记；
 	\item 完成git的安装；
 	\item 基本操作跟随视频演练一边；
-	\item 注册github账户
+	\item 注册gitee账户
  	\end{itemize}
-\item Fork本文档 \url{https://github.com/xuanleng/SiSR}，并用 git clone <自己远程库的地址> 建立本地库。
+\item Fork本文档 \url{https://gitee.com/xuanleng/SiSR}，并用 git clone <自己远程库的地址> 建立本地库。
 \item 并推送一条修改。修改内容为：编辑本文档“前言”章节中“第一次推送打卡”小节，记录下自己的第一次推送和感言。
 \item 由于本章节是文档协作之本，希望大家踊跃补充本章节忽视的内容。目标是，在看完推荐视频后，所有不熟悉的git相关操作都能在本章节中找到，不需要再花时间找第三方资料。
 \end{itemize}
@@ -826,10 +826,36 @@ origin git@github.com:lony2016/myLeetcode.git (push)
 
 
 
+\subsection{Github和Gitee同步提交的方法}
+ref: \url{https://zhuanlan.zhihu.com/p/143666689}
+
+有时候我们需要把项目提交到远程仓库，如GitHub、Gitee(码云)、coding等等，但一个个的提交方式实在是太慢了，而且这繁琐的操作在未来，依旧需要自己手动一个个的进行提交。
+那有什么办法可以同时(同步)提交多个仓库呢？
 
 
+\begin{enumerate}
+\item 在项目目录找到.git隐藏文件夹，如果在项目目录找不到.git隐藏文件夹，文件夹右上角打开查看然后找到隐藏的项目并勾选即可
 
+\item 用记事本打开config文件，把Gitee(码云)的仓库地址填进去即可，如下所示
+\begin{verbatim}
+[core]
+    repositoryformatversion = 0
+    filemode = false
+    bare = false
+    logallrefupdates = true
+    symlinks = false
+    ignorecase = true
+[remote "origin"]
+    url = https://gitee.com/lete114/lete114.git
+    url = https://github.com/lete114/lete114.github.io.git
+    fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "master"]
+    remote = origin
+    merge = refs/heads/master
+\end{verbatim}
 
+\item 最后重新push即可，如果Gitee(码云)仓库有过提交，使用此方法第一次提交请使用强行提交，避免报错：\verb| git push -f origin master | 
+\end{enumerate}
 
 
 
