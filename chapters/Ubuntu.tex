@@ -1921,7 +1921,8 @@ cat shadow.mig >> /etc/shadow
 
 
 \part{CentOS}
-\chapter{安装}
+\chapter{系统安装与配置}
+\section{系统安装}
 参考：\url{https://phoenixnap.com/kb/how-to-install-centos-7}
 
 Step 1: Download CentOS 7
@@ -1950,7 +1951,6 @@ Upon booting the CentOS 7 ISO file, you can begin the installation process. To d
 If you are booting from a USB, click the Install to Hard Drive icon on the desktop. That will open the installation wizard.
 
 
-
 Step 4: Install CentOS
 Before starting the installation process itself, select which language you would like to use during installation. The default option is English.
 
@@ -1960,8 +1960,12 @@ There are a couple of settings you would want to configure. All items marked wit
 System configurations outlined below may differ based on use case.
 
 
-
-
+\section{NTFS文件系统支持}
+\begin{itemize}
+\item su
+\item yum install epel-release
+\item yum install ntfs-3g fuse
+\end{itemize}
 
 
 

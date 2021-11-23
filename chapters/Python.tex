@@ -23,6 +23,29 @@ Intel fortran 编译器许可证过期是个教训。不同编译器，要求不
 
 商业软件就是商业软件，Intel fortran 足足比开源免费的 gfortran 快个 6 倍。
 
+Spyder 环境下运行intel Fortran a.out 执行文件
+
+1、找不到动态链接库问题
+
+vi /etc/ld.so.conf
+
+添加动态链接库绝对路径
+
+/opt/intel/oneapi/compiler/2021.2.0/linux/compiler/lib/intel64\_lin
+
+执行：ldconfig 命令
+
+2、ulimited -s unlimited
+
+/etc/security/limits.conf
+增加
+
+@xuan soft stack unlimited
+@xuan hard stack unlimted
+
+xuan为用户名
+
+
 
 
 
