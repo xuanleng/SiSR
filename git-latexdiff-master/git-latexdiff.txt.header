@@ -1,0 +1,9 @@
+git-latexdiff(1)
+================
+
+NAME
+----
+git-latexdiff - Call latexdiff on two Git revisions of a file
+
+OPTIONS
+-------
