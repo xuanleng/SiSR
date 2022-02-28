@@ -977,6 +977,31 @@ ref: \url{https://zhuanlan.zhihu.com/p/143666689}
 \end{enumerate}
 
 
+\subsection{gitee Permission denied问题}
+Refs:
+\begin{itemize}
+\item \url{https://blog.csdn.net/dyy_csdn/article/details/81508809}
+\item \url{http://git.mydoc.io/?t=154712}
+\end{itemize}
+在gitbash中输入命令就可以。
+\begin{itemize}
+\item 重新生成ssh\\
+\verb|ssh-keygen -t rsa -C “xxxxx@xxxxx.com”|
+
+\item 查看你的 public key\\
+\verb|cat ~/.ssh/id_rsa.pub|
+（以ssh-rsa 开头，以账号的注册邮箱结尾的）
+
+\item 将它添加到码云，添加地址 https://gitee.com/profile/sshkeys
+
+\item 终端输入: \verb|ssh -T git@gitee.com|
+\end{itemize}
+
+
+
+
+
+
 
 
 
