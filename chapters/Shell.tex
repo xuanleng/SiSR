@@ -186,12 +186,19 @@ login Shell与non-login Shell的区别在于有没有login：
 当取得 non-login shell 时，该 bash 配置文件仅会读取 \verb|~/.bashrc| 而已！
 
 
-\subsection{其他相关配置文件}
+\subsection{.bash\_history与.bash\_logout}
 还有一些配置文件可能会影响到bash 操作的：
 \begin{itemize}
 \item \verb|~/.bash_history|
+对于root用户则为：\verb|/root/.bash_history|
 
 \qquad 默认情况下， 我们的历史命令就记录在这里。而这个文件能够记录几笔数据，则与 HISTFILESIZE 这个变量有关啊。每次登陆 bash 后，bash 会先读取这个文件，将所有的历史命令读入内存， 因此，当我们登陆 bash 后就可以查知上次使用过哪些命令。
+
+/etc/profile :环境变量配置文件；
+此文件中配置了history命令的相关变量，在此文件中配置的history命令的变量全局生效。
+
+如修改这个文件中的 HISTSIZE=100000 (历史命令默认会保存1000条) 也是可以的。
+
 
 \item \verb|~/.bash_logout|
 

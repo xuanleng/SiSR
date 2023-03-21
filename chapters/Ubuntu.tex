@@ -303,434 +303,8 @@ aira2是一个命令行下载工具，可以配合其他图形界面的下载软
 官网有很详细的安装说明：
 \url{https://www.sublimetext.com/download}
 
-\subsection{Vim}
-安装：\verb|sudo apt install vim|
 
-\subsubsection{常用配置}
-\begin{verbatim}
-set nu
-set fileencodings=utf-8,gbk,default,latin1
-set encoding=utf-8
-let $LANG="zh_CN.UTF-8"
-\end{verbatim}
 
-
-\subsubsection{一般模式(命令模式)}
-\paragraph{打开文件、保存、关闭文件}
-\begin{itemize}
-\item vi filename ：打开filename文件
-\item w ：保存文件
-\item w vpser.net ：保存至vpser.net文件
-\item q ：退出编辑器，如果文件已修改则用下面的命令
-\item q! ：退出编辑器，且不保存
-\item wq ：退出编辑器，且保存文件
-\end{itemize}
-
-
-\paragraph{常用光标移动命令}
-\begin{itemize}
-\item {\color{red}注意区分大小写}
-\item h：左；ｊ：下；ｋ：上；ｌ：右；这很符合书写习惯，用下就知道了
-\item n<hjkl>移动相应字符
-\item 0：零，移动到这一行最前面的字符处
-\item \$ :移动到这一行最后面的字符处
-\item G：移动到文件的最后一行
-\item nG：n表示数字，移动到这个文件的第ｎ行
-\item n<Enter>:ｎ表示数字，光标向下移动ｎ行，等效于nj
-\item 空格键：向右
-\item Backspace :向左
-\item Enter ：移动到下一行首
-\item - ：移动到上一行首
-\end{itemize}
-
-
-\paragraph{搜索与替换}
-\begin{itemize}
-\item /word：从光标位置开始，向下搜索一个名为“word”的字符
-\item ?word：从光标位置开始，向上搜索一个名为“word”的字符
-\item n：表示“next”
-\item N：表示“previous”
-\item \%s/word1/word2/g：表示将word1替换为word2，g表示全局替换
-\item \%s/word1/word2/gc：其中多的一个c表示替换之前有个用户提示，需要确认
-\end{itemize}
-
-
-\paragraph{删除、复制与粘贴}
-\begin{itemize}
-\item x,X：小写x表示向后删除字符；大写X表示向前删除字符
-\item nx：表示向后删除n个字符
-\item dd：表示删除光标所在的整行
-\item ndd：表示包括光标所在行向下删除n行
-\item d1G：表示删除当前行到第1行所有的数据
-\item dG：删除光标所在位置到最后一行所有的数据
-\item yy：复制光标所在的一整行，也可以用 ayy 复制，a 为缓冲区，a也可以替换为a到z的任意字母，可以完成多个复制任务。
-\item nyy：n表示数字，复制光标所在的向下n行，也可以用 anyy 复制，a 为缓冲区，a也可以替换为a到z的任意字母，可以完成多个复制任务。
-\item p,P：p将已复制的数据粘贴到光标下一行，P相反，如果使用了前面的自定义缓冲区，建议使用“ap”或“aP”进行粘贴。
-\item J：将光标所在的行与下一行结合在一起
-\item u,U：小写u撤销上一步操作，大写U撤销对当前行的所有操作
-\item Ctrl+r：重做上一个操作，恢复
-\item .：重复前一个动作
-\item ：复制单个字符：首先进入正常模式（一般模式）然后按ｖ，进入visual方式，然后就可以移动方向键选中文本，然后按y，就拷贝完成。
-\end{itemize}
-
-
-\subsubsection{编辑模式}
-\begin{itemize}
-\item i,I：i从当前光标所在处插入，I从当前所在行的第一个非空格处开始插入
-\item a,A：a从当前光标所在处下一个字符开始插入，a从当前所在行的最后一个非空格处开始插入。A是从所在行尾插入。
-\item o,O：o在当前光标所在的下一行插入一个行行，O相反
-\item r,R：r会替换光标所在的那一个字符，R会一直替换光标所在的字符
-\item J ：合并光标所在行及下一行为一行（命令模式）
-\end{itemize}
-
-
-
-\subsubsection{vim中使用系统粘贴板}
-%\url{http://www.linuxsir.org/bbs/thread344622.html}
-用vim这么久了，始终也不知道怎么在vim中使用系统粘贴板，通常要在网上复制一段代码都是先gedit打开文件，中键粘贴后关闭，然后再用 vim打开编辑，真的不爽；上次论坛上有人问到了怎么在vim中使用系统粘贴板，印象里回复很多，有好几页的回复却没有解决问题，今天实在受不了了又在网上找办法，竟意外地找到了，贴出来分享一下。 
-
-如果只是想使用系统粘贴板的话直接在输入模式按Shift+Inset就可以了，下面讲一下vim的粘贴板的基础知识，有兴趣的可以看看，应该会有所收获的。 
-vim帮助文档里与粘贴板有关的内容如下： 
-
-1. vim有12个粘贴板，分别是0、1、2、...、9、a、“、＋；用:reg命令可以查看各个粘贴板里的内容。在vim中简单用y只是复制到“（双引号)粘贴板里，同样用p粘贴的也是这个粘贴板里的内容； 
-
-2. 要将vim的内容复制到某个粘贴板，需要退出编辑模式，进入正常模式后，选择要复制的内容，然后按"Ny完成复制，其中N为粘贴板号(注意是按一下双引号然后按粘贴板号最后按y)，例如要把内容复制到粘贴板a，选中内容后按"ay就可以了，有两点需要说明一下： 
-* “号粘贴板（临时粘贴板）比较特殊，直接按y就复制到这个粘贴板中了，直接按p就粘贴这个粘贴板中的内容； 
-* +号粘贴板是系统粘贴板，用"+y将内容复制到该粘贴板后可以使用Ctrl＋V将其粘贴到其他文档（如firefox、gedit）中，同理，要把在其他地方用Ctrl＋C或右键复制的内容复制到vim中，需要在正常模式下按"+p； 
-
-3. 要将vim某个粘贴板里的内容粘贴进来，需要退出编辑模式，在正常模式按"Np，其中N为粘贴板号，如上所述，可以按"5p将5号粘贴板里的内容粘贴进来，也可以按"+p将系统全局粘贴板里的内容粘贴进来。 
-
-
-
-
-
-
-\section{Gnuplot 绘图工具}
-这是自己早期经常用的绘图工具，现在已经完全用Python实现，不再使用。
-
-\subsection{安装}
-（一）
-
-注意不要直接安装，即\verb*|sudo apt-get install gnuplot|，通常缺少一个外界的库，容易造成terminal set to unknown错误，进而不能显示绘制图片。采用以下命令安装：
-
-\verb*|sudo apt-get install gnuplot-x11|
-
-或者分两步安装
-
-\verb*|sudo apt-get install libx11-dev|
-
-\verb*|sudo apt-get install gnuplot|
-
-
-
-（二）源代码编译安装
-\begin{itemize}
-\item 先执行\verb*|sudo apt-get install libx11-dev|  安装x11，否则不能显示图形！\\
-若不安装，则会出现，在终端下输入gnuplot后显示terminal set to unknown。
-
-\item 去官网下载gnuplot版本并解压
-
-\item \verb*|su root|
-
-\item 切换到gnuplot所在目录
-
-\item 配置\verb*|./configure|
-
-\item 编译 make
-
-\item  make install
-
-\item 运行：在终端输入 gnuplot 就行了
-
-\item 例子： plot sin(x)
-\end{itemize}
-
-
-
-\subsection{文件设置}
-\subsubsection{设置数据分隔符}
-%http://blog.csdn.net/liyuanbhu/article/details/8516417
-\begin{verbatim}
-set datafile separator ","
-#设置gnuplot读取逗号分隔的数据文件
-\end{verbatim}
-
-有时，我们的数据文件中各个数据之间是用逗号作为分隔符的，比如标准的以“CSV”（Comma-Separated Values）为后缀的数据文件。如果在逗号之后没有空格分隔，默认情况下gnuplot是无法直接读取的。这时可以有两种方案，第一种是提前处理一下数据文件，比如将逗号替换为空格，随便一个文本处理软件都能很轻松的做这种替换。但是有时我们有很多这样的数据文件，每个都这样处理一下也挺麻烦的。第二种方法就是在gnuplot中给出文件分隔符的信息，让gnuplot能够读懂我们的文件。
-
-例如：
-
-\verb*|Plot 'sample.csv' using 1:2|
-
-gnuplot 会抱怨说：
-\begin{verbatim}
-gnuplot> plot 'sample.csv' using 1:2
-                                   ^
-         warning: Skipping data file with no valid points
-                                    ^
-         x range is invalid
-\end{verbatim}
-
-正确的方法是这样的：
-
-\verb*|plot 'sample.csv' using 1:2 "%lf,%lf"|
-
-格式字符串的格式与C语言中scanf的格式字符串是类似的，实际上gnuplot就是用的scanf函数来读取数据。\verb|%lf| 
-表示按照 double型浮点数类型来读取。需要注意的是gnuplot的格式化字符串不支持\verb|%lf| 。
-gnuplot的格式化字符串还有很多的用法，这里就不多介绍了，有兴趣的可以参考帮助文档相关章节。
-
-更一般的参考说明文档
-\begin{verbatim}
-Set datafile separator
-The command set datafile separator tells gnuplot that data fields in subsequent input files are separated
-by a specific character rather than by whitespace. The most common use is to read in csv (comma-separated
-value) files written by spreadsheet or database programs. By default data fields are separated by whitespace.
-Syntax:
-set datafile separator {whitespace | tab | comma | "<chars>"}
-Examples:
-# Input file contains tab-separated fields
-set datafile separator "\t"
-# Input file contains comma-separated values fields
-set datafile separator comma
-# Input file contains fields separated by either * or |
-set datafile separator "*|"
-\end{verbatim}
-
-
-\subsubsection{重命名数据文件}
-\begin{verbatim}
-datafile = "FMO-sink-initial1.ods"
-#将数据文件命名为“datafile”，方便调用
-\end{verbatim}
-
-
-
-\subsection{图片设置}
-\subsubsection{设置输出图片格式和名称}
-\begin{verbatim}
-set term post eps color enh solid
-#设置输出图片格式
-set output "FMO-sink-initial1.eps"
-#设置输出图片名称
-\end{verbatim}
-
-其他图片格式的，有
-\begin{itemize}
-\item PS格式：
-彩色（推荐使用）：
-\begin{verbatim}
-set term postscript enhanced color
-set output "*.ps"
-\end{verbatim}
-另：（未测）
-\begin{verbatim}
-set term postscript landscape
-set output "*.ps"
-\end{verbatim}
-
-\item EPS格式：
-黑白（曲线类型控制未知）：
-\begin{verbatim}
-set term postscript eps enhanced
-set output "*.eps"
-\end{verbatim}
-忘了是啥：
-\begin{verbatim}
-set term post eps color solid enh
-set output "*.eps"
-\end{verbatim}
-
-\item PNG格式：
-\begin{verbatim}
-set terminal png size 1500,1000 enhanced font "Helvetica,20"
-set output '*.png'
-\end{verbatim}
-
-\item PDF格式需要装有ps2pdf，然后：
-\begin{verbatim}
-set term postscript enhanced color
-set output "| ps2pdf - *.pdf"
-\end{verbatim}
-
-注：关于pdf图片，输出后周围的大片空白可以在终端中使用如下命令去除：
-pdfcrop *.pdf
-会生成一个新文件： *-crop.pdf
-使用此pdf文件在Latex等处都将十分整洁方便，妈妈再也不用担心我的图片了。
-\end{itemize}
-
-
-\subsubsection{设置图片/字体大小}
-\begin{verbatim}
-set size 1.0,1.0
-#设置图片大小
-\end{verbatim}
-字体大小设置比较复杂，此命令是按比例缩放图片大小，字体大小不变，相当于字体相对变大。
-
-
-\subsubsection{设置图片标题}
- 设置/取消命名（位于图上方）
- \begin{verbatim}
-set title "figurename""
-unset title
-\end{verbatim}
-注：在多图设置（见8小节）中，命名命令对其后所有图生效，要在每个图中重新命名。之后不需要命名时要记得取消。
-
-
-\subsubsection{设置图注}
-\begin{enumerate}
-\item 图注在图中的位置：
-\verb*|set key left/right top/bottom/center|
-
-\item 图注增加/取消外框：\verb*|set/unset key box|
-
-\item 图注间距：\verb*|set key spacing 1.5|
-
-\item 图注位于图外：\verb*|set key lmargin/rmargin/tmargin/bmargin(below)|
-
-\item 取消图注：\verb*|unset key|
-\end{enumerate}
-
-图注设置参数一览：
-\begin{verbatim}
-set key {on|off} {default}
-             {{inside | outside} | {lmargin | rmargin | tmargin | bmargin}
-               | {at <position>}}
-             {left | right | center} {top | bottom | center}
-             {vertical | horizontal} {Left | Right}
-             {{no}reverse} {{no}invert}
-             {samplen <sample_length>} {spacing <vertical_spacing>}
-             {width <width_increment>}
-             {height <height_increment>}
-             {{no}autotitle {columnheader}}
-             {title "<text>"} {{no}enhanced}
-             {{no}box { {linestyle | ls <line_style>}
-                        | {linetype | lt <line_type>}
-                          {linewidth | lw <line_width>}}}
-     unset key
-     show key
-\end{verbatim}
-
-
-
-\subsection{坐标轴设置}
-\subsubsection{设置/取消坐标名称}
- \begin{verbatim}
-set xlabel/ylabel "name"
-unset xlabel/ylabel
-\end{verbatim}
-
-
-\subsubsection{设置坐标轴范围}
-\begin{itemize}
-\item 设置给定坐标轴范围\\
-\verb|set xrange/yrange [1:100]|
-
-\item 设置负向坐标
-\verb|set xrange/yrange [100:1]|
-
-\item 只设置一端坐标（另一端将自动调整）\\
-\verb|set xrange/yrange [:100]|
-
-\item 恢复自动坐标轴范围（此时人工给定设置依然保留）\\
-\verb|set auto x/y|
-
-\item  恢复给定坐标轴范围\\
-\verb|set noauto x/y|
-\end{itemize}
-
-注：坐标轴范围，可以不设置，自动判断
-
-
-
-\subsubsection{设置坐标轴标识}
-\begin{itemize}
-\item 设置坐标轴最大间隔（显示数值）\\
-\verb|set xtics/ytics 0.5|
-
-\item 设置坐标轴小间隔\\
-\verb|set mxtics/mytics 2|\\
-说明：将每个大间隔平分为2份
-
-\item 设置坐标轴刻度的精度\\
-\verb|set xtics format "%.2f"|\\
-\verb|set ytics format "%.0f"|\\
-说明：“\%.2f”指的是浮点型、精确到小数点后两位
-
-\item 设置标识文本显示倾斜度\\
-\verb|set xtics rotate by -45|\\
-说明：标识右倾45度
-
-\item 设置指数坐标轴\\
-\verb|set log x/y|\\
-\verb|set xtics 1.5|\\
-说明：设置指数坐标轴的间隔时，数字代表10的指数（待明）。注意此时坐标的值域必须大于0。
-
-\item 移动坐标标记\\
-\verb|set x/ytics [out] offset 1,1|\\
-“1,1” 为对应的移动向量的x,y值。
-\end{itemize}
-
-
-
-\subsection{代码示例}
-\subsubsection{一维绘图图}
-\lstinputlisting[language=gnuplot]{program/gnuplot/plot_1d.sh}
-效果如下：
-\begin{figure}[htb]
-\centering
-\includegraphics[width=0.7\textwidth]{program/gnuplot/diagonal.eps}
-%\caption{精确解、欧拉法解、改进欧拉法解}
-%\label{fig:by:table}
-\end{figure}
-
-
-
-\subsubsection{二维三维绘图}
-给数据加入空白行Shell脚本：
-\lstinputlisting[language=sh]{program/gnuplot/addblanks.awk}
-二维等高图代码：
-\lstinputlisting[language=gnuplot]{program/gnuplot/2d_contour.sh}
-三维绘图代码：
-\begin{lstlisting}[language=gnuplot]
-#==================Pm3d绘图====================#
-unset key
-#pm3d绘图时，NxM的数据只能画出(N-1)x(M-1)的图像
-set pm3d
-#用色彩来表示不同的z值，palette-mapped 3d.
-set palette rgbformulae 22,13,-31
-#设置色板
-replot
-
-set pm3d at bs
-#色彩图除了画在曲面上,还可以画在底部或顶部。b,s,t 三个字母分别代表底部、曲面和顶部,at 之后可以是任一个字母,也可是三个字母的任意组合。
-replot
-#splot datafile with lines
-
-set pm3d map
-#从上往下看数据
-set size square
-replot
-
-
-#=================Image绘图===================#
-set size square
-plot datafile with image
-#Image绘图与Pm3d绘图这两种方式无法简单判断优劣,只能根据实际需要选择。当像素比较多而数据又比较平滑的时候,其实两者差别不大。
-\end{lstlisting}
-
-
-效果如下：
-
-%\begin{figure}[htb]
-%\centering
-\includegraphics[width=0.4\textwidth]{program/gnuplot/re_rp1.eps}
-\includegraphics[width=0.4\textwidth]{program/gnuplot/re_rp2.eps}
-
-\includegraphics[width=0.7\textwidth]{program/gnuplot/re_rp3.eps}
-
-\includegraphics[width=0.7\textwidth]{program/gnuplot/re_rp4.eps}
-%\caption{精确解、欧拉法解、改进欧拉法解}
-%\label{fig:by:table}
-%\end{figure}
 
 
 
@@ -941,531 +515,6 @@ PuTTY is an SSH and telnet client, developed originally by Simon Tatham for the 
 
 \verb*|sshfs xuan@192.168.1.2:/home hpc1|
 其中\verb|/home|为远程目录，\verb|hpc1|为本地空目录，用来挂载远程目录。
-
-
-\section{Linux作业管理系统}
-\subsection{PBS}
-\begin{itemize}
-\item \url{https://www.jianshu.com/p/2f6c799ca147}
-\end{itemize}
-
-
-PBS（Portable Batch System）最初由NASA的Ames研究中心开发，主要为了提供一个能满足异构计算网络需要的软件包，用于灵活的批处理，特别是满足高性能计算的需要，如集群系统、超级计算机和大规模并行系统。PBS的主要特点有：代码开放，免费获取；支持批处理、交互式作业和串行、多种并行作业，如MPI、PVM、HPF、MPL。PBS是功能最为齐全, 历史最悠久, 支持最广泛的本地集群调度器之一。PBS的目前包括openPBS、PBS Pro和Torque三个主要分支。 其中OpenPBS是最早的PBS系统， 目前已经没有太多后续开发；PBS pro是PBS的商业版本，功能最为丰富； Torque是Clustering公司接过了OpenPBS，并给与后续支持的一个开源版本。
-
-
-\subsubsection{Ubuntu14.04安装配置Torque}
-{\color{red} 很不幸！Ubuntu 18.04后兼容很不好了}
-\begin{itemize}
-\item \url{https://jabriffa.wordpress.com/2019/06/27/installing-grid-engine-on-ubuntu-18-04-lts/}
-\item \url{https://jabriffa.wordpress.com/2015/02/11/installing-torquepbs-job-scheduler-on-ubuntu-14-04-lts/}
-\end{itemize}
-
-
-[转]\url{http://blog.sina.com.cn/s/blog_4a0a8b5d0102v2p1.html}
-
-其实Ubuntu有编译好的Torque，只需要安装 torque-server torque-mom torque-scheduler，再加些配置即可。但是发现它弄得scp秘钥有问题，配置了半天rsa秘钥也没有解决日志移位的问题。所以还是自己编译吧！
-
-\textbf{1、下载Torque源代码}\\
-\verb|git clone https://github.com/adaptivecomputing/torque.git -b 6.1.3 6.1.3|\\
-通过修改参数，下载最新版本。
-
-\textbf{2、解压并编译}
-
-\begin{lstlisting}[language=sh]
-tar -xzvf torque-4.1.7.tar.gz
-
-cd torque-4.1.7
-
-./autogen.sh
-
-./configure --prefix=/usr/local/torque
-\end{lstlisting}
-
-提示缺少 openssl-dev和 libxml2-dev之类的，补上它们……
-
-configure: error: TORQUE needs lib openssl-devel in order to build
-
-输入 sudo apt-get install libssl-dev
-
-configure: error: TORQUE needs lib libxml2-devel in order to build
-
-输入 sudo apt-get install libxml2-dev
-
-……
-
-1)出现问题
-\begin{verbatim}
-configure: error: TORQUE needs libxml2-devel in order to build
-\end{verbatim}
-
-解决：\\
-\verb|./configure LDFLAGS="-L/home/xuanleng/anaconda3/lib" --prefix=/usr/local/torque|
-
-2)出现问题
-\begin{verbatim}
-libtool: Version mismatch error. This is libtool 2.2.6 Debian-2.2.6a-4, but the
-libtool: definition of this LT_INIT comes from libtool 2.2.6b.
-libtool: You should recreate aclocal.m4 with macros from libtool 2.2.6 Debian-2.2.6a-4
-libtool: and run autoconf again.
-make[2]: *** [wktools4] Error 63
-make[2]: Target `all' not remade because of errors.
-make[1]: *** [all-recursive] Error 1
-make: *** [all] Error 2
-*** Exited with status: 2 ***
-\end{verbatim}
-解决：\\
-\verb|autoreconf -fi  configure.ac |
-
-
-
-直至 ./configure --prefix=/usr/local/torque没有提示缺少库，ready to make为止。
-
-像这样提示：
-\begin{verbatim}
-Building components: server=yes mom=yes clients=yes
-                     gui=no drmaa=no pam=no
-PBS Machine type    : linux
-Remote copy         : /usr/bin/scp -rpB
-PBS home            : /var/spool/torque
-Default server      : rccm
-Unix Domain sockets :
-Linux cpusets       : no
-Tcl                 : disabled
-Tk                  : disabled
-\end{verbatim}
-
-\begin{lstlisting}[language=sh]
-make
-
-sudo make install
-\end{lstlisting}
-
-\textbf{3. 设置环境变量并刷新}
-
-刷新环境变量需要注意时效性，如果root或sudoer退出终端，在没有重启机器的前提下，那么还是要刷新下的，不然可能会提示没有trqauthd之类的错误。
-\begin{lstlisting}[language=sh]
-sudo vi /etc/profile
-\end{lstlisting}
-添加
-\begin{lstlisting}[language=sh]
-#Torque
-export PATH=/usr/local/torque/bin:/usr/local/torque/sbin:$PATH
-\end{lstlisting}
-刷新环境变量
-\begin{lstlisting}[language=sh]
-sudo -s
-source /etc/profile
-\end{lstlisting}
-
-\textbf{4.、安装}
-
-需管理员权限，仍然在 torque-4.1.7 文件夹下。
-\begin{lstlisting}[language=sh]
-sudo ./torque.setup root
-\end{lstlisting}
-如果出现：
-\begin{verbatim}
-mxio@Node1:~/Downloads/torque-4.1.7$ sudo ./torque.setup root
-./torque.setup: 1: ./torque.setup: trqauthd: not found
-trqauthd failed to start!!! exiting setup 
-\end{verbatim}
-错误，那么请检查第三步并刷新source /etc/profile。
-
-出现类似下面的成功：
-\begin{verbatim}
-pbs_server port is: 15001
-trqauthd daemonized - port 15005
-trqauthd successfully started
-initializing TORQUE (admin: root@Node1)
-You have selected to start pbs_server in create mode.
-If the server database exists it will be overwritten.
-do you wish to continue y/(n)?y
-root       495     1  1 17:40 ?        00:00:00 pbs_server -t create
-Max open servers: 9
-Max open servers: 9
-\end{verbatim}
-
-
-\textbf{5、配置}
-
-需管理员权限
-\begin{lstlisting}[language=sh]
-sudo -s
-\end{lstlisting}
-查看计算机名
-\begin{lstlisting}[language=sh]
-hostname
-\end{lstlisting}
-输出 Node1 （服务器计算机名）
-\begin{lstlisting}[language=sh]
-vi /etc/hosts
-\end{lstlisting}
- 将计算机名添加进hosts，我选择注释掉127.0.1.1 Node1，改成：
- \begin{verbatim}
-127.0.0.1        Node1 localhost
-#127.0.1.1      Node1
-\end{verbatim}
-进入torque主目录进行环境变量设置：
-\begin{lstlisting}[language=sh]
-cd /var/spool/torque
-vi server_priv/nodes
-\end{lstlisting}
-添加：
- \begin{verbatim}
-Node1 np=32
-\end{verbatim}
-即计算机名和CPU数目，这个视具体情况而定。
-\begin{lstlisting}[language=sh]
-vi mom_priv/config
-\end{lstlisting}
-添加：
-\begin{verbatim}
-$pbs_server = 127.0.0.1
-\end{verbatim}
-\begin{lstlisting}[language=sh]
-vi server_name
-\end{lstlisting}
-添加：
-\begin{verbatim}
-Node1
-\end{verbatim}
-
-
-\textbf{6、启动client daemon}
-
-\verb|pbs_mom|
-
-\textbf{7、重启pbs server daemon}
-\begin{verbatim}
-qterm
-pbs_server
-\end{verbatim}
-
-\textbf{8、启动scheduler daemon}
-
-\verb|pbs_sched|
-
-\textbf{9、检查服务是否正确启动}
-\begin{verbatim}
-ps -aux | grep pbs #check all is running
-qstat -q #check the presence of the queue
-qmgr -c 'p s' #check server & queue settings
-pbsnodes -a  #check if the nodes are listed and u
-\end{verbatim}
-
-\textbf{10、配置列队}
-\begin{verbatim}
-qmgr -c "set queue batch resources_default.walltime = 360:00:00"
-qmgr -c "set server query_other_jobs = True"
-qmgr -c "set queue batch resources_max.ncpus=32"
-\end{verbatim}
-
-\textbf{11. 测试列队}
-
-首先退出root
-\begin{lstlisting}[language=sh]
-exit
-\end{lstlisting}
-\begin{lstlisting}[language=sh]
-source /etc/profile
-echo "sleep 30" | qsub
-qstat
-\end{lstlisting}
-
-\textbf{12、配置开启启动}
-
-cd到torque-2.4.6/contrib/init.d目录下
-\begin{lstlisting}[language=sh]
-sudo -s
-cp debian.pbs_mom /etc/init.d/pbs_mom && update-rc.d pbs_mom defaults
-cp debian.pbs_server /etc/init.d/pbs_server && update-rc.d pbs_server defaults
-cp debian.pbs_sched /etc/init.d/pbs_sched && update-rc.d pbs_sched defaults
-cp debian.trqauthd /etc/init.d/trqauthd && update-rc.d trqauthd defaults
-\end{lstlisting}
-注，请检查DAEMON是否为\verb|/usr/local/torque/sbin/$NAME|，不是的话请修改。
-
-\textbf{13、重启计算机}
-\begin{lstlisting}[language=sh]
-echo "sleep 30" | qsub
-qstat
-\end{lstlisting}
-输出：
-\begin{verbatim}
-Job ID                    Name             User            Time Use S Queue
-------------------------- ---------------- --------------- -------- - -----
-2.Node1                    STDIN            mxio                   0 Q batch
-\end{verbatim}
-成功搞定。
-
-
-
-\subsubsection{重要说明}
-第二次安装开机自起没有配置成功。需要手动开启服务。
-进入root权限，依次输入如下命令：
-
-\verb|service pbs_server restart|
-
-\verb|service pbs_mom server restart|
-
-\verb|pbs_sched|
-
-\verb|trqauthd|
-
-
-\subsubsection{PBS命令}
-PBS 提供4 条命令用于作业管理。
-
-(1) qsub 命令—用于提交作业脚本
-
-命令格式：
-\begin{verbatim}
-qsub [-a date_time] [-c interval] [-C directive_prefix]
-[-e path] [-I] [-j join] [-k keep] [-l resource_list] [-m mail_options]
-[-M user_list][-N name] [-o path] [-p priority] [-q destination] [-r c]
-[-S path_list] [-u user_list][-v variable_list] [-V]
-[-W additional_attributes] [-z]
-[script]
-\end{verbatim}
-参数说明：因为所采用的选项一般放在pbs 脚本中提交，所以具体见PBS 脚本选项。
-
-例： qsub aaa.pbs 提交某作业，系统将产生一个作业号
-
-(2) qstat 命令—用于查询作业状态信息
-
-命令格式：
-\verb*|qatat [-f][-a][-i] [-n][-s] [-R] [-Q][-q][-B][-u]|
-
-参数说明：
-\begin{itemize}
-\item -f jobid 列出指定作业的信息
-\item -a 列出系统所有作业
-\item -i 列出不在运行的作业
-\item -n 列出分配给此作业的结点
-\item -s 列出队列管理员与scheduler 所提供的建议
-\item -R 列出磁盘预留信息
-\item -Q 操作符是destination id，指明请求的是队列状态
-\item -q 列出队列状态，并以alternative 形式显示
-\item -au userid 列出指定用户的所有作业
-\item -B 列出PBS Server 信息
-\item -r 列出所有正在运行的作业
-\item -Qf queue 列出指定队列的信息
-\item -u 若操作符为作业号，则列出其状态。
-\end{itemize}
-
-若操作符为destination id，则列出运行在其上的属于user\_list 中用户的作业状态。
-
-例：qstat -f 211 查询作业号为211 的作业的具体信息。
-
-
-(3) qdel 命令—用于删除已提交的作业
-
-命令格式：
-
-\verb*|qdel [-W 间隔时间] 作业号|
-
-命令行参数：
-
-例：qdel -W 15 211 
-
-15 秒后删除作业号为211 的作业
-
-
-(4) qmgr 命令—用于队列管理
-
-
-qmgr -c "create queue batch queue\_type=execution"
-
-qmgr -c "set queue batch started=true"
-
-qmgr -c "set queue batch enabled=true"
-
-qmgr -c "set queue batch resources\_default.nodes=1"
-
-qmgr -c "set queue batch resources\_default.walltime=3600"
-
-qmgr -c "set server default\_queue=batch"
-
-
-
-\subsubsection{PBS 脚本文件}
-PBS 脚本文件由脚本选项和运行脚本两部分组成。
-
-(1) PBS 作业脚本选项 （若无-C 选项，则每项前面加‘\#PBS’）
-\begin{itemize}
-\item -a date\_time ： date\_time 格式为：[[[[CC]YY]MM]DD]hhmm[.SS]
-表示经过date\_time 时间后作业才可以运行。
-
-\item -c interval ： 定义作业的检查点间隔，如果机器不支持检查点，则忽略此选项。
-
-\item -C directive\_prefix ：在脚本文件中以directive\_prefix 开头的行解释为qsub 的命
-令选项。（若无此选项，则默认为’\#PBS’ ）
-
-\item -e path ：将标准错误信息重定向到path
-
-\item -I ：以交互方式运行
-
-\item -j join ：将标准输出信息与标准错误信息合并到一个文件join 中去。
-
-\item  -k keep ：定义在执行结点上保留标准输出和标准错误信息中的哪个文件。
-keep 为o 表示保留前者，e 表示后者，oe 或eo 表示二者都保留，n 表示皆不保留。若忽略此选项，二者都不保留。
-
-\item -l resource\_list ： 定义资源列表。以下为几个常用的资源种类。
-	\begin{itemize}
-	\item  cput=N ： 请求N 秒的CPU 时间; N 也可以是hh:mm:ss 的形式。	
-	
-	\item mem=N[K|M|G][B|W]：请求N {kilo|mega|giga}{bytes|words} 大小的内存。
-	
-	\item nodes=N:ppn=M ：请求N 个结点，每个结点M 个处理器。
-	\end{itemize}
-
-\item -m mail\_options ：mail\_option 为a：作业abort 时给用户发信；为b：作业开始运行发信；为e：
-作业结束运行时发信。若无此选项，默认为a。
-
-\item -M user\_list ： 定义有关此作业的mail 发给哪些用户。
-
-\item -N name ： 作业名，限15 个字符，首字符为字母，无空格。
-
-\item -o path ： 重定向标准输出到path。
-
-\item -p priority ： 任务优先级，整数，[-1024，1023]，若无定义则为0。
-
-\item -q destination ： destination 有三种形式： queue , @server,queue@server。
-
-\item -r y|n ： 指明作业是否可运行，y 为可运行，n 为不可运行。
-
-\item -S shell ： 指明执行运行脚本所用的shell，须包含全路径。
-
-\item -u user\_list ： 定义作业将在运行结点上以哪个用户名来运行。
-
-\item -v variable\_list ： 定义export 到本作业的环境变量的扩展列表。
-
-\item -V ： 表明qsub 命令的所有环境变量都export 到此作业。
-
-\item -W additional\_attributes ： 作业的其它属性。
-
-\item -z ： 指明qsub 命令提交作业后，不在终端显示作业号。
-\end{itemize}
-
-
-(2) 运行脚本同LINUX 下一般的运行脚本文件。
-[注]：脚本文件中的mpirun\_rsh 命令行中的节点列表文件要用环境变量表示
-\$PBS\_NODEFILE，这个环境变量表示由pbs 自动分配给作业的节点列表；
-节点数为命令行中指定的进程数。
-格式如下：
-mpirun\_rsh –np 进程数 –hostfile \$PBS\_NODEFILE 可执行程序名
-
-
-
-\subsubsection{设置最大队列数}
-\begin{verbatim}
-set value: max_running
-# qmgr
-Max open servers: 4
-Qmgr: set queue sort max_running = 20
-Qmgr: print server
-.................
-Qmgr: quit
-check new setting:
-# qmgr -c "print server" | grep max_run
-set queue short max_running = 20
-set queue long max_running = 20
-set queue infinite max_running = 20
-set queue cert max_running = 20
-\end{verbatim}
-
-\verb|qmgr -c "set queue batch max_running=20"|
-
-
-
-\subsection{LSF}
-\begin{itemize}
-\item \url{https://en.wikipedia.org/wiki/Platform_LSF}
-\item \url{https://www.jianshu.com/p/601ca9f33b31}
-\end{itemize}
-
-
-Platform Load Sharing Facility (or simply LSF) is a workload management platform, job scheduler, for distributed high performance computing. It can be used to execute batch jobs on networked Unix and Windows systems on many different architectures.[1][2] LSF was based on the Utopia research project at the University of Toronto.[3]
-
-In 2007, Platform released Platform Lava, which is a simplified version of LSF based on an old version of LSF release, licensed under GNU General Public License v2.[4] The project was discontinued in 2011, succeeded by OpenLava.
-
-In January, 2012, Platform Computing was acquired by IBM.[5]
-
-
-\url{https://www.ibm.com/support/knowledgecenter/en/SSWRJV/product_welcome_spectrum_lsf.html}
-
-
-
-\subsubsection{常用命令}
-\begin{itemize}
-\item bhosts
-\item bjobs -u all, bjobs -l
-\item bqueues
-\end{itemize}
-
-
-
-
-\subsection{Slurm}
-\begin{itemize}
-\item \url{https://tkainrad.dev/posts/copy-paste-ready-instructions-to-set-up-1-node-clusters/}
-\item \url{https://www.schedmd.com/}
-\item \url{https://slurm.schedmd.com/quickstart.html}
-\item \url{https://www.jianshu.com/p/e560b19dbd3e}
-\item \url{https://blog.csdn.net/cuxiong8996/article/details/107154425}
-\end{itemize}
-
-
-\subsubsection{单机Slurm安装}
-
-
-
-
-\subsubsection{启动Slurm}
-要启动SLURM，只需使用/etc/init.d/slurm中定义的管理脚本。 该脚本接受start ， stop ， restart和startclean （以忽略所有先前保存的状态）。 使用此方法启动SLURM会导致slurmctld守护程序（以及在此简单配置中的节点上的slurmd守护程序）开始：
-\begin{itemize}
-\item \verb| sudo /etc/init.d/slurmctld|
-
-\item \verb| sudo /etc/init.d/slurmd|
-\end{itemize}
-
-
-
-\subsubsection{Slurm配置}
-\paragraph{（1）允许单节点提交多个任务}
-\begin{verbatim}
-#SchedulerType=sched/backfill
-#SelectType=select/linear
-SelectType=select/cons_res
-SelectTypeParameters=CR_CPU
-\end{verbatim}
-重启Slurm生效
-\begin{verbatim}
-systemctl restart  slurmctld
-systemctl restart  slurmd
-\end{verbatim}
-
-
-\subsubsection{错误诊断}
-\paragraph{（1）}
-If somehow slurmcrld or slurmd failed to start, run the applications interactively with debug options, to check for any errors. If there is any error, adjust slurm.conf accordingly.
-\begin{itemize}
-\item \verb| sudo -u slurm slurmctld -Dcvvv |
-\item \verb| sudo slurmd -Dcvvv |
-\end{itemize}
-
-\paragraph{（2）}
-"Low socket*core*thre" - solution?
-I think if you've had the config wrong at some point in the past then slurmctld 
-will remember the error and you'll need to manually clear it with:
-
-\verb|sudo scontrol update node=${NODE} state=resume|
-
-
-
-\subsection{SGE—(Son of) Grid Engine}
-。。。
-
-
 
 
 
@@ -1910,21 +959,17 @@ cat shadow.mig >> /etc/shadow
 
 
 
-\part{CentOS}
-\chapter{系统安装与配置}
-\section{系统安装}
-参考：\url{https://phoenixnap.com/kb/how-to-install-centos-7}
 
-Step 1: Download CentOS 7
-To download the official and up-to-date CentOS 7 ISO file, navigate to \url{https://www.centos.org/download}
+\part{Rocky 8}
+\chapter{系统安装}
+Centos 是历年来服务器操作系统，但是停止更新了。而Rocky操作系统可以说是改了名之后的Centos，用法跟Centos一样。具体情况请自行搜索。
 
-Our recommendation for non-enterprise environments is to download the DVD ISO option, which includes the GUI. We recommend the Minimal ISO option only for production enterprise environments.
+\begin{itemize}
+\item 第一步：前往官网下载操作系统；
 
-
-Step 2: Create Bootable USB or DVD
-Now that you have downloaded the ISO image, you can create a bootable USB, burn it on a DVD or load the image on a VM.
-
-Several applications can help you create a bootable USB. We recommend using Etcher(\url{https://www.balena.io/etcher/}). Download the application for your system (Windows, macOS or Linux), install and run.
+\item 第二步：创建U盘系统安装盘；
+\begin{itemize}
+\item Several applications can help you create a bootable USB. We recommend using Etcher(\url{https://www.balena.io/etcher/}). Download the application for your system (Windows, macOS or Linux), install and run.
 
 The setup is intuitive and easy:
 \begin{enumerate}
@@ -1934,72 +979,1116 @@ The setup is intuitive and easy:
 \item Click Flash.
 \end{enumerate}
 
+\item 需要注意的是，我试过几款创建启动U盘的软件，会存在一些问题，导致系统安装不成功。让我几经折腾，最终发现是启动盘的问题。
 
-Step 3: Boot the CentOS ISO File
-Upon booting the CentOS 7 ISO file, you can begin the installation process. To do so, select Install CentOS 7. That will start the installer’s graphical interface.
+\item 最终选用的启动U盘制作软件是：Fedora Media Writer。这款软件还有个好处是能把启动U盘重置为正常U盘，因为不能仅仅通过格式化来重置，否则不识别。
+\end{itemize}
 
-If you are booting from a USB, click the Install to Hard Drive icon on the desktop. That will open the installation wizard.
-
-
-Step 4: Install CentOS
-Before starting the installation process itself, select which language you would like to use during installation. The default option is English.
+\end{itemize}
 
 
-There are a couple of settings you would want to configure. All items marked with a warning icon must be configured before you begin the installation.
 
-System configurations outlined below may differ based on use case.
+\section{yum}
 
 
-\section{NTFS文件系统支持}
+\section{dnf}
+
+
+
+\part{计算集群搭建、管理与应用}
+\chapter{Linux作业管理系统}
+\section{PBS}
 \begin{itemize}
-\item su
-\item yum install epel-release
-\item yum install ntfs-3g fuse
+\item \url{https://www.jianshu.com/p/2f6c799ca147}
+\end{itemize}
+
+
+PBS（Portable Batch System）最初由NASA的Ames研究中心开发，主要为了提供一个能满足异构计算网络需要的软件包，用于灵活的批处理，特别是满足高性能计算的需要，如集群系统、超级计算机和大规模并行系统。PBS的主要特点有：代码开放，免费获取；支持批处理、交互式作业和串行、多种并行作业，如MPI、PVM、HPF、MPL。PBS是功能最为齐全, 历史最悠久, 支持最广泛的本地集群调度器之一。PBS的目前包括openPBS、PBS Pro和Torque三个主要分支。 其中OpenPBS是最早的PBS系统， 目前已经没有太多后续开发；PBS pro是PBS的商业版本，功能最为丰富； Torque是Clustering公司接过了OpenPBS，并给与后续支持的一个开源版本。
+
+
+\subsection{Ubuntu14.04安装配置Torque}
+{\color{red} 很不幸！Ubuntu 18.04后兼容很不好了}
+\begin{itemize}
+\item \url{https://jabriffa.wordpress.com/2019/06/27/installing-grid-engine-on-ubuntu-18-04-lts/}
+\item \url{https://jabriffa.wordpress.com/2015/02/11/installing-torquepbs-job-scheduler-on-ubuntu-14-04-lts/}
+\end{itemize}
+
+
+[转]\url{http://blog.sina.com.cn/s/blog_4a0a8b5d0102v2p1.html}
+
+其实Ubuntu有编译好的Torque，只需要安装 torque-server torque-mom torque-scheduler，再加些配置即可。但是发现它弄得scp秘钥有问题，配置了半天rsa秘钥也没有解决日志移位的问题。所以还是自己编译吧！
+
+\textbf{1、下载Torque源代码}\\
+\verb|git clone https://github.com/adaptivecomputing/torque.git -b 6.1.3 6.1.3|\\
+通过修改参数，下载最新版本。
+
+\textbf{2、解压并编译}
+
+\begin{lstlisting}[language=sh]
+tar -xzvf torque-4.1.7.tar.gz
+
+cd torque-4.1.7
+
+./autogen.sh
+
+./configure --prefix=/usr/local/torque
+\end{lstlisting}
+
+提示缺少 openssl-dev和 libxml2-dev之类的，补上它们……
+
+configure: error: TORQUE needs lib openssl-devel in order to build
+
+输入 sudo apt-get install libssl-dev
+
+configure: error: TORQUE needs lib libxml2-devel in order to build
+
+输入 sudo apt-get install libxml2-dev
+
+……
+
+1)出现问题
+\begin{verbatim}
+configure: error: TORQUE needs libxml2-devel in order to build
+\end{verbatim}
+
+解决：\\
+\verb|./configure LDFLAGS="-L/home/xuanleng/anaconda3/lib" --prefix=/usr/local/torque|
+
+2)出现问题
+\begin{verbatim}
+libtool: Version mismatch error. This is libtool 2.2.6 Debian-2.2.6a-4, but the
+libtool: definition of this LT_INIT comes from libtool 2.2.6b.
+libtool: You should recreate aclocal.m4 with macros from libtool 2.2.6 Debian-2.2.6a-4
+libtool: and run autoconf again.
+make[2]: *** [wktools4] Error 63
+make[2]: Target `all' not remade because of errors.
+make[1]: *** [all-recursive] Error 1
+make: *** [all] Error 2
+*** Exited with status: 2 ***
+\end{verbatim}
+解决：\\
+\verb|autoreconf -fi  configure.ac |
+
+
+
+直至 ./configure --prefix=/usr/local/torque没有提示缺少库，ready to make为止。
+
+像这样提示：
+\begin{verbatim}
+Building components: server=yes mom=yes clients=yes
+                     gui=no drmaa=no pam=no
+PBS Machine type    : linux
+Remote copy         : /usr/bin/scp -rpB
+PBS home            : /var/spool/torque
+Default server      : rccm
+Unix Domain sockets :
+Linux cpusets       : no
+Tcl                 : disabled
+Tk                  : disabled
+\end{verbatim}
+
+\begin{lstlisting}[language=sh]
+make
+
+sudo make install
+\end{lstlisting}
+
+\textbf{3. 设置环境变量并刷新}
+
+刷新环境变量需要注意时效性，如果root或sudoer退出终端，在没有重启机器的前提下，那么还是要刷新下的，不然可能会提示没有trqauthd之类的错误。
+\begin{lstlisting}[language=sh]
+sudo vi /etc/profile
+\end{lstlisting}
+添加
+\begin{lstlisting}[language=sh]
+#Torque
+export PATH=/usr/local/torque/bin:/usr/local/torque/sbin:$PATH
+\end{lstlisting}
+刷新环境变量
+\begin{lstlisting}[language=sh]
+sudo -s
+source /etc/profile
+\end{lstlisting}
+
+\textbf{4.、安装}
+
+需管理员权限，仍然在 torque-4.1.7 文件夹下。
+\begin{lstlisting}[language=sh]
+sudo ./torque.setup root
+\end{lstlisting}
+如果出现：
+\begin{verbatim}
+mxio@Node1:~/Downloads/torque-4.1.7$ sudo ./torque.setup root
+./torque.setup: 1: ./torque.setup: trqauthd: not found
+trqauthd failed to start!!! exiting setup 
+\end{verbatim}
+错误，那么请检查第三步并刷新source /etc/profile。
+
+出现类似下面的成功：
+\begin{verbatim}
+pbs_server port is: 15001
+trqauthd daemonized - port 15005
+trqauthd successfully started
+initializing TORQUE (admin: root@Node1)
+You have selected to start pbs_server in create mode.
+If the server database exists it will be overwritten.
+do you wish to continue y/(n)?y
+root       495     1  1 17:40 ?        00:00:00 pbs_server -t create
+Max open servers: 9
+Max open servers: 9
+\end{verbatim}
+
+
+\textbf{5、配置}
+
+需管理员权限
+\begin{lstlisting}[language=sh]
+sudo -s
+\end{lstlisting}
+查看计算机名
+\begin{lstlisting}[language=sh]
+hostname
+\end{lstlisting}
+输出 Node1 （服务器计算机名）
+\begin{lstlisting}[language=sh]
+vi /etc/hosts
+\end{lstlisting}
+ 将计算机名添加进hosts，我选择注释掉127.0.1.1 Node1，改成：
+ \begin{verbatim}
+127.0.0.1        Node1 localhost
+#127.0.1.1      Node1
+\end{verbatim}
+进入torque主目录进行环境变量设置：
+\begin{lstlisting}[language=sh]
+cd /var/spool/torque
+vi server_priv/nodes
+\end{lstlisting}
+添加：
+ \begin{verbatim}
+Node1 np=32
+\end{verbatim}
+即计算机名和CPU数目，这个视具体情况而定。
+\begin{lstlisting}[language=sh]
+vi mom_priv/config
+\end{lstlisting}
+添加：
+\begin{verbatim}
+$pbs_server = 127.0.0.1
+\end{verbatim}
+\begin{lstlisting}[language=sh]
+vi server_name
+\end{lstlisting}
+添加：
+\begin{verbatim}
+Node1
+\end{verbatim}
+
+
+\textbf{6、启动client daemon}
+
+\verb|pbs_mom|
+
+\textbf{7、重启pbs server daemon}
+\begin{verbatim}
+qterm
+pbs_server
+\end{verbatim}
+
+\textbf{8、启动scheduler daemon}
+
+\verb|pbs_sched|
+
+\textbf{9、检查服务是否正确启动}
+\begin{verbatim}
+ps -aux | grep pbs #check all is running
+qstat -q #check the presence of the queue
+qmgr -c 'p s' #check server & queue settings
+pbsnodes -a  #check if the nodes are listed and u
+\end{verbatim}
+
+\textbf{10、配置列队}
+\begin{verbatim}
+qmgr -c "set queue batch resources_default.walltime = 360:00:00"
+qmgr -c "set server query_other_jobs = True"
+qmgr -c "set queue batch resources_max.ncpus=32"
+\end{verbatim}
+
+\textbf{11. 测试列队}
+
+首先退出root
+\begin{lstlisting}[language=sh]
+exit
+\end{lstlisting}
+\begin{lstlisting}[language=sh]
+source /etc/profile
+echo "sleep 30" | qsub
+qstat
+\end{lstlisting}
+
+\textbf{12、配置开启启动}
+
+cd到torque-2.4.6/contrib/init.d目录下
+\begin{lstlisting}[language=sh]
+sudo -s
+cp debian.pbs_mom /etc/init.d/pbs_mom && update-rc.d pbs_mom defaults
+cp debian.pbs_server /etc/init.d/pbs_server && update-rc.d pbs_server defaults
+cp debian.pbs_sched /etc/init.d/pbs_sched && update-rc.d pbs_sched defaults
+cp debian.trqauthd /etc/init.d/trqauthd && update-rc.d trqauthd defaults
+\end{lstlisting}
+注，请检查DAEMON是否为\verb|/usr/local/torque/sbin/$NAME|，不是的话请修改。
+
+\textbf{13、重启计算机}
+\begin{lstlisting}[language=sh]
+echo "sleep 30" | qsub
+qstat
+\end{lstlisting}
+输出：
+\begin{verbatim}
+Job ID                    Name             User            Time Use S Queue
+------------------------- ---------------- --------------- -------- - -----
+2.Node1                    STDIN            mxio                   0 Q batch
+\end{verbatim}
+成功搞定。
+
+
+
+\subsection{重要说明}
+第二次安装开机自起没有配置成功。需要手动开启服务。
+进入root权限，依次输入如下命令：
+
+\verb|service pbs_server restart|
+
+\verb|service pbs_mom server restart|
+
+\verb|pbs_sched|
+
+\verb|trqauthd|
+
+
+\subsection{PBS命令}
+PBS 提供4 条命令用于作业管理。
+
+(1) qsub 命令—用于提交作业脚本
+
+命令格式：
+\begin{verbatim}
+qsub [-a date_time] [-c interval] [-C directive_prefix]
+[-e path] [-I] [-j join] [-k keep] [-l resource_list] [-m mail_options]
+[-M user_list][-N name] [-o path] [-p priority] [-q destination] [-r c]
+[-S path_list] [-u user_list][-v variable_list] [-V]
+[-W additional_attributes] [-z]
+[script]
+\end{verbatim}
+参数说明：因为所采用的选项一般放在pbs 脚本中提交，所以具体见PBS 脚本选项。
+
+例： qsub aaa.pbs 提交某作业，系统将产生一个作业号
+
+(2) qstat 命令—用于查询作业状态信息
+
+命令格式：
+\verb*|qatat [-f][-a][-i] [-n][-s] [-R] [-Q][-q][-B][-u]|
+
+参数说明：
+\begin{itemize}
+\item -f jobid 列出指定作业的信息
+\item -a 列出系统所有作业
+\item -i 列出不在运行的作业
+\item -n 列出分配给此作业的结点
+\item -s 列出队列管理员与scheduler 所提供的建议
+\item -R 列出磁盘预留信息
+\item -Q 操作符是destination id，指明请求的是队列状态
+\item -q 列出队列状态，并以alternative 形式显示
+\item -au userid 列出指定用户的所有作业
+\item -B 列出PBS Server 信息
+\item -r 列出所有正在运行的作业
+\item -Qf queue 列出指定队列的信息
+\item -u 若操作符为作业号，则列出其状态。
+\end{itemize}
+
+若操作符为destination id，则列出运行在其上的属于user\_list 中用户的作业状态。
+
+例：qstat -f 211 查询作业号为211 的作业的具体信息。
+
+
+(3) qdel 命令—用于删除已提交的作业
+
+命令格式：
+
+\verb*|qdel [-W 间隔时间] 作业号|
+
+命令行参数：
+
+例：qdel -W 15 211 
+
+15 秒后删除作业号为211 的作业
+
+
+(4) qmgr 命令—用于队列管理
+
+
+qmgr -c "create queue batch queue\_type=execution"
+
+qmgr -c "set queue batch started=true"
+
+qmgr -c "set queue batch enabled=true"
+
+qmgr -c "set queue batch resources\_default.nodes=1"
+
+qmgr -c "set queue batch resources\_default.walltime=3600"
+
+qmgr -c "set server default\_queue=batch"
+
+
+
+\subsection{PBS 脚本文件}
+PBS 脚本文件由脚本选项和运行脚本两部分组成。
+
+(1) PBS 作业脚本选项 （若无-C 选项，则每项前面加‘\#PBS’）
+\begin{itemize}
+\item -a date\_time ： date\_time 格式为：[[[[CC]YY]MM]DD]hhmm[.SS]
+表示经过date\_time 时间后作业才可以运行。
+
+\item -c interval ： 定义作业的检查点间隔，如果机器不支持检查点，则忽略此选项。
+
+\item -C directive\_prefix ：在脚本文件中以directive\_prefix 开头的行解释为qsub 的命
+令选项。（若无此选项，则默认为’\#PBS’ ）
+
+\item -e path ：将标准错误信息重定向到path
+
+\item -I ：以交互方式运行
+
+\item -j join ：将标准输出信息与标准错误信息合并到一个文件join 中去。
+
+\item  -k keep ：定义在执行结点上保留标准输出和标准错误信息中的哪个文件。
+keep 为o 表示保留前者，e 表示后者，oe 或eo 表示二者都保留，n 表示皆不保留。若忽略此选项，二者都不保留。
+
+\item -l resource\_list ： 定义资源列表。以下为几个常用的资源种类。
+	\begin{itemize}
+	\item  cput=N ： 请求N 秒的CPU 时间; N 也可以是hh:mm:ss 的形式。	
+	
+	\item mem=N[K|M|G][B|W]：请求N {kilo|mega|giga}{bytes|words} 大小的内存。
+	
+	\item nodes=N:ppn=M ：请求N 个结点，每个结点M 个处理器。
+	\end{itemize}
+
+\item -m mail\_options ：mail\_option 为a：作业abort 时给用户发信；为b：作业开始运行发信；为e：
+作业结束运行时发信。若无此选项，默认为a。
+
+\item -M user\_list ： 定义有关此作业的mail 发给哪些用户。
+
+\item -N name ： 作业名，限15 个字符，首字符为字母，无空格。
+
+\item -o path ： 重定向标准输出到path。
+
+\item -p priority ： 任务优先级，整数，[-1024，1023]，若无定义则为0。
+
+\item -q destination ： destination 有三种形式： queue , @server,queue@server。
+
+\item -r y|n ： 指明作业是否可运行，y 为可运行，n 为不可运行。
+
+\item -S shell ： 指明执行运行脚本所用的shell，须包含全路径。
+
+\item -u user\_list ： 定义作业将在运行结点上以哪个用户名来运行。
+
+\item -v variable\_list ： 定义export 到本作业的环境变量的扩展列表。
+
+\item -V ： 表明qsub 命令的所有环境变量都export 到此作业。
+
+\item -W additional\_attributes ： 作业的其它属性。
+
+\item -z ： 指明qsub 命令提交作业后，不在终端显示作业号。
+\end{itemize}
+
+
+(2) 运行脚本同LINUX 下一般的运行脚本文件。
+[注]：脚本文件中的mpirun\_rsh 命令行中的节点列表文件要用环境变量表示
+\$PBS\_NODEFILE，这个环境变量表示由pbs 自动分配给作业的节点列表；
+节点数为命令行中指定的进程数。
+格式如下：
+mpirun\_rsh –np 进程数 –hostfile \$PBS\_NODEFILE 可执行程序名
+
+
+
+\subsection{设置最大队列数}
+\begin{verbatim}
+set value: max_running
+# qmgr
+Max open servers: 4
+Qmgr: set queue sort max_running = 20
+Qmgr: print server
+.................
+Qmgr: quit
+check new setting:
+# qmgr -c "print server" | grep max_run
+set queue short max_running = 20
+set queue long max_running = 20
+set queue infinite max_running = 20
+set queue cert max_running = 20
+\end{verbatim}
+
+\verb|qmgr -c "set queue batch max_running=20"|
+
+
+
+\section{LSF}
+\begin{itemize}
+\item \url{https://en.wikipedia.org/wiki/Platform_LSF}
+\item \url{https://www.jianshu.com/p/601ca9f33b31}
+\end{itemize}
+
+
+Platform Load Sharing Facility (or simply LSF) is a workload management platform, job scheduler, for distributed high performance computing. It can be used to execute batch jobs on networked Unix and Windows systems on many different architectures.[1][2] LSF was based on the Utopia research project at the University of Toronto.[3]
+
+In 2007, Platform released Platform Lava, which is a simplified version of LSF based on an old version of LSF release, licensed under GNU General Public License v2.[4] The project was discontinued in 2011, succeeded by OpenLava.
+
+In January, 2012, Platform Computing was acquired by IBM.[5]
+
+
+\url{https://www.ibm.com/support/knowledgecenter/en/SSWRJV/product_welcome_spectrum_lsf.html}
+
+
+
+\subsection{常用命令}
+\begin{itemize}
+\item bhosts
+\item bjobs -u all, bjobs -l
+\item bqueues
 \end{itemize}
 
 
 
 
-
-
-\part{计算集群搭建}
-\chapter{CPU计算集群搭建}
-Refs:感谢何洪兴老师的资料与指导！
-\section{IP设置}
-（1）硬件需求：
+\section{Slurm}
 \begin{itemize}
-\item 至少主节点需要双网卡，一个提供对外访问，一个提供内部数据交换。
-\item H3C千兆交换机和网线。
+\item \url{https://tkainrad.dev/posts/copy-paste-ready-instructions-to-set-up-1-node-clusters/}
+\item \url{https://www.schedmd.com/}
+\item \url{https://slurm.schedmd.com/quickstart.html}
+\item \url{https://www.jianshu.com/p/e560b19dbd3e}
+\item \url{https://blog.csdn.net/cuxiong8996/article/details/107154425}
 \end{itemize}
 
 
-所有节点都要设置。主节点必须设置两个，外网和内网。子节点也可以设置两个，外网和内网，也可以不设，一般不需要单独访问子节点。
+\subsection{单机Slurm安装}
 
-一般服务器电脑都有多个网络接口，可以把主节点上的一个网络接口连接外网，以便在其他电脑上通过远程ssh来进行相关操作，比如修改配置，提交任务等。另一个接口来连接内网，以便和其他子节点相互通信。因此，内网需要一部交换机，外网则只需连接提供的端口。外网IP是网络管理中心分配的，内网IP自己进行分配。
 
-（2）手动设置，并固定IP地址：
+
+
+\subsubsection{启动Slurm}
+要启动SLURM，只需使用/etc/init.d/slurm中定义的管理脚本。 该脚本接受start ， stop ， restart和startclean （以忽略所有先前保存的状态）。 使用此方法启动SLURM会导致slurmctld守护程序（以及在此简单配置中的节点上的slurmd守护程序）开始：
 \begin{itemize}
-\item 找到与内网相连的网卡。
+\item \verb| sudo /etc/init.d/slurmctld|
 
-\item 第一行是IP地址：一般主节点是192.168.0.1（或192.168.1.1），其他节点是.2，.3，……等。
-
-\item 第二行是子网掩码，所有节点都填写，255.255.255.0。
-
-\item 第三个是网关（或路由），所有都填192.168.0.1。
+\item \verb| sudo /etc/init.d/slurmd|
 \end{itemize}
 
-（3）检查内网通信是否成功。
 
-\verb|ping IP|
 
-这里的IP是另一台机器的ip，如果数据一行一行刷下来，然后再在另一台机器上也像上面这样做，如果也是一样，说明两台机器能够相互通信，如果卡住半天不动，说明有问题，自行百度解决。
+\subsubsection{Slurm配置}
+\paragraph{（1）允许单节点提交多个任务}
+\begin{verbatim}
+#SchedulerType=sched/backfill
+#SelectType=select/linear
+SelectType=select/cons_res
+SelectTypeParameters=CR_CPU
+\end{verbatim}
+重启Slurm生效
+\begin{verbatim}
+systemctl restart  slurmctld
+systemctl restart  slurmd
+\end{verbatim}
 
-此外，这里顺便设置一下网络接口速度，设置成千兆的，不然可能会自动变成百兆的，降低节点间通信速度。先确定内网网络接口，假如是em2，然后利用root权限执行：
 
-[root]\#  ethtool  -s  em2  autoneg  off  speed 1000  duplex  full
+\subsubsection{错误诊断}
+\paragraph{（1）}
+If somehow slurmcrld or slurmd failed to start, run the applications interactively with debug options, to check for any errors. If there is any error, adjust slurm.conf accordingly.
+\begin{itemize}
+\item \verb| sudo -u slurm slurmctld -Dcvvv |
+\item \verb| sudo slurmd -Dcvvv |
+\end{itemize}
 
-注意，每台计算机都按照上述方式设置一下。
-主节点和连接外网的子节点IP设置同上，网络接口速度设置同上。
+\paragraph{（2）}
+"Low socket*core*thre" - solution?
+I think if you've had the config wrong at some point in the past then slurmctld 
+will remember the error and you'll need to manually clear it with:
+
+\verb|sudo scontrol update node=${NODE} state=resume|
+
+
+
+\section{SGE—(Son of) Grid Engine}
+。。。
+
+
+
+
+
+
+
+
+
+
+
+
+\chapter[OpenHPC]{OpenHPC——Rocky 8.5 Base OS Warewulf/SLURM edition}
+\section{硬件配置}
+集群系统采用的是OpenHPC2.5+Rocky 8.5+Warewulf+SLURM的方案。
+硬件系统采用的是主节点+千兆交换机+若干无硬盘子节点方案。没有引入无限带宽和独立的存在系统，子节点从网络启动，系统在内存中运行的模式。这种情况下，几乎不考虑跨节点计算。
+主节点必须要有两个网口，一个网口为计算内网，一个网口对外通讯。
+交换机买的是H3C的24口千兆交换机。
+
+
+\section{OpenHPC}
+社区网站：\url{https://openhpc.community/}
+
+牢牢抓住技术文档：\url{https://github.com/openhpc/ohpc/wiki/2.X}
+
+非官方重要参考资料：
+\begin{itemize}
+\item \url{https://github.com/manbaritone/OpenHPC-Installation}
+
+\item \url{https://github.com/dasandata/Open_HPC}
+\end{itemize}
+
+
+
+\section{Warewulf}
+
+
+
+\section{具体安装步骤}
+请结合手册附录A中的脚本，但不建议第一次安装直接运行脚本，因为或多或少会遇到意外，我们可以逐步安装然后构建起自己的安装脚本。需要注意的是，即使采用较老手册的方案，也要对比最新的手册。因为SLURM等软件会更新的，旧手册不适用。
+
+
+
+\subsection{Inputs: 认识基本参数}
+\begin{itemize}
+\item \verb|${sms_name}|：Hostname for SMS server，主节点名称，手册默认为：sms
+\item \verb|${sms_eth_internal}|：Internal Ethernet (private network) interface on SMS，主节点内网网卡设备名，用ifconfig查看。一般有eth0、eth1或enp0s31f6等名称。
+\item \verb|${sms_ip}$|：Internal IP address on SMS server，主节点内网IP地址，手册默认为：172.16.0.1
+\item \verb|${internal_netmask}|：Subnet netmask for internal network，主节点内网掩码，手册默认为：255.255.0.0
+\item \verb|${ntp_server}|：Local ntp server for time synchronization，计算机时间同步协议服务器，设为：0.us.pool.ntp.org
+\item \verb|${eth_provision}|：Provisioning interface for computes，外网网卡设备名
+\end{itemize}
+
+
+\subsection{Install Base Operating System (BOS): 系统基本设置}
+\begin{enumerate}
+\item 为了方便修改hostname为手册默认值：sms
+\begin{itemize}
+\item 查询hostname命令：hostname或hostnamectl
+\item 修改hostname命令：
+	\begin{itemize}
+	\item 方法一：直接修改配置文件，\verb|sudo vi /etc/hostname|，并重启。注意查看/etc/hosts文件中主机名是否更新。
+	\item 方法二：命令设置：\verb|sudo hostnamectl set-hostname <newname>|，并重启。同样检查是否更新。
+	\end{itemize}
+\end{itemize}
+
+\item 设置主节点内网IP地址：\verb|sms# echo ${sms_ip} ${sms_name} >> /etc/hosts|
+
+
+\item 关闭安全子系统SELinux
+\begin{itemize}
+\item 查看安全子系统SELinux是否启用：\verb|sestatus -v|
+
+\item 永久关闭SELinux：修改配置文件\verb|vi /etc/selinux/config|，将\verb|SELINUX=enforcing|改成\verb|SELinux=disabled|，重启生效。
+\end{itemize}
+
+\item 关闭防火墙
+\begin{itemize}
+\item \verb|systemctl status firewalld|
+\item \verb|systemctl disable firewalld|
+\item \verb|systemctl stop firewalld|
+\end{itemize}
+\end{enumerate}
+
+
+\section{Install OpenHPC Components}
+\subsection{Enable OpenHPC repository for local use}
+\begin{itemize}
+\item  sms\# yum install http://repos.openhpc.community/OpenHPC/2/EL\_8/x86\_64/ohpc-release-2-1.el8.x86\_64.rpm，
+ 手动下载下来再安装也可以。
+ \item sms\# yum install dnf-plugins-core
+ \item sms\# yum config-manager --set-enabled powertools
+\end{itemize}
+
+
+\subsection{Installation template: 安装参考脚本}
+属于手册附录A中的内容，预先安装好可以复制粘贴需要的命令。
+
+\begin{itemize}
+\item sms\# yum -y install docs-ohpc
+
+\item cp -p /opt/ohpc/pub/doc/recipes/rocky8/x86\_64/warewulf/slurm/recipe.sh .
+
+\item cp /opt/ohpc/pub/doc/recipes/rocky8/input.ocal .
+\end{itemize}
+
+
+\subsection{Add provisioning services on master node}
+\begin{enumerate}
+\item Install base meta-packages
+\begin{itemize}
+\item \# yum -y install ohpc-base，安装各种组件大概120M。
+\item \# yum -y install ohpc-warewulf，安装各种组件大概50M。
+\end{itemize}
+
+\item Enable NTP services
+\begin{itemize}
+\item \# systemctl enable chronyd.service
+\item \#\verb| echo ``local stratum 10'' >> /etc/chrony.conf | 
+\item \#\verb| echo ``server ${ntp_server}'' >> /etc/chrony.conf |
+\item \#\verb| echo ``allow all'' >> /etc/chrony.conf |
+\item systemctl restart chronyd
+\end{itemize}
+\end{enumerate}
+
+
+
+
+
+\subsection{Add resource management services on master node}
+安装SLURM资源调度系统。
+\begin{enumerate}
+\item Install slurm server meta-package
+\begin{itemize}
+\item \# yum -y install ohpc-slurm-server
+\end{itemize}
+
+\item Use ohpc-provided file for starting SLURM configuration
+\begin{itemize}
+\item \# cp /etc/slurm/slurm.conf.ohpc /etc/slurm/slurm.conf，主节点配置文件
+\end{itemize}
+
+\item Setup default cgroups file
+\begin{itemize}
+\item \# cp /etc/slurm/cgroup.conf.example /etc/slurm/cgroup.conf，子节点配置文件
+\end{itemize}
+
+\item 具体配置请参考SLURM相关资料。
+\end{enumerate}
+手动调节slurm.conf参数，参考如下：
+\lstinputlisting{program/slurm.conf-sample-for-hpc}
+
+
+
+\subsection{Complete basic Warewulf setup for master node}
+\begin{enumerate}
+\item Configure Warewulf provisioning to use desired internal interface
+\begin{itemize}
+\item \#  perl -pi -e "s/device = eth1/device = \$\{sms\_eth\_internal\}/" /etc/warewulf/provision.conf，可以手动编辑该配置文件，将默认的网卡设备号eth1替换成实际要使用的网卡设备号。
+\end{itemize}
+
+\item Enable internal interface for provisioning
+\begin{itemize}
+\item \# ip link set dev \$\{sms\_eth\_internal\} up
+\item \# ip address add \$\{sms\_ip\}/\$\{internal\_netmask\} broadcast + dev \$\{sms\_eth\_internal\}
+\end{itemize}
+
+\item Restart/enable relevant services to support provisioning
+\begin{itemize}
+\item \# systemctl enable httpd.service
+\item \# systemctl restart httpd
+\item \# systemctl enable dhcpd.service，如需查看状态或重启则：systemctl status dhcpd，systemctl restart dhcpd
+\item \# systemctl enable tftp.socket
+\item \# systemctl start tftp.socket
+\end{itemize}
+\end{enumerate}
+
+出现报错了！首先，要淡定！其次，一定要解决，一个步骤搞不定，就意味着失败。
+\begin{itemize}
+\item DHCP服务器启动报错Job for dhcpd.service failed because the control process exited with error code.
+\item 参考：\url{https://blog.csdn.net/qq_44293827/article/details/115441082}
+\item 参考：\url{https://blog.csdn.net/ycycyyc_/article/details/107154682}
+\end{itemize}
+centos 等Linux发行版本DHCP服务刚安装上，但是启动报错：Job for dhcpd.service failed because the control process exited with error code. See “systemctl status dhcpd.service” and “journalctl -xe” for details.
+
+这是正常现象，因为dhcp服务是需要先配置一下配置文件才能启动的，刚安装好的配置文件(/etc/dhcp/dhcpd.conf)是空的，所以启动不起来，报错。
+
+那么这个配置文件应该怎么写呢，怎么写才能正确的启动？
+
+\begin{itemize}
+\item 打开 /etc/dhcp/dhcp.conf 文件，里面已经有提示，提供了参考模板。位置在：/usr/share/doc/dhcp-server/dhcpd.conf.example
+\item 采用了最简单的方案，设置如下 ： 
+\begin{verbatim}
+subnet 172.16.0.0 netmask 255.255.0.0 {
+}
+\end{verbatim}
+\end{itemize}
+
+
+\subsection{Define compute image for provisioning}
+\subsubsection{Build initial BOS image}
+\begin{enumerate}
+\item Define chroot location
+\begin{itemize}
+\item \# export CHROOT=/opt/ohpc/admin/images/rocky8.6
+\end{itemize}
+
+\item Build initial chroot image
+\begin{itemize}
+\item \# wwmkchroot -v rocky-8 \$CHROOT
+\end{itemize}
+
+\item Enable OpenHPC and EPEL repos inside chroot
+\begin{itemize}
+\item \verb|# dnf -y --installroot $CHROOT install epel-release|，dnf：yum的高级版本。
+\item \verb|# cp -p /etc/yum.repos.d/OpenHPC*.repo $CHROOT/etc/yum.repos.d|
+\end{itemize}
+\end{enumerate}
+
+
+\subsubsection{Add OpenHPC components}
+\begin{enumerate}
+\item Install compute node base meta-package
+\begin{itemize}
+\item \# yum -y --installroot=\$CHROOT install ohpc-base-compute，\verb| -y|：所有确认为yes，\verb|--installroot=\$CHROOT|：指定安装路径为\verb|$CHROOT|
+\end{itemize}
+
+\item Access the remote repositories by hostname (not IP addresses)
+\begin{itemize}
+\item \# cp -p /etc/resolv.conf \$CHROOT/etc/resolv.conf
+\end{itemize}
+
+\item Copy credential files into \$CHROOT to ensure consistent uid/gids for slurm/munge at install. Note that these will be synchronized with future updates via the provisioning system.
+\begin{itemize}
+\item \# cp /etc/passwd /etc/group \$CHROOT/etc
+\end{itemize}
+
+\item Add Slurm client support meta-package and enable munge
+\begin{itemize}
+\item \# yum -y --installroot=\$CHROOT install ohpc-slurm-client
+\item \# chroot \$CHROOT systemctl enable munge
+\end{itemize}
+
+\item Register Slurm server with computes (using "configless" option)
+\begin{itemize}
+\item \# echo SLURMD\_OPTIONS="--conf-server \$\{sms\_ip\}" > \$CHROOT/etc/sysconfig/slurmd
+\end{itemize}
+
+\item Add Network Time Protocol (NTP) support
+\begin{itemize}
+\item \# yum -y --installroot=\$CHROOT install chrony
+\end{itemize}
+
+\item Identify master host as local NTP server
+\begin{itemize}
+\item \# echo "server \$\{sms\_ip\} iburst" >> \$CHROOT/etc/chrony.conf
+\end{itemize}
+
+\item Add kernel drivers (matching kernel version on SMS node)
+\begin{itemize}
+\item yum -y --installroot=\$CHROOT install kernel-`uname -r`
+\end{itemize}
+
+\item Include modules user environment
+\begin{itemize}
+\item yum -y --installroot=\$CHROOT install lmod-ohpc
+\end{itemize}
+\end{enumerate}
+
+
+
+\subsubsection{Customize system configuration}
+The following steps document the process to add a local ssh key created by Warewulf to support remote access, and enable NFS \textbf{mounting of a \$HOME file system and the public OpenHPC install path (/opt/ohpc/pub)} that will be hosted by the master host in this example configuration.
+
+\begin{enumerate}
+\item Initialize warewulf database and ssh\_keys
+\begin{itemize}
+\item \# wwinit database
+\item \# wwinit ssh\_keys
+\end{itemize}
+
+\item Add NFS client mounts of /home and /opt/ohpc/pub to base image
+\begin{itemize}
+\item \# echo "\$\{sms\_ip\}:/home /home nfs nfsvers=3,nodev,nosuid 0 0" >> \$CHROOT/etc/fstab
+\item \# echo "\$\{sms\_ip\}:/opt/ohpc/pub /opt/ohpc/pub nfs nfsvers=3,nodev 0 0" >> \$CHROOT/etc/fstab
+\end{itemize}
+
+\item Export /home and OpenHPC public packages from master server
+\begin{itemize}
+\item \# echo "/home *(rw,no\_subtree\_check,fsid=10,no\_root\_squash)" >> /etc/exports
+\item \# echo "/opt/ohpc/pub *(ro,no\_subtree\_check,fsid=11)" >> /etc/exports
+\end{itemize}
+
+\item (Optional) Setup NFS mount for /opt/intel if planning to install oneAPI packages
+\begin{itemize}
+\item \# mkdir /opt/intel
+\item \# echo "/opt/intel *(ro,no\_subtree\_check,fsid=12)" >> /etc/exports
+\item \# echo "\$\{sms\_ip\}:/opt/intel /opt/intel nfs nfsvers=3,nodev 0 0" >> \$CHROOT/etc/fstab 
+\end{itemize}
+
+\item Finalize NFS config and restart
+\begin{itemize}
+\item \# exportfs -a
+\item \# systemctl restart nfs-server
+\item \# systemctl enable nfs-server
+\end{itemize}
+\end{enumerate}
+
+
+\subsubsection{Additional Customization}
+\paragraph{1. Increase locked memory limits}
+\begin{enumerate}
+\item Update memlock settings on master
+\begin{itemize}
+\item {\tiny \verb|# perl -pi -e 's/# End of file/\* soft memlock unlimited\n$&/s' /etc/security/limits.conf| }
+\item {\tiny \verb|# perl -pi -e 's/# End of file/\* hard memlock unlimited\n$&/s' /etc/security/limits.conf|}
+\end{itemize}
+\item Update memlock settings within compute image
+\begin{itemize}
+\item {\tiny \verb|# perl -pi -e 's/# End of file/\* soft memlock unlimited\n$&/s' $CHROOT/etc/security/limits.conf|}
+\item {\tiny \verb|# perl -pi -e 's/# End of file/\* soft memlock unlimited\n$&/s' $CHROOT/etc/security/limits.conf|}
+\end{itemize}
+\end{enumerate}
+
+\paragraph{2. Enable ssh control via resource manager}
+\begin{itemize}
+\item \verb|# echo "account required pam_slurm.so" >> $CHROOT/etc/pam.d/sshd|
+\end{itemize}
+
+
+\paragraph{3. Enable forwarding of system logs}
+\begin{enumerate}
+\item Configure SMS to receive messages and reload rsyslog configuration
+\begin{itemize}
+\item \verb|# echo ’module(load="imudp")’ >> /etc/rsyslog.d/ohpc.conf|
+
+\item \verb|# echo ’input(type="imudp" port="514")’ >> /etc/rsyslog.d/ohpc.conf|
+
+\item \verb|# systemctl restart rsyslog|
+\end{itemize}
+
+\item Define compute node forwarding destination
+\begin{itemize}
+\item \verb|# echo "*.* @${sms_ip}:514" >> $CHROOT/etc/rsyslog.conf|
+\item \verb|# echo "Target=\"${sms_ip}\" Protocol=\"udp\"" >> $CHROOT/etc/rsyslog.conf|
+\end{itemize}
+
+\item Disable most local logging on computes. Emergency and boot logs will remain on the compute nodes
+\begin{itemize}
+\item \verb|# perl -pi -e "s/^\*\.info/\\#\*\.info/" $CHROOT/etc/rsyslog.conf|
+\item \verb|# perl -pi -e "s/^authpriv/\\#authpriv/" $CHROOT/etc/rsyslog.conf|
+\item \verb|# perl -pi -e "s/^mail/\\#mail/" $CHROOT/etc/rsyslog.conf |
+\item \verb|# perl -pi -e "s/^cron/\\#cron/" $CHROOT/etc/rsyslog.conf|
+\item \verb|# perl -pi -e "s/^uucp/\\#uucp/" $CHROOT/etc/rsyslog.conf|
+\end{itemize}
+\end{enumerate}
+
+\paragraph{4. Add Nagios monitoring}
+见手册！
+
+
+\paragraph{5. Add ClusterShell}
+\begin{enumerate}
+\item Install ClusterShell
+\begin{itemize}
+\item \# yum -y install clustershell
+\end{itemize}
+
+\item Setup node definitions
+\begin{itemize}
+\item \# \verb| cd /etc/clustershell/groups.d |
+\item \# \verb| mv local.cfg local.cfg.orig |
+\item \# \verb| echo "adm: ${sms_name}" > local.cfg | 
+\item \# \verb| echo "compute: ${compute_prefix}[1-${num_computes}]" >> local.cfg |
+\item \# \verb| echo "all: @adm,@compute" >> local.cfg|
+\end{itemize}
+\end{enumerate}
+
+
+\subsubsection{Import files}
+\begin{itemize}
+\item \verb|# wwsh file import /etc/passwd |
+\item \verb|# wwsh file import /etc/group |
+\item \verb|# wwsh file import /etc/shadow|
+\item \verb|# wwsh file import /etc/munge/munge.key|
+\item \verb|# wwsh file list|
+\end{itemize}
+
+
+\subsection{Finalizing provisioning configuration}
+\subsubsection{Assemble bootstrap image}
+\begin{enumerate}
+\item (Optional) Include drivers from kernel updates; needed if enabling additional kernel modules on computes
+\begin{itemize}
+\item \verb|# export WW_CONF=/etc/warewulf/bootstrap.conf|
+\item \verb|# echo "drivers += updates/kernel/" >> $WW_CONF|
+\item \verb|# echo "modprobe += ahci, nvme, e1000e" >> $WW_CONF|
+\end{itemize}
+
+\item Build bootstrap image
+\begin{itemize}
+\item \verb|# wwbootstrap `uname -r`|
+\item \verb|# wwsh bootstrap list|
+\end{itemize}
+\end{enumerate}
+
+
+\subsubsection{Assemble Virtual Node File System (VNFS) image}
+\begin{itemize}
+\item \verb|# wwvnfs --chroot $CHROOT|，如果在子镜像中安装了新的程序，可以再次使用该命令更新。
+\item \verb|# wwsh vnfs list|
+\end{itemize}
+
+
+
+\subsubsection{Register nodes for provisioning}
+\begin{enumerate}
+\item Set provisioning interface as the default networking device
+\begin{itemize}
+\item \verb|# echo "GATEWAYDEV=${eth_provision}" > /tmp/network.$$|
+\item \verb|# wwsh -y file import /tmp/network.$$ --name network|
+\item \verb|# wwsh -y file set network --path /etc/sysconfig/network --mode=0644 --uid=0|
+\end{itemize}
+
+\item Add nodes to Warewulf data store
+\begin{itemize}
+\item {\tiny \verb|#  wwsh -y node new ${c_name[i]} --ipaddr=${c_ip[i]} --hwaddr=${c_mac[i]} -D ${eth_provision}|}
+\item For example: {\tiny \verb|wwsh -y node new c1 --ipaddr=172.16.1.1 --hwaddr=74:86:E2:19:07:47 -D enp0s20f0u4| }
+\item wwsh node list
+\end{itemize}
+
+\item Define provisioning image for hosts
+\begin{itemize}
+\item {\tiny \verb|# wwsh -y provision set "c*" --vnfs=rocky8.5 --bootstrap=`uname -r` --files=dynamic_hosts,passwd,group,shadow,munge.key,network|}
+\item 注意：使用“c*”表示通配c1，c2，c3等。可以具体指定，
+\item 如：
+{\tiny \verb|# wwsh -y provision set c1 --vnfs=rocky8.5 --bootstrap=`uname -r` --files=dynamic_hosts,passwd,group,shadow,munge.key,network|}
+\item 注意vnfs的名称，要与之前的创建的一致。
+\end{itemize}
+
+\item Restart dhcp / update PXE
+\begin{itemize}
+\item \verb|# systemctl restart dhcpd|
+\item \verb|# wwsh pxe update|
+\end{itemize}
+
+\item Boot compute nodes
+\begin{itemize}
+\item 将子节点设置为网络启动，这时子节点就可以启动了。
+\item \verb|pdsh -w c[1-21] uptime|
+\end{itemize}
+\end{enumerate}
+
+
+
+
+\section{Install OpenHPC Development Components}
+Ref：\url{https://new.qq.com/rain/a/20220509A02SX000}
+
+安装过程按照手册进行就行。遇到了环境变量出错的问题，\\
+\verb|source /opt/intel/oneapi/setvars.sh|无法找到正确的命令和库文件。改成了手动添加，在.bashrc文件中加入：
+{\tiny
+\begin{verbatim}
+export PATH="/opt/intel/oneapi/compiler/2023.0.0/linux/bin/intel64:$PATH"
+export PATH="/opt/intel/oneapi/mpi/2021.8.0/bin:$PATH"
+export LD_LIBRARY_PATH="/opt/intel/oneapi/mkl/2023.0.0/lib/intel64:$LD_LIBRARY_PATH"
+export LD_LIBRARY_PATH="/opt/intel/oneapi/compiler/2023.0.0/linux/compiler/lib/intel64_lin:$LD_LIBRARY_PATH"
+export MKLROOT=/opt/intel/oneapi/mkl/2023.0.0
+\end{verbatim}
+}
+需要注意的是这些路径随着版本更新在不断的变化，自己要明确位置。
+
+
+
+\section{Resource Manager Startup}
+Ref：\url{wiki.fysik.dtu.dk/Niflheim_system/Slurm_installation}
+Munge服务启动遇到问题：添加相关权限。
+\begin{verbatim}
+systemctl restart munge
+Job for munge.service failed because the control process exited with error code.
+See "systemctl status munge.service" and "journalctl -xe" for details.
+[root@c1 ~]# journalctl -xe
+[root@c1 ~]# chown -R munge: /etc/munge/ /var/log/munge/ /var/lib/munge/
+[root@c1 ~]# chmod 0700 /etc/munge/ /var/log/munge/ /var/lib/munge/
+[root@c1 ~]# systemctl enable munge
+[root@c1 ~]# systemctl start munge
+[root@c1 ~]# systemctl status munge
+\end{verbatim}
+
+
+Ref:\url{https://rockylinux.pkgs.org/8/rockylinux-baseos-x86_64/hwloc-libs-2.2.0-3.el8.i686.rpm.html}
+
+问题：Slurmd服务启动失败，缺失了文件libhwloc.so.15。
+
+解决：安装相关文件，并更新镜像。
+
+注意：还有一个类似文件libhwloc.so.5别搞混。
+
+步骤：
+\begin{verbatim}
+export CHROOT=/opt/ohpc/admin/images/rocky8.6/
+dnf -y --installroot=$CHROOT install hwloc-libs
+wwvnfs --chroot $CHROOT
+\end{verbatim}
+
+
+
+
+\section{Add New Users}
+\begin{itemize}
+\item 正常添加
+\item 同步：\verb|wwsh file resync passwd shadow group|
+\end{itemize}
+
+
+\section{Add New Nodes and Reboot SMS or Nodes}
+\subsection{主节点重启}
+\begin{enumerate}
+\item 注意重启后IP是否会变化，要绑定回来。对外网卡IP无影响。
+
+\item 注意dhcpd服务
+\begin{itemize}
+\item systemctl status dhcpd
+\item systemctl restart dhcpd
+\end{itemize}
+
+\item Slurm服务重启
+\begin{itemize}
+\item systemctl restart munge
+\item systemctl restart slurmctld
+\end{itemize}
+\end{enumerate}
+
+
+\subsection{添加新的计算节点}
+跟前面注册节点步骤相同，但这里表述更为统一。
+\begin{enumerate}
+\item pdsh -w c[1-21] uptime
+
+\item 首先明确主节点slurm.conf文件是否更新子节点。
+
+\item 重启主节点slurm服务
+\begin{itemize}
+\item systemctl restart munge
+\item systemctl restart slurmctld
+\item systemctl status slrumctld
+\end{itemize}
+
+\item 重启子节点slurm服务
+\begin{itemize}
+\item pdsh -w c[1-21] systemctl restart munge
+\item pdsh -w c[1-21] systemctl restart slurmd
+\end{itemize}
+
+\item 检查节点
+\begin{itemize}
+\item scontrol show nodes
+
+\item 如果是down则： scontrol update NodeName=c[1-21] State=Resume
+\end{itemize}
+
+\item 如果还有问题，则需登录子节点进一步检查
+\begin{itemize}
+\item ssh c1
+\item systemctl status munge
+\item systemctl status slurmd
+\end{itemize}
+\end{enumerate}
+
+
+
+
 
 
 

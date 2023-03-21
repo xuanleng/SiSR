@@ -35,3 +35,104 @@
 
 \label{sec:tools}
 
+
+\section{文本编辑}
+\subsection{nano}
+
+
+\subsection{Vim}
+安装：\verb|sudo apt install vim|
+
+\subsubsection{常用配置}
+\begin{verbatim}
+set nu
+set fileencodings=utf-8,gbk,default,latin1
+set encoding=utf-8
+let $LANG="zh_CN.UTF-8"
+\end{verbatim}
+
+
+\subsubsection{一般模式(命令模式)}
+\paragraph{打开文件、保存、关闭文件}
+\begin{itemize}
+\item vi filename ：打开filename文件
+\item w ：保存文件
+\item w vpser.net ：保存至vpser.net文件
+\item q ：退出编辑器，如果文件已修改则用下面的命令
+\item q! ：退出编辑器，且不保存
+\item wq ：退出编辑器，且保存文件
+\end{itemize}
+
+
+\paragraph{常用光标移动命令}
+\begin{itemize}
+\item {\color{red}注意区分大小写}
+\item h：左；ｊ：下；ｋ：上；ｌ：右；这很符合书写习惯，用下就知道了
+\item n<hjkl>移动相应字符
+\item 0：零，移动到这一行最前面的字符处
+\item \$ :移动到这一行最后面的字符处
+\item G：移动到文件的最后一行
+\item nG：n表示数字，移动到这个文件的第ｎ行
+\item n<Enter>:ｎ表示数字，光标向下移动ｎ行，等效于nj
+\item 空格键：向右
+\item Backspace :向左
+\item Enter ：移动到下一行首
+\item - ：移动到上一行首
+\end{itemize}
+
+
+\paragraph{搜索与替换}
+\begin{itemize}
+\item /word：从光标位置开始，向下搜索一个名为“word”的字符
+\item ?word：从光标位置开始，向上搜索一个名为“word”的字符
+\item n：表示“next”
+\item N：表示“previous”
+\item \%s/word1/word2/g：表示将word1替换为word2，g表示全局替换
+\item \%s/word1/word2/gc：其中多的一个c表示替换之前有个用户提示，需要确认
+\end{itemize}
+
+
+\paragraph{删除、复制与粘贴}
+\begin{itemize}
+\item x,X：小写x表示向后删除字符；大写X表示向前删除字符
+\item nx：表示向后删除n个字符
+\item dd：表示删除光标所在的整行
+\item ndd：表示包括光标所在行向下删除n行
+\item d1G：表示删除当前行到第1行所有的数据
+\item dG：删除光标所在位置到最后一行所有的数据
+\item yy：复制光标所在的一整行，也可以用 ayy 复制，a 为缓冲区，a也可以替换为a到z的任意字母，可以完成多个复制任务。
+\item nyy：n表示数字，复制光标所在的向下n行，也可以用 anyy 复制，a 为缓冲区，a也可以替换为a到z的任意字母，可以完成多个复制任务。
+\item p,P：p将已复制的数据粘贴到光标下一行，P相反，如果使用了前面的自定义缓冲区，建议使用“ap”或“aP”进行粘贴。
+\item J：将光标所在的行与下一行结合在一起
+\item u,U：小写u撤销上一步操作，大写U撤销对当前行的所有操作
+\item Ctrl+r：重做上一个操作，恢复
+\item .：重复前一个动作
+\item ：复制单个字符：首先进入正常模式（一般模式）然后按ｖ，进入visual方式，然后就可以移动方向键选中文本，然后按y，就拷贝完成。
+\end{itemize}
+
+
+\subsubsection{编辑模式}
+\begin{itemize}
+\item i,I：i从当前光标所在处插入，I从当前所在行的第一个非空格处开始插入
+\item a,A：a从当前光标所在处下一个字符开始插入，a从当前所在行的最后一个非空格处开始插入。A是从所在行尾插入。
+\item o,O：o在当前光标所在的下一行插入一个行行，O相反
+\item r,R：r会替换光标所在的那一个字符，R会一直替换光标所在的字符
+\item J ：合并光标所在行及下一行为一行（命令模式）
+\end{itemize}
+
+
+
+\subsubsection{vim中使用系统粘贴板}
+%\url{http://www.linuxsir.org/bbs/thread344622.html}
+用vim这么久了，始终也不知道怎么在vim中使用系统粘贴板，通常要在网上复制一段代码都是先gedit打开文件，中键粘贴后关闭，然后再用 vim打开编辑，真的不爽；上次论坛上有人问到了怎么在vim中使用系统粘贴板，印象里回复很多，有好几页的回复却没有解决问题，今天实在受不了了又在网上找办法，竟意外地找到了，贴出来分享一下。 
+
+如果只是想使用系统粘贴板的话直接在输入模式按Shift+Inset就可以了，下面讲一下vim的粘贴板的基础知识，有兴趣的可以看看，应该会有所收获的。 
+vim帮助文档里与粘贴板有关的内容如下： 
+
+1. vim有12个粘贴板，分别是0、1、2、...、9、a、“、＋；用:reg命令可以查看各个粘贴板里的内容。在vim中简单用y只是复制到“（双引号)粘贴板里，同样用p粘贴的也是这个粘贴板里的内容； 
+
+2. 要将vim的内容复制到某个粘贴板，需要退出编辑模式，进入正常模式后，选择要复制的内容，然后按"Ny完成复制，其中N为粘贴板号(注意是按一下双引号然后按粘贴板号最后按y)，例如要把内容复制到粘贴板a，选中内容后按"ay就可以了，有两点需要说明一下： 
+* “号粘贴板（临时粘贴板）比较特殊，直接按y就复制到这个粘贴板中了，直接按p就粘贴这个粘贴板中的内容； 
+* +号粘贴板是系统粘贴板，用"+y将内容复制到该粘贴板后可以使用Ctrl＋V将其粘贴到其他文档（如firefox、gedit）中，同理，要把在其他地方用Ctrl＋C或右键复制的内容复制到vim中，需要在正常模式下按"+p； 
+
+3. 要将vim某个粘贴板里的内容粘贴进来，需要退出编辑模式，在正常模式按"Np，其中N为粘贴板号，如上所述，可以按"5p将5号粘贴板里的内容粘贴进来，也可以按"+p将系统全局粘贴板里的内容粘贴进来。 
