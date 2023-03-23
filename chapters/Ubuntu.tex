@@ -2091,9 +2091,44 @@ wwvnfs --chroot $CHROOT
 
 
 
+\section{雷迪司UPS断电短信提醒与自动关机配置}
+\begin{itemize}
+\item 软件下载地址：\url{http://www.ladis.com.cn/support/node_78.shtml}
+
+\item 使用教程：\url{https://www.yuque.com/ladis/gfg4p3}
+
+\item 视频教程：\url{http://www.ladis.com.cn/support/2017-05/03/1102.shtml}
+\end{itemize}
+
+安装步骤：
+\begin{itemize}
+\item 给安装文件赋予最高权限：chmod 777 installViewPower.bin
+
+\item 安装：./installViewPower.bin
+
+\item 默认管理员用户为：Administrator，密码为：administrator
+\end{itemize}
 
 
+安装成功后，进入软件一般可以读取到UPS的信息，如果读取不到的话一般都是usb接口的权限不到位。
+可以采用如下步骤设置，然后重新打开viewpower为。
+\begin{enumerate}
+\item Use the  ``lsusb'' command to view all usb devices;
+\item By plugging and unplugging the usb device connected to the UPS, determine the bus and device of the usb (for example, the bus of the usb device selected in the diagram is ``002'' and the device is  ``003'')
+\item Assign ownership of the usb device to the current user (lida), ``sudo chown lida /dev/bus/usb/002/003''
+\end{enumerate}
 
+
+\begin{verbatim}
+#!/bin/bash
+
+echo ">>Start emergency shutdown cluster" `date` > down.txt
+echo yndwxh0606 |sudo -S pdsh -w c[1-21] shutdown -P +1 >> down.txt 2>&1
+echo "    " >>down.txt
+echo "    " >>down.txt
+echo "    " >>down.txt
+echo ">>End emergency shutdown cluster" `date` >> down.txt
+\end{verbatim}•
 
 
 
