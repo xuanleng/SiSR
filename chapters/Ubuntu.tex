@@ -1707,7 +1707,7 @@ centos 等Linux发行版本DHCP服务刚安装上，但是启动报错：Job for
 那么这个配置文件应该怎么写呢，怎么写才能正确的启动？
 
 \begin{itemize}
-\item 打开 /etc/dhcp/dhcp.conf 文件，里面已经有提示，提供了参考模板。位置在：/usr/share/doc/dhcp-server/dhcpd.conf.example
+\item 打开 /etc/dhcp/dhcpd.conf 文件，里面已经有提示，提供了参考模板。位置在：/usr/share/doc/dhcp-server/dhcpd.conf.example
 \item 采用了最简单的方案，设置如下 ： 
 \begin{verbatim}
 subnet 172.16.0.0 netmask 255.255.0.0 {
@@ -2128,7 +2128,27 @@ echo "    " >>down.txt
 echo "    " >>down.txt
 echo "    " >>down.txt
 echo ">>End emergency shutdown cluster" `date` >> down.txt
-\end{verbatim}•
+\end{verbatim}
+
+
+
+\subsection{Ping实现停电关机脚本}
+前面的雷迪司自动关机设置不稳定、不可靠。那就自己设置个停电关机脚本，利用定时任务命令crontab，\url{https://www.hitsword.org/2021/375.html}，持续ping路由器地址。不通的话立刻执行关机命令。
+用法如下：
+\verb|crontab -e * * * * * powercheck.sh|
+每分钟执行脚本一次，注意“*”之间有空格。具体意思详看命令解释。
+
+\lstinputlisting{program/powercheck.sh}
+
+
+
+
+
+
+
+
+
+
 
 
 
