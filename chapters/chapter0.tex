@@ -1,4 +1,5 @@
-\chapter{写给大学生的话}
+\chapter{科研入门技能及心得}
+\section{宁波大学物理专业本科学习建议参考}
 自己对大学班主任角色的定位，就两点：
 \begin{itemize}
 \item 站在学生的角度上，和班上学生一条阵线；
@@ -14,9 +15,6 @@
 \end{itemize}
 \end{itemize}
 
-
-
-\section{宁波大学物理专业本科学习建议参考}
 
 {\bf 作为大学生的基本认识：}
 \begin{itemize}
@@ -114,7 +112,7 @@
 
 
 
-\chapter{科研入门技能及心得}
+
 \section{科研导师的选择}
 \begin{enumerate}
 \item 必须步骤：人品和性格匹配调查，可靠来源为现任组里成员，最好为新老成员。
@@ -296,6 +294,11 @@ Zotero 自己是有空间同步本地文献的，但是价格太贵。主要可�
 
 
 \section{自然科学论文写作}
+\subsection{心得体会}
+写论文，总觉得很难下笔，写起来总是很痛苦困难。为什么？
+因为写出来与发表的文章相差太远了。我想说的{\textbf 第一点}是：心态摆正。做一件事情不要抱着一遍就做好的心态，往往要反复多次，打磨N遍。{\textbf 第二点}是：先意思后句法。先把大脑中的意思写出来，再来雕琢语句。先把大脑中的想法写清楚，怎么好写怎么来，甚至中英文混搭。
+
+
 \subsection{摘要（Abstract）}
 摘要一般5到6句话。
 \begin{itemize}
@@ -847,6 +850,39 @@ Git基本概念
 \verb|git pull <name> <branch> --allow-unrelated-histories |
 \end{itemize}
 \end{enumerate}
+
+
+Git 全局设置：
+
+git config --global user.name "xuanleng"
+
+git config --global user.email "lengxuan2008@qq.com"
+
+创建 git 仓库：
+
+mkdir magnetic-filed-visualizion-doc
+
+cd magnetic-filed-visualizion-doc
+
+git init
+
+touch README.md
+
+git add README.md
+
+git commit -m "first commit"
+
+git remote add origin https://gitee.com/nbu-lengxuan/mfv.git
+
+git push -u origin master
+
+已有仓库？
+
+cd magnetic-filed-visualizion-doc
+
+git remote add origin https://gitee.com/nbu-lengxuan/mfv.git
+
+git push -u origin master
 
 
 

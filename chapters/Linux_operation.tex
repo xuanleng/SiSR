@@ -159,3 +159,41 @@ Ctrl + C：这个是用来终止当前命令的快捷键，当然你也可以输
 \item
 Ctrl + Z： 暂停当前进程，比如你正运行一个命令，突然觉得有点问题想暂停一下，就可以使用这个快捷键。暂停后，可以使用fg 恢复它。
 \end{itemize}
+
+
+
+\section{命令行修改IP地址}
+\begin{enumerate}
+\item \verb|ip a|：查看当前网络
+
+\item \verb|cd /etc/netplan|
+
+\item \verb|ls|：If you do not see any files, you can create one. The name could be anything, but by convention, it should start with a number like 01- and end with .yaml. The number sets the priority if you have more than one configuration file.
+I'll create a file named 01-network-manager-all.yaml.
+
+\item 
+\# Let NetworkManager manage all devices on this system
+network:
+  version: 2
+  renderer: NetworkManager
+  ethernets:
+    enp0s31f6:
+      dhcp4: no
+      addresses: [10.49.24.112/23]
+      gateway4: 10.49.25.254
+      nameservers:
+        addresses: [10.22.108.197,10.22.108.198]
+
+\item sudo netplan --debug apply
+
+\item sudo netplan apply
+
+\item ip a
+\end{enumerate}
+
+
+
+
+
+
+

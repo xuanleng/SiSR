@@ -518,6 +518,54 @@ PuTTY is an SSH and telnet client, developed originally by Simon Tatham for the 
 
 
 
+\section{Matlab \& Mosek}
+其他好说，就这个注意一下。
+
+打开终端，安装matlab-support\\
+\verb|sudo apt install matlab-support matlab-support-dev|
+
+在弹出来的对话框输入matlab安装路径（只需到执行文件的上两级）\\
+\verb|/usr/local/MATLAB/R2016b|
+
+剩下的默认，或者不填就好。
+
+
+
+MosekDownload CVX | CVX Research, Inc.Mosek
+\begin{enumerate}
+\item 官网下载Mosek for linux 并申请license。
+Mosek - Downloads
+
+​www.mosek.com/downloads/
+
+\item 解压文件
+
+\verb|tar -xvf mosektoolslinux64x86.tar.bz2|
+
+\item 添加环境变量
+
+\verb|export MSKHOME="$HOME/Matlab/mosek" |\\
+路径可改\\
+\verb|export PATH="${PATH}:${MSKHOME}/mosek/9.3/tools/platform/linux64x86/bin" |\\
+路径需要对应解压缩包里面的路径
+
+\item 添加License
+
+\verb| $HOME/mosek/mosek.lic |
+\\放在home下的mosek文件夹下
+
+\item 打开Matlab -> setpath 包含Mosek路径
+
+\verb| <MSKHOME>/mosek/9.3/toolbox/r2015a|
+
+\item 检查
+
+\verb|mosekdiag|
+\end{enumerate}
+
+
+
+
 
 
 \chapter{操作配置}
@@ -994,8 +1042,107 @@ The setup is intuitive and easy:
 \section{dnf}
 
 
+\section{错误排查}
+\subsection{查看日志文件}
+\verb|sudo less /var/log/messages|
+
+
+
+
+
+
+
+
 
 \part{计算集群搭建、管理与应用}
+
+
+\chapter{断电自动关机}
+\section{雷迪司UPS断电短信提醒与自动关机配置}
+\begin{itemize}
+\item 软件下载地址：\url{http://www.ladis.com.cn/support/node_78.shtml}
+
+\item 使用教程：\url{https://www.yuque.com/ladis/gfg4p3}
+
+\item 视频教程：\url{http://www.ladis.com.cn/support/2017-05/03/1102.shtml}
+\end{itemize}
+
+安装步骤：
+\begin{itemize}
+\item 给安装文件赋予最高权限：chmod 777 installViewPower.bin
+
+\item 安装：./installViewPower.bin
+
+\item 默认管理员用户为：Administrator，密码为：administrator
+\end{itemize}
+
+
+安装成功后，进入软件一般可以读取到UPS的信息，如果读取不到的话一般都是usb接口的权限不到位。
+可以采用如下步骤设置，然后重新打开viewpower为。
+\begin{enumerate}
+\item Use the  ``lsusb'' command to view all usb devices;
+\item By plugging and unplugging the usb device connected to the UPS, determine the bus and device of the usb (for example, the bus of the usb device selected in the diagram is ``002'' and the device is  ``003'')
+\item Assign ownership of the usb device to the current user (lida), ``sudo chown lida /dev/bus/usb/002/003''
+\end{enumerate}
+
+
+\begin{verbatim}
+#!/bin/bash
+
+echo ">>Start emergency shutdown cluster" `date` > down.txt
+echo yndwxh0606 |sudo -S pdsh -w c[1-21] shutdown -P +1 >> down.txt 2>&1
+echo "    " >>down.txt
+echo "    " >>down.txt
+echo "    " >>down.txt
+echo ">>End emergency shutdown cluster" `date` >> down.txt
+\end{verbatim}
+
+
+
+\section{Ping实现停电关机脚本}
+前面的雷迪司自动关机设置不稳定、不可靠。那就自己设置个停电关机脚本，利用定时任务命令crontab，\url{https://www.hitsword.org/2021/375.html}，持续ping路由器地址。不通的话立刻执行关机命令。
+用法如下：
+\begin{itemize}
+\item \verb|crontab -l|：查看状态
+\item \verb|crontab -e|：进行编辑，并输入\verb| * * * * * powercheck.sh|
+每分钟执行脚本一次，注意“*”之间有空格。具体意思详看命令解释。
+\end{itemize}
+
+\lstinputlisting{program/powercheck.sh}
+
+
+
+
+\section{基于Arduino开发板}
+Rocky8系统Python安装：
+\begin{enumerate}
+\item sudo dnf install python3 -y
+\item sudo pip3 install numpy
+\item sudo pip3 install serial
+\item sudo pip3 install pyserial
+\item python3 duan\_dian\_jian\_ce.py
+\end{enumerate}
+
+
+
+\section{使用脚本来检查当前系统是否正在使用电池而不是外接电源}
+ \begin{lstlisting}[language=sh]
+#!/bin/bash
+
+# 检查电源状态
+power_status=$(cat /sys/class/power_supply/AC/online)
+
+if [ "$power_status" -eq "1" ]; then
+    echo "电脑正在使用外接电源"
+else
+    echo "电脑正在使用电池"
+fi
+\end{lstlisting}
+将以上内容保存为一个脚本文件（例如check\_power\_status.sh），然后给予执行权限：
+\verb|chmod +x check_power_status.sh|
+
+
+
 \chapter{Linux作业管理系统}
 \section{PBS}
 \begin{itemize}
@@ -2091,54 +2238,303 @@ wwvnfs --chroot $CHROOT
 
 
 
-\section{雷迪司UPS断电短信提醒与自动关机配置}
+
+
+
+
+
+\chapter{基础版 Beowulf HPC 搭建}
+参考资料：
 \begin{itemize}
-\item 软件下载地址：\url{http://www.ladis.com.cn/support/node_78.shtml}
+\item Basic Beowulf HPC Installation and Configuration Guide with SLURM, H3ABioNet and H3Africa Consortium communities
 
-\item 使用教程：\url{https://www.yuque.com/ladis/gfg4p3}
-
-\item 视频教程：\url{http://www.ladis.com.cn/support/2017-05/03/1102.shtml}
-\end{itemize}
-
-安装步骤：
-\begin{itemize}
-\item 给安装文件赋予最高权限：chmod 777 installViewPower.bin
-
-\item 安装：./installViewPower.bin
-
-\item 默认管理员用户为：Administrator，密码为：administrator
 \end{itemize}
 
 
-安装成功后，进入软件一般可以读取到UPS的信息，如果读取不到的话一般都是usb接口的权限不到位。
-可以采用如下步骤设置，然后重新打开viewpower为。
-\begin{enumerate}
-\item Use the  ``lsusb'' command to view all usb devices;
-\item By plugging and unplugging the usb device connected to the UPS, determine the bus and device of the usb (for example, the bus of the usb device selected in the diagram is ``002'' and the device is  ``003'')
-\item Assign ownership of the usb device to the current user (lida), ``sudo chown lida /dev/bus/usb/002/003''
-\end{enumerate}
+\section{软硬件条件}
+\begin{itemize}
+\item 每个节点预先装好 Ubuntu 操作系统
+\item 更改确定好 hostname
+\end{itemize}
 
 
+\section{网络设置}
+网络分为内外网，外网用来主节点与外界通信，内网是主节点与计算节点间的通信。
+所有节点都要设置。主节点必须设置两个，外网和内网。子节点也可以设置两个，外网
+和内网。
+
+一般服务器电脑都有多个网络接口，可以把主节点上的一个网络接口连接外网，以便在
+其他电脑上通过远程 ssh 来进行相关操作，比如修改配置，提交任务等。另一个接口来连接
+内网，以便和其他子节点相互通信。内网、外网各需一部交换机。外网 IP 是网络管理中心
+分配的，内网 IP 可以自己分配。
+
+方式一：通过yaml文件设置内外网IP。
+In Ubuntu 20.04, the networking is managed via netplan and all networking configurations are
+contained in a .yaml file.
+
+方式二：图形界面手动设置内外网IP。
+
+（1）内网IP设置参考：
+\begin{itemize}
+\item 主节点IP地址：192.168.1.1，其他 .2，.3，……等
+\item 子网掩码：255.255.255.0
+\item 网关：192.168.1.1，所有节点网关都是一样的
+\end{itemize}
+
+（2）验证能否相互通信
+
+ping IP，这里的 IP 是另一台机器的 ip，如果数据一行一行刷下来，然后再在另一台机器上也像
+上面这样做，如果也是一样，说明两台机器能够相互通信，如果卡住半天不动，说明有问题。
+
+（3）修改hosts文件
+
+然后将本机的内网 IP 和所有其他节点(包括主节点)的 IP 填写到最下边，IP 后面跟上
+对应的计算机名。如：
 \begin{verbatim}
-#!/bin/bash
-
-echo ">>Start emergency shutdown cluster" `date` > down.txt
-echo yndwxh0606 |sudo -S pdsh -w c[1-21] shutdown -P +1 >> down.txt 2>&1
-echo "    " >>down.txt
-echo "    " >>down.txt
-echo "    " >>down.txt
-echo ">>End emergency shutdown cluster" `date` >> down.txt
+192.168.1.1 node0
+192.168.1.2 node1
+192.168.1.3 node2
+……
 \end{verbatim}
 
+（4）设置NAT
+
+计算节点经由主节点访问外网，无需额外网网卡。暂略！
 
 
-\subsection{Ping实现停电关机脚本}
-前面的雷迪司自动关机设置不稳定、不可靠。那就自己设置个停电关机脚本，利用定时任务命令crontab，\url{https://www.hitsword.org/2021/375.html}，持续ping路由器地址。不通的话立刻执行关机命令。
-用法如下：
-\verb|crontab -e * * * * * powercheck.sh|
-每分钟执行脚本一次，注意“*”之间有空格。具体意思详看命令解释。
 
-\lstinputlisting{program/powercheck.sh}
+\section{时间同步设置}
+利用命令 timedatectl 检查各个节点时区是否一致。不一致则要设置一致。
+
+
+\section{SSH keys for password-less login}
+The “ssh-keygen” command generates two keys. The “id\_rsa” is your private key and should never
+be shared with anyone. This key is used to validate the public key. The second key, “id\_rsa.pub” is
+the public key you copy to the machines that you want to log into without a password.
+Generate a ssh keypair if you do not already have one.
+ssh-keygen \# This will create a SSH keypair using the default RSA encryption.
+
+NOTE:
+\begin{itemize}
+\item To use a different encryption, add the “-t” option and assign the type of encryption to be
+used “ssh-keygen -t ed25519”.
+\end{itemize}
+
+Once your ssh keypair has been created, copy the .pub key to the machine you want to access
+without typing in a password. We use the “ssh-copy-id” command to copy the public key to anther
+server.
+
+NOTE:
+\begin{itemize}
+\item if you only have one ssh keypair, the .pub key will automatically be selected and copied into
+the “.ssh/known\_hosts” or “.ssh/authorized\_keys” files on the remote machine.
+\end{itemize}
+\verb| ssh-copy-id <user>@<workernode-ip>|
+
+If there were no errors with the ssh-copy-id command, you can proceed to test the setup. From the
+controller node, ssh into the worker nodes and this time you should not be prompted for a
+password.
+
+
+\section{Install and Setup NFS shares}
+Shared storage is an important part of the cluster as all worker nodes need to be able to access the
+same project directories. Ideally, the NFS server should be an independent server. However, if you
+are limited to the number of servers you have, this function can be installed on the controller node.
+
+NFS is an acronym for Network File Server – the NFS server is a quick and easy way to share
+centralized storage across multiple servers on the same network.
+
+Install the NFS tools and all dependencies\\
+\verb|sudo apt install nfs-kernel-server|
+
+Confirm that the NFS service has been started and is running\\
+\verb|sudo systemctl status nfs-server.service|
+
+多节点并行运行软件时，需要在某一个节点的某个目录下提交任务(一般设置为主节点
+的某个目录)，这个目录需要被各个其他节点相同的目录所挂载，注意，这些目录不能在任何
+用户的主目录(即各个用户的\~/及其子目录)下，任何其他目录下都可以(事实上，后面要安装
+的软件，如 VASP，LAMMPS 等，也不能安装在任何用户的主目录下(root 用户主目录也不行))。
+
+我们直接把所有子节点的/home/目录挂载到主节点的/home/目录下。然后另外再创建一个用于共享应用程序的目录，并共享给所有子节点。此处我们用/opt/目录作为共享应用程序目录(这个目录是系统自动创建的，所以不需要手动创建了)。
+
+首先在主节点上用 root 权限打开文件修改：\\
+\verb|[root]# vim /etc/exports|\\
+在里面添加：\\
+\verb|/home/ 192.168.1.1/20(insecure,rw,async,no_root_squash)|\\
+\verb|/opt/ 192.168.1.1/20(insecure,rw,async,no_root_squash)|\\
+前面的目录表示被挂载目录，后面的 192.168.1.1/20 表示一个 IP 地址段：\\
+192.168.1.1 — 192.168.1.20\\
+表示这个 IP 地址段中的所有计算机都可以挂载在此节点上。
+这个 IP 地址段就是各个节点的内网 IP，你的内网 IP 设置成哪一段就写成哪一段。
+注意，\\
+“\verb|192.168.1.1/20(insecure,rw,async,no_root_squash)|”\\
+这一字符串中间没有
+空格。
+
+添加完成后，保存退出，然后更新这个文件：\\
+\verb|[root]# exportfs -rav|
+\begin{itemize}
+\item r: reexport all directories
+\item a: export all directories
+\item v: verbose
+\end{itemize}
+最后在主节点上开启 nfs 服务，并将其设置为开机自启动：
+\begin{verbatim}
+[root]# systemctl start nfs-server.service
+[root]# systemctl enable nfs-server.service
+\end{verbatim}
+
+\subsection{子节点挂载方式一：手动}
+然后到子节点上挂载 (必须到其他节点上用 root 权限来挂载，不能在被挂载节点上操作)：
+\begin{verbatim}
+[root]# mount -t nfs node0:/home/ /home/ -v
+[root]# mount -t nfs node0:/opt/ /opt/ -v
+\end{verbatim}
+挂载完成后，你到这个目录下就能看到 node0 节点下这个共享目录中的文件。你想挂载几个节点，就需要到那些节点执行以上操作，所以这也可以用脚本完成。
+如果想取消挂载某个节点，只要到那个节点上用 root 权限执行：
+\begin{verbatim}
+[root]# umount /home/ -v
+[root]# umount /opt/ -v
+\end{verbatim}
+就表示取消本节点的挂载。
+注意：在重启子节点前，要将所有子节点的挂载目录取消挂载，然后再关机或重启；并
+且重启电脑后，需要重新在子节点上执行挂载命令。
+
+
+\subsection{子节点挂载方式二：基于fstab文件}
+By adding the mount points to the /etc/fstab file, all shared directories will be mounted on system reboot.
+On each server in the cluster,
+\begin{verbatim}
+sudo vim /etc/fstab
+\end{verbatim}
+Add the below lines to the bottom of the file
+\begin{verbatim}
+<IP-of-NFS-server>:<spath-to-shared> <local-mount-point> nfs defaults,async 1 1
+192.168.1.1:/home /home nfs defaults,async 1 1
+\end{verbatim}
+With the mount points added in fstab, mount the NFS shares in the current sessionwith the below
+command.
+\begin{verbatim}
+sudo mount -a
+\end{verbatim}
+NOTE:
+If you get an error similar to the below, install the nfs-common packagesmount: /global5/scratch: bad option; for several file systems (e.g. nfs, cifs) you might need a /sbin/mount.<type> helper program.\\
+sudo apt install nfs-common\\
+You should now be able to mount the directories listed in fstab.
+
+
+\section{SLURM — Installation and Configuration}
+SLURM (Simple Linux Utility for Resource Management) is an open-source workload manager often
+used on High Performance Clusters (HPC).
+
+Munge is used for worker node authentication.
+On the controller, we will start and run the slrumctld.service service.
+The worker-nodes will run the slurmd.service service all machines will run the munge service.
+
+\subsection{SLURM controller setup}
+First, install all the required SLURM tools onto the controller
+\begin{itemize}
+\item sudo apt install slurm-wlm \# main slurm package
+\item sudo apt install slurm-wlm-doc \# SLURM documentation
+\item sudo apt install sview \# GUI to view and modify SLURM state
+\end{itemize}
+
+
+
+\subsubsection{Munge setup}
+Munge is automatically installed as part of the slurm-wlm installation so no need to install munge as
+a separate process.
+
+You need to generate a munge key which is copied to all nodes in the cluster. This key is used to
+authenticate nodes in the SLURM cluster.
+\begin{enumerate}
+\item Make sure munge is installed\\
+\verb|which munge # shows where the munge executable is located|\\
+or\\
+\verb|whereis munge # shows where all the instances of munge can be found|\\
+or\\
+\verb|sudo systemctl status munge # looks at the status of the munge service |
+
+\item Edit the munge default settings to set the default location for the munge key location\\
+\verb|sudo vim /etc/default/munge # add the below line to this file |\\
+OPTIONS="--syslog --key-file /etc/munge/munge.key" \# munge key will reside in
+/etc/munge/
+
+\item Make a backup the old key and generate a new munge key for the cluster setup that will be
+used on all the nodes.\\
+sudo cp /etc/munge/munge.key /etc/munge/munge.key.original \# backups the key to
+“munge.key.original”\\
+sudo /usr/sbin/create-munge-key \# generates a new munge key and saves it in the
+/etc/munge/ directory\\
+\begin{verbatim}
+The munge key /etc/munge/munge.key already exists
+Do you want to overwrite it? (y/N) y
+Generating a pseudo-random key using /dev/urandom completed.
+\end{verbatim}
+\end{enumerate}
+
+\subsubsection{slurmctld setup}
+The slurmctld is the service that monitors and controls the SLURM resources like job queues,
+allocates resources to compute nodes.
+
+There is a way to generate the slurm.conf file using a browser. I however found that it’s easier to
+just create the /etc/slurm-lln/slurm.conf file and paste the below contents into the file.
+
+Once done, save and close the file then start the slurmctld service
+\begin{verbatim}
+sudo systemct restart slurmctld.service
+sudo systemctl status slurmctld.service
+\end{verbatim}
+
+NOTE:
+
+if there are any errors when starting the slurmdbd.service or the slurmctld.service. You can
+troubleshoot by looking at the “sudo systemctl status slurmdbd.service” and log files in
+“/var/log/slurm-llnl/”.
+
+
+\subsection{SLURM worker node setup}
+Slurm worker nodes are the servers that will execute the actual job once initiated from the SLURM
+controller.
+All worker nodes need to run the “slurmd” and “munge” services. Once the OS is setup and
+configured, the following packages are to be installed on each worker node:
+\begin{itemize}
+\item slurm-wlm
+\item slurm-wlm-basic-plugins
+\item munge
+\end{itemize}
+
+NOTE:\\
+“slurm-wlm” installs “munge” + “slurm-wlm-basic-plugins” as part of the overall installation
+so you only really need to install the “slurm-wlm” application\\
+\verb|sudo apt update # update Ubuntu repositories|\\
+\verb|sudo apt upgrade # upgrade outdated applications and dependencies|\\
+\verb|sudo apt install slurm-wlm # installs SLURM|
+
+
+Once slurm-wlm is installed, all we need to do is copy some files from the controller to each worker
+node.
+\begin{itemize}
+\item slurm.conf
+\item Munge.key, and
+\item create the following file /etc/slurm-llnl/cgroup.conf
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -294,6 +294,9 @@ chown jichi a.txt　　
 chown - R jichi.jingdian /b
 
 
+\subsection{重新挂载硬盘}
+\verb|sudo mount -o remount,rw /media/xuan/Backup/|
+
 
 \subsection{chgrp——修改文件或目录所属组的命令}
 改变文件或目录所属的组
@@ -785,6 +788,20 @@ $
 
 
 \section{系统配置管理命令}
+\subsection{关机命令shutdown}
+要立即关机Linux系统，您可以使用shutdown命令并指定合适的选项。在这种情况下，您可以使用-h选项来表示关机操作，以及now参数来表示立即执行。因此，完整的命令如下：
+\begin{lstlisting}[language=sh]
+sudo shutdown -h now
+\end{lstlisting}
+请注意，执行此命令可能需要root或具有sudo权限的用户。
+
+
+
+
+
+
+
+
 \subsection{date}
 语法：
 \begin{lstlisting}[language=sh]
@@ -990,6 +1007,88 @@ ulimit   -s 262140
 
 调整ulimit的stack size 参数调整为unlimited 无限，使用ulimit -s unlimited时只能在当时的shell见效，重开一个shell就失效了。于是得在/etc/profile 的最后面添加ulimit -s unlimited 就可以了，source /etc/profile使修改文件生效。
 
+
+
+\subsection{后台运行脚本命令nohup}
+\subsubsection{使用nohup命令}
+nohup 命令可以使命令在后台执行，并且即使退出当前终端，该命令也会继续执行。例如：
+\begin{lstlisting}[language=sh]
+nohup ./your_script.sh &
+\end{lstlisting}
+
+
+\subsubsection{如何查看nohup运行的脚本}
+要查看正在使用 `nohup` 运行的脚本，您可以使用一些系统命令来检查正在运行的进程。下面是一些方法：
+
+1. **使用 `pgrep` 命令**：
+
+   `pgrep` 命令可以根据进程名查找正在运行的进程的进程ID（PID）。例如：
+
+\begin{lstlisting}[language=sh]
+   pgrep -f your_script.sh
+\end{lstlisting}
+ 这将显示与 `your\_script.sh` 相关的所有进程的PID。
+
+
+2. **使用 `ps` 命令**：
+
+   您可以使用 `ps` 命令来列出正在运行的进程，并且可以过滤包含特定关键词的进程。例如：
+
+\begin{lstlisting}[language=sh]
+   ps aux | grep your_script.sh
+\end{lstlisting}
+   这将列出包含 `your\_script.sh` 关键词的所有进程。通常情况下，使用 `nohup` 运行的脚本会在进程名中显示为 `your\_script.sh` 或类似的名称。
+
+
+3. **使用 `ps` 命令结合 `grep` 命令**：
+
+\begin{lstlisting}[language=sh]
+   ps aux | grep '[y]our_script.sh'
+\end{lstlisting}
+在这个命令中，`grep` 命令的正则表达式中使用了一个字符类 `[]` 来避免匹配到 `grep` 进程本身。这样做可以让您得到准确的结果。
+
+4. **查看 `nohup.out` 文件**：
+
+   默认情况下，`nohup` 命令会将脚本的输出重定向到 `nohup.out` 文件中。您可以查看这个文件来获取脚本的输出信息：
+
+\begin{lstlisting}[language=sh]
+   cat nohup.out
+\end{lstlisting}
+   或者使用 `tail` 命令来查看最后几行：
+
+\begin{lstlisting}[language=sh]
+   tail -n 10 nohup.out  # 显示最后10行
+\end{lstlisting}
+通过这些命令，您可以查看到使用 `nohup` 命令运行的脚本的相关信息，包括进程ID、脚本输出等。
+
+
+\subsubsection{如何终止 nohup 脚本}
+\begin{enumerate}
+\item 找到脚本的进程ID（PID）:\\
+可以使用 pgrep 命令来查找与脚本相关的进程ID。假设您的脚本名为 your\_script.sh，您可以运行以下命令来查找它的PID：
+\begin{lstlisting}[language=sh]
+pgrep -f your_script.sh
+\end{lstlisting}
+这将返回与 your\_script.sh 相关的进程ID。
+
+\item 终止进程：\\
+一旦您有了脚本的PID，您可以使用 kill 命令来终止该进程。例如，假设脚本的PID是12345，您可以运行以下命令：
+\begin{lstlisting}[language=sh]
+kill 12345
+\end{lstlisting}
+如果您想要强制终止进程，可以使用 -9 选项：
+\begin{lstlisting}[language=sh]
+kill  -9 12345
+\end{lstlisting}
+
+\item  验证：\\
+您可以再次运行 pgrep 命令来确保脚本已经终止：
+\begin{lstlisting}[language=sh]
+pgrep -f your_script.sh
+\end{lstlisting}
+如果没有返回进程ID，则表明脚本已经成功终止。
+
+\end{enumerate}
 
 
 
