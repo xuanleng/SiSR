@@ -6,9 +6,10 @@
 \usepackage{verbatim}%提供多行注释\begin{comment}....\end{comment}
 \usepackage{longtable}
 \usepackage{ulem}
-
+\usepackage{rotating} % 用于旋转表格
 \usepackage{draftwatermark}
 \usepackage{everypage}
+\usepackage{tabularx} % 用于动态调整列宽
 %\SetWatermarkText{抛砖引玉，不要照搬照抄}
 %\SetWatermarkText{包含错误或过时，欢迎更新指正}
 \SetWatermarkText{\parbox{100cm}{%
@@ -426,6 +427,15 @@ Win10倒是很快很方便的还原好了，之前有备份系统。在坚果云
 也乘着这次更新，本文档也有些变化，最主要的是一些自己淘汰不用的技术要分离，新建到一个专门的历史文档中。
 
 
+
+\subsection*{2025.3.15——好久没折腾，这次是自己搭建人工智能本地文献知识库}
+\addcontentsline{toc}{subsection}{2025.3.15——好久没折腾，这次是自己搭建人工智能本地文献知识库}
+离上次折腾已经过去2年了，通过了首聘期考核，紧张的心终于放下来了，可以喘口气做些长期的项目了。这两年世界的变化也是非常剧烈的，新冠疫情、俄乌战争还有人工智能ChatGPT、DeepSeek。这些巨变对我们的生活和工作影响也是巨大的，我们要作出及时的调整。我开始以为，有了ChatGPT，我们这个文档就不用写了。后来发现，反而是更有助于写这个文档。是的，这里是成熟的技术类文档，大部分东西ChatGPT都给到你，为什么还要写。我觉得，写的性质变了，不是一个查询文档，更多的是一个抛砖引玉的文档，还有一个最重要的功能是帮助自己整理知识，将自己的知识系统化。零碎的知识没法形成规模效应。
+
+
+
+
+
 \rightline{——冷轩\qquad}
 
 
@@ -449,8 +459,8 @@ Win10倒是很快很方便的还原好了，之前有备份系统。在坚果云
 \part{编程语言导引}
 \include{chapters/Programming}
 
-%\part{并行计算}
-%\include{chapters/Parallel_computing}
+\part{人工智能}
+\include{chapters/Parallel_computing}
 
 
 %\part{历史文档} %删除的内容

@@ -193,7 +193,126 @@ network:
 
 
 
+\chapter{Linux 硬件管理}
+\section{PCI设备查看与管理}
+\subsection{PCI介绍}
+\subsubsection{什么是 PCI？}
+PCI （Peripheral Component Interconnect，外围组件互连）是一种硬件总线标准，最初由英特尔在 1992 年推出，用于在计算机的主板和扩展卡之间传输数据。它允许设备以并行或串行（PCIe）的方式与 CPU 和内存通信。现代计算机主要使用 PCIe，它是 PCI 的升级版，提供更高的带宽和性能。
+\begin{itemize}
+\item PCI：传统并行传输，速度较慢（如 33MHz 或 66MHz，带宽最高 533MB/s）。
+\item PCIe：串行传输，支持更高的速度和可扩展性（例如 PCIe 4.0 x16 可达 32GB/s）。
+\end{itemize}
+
+
+\subsubsection{什么是PCI设备}
+PCI 设备是指连接到计算机 PCI总线 的硬件设备。PCI 是一种广泛使用的硬件总线标准，用于在计算机主板上连接各种外围设备，例如显卡、网卡、声卡、存储控制器等。随着技术发展，PCI 逐渐演变为更现代的 PCIe（PCI Express），但广义上仍常将 PCIe 设备归类为 PCI 设备的一种。
+
+PCI 设备通常是插入主板插槽的扩展卡或集成在主板上的组件。常见的 PCI 设备包括：
+\begin{itemize}
+\item 显卡（GPU）：如 NVIDIA RTX 4090，使用 PCIe x16 插槽。
+\item 网卡（NIC）：提供有线或无线网络连接。
+\item 声卡：处理音频输入输出。
+\item 存储控制器：如 RAID 卡或 SATA 控制器。
+\item USB 扩展卡：增加 USB 端口。
+\item 其他设备：如老式的调制解调器或 TV 卡。
+\end{itemize}
 
 
 
+\subsubsection{PCI 和 PCIe 的区别}
+\begin{itemize}
+\item 物理接口：传统 PCI 使用较宽的插槽，而 PCIe 使用更小的插槽（x1、x4、x8、x16 表示不同带宽）。
 
+\item 速度：PCIe 的每一代速度翻倍，例如：
+\begin{itemize}
+\item PCIe 1.0：2.5GT/s
+\item PCIe 3.0：8GT/s
+\item PCIe 4.0：16GT/s
+\item PCIe 5.0：32GT/s
+\end{itemize}
+
+\item 兼容性：PCIe 向下兼容（例如 PCIe 4.0 设备可插入 PCIe 3.0 插槽，但速度受限）。
+\end{itemize}
+
+
+
+\subsection{查看主板上的显卡及显卡接口信息}
+\subsubsection{dmidecode 命令（有些显示PCIe版本号，有些不显示）}
+dmidecode 命令可以获取主板的详细信息，包括PCIe插槽的类型和数量。
+但是要判断系统中 PCI Express (PCIe) 槽位是 3.0、4.0 还是 5.0 版本，仅依赖 \verb|dmidecode -t 9| 的输出是不够的，因为该命令通常只报告槽位类型（如 x4 PCI Express 或 x16 PCI Express），而不会明确指出版本号（例如 PCIe 3.0、4.0 或 5.0）。dmidecode 输出中显示的槽位信息（如 Type: x4 PCI Express）是由主板的 SMBIOS 数据提供的，但它通常不包含 PCIe 版本号。需要确认主板型号（可通过 dmidecode -t baseboard 获取），然后查找规格。
+
+
+具体使用如下：
+\verb|sudo dmidecode -t 9|：该命令会列出系统插槽的信息，包括每个插槽的类型、长度和当前使用情况。
+
+\texttt{sudo dmidecode -t 9} 命令输出展示了系统的硬件扩展槽位配置，帮助用户了解可用的扩展选项。例如，PCI Express 槽位适合插入显卡或网卡，M.2 槽位常用于 SSD 或无线设备。输出包括槽位的名称（如 \texttt{SLOT1}）、类型（如 \texttt{x4 PCI Express}）、是否在使用（可用或已使用）等。
+
+\paragraph{槽位类型与状态}
+\begin{itemize}
+    \item 有传统 PCI Express 槽位，如 \texttt{x4}（4 通道）和 \texttt{x16}（16 通道），适合高性能设备。
+    \item M.2 槽位主要用于 SSD 和无线设备，部分已使用（如 \texttt{SLOT5\_M.2-SSD0}）。
+    \item 使用状态显示为“可用”表示无设备，显示为“已使用”表示有设备插上。
+\end{itemize}
+
+\paragraph{意外细节}
+M.2 槽位即使已使用，其总线地址可能显示为占位符（如 \texttt{0000:ff:1f.7}），这可能与系统或 \texttt{dmidecode} 的报告方式有关，需注意这可能不是实际总线地址。
+
+
+\paragraph{输出结构与总体说明}
+输出首先显示 \texttt{dmidecode} 的版本和 SMBIOS 数据来源：
+\begin{itemize}
+    \item \texttt{\# dmidecode 3.3}：使用的 \texttt{dmidecode} 工具版本为 3.3。
+    \item \texttt{Getting SMBIOS data from sysfs.}：工具从 sysfs 文件系统获取 SMBIOS 数据，这是 Linux 系统常见的硬件信息获取方式。
+    \item \texttt{SMBIOS 3.4 present.}：系统支持 SMBIOS 3.4 版本，这是硬件信息的标准化描述。
+\end{itemize}
+
+随后，输出按槽位（handle）列出每个扩展槽位的详细信息，每个槽位有多个字段，如名称、类型、使用状态等。
+
+每个槽位以 “\texttt{Handle [十六进制数], DMI type 9, [字节数]}” 开始，后面跟随具体信息。以下按字段逐一解释，并列出每个槽位的具体值。
+
+\paragraph{通用字段解释}
+\begin{itemize}
+    \item \textbf{\texttt{Handle [十六进制数], DMI type 9, [字节数]}}：这是 DMI 条目的唯一标识，\texttt{type 9} 表示系统槽位信息，字节数为条目大小。
+    \item \textbf{\texttt{System Slot Information}}：标题，表明此条目为系统槽位信息。
+    \item \textbf{\texttt{Designation: [槽位名称]}}：槽位的名称或标签，如 \texttt{SLOT1}。
+    \item \textbf{\texttt{Type: [槽位类型]}}：槽位的类型，如 \texttt{x4 PCI Express}（4 通道 PCI Express）或 \texttt{x4 M.2 Socket 1-DP}（M.2 槽位）。
+    \item \textbf{\texttt{Current Usage: [可用/已使用]}}：当前使用状态，显示是否插有设备。
+    \item \textbf{\texttt{Length: [短/长]}}：槽位的物理长度，短通常为半高卡，长为全高卡。
+    \item \textbf{\texttt{ID: [数字]}}：槽位的唯一标识符，仅部分槽位有此字段。
+    \item \textbf{\texttt{Characteristics:}}：列出槽位支持的功能。
+    \begin{itemize}
+        \item \texttt{3.3 V is provided}：提供 3.3 伏特电源。
+        \item \texttt{PME signal is supported}：支持电源管理事件信号，用于电源管理。
+        \item \texttt{Hot-plug devices are supported}：支持热插拔，可在系统运行时插入或移除设备。
+        \item \texttt{SMBus signal is supported}：支持系统管理总线，用于低速通信。
+    \end{itemize}
+    \item \textbf{\texttt{Bus Address: [总线地址]}}：槽位的 PCI 总线地址，若可用则显示占位符（如 \texttt{0000:ff:1f.7}），若已使用则显示实际地址（如 \texttt{0000:02:00.0}）。
+    \item \textbf{\texttt{Data Bus Width: 0}}：数据总线宽度，显示 0 表示未指定或不适用。
+    \item \textbf{\texttt{Peer Devices: 0}}：连接到此槽位的对等设备数量，均为 0。
+    \item \textbf{\texttt{Height: Not applicable}}：高度不适用，表示此字段对这些槽位不相关。
+\end{itemize}
+
+\paragraph{每个槽位的具体信息}
+以下按顺序列出每个槽位，基于上述字段解释其输出：
+\begin{table}[h]
+    \centering
+    \small % 减小字体大小
+    \setlength{\tabcolsep}{4pt} % 调整列间距
+    \begin{tabular}{@{}p{1.5cm}p{2.5cm}p{3cm}p{2cm}p{1.5cm}p{1cm}@{}}
+        \toprule
+        Handle & Designation & Type & Current Usage & Length & ID \\
+        \midrule
+        \texttt{0x0900} & \texttt{SLOT1} & \texttt{x4 PCI Express} & Available & Short & 1 \\
+        \texttt{0x0901} & \texttt{SLOT2} & \texttt{x16 PCI Express} & Available & Long & 2 \\
+        \texttt{0x0902} & \texttt{SLOT4} & \texttt{x4 PCI Express} & Available & Short & 4 \\
+        \texttt{0x0903} & \texttt{SLOT5\_M.2-SSD0} & \texttt{x4 M.2 Socket 1-DP} & In Use & Long & - \\
+        \texttt{0x0904} & \texttt{SLOT6\_M.2-SSD1} & \texttt{x4 M.2 Socket 2} & Available & Long & - \\
+        \texttt{0x0905} & \texttt{SLOT7\_M.2-SSD2} & \texttt{x4 M.2 Socket 3} & Available & Long & - \\
+        \texttt{0x0906} & \texttt{SLOT8\_M.2-WLAN} & \texttt{x1 PCI Express} & Available & Short & 8 \\
+        \texttt{0x0907} & \texttt{SLOT9-I225} & \texttt{x1 PCI Express} & Available & Short & 9 \\
+        \texttt{0x0908} & \texttt{SLOT10-SD} & \texttt{x1 PCI Express} & In Use & Short & 10 \\
+        \bottomrule
+    \end{tabular}
+    \caption{System Slot Basic Information from \texttt{dmidecode -t 9}}
+    \label{tab:slot_basic}
+\end{table}
