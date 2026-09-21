@@ -26,6 +26,56 @@ Python 是由荷兰人 Guido van Rossum发明的一种面向对象的解释型�
 
 
 
+\section{conda环境管理}
+\begin{itemize}
+\item conda info --envs ：展示当前建立的python环境
+\end{itemize}
+
+创建默认环境：conda env create -f environment.yml
+
+\begin{verbatim}
+# Scholar Report AI - Conda环境配置
+# 为Anaconda用户提供的环境配置文件
+
+name: scholar-report
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9
+  - pip
+  - pip:
+    - requests>=2.25.0
+
+# ===== 环境创建命令 =====
+
+# 方法1: 默认创建 (推荐)
+# conda env create -f environment.yml
+# 环境位置: ~/anaconda3/envs/scholar-report
+
+# 方法2: 指定自定义目录
+# conda env create -f environment.yml --prefix ./envs/scholar-report
+# conda env create -f environment.yml --prefix /path/to/custom/location
+
+# 方法3: 在项目目录创建 (不推荐，会污染项目目录)
+# conda env create -f environment.yml --prefix ./.conda-env
+
+# ===== 激活环境 =====
+# conda activate scholar-report  # 方法1创建的环境
+# conda activate ./envs/scholar-report  # 方法2创建的环境
+
+# ===== 删除环境 =====
+# conda env remove -n scholar-report  # 方法1创建的环境
+# conda env remove --prefix ./envs/scholar-report  # 方法2创建的环境
+\end{verbatim}•
+
+
+激活环境：conda activate scholar-report
+
+
+
+
+
 \chapter{Markdown}
 [转]\url{http://elegantlatex.org/2014/06/11/markdown-first-start}
 

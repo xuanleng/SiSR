@@ -1,0 +1,507 @@
+\chapter{背景知识}
+
+1. 什么是 Dify？
+
+**Dify** 是一个**开源的大语言模型（LLM）应用开发平台**，旨在帮助开发者快速构建和部署基于 AI 的应用。它提供了一个直观的界面，集成了 AI 工作流、RAG（检索增强生成）、智能体（Agent）功能和模型管理等工具。简单来说，Dify 就像一个“搭积木”的平台，用户无需深入编码就能创建 AI 应用，例如智能客服或知识库问答系统。
+
+ 2. 什么是 Ollama？
+ 
+**Ollama** 是一个**轻量级的本地推理框架**，用于在本地机器上部署和运行大语言模型（LLM）。它支持多种模型（如 LLaMA、Mistral、DeepSeek 等），用户只需通过简单命令即可下载和运行这些模型。Ollama 的优势在于本地化部署，不依赖云服务，保证数据隐私，同时提供 API 接口供其他应用调用。
+
+ 3. 什么是 Embedding？
+ 
+**Embedding（嵌入）** 是一种**将文本、图像等数据转化为向量表示的技术**。在 AI 领域，Embedding 模型将复杂的自然语言或数据映射成数字向量，这些向量保留了语义信息。例如，“猫”和“狗”的向量会比较接近，而“猫”和“汽车”的向量距离较远。Embedding 在知识检索、语义搜索和问答系统中起着关键作用。
+
+4. 什么是 LightRAG？
+
+**LightRAG** 是一个**轻量级的 RAG（检索增强生成）系统**，结合了知识图谱和向量检索技术，以提高数据检索的效率和准确性。它通过将文本数据转化为知识图谱，并利用向量检索快速定位相关信息，为大语言模型提供更精准的上下文。LightRAG 注重轻量化和高效性。
+
+5. 什么是 GraphRAG？
+
+**GraphRAG** 是一种**基于图的检索增强生成方法**，利用知识图谱增强大语言模型的检索能力。它通过构建文本数据的知识图谱，并利用图中的社区结构和层次关系，生成更全面和准确的回答。GraphRAG 特别适合处理复杂查询和需要深入理解数据集上下文的场景。
+
+ 6. 什么是 LazyGraphRAG？
+ 
+**LazyGraphRAG** 是一个**类似于 GraphRAG 的系统**，但在构建和查询知识图谱时采用了更高效的策略，以减少计算资源需求。它可能通过延迟加载或按需计算图谱的某些部分来优化性能，从而在保持准确性的同时提升效率。
+
+7. 什么是 MinerU？
+
+**MinerU** 是一个**知识图谱构建工具**，能够从文本数据中自动提取实体和关系，并构建知识图谱。它通常与 RAG 系统结合使用，提供结构化的知识表示，从而提高检索和生成的准确性。
+
+- 8. 什么是 DeepSeek？
+
+**DeepSeek** 是一个**开源的大语言模型**，在 RAG 系统中常用作生成模型。它以高性能和低成本著称，特别在处理大规模文档和复杂查询时表现出色。DeepSeek 可通过 Ollama 在本地运行，提供隐私保护和低延迟的 AI 服务。
+
+ 它们之间的联系
+这些工具和技术在 AI 和大语言模型生态系统中相互关联，协同工作以构建高效、私密且功能强大的应用：
+
+- **Dify** 作为一个开发平台，可以集成 **Ollama** 提供的本地模型服务。用户可在 Dify 中配置 Ollama 的 API 接口，使用本地运行的模型（如 **DeepSeek**），从而构建隐私性强的 AI 应用。
+- **Embedding** 是 RAG 系统的核心技术，用于将文本数据转化为向量表示，支持 **LightRAG**、**GraphRAG** 和 **LazyGraphRAG** 的语义搜索和检索。Ollama 可提供本地 Embedding 模型（如 nomic-embed-text）。
+- **LightRAG**、**GraphRAG** 和 **LazyGraphRAG** 是 RAG 系统的变体，目标是通过检索外部知识增强模型生成能力。**LightRAG** 强调高效性，**GraphRAG** 利用知识图谱提升准确性和深度，**LazyGraphRAG** 则优化资源消耗。
+- **MinerU** 与 **GraphRAG** 和 **LazyGraphRAG** 结合，从文本中提取实体和关系，构建知识图谱，为检索提供结构化支持。
+- **DeepSeek** 作为生成模型，可通过 Ollama 在本地运行，并集成到 Dify 应用中，结合 RAG 系统提供准确回答。
+
+总结
+- **Dify**：应用开发平台。
+- **Ollama**：本地模型运行框架。
+- **Embedding**：文本向量化技术。
+- **LightRAG**：轻量级 RAG 系统。
+- **GraphRAG**：基于图的 RAG 系统。
+- **LazyGraphRAG**：高效优化的 GraphRAG。
+- **MinerU**：知识图谱构建工具。
+- **DeepSeek**：高性能生成模型。
+
+这些工具通过协同工作，支持从知识提取到检索和生成的全流程，适用于本地化、私密性强的 AI 应用场景。
+
+
+
+\section{1Panel}
+\url{https://1panel.cn/}
+1Panel 提供了一个直观的 Web 界面，帮助用户轻松管理 Linux 服务器中的网站、文件、容器、数据库以及大型语言模型（LLMs）。
+
+安装见官网。
+
+需要注意的是：面板地址在安装设置好了，就不好修改。\\
+可以用命令查阅：\verb|sudo 1pctl user-info|
+
+
+
+
+\section{Docker}
+Docker 是一个开源平台，用于自动化部署、运行和管理应用程序的容器化技术。它允许开发者将应用及其依赖打包到一个轻量、可移植的容器中，确保在不同环境（如开发、测试、生产）下运行一致。容器比虚拟机更高效，因为它们共享主机操作系统的内核，启动快、占用资源少。
+
+主要特点：
+\begin{itemize}
+\item 容器化：隔离应用运行环境。
+\item 可移植性：一次构建，任意环境运行。
+\item 生态系统：支持 Docker Hub 共享镜像，简化部署。
+\item 编排：常与 Kubernetes 等工具结合，管理大规模容器。
+\end{itemize}
+简单说，Docker 就像一个“标准化集装箱”，让应用打包和运行更简单高效
+
+安装：\verb|sudo apt-get install docker-compose|
+
+注意：更新Docker源，不然可能拉取失败。
+
+
+\section{MongoDB}
+MongoDB 是一个开源的 NoSQL 数据库，采用文档导向（document-oriented）存储方式。它以 JSON 格式的 BSON（Binary JSON）文档存储数据，灵活支持非结构化或半结构化数据，适合快速开发和处理大规模数据。
+
+主要特点：
+\begin{itemize}
+\item 文档模型：数据以键值对形式存储，像 JSON 对象， schema 灵活。
+\item 高性能：支持索引、内存映射，查询速度快。
+\item 可扩展：通过分片和复制集实现水平扩展和高可用。
+\item 易用：无需预定义表结构，适合动态变化的数据。
+\end{itemize}
+简单说，MongoDB 是一个高效、灵活的数据库，特别适合需要快速迭代或处理复杂数据的现代应用，比如 Web 应用、实时分析等。
+
+
+
+\chapter{内网穿透、反向代理、异地组网}
+如果学校网络不允许直接端口映射，但你有其他公网服务器，可以通过反向代理将请求转发到内网。
+
+步骤：
+
+在公网服务器上安装 Nginx 或 Apache。
+配置反向代理，将公网服务器的某个域名或路径（如 example.com）转发到内网服务器。
+使用内网穿透工具（如 Frp 或 SSH 隧道）将内网服务器连接到公网服务器。
+优点：
+
+灵活，可结合域名提供专业化访问。
+适合有公网服务器的情况。
+缺点：
+
+需要额外的公网服务器，配置稍复杂。
+
+
+\section{TLS}
+TLS（传输层安全协议）是一种加密协议，用于在两个通信应用之间提供隐私和数据完整性。它主要用于保护Web通信（如HTTPS），确保客户端与服务器之间的数据传输是私密且经过身份验证的。TLS可以保证数据在传输过程中不被窃听或篡改。
+
+
+
+\section{Nginx}
+NGINX（发音为 "engine-X"）是一款开源的、高性能的HTTP和反向代理服务器，同时也提供了诸如IMAP/POP3代理服务器等功能。它最初由Igor Sysoev为俄罗斯大型网站如Rambler开发，并于2004年首次公开发布。NGINX以其高效率、稳定性和低资源消耗而著称。
+
+作为一个HTTP服务器，NGINX可以用来直接服务静态内容（如HTML页面、样式表、脚本文件等），并且可以通过FastCGI、SCGI处理程序或者uWSGI协议来服务动态网页内容。此外，NGINX还广泛用于作为反向代理服务器，用于将客户端请求转发给后端服务器（例如运行着应用服务器、数据库服务器等），并将响应返回给客户端，这样可以提高安全性、性能和扩展性。
+
+除了基本的服务器功能外，NGINX还支持负载均衡、HTTP缓存、SSL/TLS终止等功能，使其成为构建高效Web基础设施的关键组件。NGINX Plus是其商业版，提供额外的功能和官方支持。
+
+
+NGINX是一款高性能的HTTP和反向代理服务器，同时支持IMAP/POP3代理功能。它因其高效率、稳定性和低资源消耗而广受欢迎。NGINX不仅能有效地服务静态内容，还能作为反向代理来处理动态内容请求、执行负载均衡、管理TLS终止等任务。
+
+三者的关系
+反向代理与NGINX：NGINX本身可以作为一个反向代理服务器使用。这意味着它可以接收来自互联网的客户端请求，然后根据配置将这些请求转发给一组后端服务器（例如应用服务器、数据库服务器等），并将响应返回给客户端。这样做的好处之一是可以增强安全性并优化性能。
+
+TLS与NGINX：NGINX能够处理TLS加密和解密过程。这意味着它可以作为TLS终止点，接收来自客户端的加密请求，解密这些请求以便进一步处理或转发到适当的后端服务器，并对返回给客户端的响应进行加密。这不仅减轻了后端服务器的负担，还简化了证书管理。
+
+反向代理与TLS：当结合使用时，反向代理（如NGINX）能够为后端服务器提供额外的安全层。通过在反向代理上终止TLS连接，所有进入的流量都会首先被加密和验证，从而保护内部网络不受外部威胁的影响。
+综上所述，通过将NGINX用作反向代理并处理TLS加密，组织可以构建一个既安全又高效的Web服务架构。这种方式不仅可以提升应用的安全性，还可以通过负载均衡和缓存等技术显著改善性能。
+
+
+
+\section{vnt}
+\url{https://github.com/vnt-dev/vnt}
+
+
+
+\section{frp}
+\url{https://github.com/fatedier/frp/blob/dev/README_zh.md}
+
+frp 是一个专注于内网穿透的高性能的反向代理应用，支持 TCP、UDP、HTTP、HTTPS 等多种协议，且支持 P2P 通信。可以将内网服务以安全、便捷的方式通过具有公网 IP 节点的中转暴露到公网。
+
+
+
+
+
+
+
+
+\chapter{Overleaf}
+Refs：
+\begin{itemize}
+\item 这里教程的主要参考：\url{https://www.cnblogs.com/Undefined443/p/18155463}
+
+\item 官方教程：\url{https://github.com/overleaf/toolkit/blob/master/doc/quick-start-guide.md}
+
+\item 官方说明文档：\url{https://github.com/overleaf/toolkit/tree/master/doc}
+
+\item \url{https://sspai.com/post/83982}
+
+\item \url{https://www.tnnidm.com/build-and-use-overleaf-server/index.html}
+\end{itemize}
+
+2017 年，Overleaf 和 ShareLaTeX 宣布合并，合并后的平台使用 Overleaf 作为名称。原先的 ShareLaTeX 代码库也改名为 Overleaf。不过目前官方提供的 Docker 映像仍叫 ShareLaTeX。因此下面有时会将 Overleaf 映像称为 ShareLaTeX 映像。
+
+可以使用 overleaf-toolkit 来安装 overleaf （简单）或者使用 overleaf 的 docker compose 来安装 overleaf （复杂）
+
+这里使用overleaf-toolkit。
+注意：本教程只适用于 macOS / Linux 操作系统。如果需要在 Windows 上部署 Overleaf，请先安装 WSL，之后在 WSL 中部署 Overleaf。
+
+
+
+
+
+
+
+\subsection{本地部署步骤}
+0、安装 Docker。由于 toolkit 使用 docker-compose 作为容器编排器，没有 docker-compose 的同学还需先安装一下。\\
+安装：\verb|sudo apt-get install docker-compose|
+
+1、克隆 Overleaf Toolkit 仓库：\\
+\verb|git clone https://github.com/overleaf/toolkit.git overleaf-toolkit|
+
+2、进入 overleaf-toolkit 目录并生成配置文件：
+\verb|cd overleaf-toolkit|\\
+\verb|bin/init|
+
+3、下载 Overleaf 映像并创建容器：
+\verb|bin/up|
+
+注意：
+\begin{itemize}
+\item Overleaf 脚本中使用的命令行工具均为 GNU 版本，而 macOS 原装命令行工具为 BSD 版本。因此 Mac 用户在启动时会报错。请使用 Homebrew 安装相应工具的 GNU 版本（如 coreutils），然后再尝试安装。
+
+\item 要先改配置文件，再执行bin/up和拉取完整版的texlive，因为bin/up实际上执行了docker run，所以bin/up后再改配置文件就于事无补了。
+
+\item bin/up实际上做了个docker run，bin/start是docker start。
+修改variables.env或者overleaf.rc后，要重新使用bin/up生成新容器才能生效，同时也意味着你对旧容器做的更改会丢失（包括完整安装的textlive等），所以最好一开始就把所有配置项都调整好，不要后期重新bin/up。project应该是存在mongodb，不会丢失，但是完整的texlive会丢。
+
+\item Overleaf 映像下载完成后会自动创建并启动容器，我们先按下 Ctrl + C 停止容器，或直接叉掉当前窗口，后面会实现后台运行。
+\end{itemize}
+
+
+
+4、接下来让 Overleaf 容器在后台运行：\\
+\verb|bin/start|
+
+5、Overleaf 容器启动之后，可以打开 http://localhost/launchpad 注册管理员帐户。之后我们就可以用这个帐户登录 Overleaf 平台。
+
+
+
+\subsubsection{docker-compose.base.yml}
+% Define colors for syntax highlighting
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+% Configure listings package
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+% Define YAML language for listings
+\lstdefinelanguage{YAML}{
+  basicstyle=\ttfamily\small,
+  keywordstyle=\bfseries\ttfamily\color{blue!70!black},
+  commentstyle=\itshape\ttfamily\color{red!60!black},
+  identifierstyle=\ttfamily\color{black},
+  stringstyle=\ttfamily\color{orange!50!black},
+  morecomment=[l]{\#},
+  morekeywords={true,false,null,yaml,on,off},
+  literate =     {---}{{\textcolor{blue}{---}}}3 % literal dash-dash-dash as blue
+             {-}{{-}}1           % replace - with itself but allow it to be colored
+             {...}{{\ldots}}1
+}
+
+
+
+The following is the content of the \texttt{docker-compose.base.yml} file along with comments explaining each line:
+
+\begin{lstlisting}[language=YAML,caption=Docker Compose Configuration with Comments]
+services: # 定义了所有要启动的服务列表。
+
+    sharelatex: # 这是一个名为 `sharelatex` 的服务。
+
+        restart: always # 指定容器总是自动重启，即使它因为某些原因退出或崩溃。
+        
+        image: "${IMAGE}" # 指定了用于创建容器的 Docker 镜像名称。这里的 `${IMAGE}` 是一个环境变量，在运行 `docker-compose` 命令时会被替换为实际的镜像名称。
+        
+        container_name: sharelatex # 设置了容器的名称为 `sharelatex`，这样可以通过这个名字来管理容器。
+        
+        volumes:
+            - "${OVERLEAF_DATA_PATH}:${OVERLEAF_IN_CONTAINER_DATA_PATH}" # 将主机上的目录挂载到容器内的指定路径。`${OVERLEAF_DATA_PATH}` 和 `${OVERLEAF_IN_CONTAINER_DATA_PATH}` 是环境变量，分别表示主机和容器内数据存储的路径。
+            
+        ports:
+            - "${OVERLEAF_LISTEN_IP:-127.0.0.1}:${OVERLEAF_PORT:-80}:80" # 映射主机端口到容器端口。`${OVERLEAF_LISTEN_IP}` 和 `${OVERLEAF_PORT}` 是环境变量，默认值分别为 `127.0.0.1` 和 `80`。这意味着默认情况下，ShareLaTeX 会在本地回环地址的 80 端口上监听，并将请求转发到容器内的 80 端口。
+            
+        environment:
+          GIT_BRIDGE_ENABLED: "${GIT_BRIDGE_ENABLED}" # 设置了一系列环境变量，这些变量在容器内部可以被应用程序读取。其中 `${GIT_BRIDGE_ENABLED}`, `${REDIS_HOST}`, 和 `${REDIS_PORT}` 是从外部传入的环境变量；
+          GIT_BRIDGE_HOST: "git-bridge" # 而 `GIT_BRIDGE_HOST`, `GIT_BRIDGE_PORT`, 和 `V1_HISTORY_URL` 则是固定的值。
+          GIT_BRIDGE_PORT: "8000"
+          REDIS_HOST: "${REDIS_HOST}"
+          REDIS_PORT: "${REDIS_PORT}"
+          V1_HISTORY_URL: "http://sharelatex:3100/api"
+          
+        env_file:
+            - ../config/variables.env # 指定了额外的环境变量文件，位于项目根目录下的 `../config/variables.env` 文件中的键值对也会被加载到容器环境中。
+            
+        stop_grace_period: 60s # 容器停止前等待的时间长度。如果在此期间容器还没有停止，则强制终止它。这里设置的是 60 秒。
+\end{lstlisting}
+
+
+
+
+
+
+
+\subsection{安装宏包}
+Overleaf 映像自带的宏包很少，为了编译我们的 LaTeX 文档，往往需要安装其他宏包。
+
+1、在容器运行的状态下进入容器 Shell：\\
+\verb|bin/shell|
+
+2、更新并安装全部宏包：
+\begin{verbatim}
+# 使用中科大镜像源
+tlmgr repository set https://mirrors.ustc.edu.cn/CTAN/systems/texlive/tlnet
+# 更新已安装的全部宏包，包括 tlmgr 自身
+tlmgr update --self --all
+# 安装 scheme-full 套件（CTAN 上的全部宏包）
+tlmgr install scheme-full
+\end{verbatim}
+注意: 安装全部宏包的时间大约要 40 分钟左右。
+
+3、安装依赖包：
+{\tiny
+\begin{verbatim}
+apt update
+apt install ttf-mscorefonts-installer  # 安装 Windows 字体
+apt install inkscape python3-pygments  # 安装 TikZ & Syntax highlighter 依赖
+
+# 导入 TeX Live 字体
+ln -s /usr/local/texlive/2024/texmf-var/fonts/conf/texlive-fontconfig.conf /etc/fonts/conf.d/09-texlive.conf
+fc-cache -fsv  # 刷新字体缓存
+\end{verbatim}
+}
+
+
+\subsection{配置Latex Windows或自定义字体}
+Refs:\url{https://blog.xial.moe/index.php/2023/09/14/bushuzijideoverleaffuwu}
+
+1、将Windows字体库（即目录 \verb|C:\windows\fonts|）上传到 host 机
+
+2、在 host 机下把 fonts 目录打包并传到 sharelatex 容器中
+\begin{verbatim}
+# 进入fonts目录
+$ cd fonts/
+# 删除其中的.fon字体文件（该种格式文件在后面建立字体目录时会报错），
+只保留TrueType和OpenType字体，即.ttf和.otf
+# 一般地，如果只需要其中特定的中文字体，只需要上传需要的字体即可
+$ rm -r *.fon
+# 返回上层目录并打包
+$ cd ..
+$ tar -zcvf winfonts.tar.gz fonts/
+# 把压缩文件传到sharelatex容器的root目录下
+$ docker cp winfonts.tar.gz sharelatex:/root
+\end{verbatim}
+
+3、在容器中安装Windows字体
+\begin{verbatim}
+# 进入容器的命令行界面
+$ docker exec -it sharelatex bash
+# 通过安装wqy字体同时安装xfont工具
+$ apt-get install xfonts-wqy
+# 进入root目录，解压winfonts.tar.gz，并剪切到系统字体目录下
+$ cd ~
+$ tar -zxvf winfonts.tar.gz
+$ mv winfonts /usr/share/fonts/
+# 进入字体目录安装字体
+$ cd /usr/share/fonts/winfonts
+$ mkfontscale
+$ mkfontdir
+$ fc-cache -fv
+# 检查确认中文字体安装成功
+$ fc-list :lang=zh-cn
+\end{verbatim}
+
+4、回到 ShareLaTeX 网站，创建一个新项目，使用 CTEX 宏集和 XeLaTeX 编译器，即可生成中文 pdf。（详见 CTEX 宏集手册）
+
+5、因为学校论文的需要，有时需要其他中文字体，例如Adobe宋体，其安装流程与上述基本一致。（PS：在GitHub上可以找到公开的Adobe Song Std字体，涉及版权这里不放链接）
+
+
+PS：你可能还要安装一些中文字体，可以通过下面的命令将你的字体目录 fonts 拷贝到 Overleaf 容器的字体目录：\\
+\verb|docker cp fonts sharelatex:/usr/local/share|
+
+
+
+\subsection{备份数据或迁移}
+参见官方文档。
+\url{https://github.com/overleaf/overleaf/wiki/Data-and-Backups#Folders-in-detail}
+
+
+
+\section{Troubleshooting}
+\subsection{无法安装宏包}
+在安装宏包时你可能遇到如下错误：
+\begin{verbatim}
+tlmgr: Local TeX Live (2023) is older than remote repository (2024).
+Cross release updates are only supported with
+  update-tlmgr-latest(.sh/.exe) --update
+See https://tug.org/texlive/upgrade.html for details.
+\end{verbatim}
+这是映像使用的 TeX Live 版本过低导致的。如果你当前使用的不是最新的 ShareLaTeX 映像，可以使用下面的命令更新映像：\\
+\verb|bin/upgrade|\\
+如果你已经在使用最新的 ShareLaTeX 映像，那说明官方还没有给最新的 TeX Live 打映像。你可以设置 TeX Live 使用旧版镜像源，或者更新当前容器中的 TeX Live 版本，也可以自己打一个包含新版 TeX Live 的映像。
+
+设置旧版镜像源：
+{\tiny
+\begin{verbatim}
+tlmgr option repository https://mirrors.tuna.tsinghua.edu.cn/tex-historic-archive/systems/texlive/2021/tlnet-final/
+\end{verbatim}
+}
+
+
+
+\subsection{打开 Web 界面时遇到 502 错误}
+如果遇到 502 错误，可能是端口冲突导致的。进入 config/overleaf.rc 修改一下端口号：\\
+\verb|OVERLEAF_PORT=8080|
+
+
+
+\subsection{部署到服务器上之后无法访问}
+Overleaf 的默认监听端口是 127.0.0.1:80，也就是只监听来自本地的 HTTP 访问请求。如果要开放所有 IP 的访问请求，需要修改 config/overleaf.rc 设置：
+\begin{verbatim}
+OVERLEAF_LISTEN_IP=0.0.0.0
+OVERLEAF_PORT=80
+\end{verbatim}
+这样所有地址都可以访问服务器的 80 端口来获取 Overleaf 服务。
+
+
+
+\subsection{无法启动 ShareLaTeX 容器}
+如果你在运行 bin/up 的过程中遇到这样的错误提示：
+
+Initiating Mongo replica set...
+Rebranding from ShareLaTeX to Overleaf
+  Starting with Overleaf CE and Server Pro version 5.0.0 the environment variables will use the Overleaf brand.
+  Previous versions used the ShareLaTeX brand for environment variables.
+  Your config/variables.env has 60 entries matching 'OVERLEAF\_', expected prefix 'SHARELATEX\_'.
+  Please align your config/version with the naming scheme of variables in config/variables.env.
+说明当前配置设置的 Overleaf 版本过低。我们需要使用大版本号为 5 以上的版本。
+
+编辑 config/version，使用新的版本号替代旧的版本号。你可以在 Docker Hub 上查看最新的版本号：\\
+\url{https://hub.docker.com/r/sharelatex/sharelatex/tags}
+
+
+
+\subsection{无法启动 Mongo 容器}
+运行 bin/up 命令时遇到如下错误：\\
+MongoNetworkError: connect ECONNREFUSED 127.0.0.1:27017\\
+Waiting for Mongo...\\
+Please configure ALL\_TEX\_LIVE\_DOCKER\_IMAGES in /home/xiao/toolkit/config/variables.env\\
+You can read more about configuring Sandboxed Compiles in our documentation:\\
+  https://github.com/overleaf/overleaf/wiki/Server-Pro:-sandboxed-compiles\#changing-the-texlive-image
+
+这可能是由于 Mongo 访问绑定挂载目录的 bug 导致的。要解决这个问题，我们需要将 Mongo 和 Redis 的数据存储位置由绑定挂载目录改为命名卷。方法为：创建 config/docker-compose.override.yml 文件，填入以下内容：
+\begin{verbatim}
+# 创建卷
+volumes:
+  mongo-data:
+  redis-data:
+
+# 挂载卷
+services:
+  mongo:
+    volumes:
+      - mongo-data:/data/db
+
+  redis:
+    volumes:
+      - redis-data:/data
+\end{verbatim}
+然后重新运行 bin/up。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
