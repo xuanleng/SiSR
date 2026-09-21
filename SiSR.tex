@@ -1,17 +1,15 @@
 % !TEX program = xelatex
 % !Mode:: "TeX:UTF-8"
 \documentclass[cn,11pt,chinese,twoside]{elegantbook}
-%\usepackage{indentfirst}%首行缩进宏包
-%\usepackage{titlesec}%定义章节标题宏包
-\usepackage{verbatim}%提供多行注释\begin{comment}....\end{comment}
+
+% 宏包（listings 已由 elegantbook 载入）
+\usepackage{verbatim}          % \begin{comment}
 \usepackage{longtable}
-\usepackage{ulem}
-\usepackage{rotating} % 用于旋转表格
+\usepackage{ulem}              % \sout
 \usepackage{draftwatermark}
-\usepackage{everypage}
-\usepackage{tabularx} % 用于动态调整列宽
-%\SetWatermarkText{抛砖引玉，不要照搬照抄}
-%\SetWatermarkText{包含错误或过时，欢迎更新指正}
+% \includeonly{chapters/chapter0} % 调试单章时取消注释
+
+% 水印
 \SetWatermarkText{\parbox{100cm}{%
 \centering
  抛砖引玉，不要照搬照抄 \\
@@ -19,163 +17,71 @@
 \SetWatermarkLightness{0.9}
 \SetWatermarkScale{0.2}
 
-
-%========================= 自定义页眉与页脚 ========================%
+% 页眉页脚
 \pagestyle{fancy}
 \lhead{\href{https://github.com/xuanleng/SiSR}{工欲善其事，必先利其器}}
-%\chead{}
-%\rhead{}
 \lfoot{主讲“器”的思维逻辑}
 \cfoot{\thepage}
-\rfoot{
-\hyperref[content]{目录}
-}
-%--------------------------------------------------------------------------------------------------------------------------%
+\rfoot{\hyperref[content]{目录}}
 
-
-
-%==========================目录层次设置============================%
-\setcounter{part}{0}
-\setcounter{chapter}{0}%设置目录计数初值
-\setcounter{tocdepth}{3} %设置目录的显示级别。book类从-1开始，为第一级。
+% 目录与编号深度：到 subsubsection
+\setcounter{tocdepth}{3}
 \setcounter{secnumdepth}{3}
-%（1）设置自动编号的深度（即编号到哪一级别）。{num}在article中取0到5的整数相应于目录中显示到\chapter，\section，\subsection，\subsubsection，\paragraph 或\subparagraph 层次。在book和report中，num取-1到5之间的整数相应于在目录中显示到\part，\chapter，\section，\subseciton，\subsubsection， \paragraph 或\subparagraph 层次。          
-%（2）对长标题用\section[abc]{abcdefg}形式的命令。                                            
-%（3）另外，还可以利用\addtocounter{secnumdepth}{num}来使得当前章节编号深度增加或减小，num可取正值或负值。
-%（4）对于高级内容要求的章节以星号标识,然后在正文中用\begin{advanced}\section{...}\end{advanced}即可
-%------------------------------------------------------------------------------------------------------------------------%
 
-
-
-
-
-
-%===========================设置罗马字============================%
-\makeatletter
-\newcommand{\rmnum}[1]{\romannumeral #1}
-\newcommand{\Rmnum}[1]{\expandafter\@slowromancap\romannumeral #1@}
-\makeatother
-%-------------------------------------------------------------------------------------------------------------------------%
-
-
-
-
-
-%=======================Fortran源码环境设置========================%
-\lstset{
-	language=Fortran,
-	basicstyle=\ttfamily,% set font
-	basicstyle=\tt\tiny\color{black},
-	commentstyle=\color[rgb]{.133,.545,.133},%comments in green
-	keywordstyle=\bfseries,   % keywords in bold
-	keywordstyle=\color{blue},
-	stringstyle=\color[rgb]{.627,.126,.941}, 
-	showstringspaces=false, % do not emphasize spaces in strings
-	lineskip=-2pt,
-   alsoletter={...},%
-   morekeywords={aimag,clc,break,case,catch,continue,elseif,else,end,for,function,global,
-       if,otherwise,persistent,return,switch,try,while,open,real*8},%增加 keywords
-   tabsize=4, % number of spaces of a TAB
-   mathescape=false,escapechar=§,  % escape to latex with §...§
-   upquote=true, % upright quotes
-   aboveskip={1.5\baselineskip}, % a bit of space above listings
-   columns=fixed ,% nice spacing
-    backgroundcolor=\color[rgb]{0.95,1.0,1.0},%设置背景色
-    breaklines=true,%很实用
-    numbersep=3mm, 
-    numbers=left, 
-    numberstyle=\scriptsize,
-    numberstyle=\color{magenta},
-    frame=shadowbox,
-    frame=single,  % frame
-    framexleftmargin=6mm, xleftmargin=6mm   % tweak margins
+% 代码列表：统一样式，语言由各处 [language=...] 指定
+\lstdefinestyle{sisr}{
+  basicstyle=\ttfamily\tiny\color{black},
+  commentstyle=\color[rgb]{.133,.545,.133},
+  keywordstyle=\bfseries\color{blue},
+  stringstyle=\color[rgb]{.627,.126,.941},
+  showstringspaces=false,
+  lineskip=-2pt,
+  tabsize=4,
+  mathescape=false,
+  escapechar=§,
+  upquote=true,
+  aboveskip=1.5\baselineskip,
+  columns=fixed,
+  backgroundcolor=\color[rgb]{0.95,1.0,1.0},
+  breaklines=true,
+  numbersep=3mm,
+  numbers=left,
+  numberstyle=\scriptsize\color{magenta},
+  frame=single,
+  framexleftmargin=6mm,
+  xleftmargin=6mm,
 }
-%----------------------------------------------------------------------------------------------------------------------%
-%\includeonly{chapters/chapter0}
-
-\title{科研中的技能技巧}
-\subtitle{\href{http://lengxuan.me/open-source-project/}{Skills in Scientific Researches}}
-
-\author{\href{xuanleng.me}{冷轩 （第一任）}\\
-{\kaishu 项目地址}： \url{https://github.com/xuanleng/SiSR}, \url{https://gitee.com/xuanleng/SiSR}\\
-{\kaishu \LaTeX{} 模板}：\href{https://github.com/ElegantLaTeX/ElegantBook}{Ethan Deng \& Liam Huang: ElegantBook}
- }
-%\institute{Elegant\LaTeX{} Program}
-\date{\today}
-%\version{3.10}
-
-\extrainfo{关注时代需求，解决时代问题}
-
-%\logo{logo-blue.png}
-\cover{cover.jpg}
-
-
+\lstdefinestyle{fortran}{
+  style=sisr,
+  language=Fortran,
+  morekeywords={aimag,open,real*8},
+}
+\lstdefinestyle{shell}{
+  style=sisr,
+  language=sh,
+  morekeywords={cut},
+}
+\lstset{style=sisr}
 
 \newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
 
+\title{科研中的技能技巧}
+\subtitle{\href{http://lengxuan.me/open-source-project/}{Skills in Scientific Researches}}
+\author{\href{https://xuanleng.me}{冷轩 （第一任）}\\
+{\kaishu 项目地址}： \url{https://github.com/xuanleng/SiSR}, \url{https://gitee.com/xuanleng/SiSR}\\
+{\kaishu \LaTeX{} 模板}：\href{https://github.com/ElegantLaTeX/ElegantBook}{Ethan Deng \& Liam Huang: ElegantBook}
+}
+\date{\today}
+\extrainfo{关注时代需求，解决时代问题}
+\cover{cover.jpg}
 
 \begin{document}
-%\begin{comment}
-\lstset{
-%numbers=none,
-%  numberstyle=\scriptsize,
-%  frame=none,
-%  flexiblecolumns=false,
-  language=sh,
-  basicstyle= \ttfamily,% set font
-  morekeywords={cut},
-%  breaklines=true,
-%  extendedchars=true,
-%  escapechar=\%,
-%  texcl=true,
-%  showstringspaces=true,
-  keywordstyle=\bfseries,
- % tabsize=4
-  }
-%\end{comment}
 
-
-
-%=======================Scilab源码环境设置========================%
-\lstset{%这里的设计参考基于listings开发的写matlab代码的宏包mcode
-   language=Scilab,
-   alsoletter={...},%
-   morekeywords={%这个注释号必须，不然空格有影响
-       clc,break,case,catch,continue,elseif,else,end,for,function,global,%
-       if,otherwise,persistent,return,switch,try,while,log...},%增加 keywords
-   basicstyle=\ttfamily,% set font
-   showstringspaces=false, % do not emphasize spaces in strings
-   tabsize=4, % number of spaces of a TAB
-   mathescape=false,escapechar=§,  % escape to latex with §...§
-   upquote=true, % upright quotes
-   aboveskip={1.5\baselineskip}, % a bit of space above listings
-   columns=fixed ,% nice spacing
-   keywordstyle=\bfseries,   % keywords in bold
-   keywordstyle=\color{blue},
-   commentstyle=\color[rgb]{.133,.545,.133},%comments in green
-   %stringstyle=\color[rgb]{.627,.126,.941}   % strings in purple这个用了就无法自动换行
-   %backgroundcolor=\color[rgb]{0.95,1.0,1.0},%设置背景色
-    breaklines=true,%很实用
-    numbersep=3mm, numbers=left, numberstyle=\scriptsize,%\tiny, % number style
-    frame=single,  % frame
-    framexleftmargin=6mm, xleftmargin=6mm   % tweak margins
-}
-%----------------------------------------------------------------------------------------------------------------------%
-
-
-
-%======================= 数学公式距离设置 ========================%
-%在\begin{document}后生效
-\setlength{\abovedisplayskip}{2pt plus1pt minus1pt}     %公式前的距离
-\setlength{\belowdisplayskip}{4pt plus1pt minus1pt}     %公式后面的距离
-%\setlength{\abovedisplayshortskip}{2cm}
-%\setlength{\belowdisplayshortskip}{2cm}
-%\setlength{\abovedisplayskip}{3pt}     %公式前的距离
-%\setlength{\belowdisplayskip}{3pt}     %公式后面的距离
-\setlength{\arraycolsep}{2pt}   %在一个array中列之间的空白长度, 因为原来的太宽了
-\allowdisplaybreaks[4]  % \eqnarray如果很长，影响分栏、换行和分页（整块挪动，造成页面空白），可以设置成为自动调整模式
-%-----------------------------------------------------------------------------------------------------------------------%
-
+% 公式间距须在 begin{document} 之后设置
+\setlength{\abovedisplayskip}{2pt plus 1pt minus 1pt}
+\setlength{\belowdisplayskip}{4pt plus 1pt minus 1pt}
+\setlength{\arraycolsep}{2pt}
+\allowdisplaybreaks[4]
 
 \maketitle
 \frontmatter
