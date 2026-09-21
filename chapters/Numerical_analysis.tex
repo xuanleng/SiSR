@@ -417,14 +417,14 @@ $x_n$ & $y(x_n)$\\
 \end{minipage}%
 \begin{minipage}[b]{0.5\textwidth}
 \centering
-\includegraphics[width=0.9\textwidth]{program/numerical_analysis_examples/exact_solution.jpeg}
+\includegraphics[width=0.9\textwidth]{program/ode_ivp/exact_solution.jpeg}
 \caption{精确解}
 \label{fig:by:table}
 \end{minipage}
 \end{figure}
 
 Fortran代码如下：
-\lstinputlisting{program/numerical_analysis_examples/exact_solution.f90}
+\lstinputlisting{program/ode_ivp/exact_solution.f90}
 
 
 
@@ -457,14 +457,14 @@ $x_n$ &       精确解($y_n$)   & 欧拉法解($y$)  \\
 \end{minipage}%
 \begin{minipage}[b]{0.5\textwidth}
 \centering
-\includegraphics[width=0.9\textwidth]{program/numerical_analysis_examples/euler_method.jpeg}
+\includegraphics[width=0.9\textwidth]{program/ode_ivp/euler_method.jpeg}
 \caption{精确解与欧拉法解}
 \label{fig:by:table}
 \end{minipage}
 \end{figure}
 
 Fortran代码如下：
-\lstinputlisting[language=Fortran]{program/numerical_analysis_examples/euler_method.f90}
+\lstinputlisting[language=Fortran]{program/ode_ivp/euler_method.f90}
 
 
 
@@ -498,13 +498,13 @@ $x_n$ &       精确解($y_n$)   & 欧拉法解($y$)  & 改进欧拉法解($y$)\
 \end{tabular}
 \caption{精确解、欧拉法解、改进欧拉法解}
 \centering
-\includegraphics[width=0.7\textwidth]{program/numerical_analysis_examples/improved_euler_method.jpeg}
+\includegraphics[width=0.7\textwidth]{program/ode_ivp/improved_euler_method.jpeg}
 \caption{精确解、欧拉法解、改进欧拉法解}
 \label{fig:by:table}
 \end{figure}
 
 Fortran代码如下：
-\lstinputlisting[language=Fortran]{program/numerical_analysis_examples/improved_euler_method.f90}
+\lstinputlisting[language=Fortran]{program/ode_ivp/improved_euler_method.f90}
 
 
 
@@ -521,7 +521,7 @@ K_4=y_n+hK_3-\cfrac{2(x_n+h)}{y_n+hK_3}
 \end{cases}$$
 
 Fortran代码如下：
-\lstinputlisting[language=fortran]{program/numerical_analysis_examples/runge_kutta.f90}
+\lstinputlisting[language=fortran]{program/ode_ivp/runge_kutta.f90}
 
 取步长$h=0.1$结果为
 
@@ -544,7 +544,7 @@ $x_n$ &       精确解($y_n$)   & 欧拉法解($y$)  & 改进欧拉法解($y$) 
 \end{tabular}
 \caption{精确解、欧拉法解、改进欧拉法解、四阶龙格库塔法解}
 \centering
-\includegraphics[width=1.0\textwidth]{program/numerical_analysis_examples/runge_kutta.pdf}
+\includegraphics[width=1.0\textwidth]{program/ode_ivp/runge_kutta.pdf}
 \caption{精确解、欧拉法解、改进欧拉法解、四阶龙格库塔法解}
 \label{fig:by:table}
 \end{figure}
@@ -718,7 +718,7 @@ $$\begin{cases}y\rq{}=y-\frac{2x}{y} &(0 \le x \le 1)\\ y(0)=1\end{cases}$$
 
 定步长通用四阶龙格库塔程序为
 
-\lstinputlisting[language=Fortran]{program/runge_kutta/runge_kutta1.f90}
+\lstinputlisting[language=Fortran]{program/rk4/rk4_scalar_ode.f90}
 求解结果为：
 {\small
 \begin{center}
@@ -754,11 +754,11 @@ $$y_0=-\cos x \qquad  y_1= \sin x  \qquad y_2 = e^{-x}$$
 
 解析解的程序为
 
-\lstinputlisting{program/runge_kutta/example3.f90}
+\lstinputlisting{program/rk4/ode_system_exact.f90}
 
 定步长通用四阶龙格库塔程序为
 
-\lstinputlisting{program/runge_kutta/runge_kutta3.f90}
+\lstinputlisting{program/rk4/rk4_ode_system.f90}
 
 定步长四阶龙格库塔法求解结果为
 
@@ -1029,6 +1029,10 @@ k_i \ge k_{2i+1}
 
 
 
+Fortran 实现如下：
+\lstinputlisting[language=Fortran]{program/heap_sort/heap_sort.f90}
+
+
 \chapter{差分进化算法}
 \section{背景}
 \url{https://www.cnblogs.com/tsingke/p/5809453.html}
@@ -1211,15 +1215,15 @@ MKL用起来真的是不容易的，曲曲折折，当然了，这跟自己的Li
 
 安装后，本地文件也有。建议看本地文件的技术手册，与安装的版本对应，更全面，更直观。本地的技术手册，在安装目录下，Document 目录下找，所有的文档都在那。
 
-第一天，云里雾里，什么都不知道。第二天，学会了看技术手册，是网页版的，从mkl\_documentation.htm开始。知道了命名规则，及各项参数，成功的用Fortran 77 函数接口调用了矩阵相乘的子程序。编译的时候很简单，多加个 -mkl 选项就可以了。以我的测试文件为例：\verb|ifort test1_ver1.f90 -mkl|
+第一天，云里雾里，什么都不知道。第二天，学会了看技术手册，是网页版的，从mkl\_documentation.htm开始。知道了命名规则，及各项参数，成功的用Fortran 77 函数接口调用了矩阵相乘的子程序。编译的时候很简单，多加个 -mkl 选项就可以了。以我的测试文件为例：\verb|ifort dgemm_f77.f90 -mkl|
 
 测试文件如下：
-\lstinputlisting{program/test/test1_ver1.f90}
+\lstinputlisting{program/mkl/dgemm_f77.f90}
 
 Fortran 95的函数接口简单，参量少，用起来方便，可是调用时屡屡出错：
 \begin{verbatim}
 In function `MAIN__':
-test_ver2.f90:(.text+0x164): undefined reference to `dgemm_mkl95_'
+dgemm_f95.f90:(.text+0x164): undefined reference to `dgemm_mkl95_'
 \end{verbatim}
 
 究其原因，应该是没有链接到合适的库。在mkl\_documentation.htm旁边有个
@@ -1235,7 +1239,7 @@ Compiler options:
 \end{verbatim}
 这里的链接和选项需要适当的调整，因为它不知道MKL的安装路径，这个要自己补充。要将\verb|$(MKLROOT)|替换成安装路径，我的安装路径为\verb|/opt/intel/mkl|。还有就是库文件libmkl\_blas95\_lp64是有后缀的，加上libmkl\_blas95\_lp64.a。这些库文件，自己可以在相应目录下看看。编译链接及编译选项都得加进去，于是最终有效的编译是：
 \begin{verbatim}
-ifort test1_ver2.f90 
+ifort dgemm_f95.f90 
 /opt/intel/mkl/lib/intel64/libmkl_blas95_lp64.a 
 -L/opt/intel/mkl/lib/intel64 
 -lmkl_intel_lp64 -lmkl_core -lmkl_sequential -lpthread -lm 
@@ -1244,7 +1248,7 @@ ifort test1_ver2.f90
 很长很麻烦，显然不是最终解决方案。
 
 测试文件如下：
-\lstinputlisting{program/test/test1_ver2.f90}
+\lstinputlisting{program/mkl/dgemm_f95.f90}
 
 
 

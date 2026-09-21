@@ -5,7 +5,7 @@ program euler_method
 	h = 0.1
 	x = 0.0
 	y = 1.0
-	open ( unit = 10 , file = 'euler_method.ods' )
+	open ( unit = 10 , file = 'euler_method.dat' )
 	write ( 10 , 100 ) x , y
 	do x = 0.0 , 0.9 , 0.1
 		y = y + h * ( y - 2 * x / y )

@@ -1,7 +1,7 @@
-program example3
+program ode_system_exact
 	real*8 :: x , y0 , y1 , y2 , h
 	h = 1.0d0 / 20.0d0
-	open ( unit = 10 , file = "example3.ods" )
+	open ( unit = 10 , file = "ode_system_exact.dat" )
 	do x = 0.0d0 , 1.0d0 , h
 		y0 = - cos( x )
 		y1 = sin ( x )
@@ -10,4 +10,4 @@ program example3
 		write ( 10 , 100 )x, y0 , y1 , y2
 	enddo
 	100 format ( 1x , f19.8 ,f19.8 , f19.8 , f19.8 )
-end program example3
+end program ode_system_exact

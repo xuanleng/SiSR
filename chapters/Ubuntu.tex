@@ -1104,11 +1104,11 @@ echo ">>End emergency shutdown cluster" `date` >> down.txt
 用法如下：
 \begin{itemize}
 \item \verb|crontab -l|：查看状态
-\item \verb|crontab -e|：进行编辑，并输入\verb| * * * * * powercheck.sh|
+\item \verb|crontab -e|：进行编辑，并输入\verb| * * * * * /usr/local/bin/powercheck.sh|
 每分钟执行脚本一次，注意“*”之间有空格。具体意思详看命令解释。
 \end{itemize}
 
-\lstinputlisting{program/powercheck.sh}
+\lstinputlisting{program/hpc/powercheck.sh}
 
 
 
@@ -1814,7 +1814,7 @@ will remember the error and you'll need to manually clear it with:
 \item 具体配置请参考SLURM相关资料。
 \end{enumerate}
 手动调节slurm.conf参数，参考如下：
-\lstinputlisting{program/slurm.conf-sample-for-hpc}
+\lstinputlisting{program/hpc/slurm.conf.example}
 
 
 

@@ -35,7 +35,7 @@ subroutine equation( x , y , dydx )
 end subroutine equation
 
 
-program runge_kutta1
+program rk4_ode_system
 	real*8 :: x0 , y0( 0 : 2 ) , y1( 0 : 2 )  , h
 	integer :: n
 	x0 = 0d0
@@ -44,7 +44,7 @@ program runge_kutta1
 	y0(2) = 1.0d0
 	h = 0.05d0
 	n = 3
-	open ( unit = 10 , file = 'runge_kutta3.ods' )
+	open ( unit = 10 , file = 'rk4_ode_system.dat' )
 	write ( 10 , 100 ) x0 , y0 !输入到文本文件中
 	write ( * , 100 ) x0 , y0  !输入到显示屏上
 	do x0 =0d0 , 1.0d0 , h !数据类型，在整个程序中一定要写对，不然会出问题的。
@@ -54,4 +54,4 @@ program runge_kutta1
 		write( 10 , 100 ) x0+h , y1 !输入大显示屏上 
 	enddo
 	100 format ( 1x , f19.8 , f19.8 , f19.8 , f19.8 )
-endprogram runge_kutta1
+end program rk4_ode_system

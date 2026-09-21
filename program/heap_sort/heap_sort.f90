@@ -1,4 +1,4 @@
-program main
+program heap_sort
 	implicit none
 	integer, parameter :: length = 7
 	real*8 :: array(length) = [70.0d0,60.0d0,12.0d0,40.0d0,30.0d0,8.0d0,10.0d0]
@@ -22,7 +22,7 @@ program main
 	enddo
 
 	100 format(10(f10.1))
-end program main
+end program heap_sort
 
 
 subroutine heapinit(array,i,length)

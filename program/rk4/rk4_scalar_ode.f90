@@ -27,25 +27,24 @@ end subroutine rk4
 
 
 subroutine equation( x , y , dydx )
-	real*8 :: y( 0: 1 ) , dydx( 0 : 1 )
+	real*8 :: y( 0: 0 ) , dydx( 0 : 0 )
 	real*8 :: x
-	dydx(0) = x * y(0) - y(1)
-	dydx(1) = ( x + y(0) ) / y(1)
+	dydx(0) = y(0) - 2.0d0 * x / y(0)
 end subroutine equation
 
-program runge_kutta1
-	real*8 :: x0 , y0( 0 : 1 ) , y1( 0 : 1 )  , h
+program rk4_scalar_ode
+	real*8 :: y( 0 : 0 ) , dydx( 0 : 0 )
+	real*8 :: x0 , y0( 0 : 0 ) , y1( 0 : 0 )  , h
 	integer :: n
 	x0 = 0d0
-	y0(0) = 1d0
-	y0(1) = 2d0
+	y0 = 1d0
 	h = 0.1d0
-	n = 2
-	open ( unit = 10 , file = 'runge_kutta2.ods' )
+	n = 1
+	open ( unit = 10 , file = 'rk4_scalar_ode.dat' )
 	write ( 10 , * ) x0 ," ", y0
-	do x0 =0d0 , 0.1d0 , 0.1d0 !数据类型，在整个程序中一定要写对，不然会出问题的。
+	do x0 =0d0 , 0.9d0 , 0.1d0 !数据类型，在整个程序中一定要写对，不然会出问题的。
 		call rk4( x0 , y0 , n , h , y1 )
 		y0 = y1 !这个是关键步骤之一，就是再次作为程序初值，没有这步，语法上没错，但算的总不对。因为初值不对，所以一定要注意。
 		write( 10 , * ) x0+0.1d0 ," ", y1
 	enddo
-endprogram runge_kutta1
+end program rk4_scalar_ode

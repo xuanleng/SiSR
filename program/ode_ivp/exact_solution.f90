@@ -2,7 +2,7 @@
 program exact_solution
 	implicit none
 	real :: x , y
-	open ( unit = 10 , file = 'exact_solutions.ods' )
+	open ( unit = 10 , file = 'exact_solution.dat' )
 	do x = 0 , 1.0 , 0.1 !attention 1 must be 1.0 , the data type must be consistent!
 		y = sqrt ( 1 + 2 * x )
 		write ( 10 , 100 ) x , y

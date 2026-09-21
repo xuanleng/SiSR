@@ -5,7 +5,7 @@ program runge_kutta
 	h = 0.1
 	x = 0.0
 	y = 1.0
-	open ( unit = 10 , file = 'runge_kutta.ods' )
+	open ( unit = 10 , file = 'runge_kutta.dat' )
 	write ( 10 ,100 ) x , y
 	do x = 0.0 , 0.9 , 0.1
 		k1 = y - 2.0 * x / y
