@@ -1,0 +1,5 @@
+本目录存放已从 SiSR 正文分离的历史笔记。
+它们见证了学习过程，但不再作为现行推荐。
+
+gnuplot/    早期用 Gnuplot 绘图的记录。现行绘图请用 Python。
+可以单独编译 gnuplot/main.tex 查看，不要把它 include 进 SiSR.tex。
