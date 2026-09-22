@@ -1008,43 +1008,7 @@ cat shadow.mig >> /etc/shadow
 
 
 
-\part{Rocky 8}
-\chapter{系统安装}
-Centos 是历年来服务器操作系统，但是停止更新了。而Rocky操作系统可以说是改了名之后的Centos，用法跟Centos一样。具体情况请自行搜索。
-
-\begin{itemize}
-\item 第一步：前往官网下载操作系统；
-
-\item 第二步：创建U盘系统安装盘；
-\begin{itemize}
-\item Several applications can help you create a bootable USB. We recommend using Etcher(\url{https://www.balena.io/etcher/}). Download the application for your system (Windows, macOS or Linux), install and run.
-
-The setup is intuitive and easy:
-\begin{enumerate}
-\item Select the CentOS 7 ISO image.
-\item Insert the USB flash.
-\item Find the USB and select it in the Select drive step.
-\item Click Flash.
-\end{enumerate}
-
-\item 需要注意的是，我试过几款创建启动U盘的软件，会存在一些问题，导致系统安装不成功。让我几经折腾，最终发现是启动盘的问题。
-
-\item 最终选用的启动U盘制作软件是：Fedora Media Writer。这款软件还有个好处是能把启动U盘重置为正常U盘，因为不能仅仅通过格式化来重置，否则不识别。
-\end{itemize}
-
-\end{itemize}
-
-
-
-\section{yum}
-
-
-\section{dnf}
-
-
-\section{错误排查}
-\subsection{查看日志文件}
-\verb|sudo less /var/log/messages|
+% Rocky 8 安装笔记已移至 archive/rocky8，不再纳入正文。
 
 
 

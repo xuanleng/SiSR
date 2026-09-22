@@ -3,3 +3,6 @@
 
 gnuplot/    早期用 Gnuplot 绘图的记录。现行绘图请用 Python。
 可以单独编译 gnuplot/main.tex 查看，不要把它 include 进 SiSR.tex。
+
+rocky8/     Rocky 8 安装与排错笔记。Centos 停更后的记录，不再作为现行推荐。
+可以单独编译 rocky8/main.tex 查看，不要把它 include 进 SiSR.tex。
