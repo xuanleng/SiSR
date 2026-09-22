@@ -63,6 +63,78 @@
 }
 \lstset{style=sisr}
 
+\usetikzlibrary{arrows.meta,positioning}
+\tikzset{
+  gitbox/.style={
+    draw=structurecolor, fill=structurecolor!8,
+    rounded corners=2pt, align=center,
+    minimum width=2.25cm, minimum height=0.95cm,
+    inner sep=3pt, font=\small
+  },
+  gitremote/.style={gitbox, draw=second, fill=second!14},
+  gitarr/.style={-{Stealth[length=2mm]}, semithick, structurecolor},
+  gitback/.style={-{Stealth[length=2mm]}, semithick, second},
+  gitlab/.style={font=\scriptsize, fill=white, inner sep=1.5pt}
+}
+
+% AI小脑思维：全书统一的提示框。
+% \begin{xiaonao} ... \end{xiaonao}
+% \begin{xiaonao}[如何学习git] ... \end{xiaonao}  → 标题为「AI小脑思维之如何学习git」
+\definecolor{xiaonao}{RGB}{106,61,154}
+\definecolor{xiaonaohi}{RGB}{255,196,64}
+\newcommand{\xiaonaoicon}{%
+  \begin{tikzpicture}[x=0.9pt,y=0.9pt,line join=round,line cap=round]
+    % 大脑，头顶在上；小脑在后下方，用亮色突出
+    \fill[white]
+      (4.2,7.2)
+      .. controls (2.6,9.6) and (2.8,13.4) .. (6.2,15.6)
+      .. controls (9.8,17.8) and (15.0,17.6) .. (18.0,15.0)
+      .. controls (20.4,12.8) and (20.2,9.8) .. (18.0,8.2)
+      .. controls (16.2,6.8) and (14.6,8.4) .. (12.4,7.2)
+      .. controls (10.0,5.8) and (6.8,6.4) .. (4.2,7.2) -- cycle;
+    \draw[xiaonao!55,line width=0.7pt]
+      (7.0,13.6) .. controls (8.2,11.2) and (9.4,11.0) .. (8.6,8.6)
+      (11.2,14.6) .. controls (12.6,12.0) and (13.6,11.8) .. (12.4,9.2);
+    \fill[xiaonaohi]
+      (13.2,8.0)
+      .. controls (15.4,4.6) and (21.6,4.2) .. (23.2,7.8)
+      .. controls (24.6,11.0) and (21.4,13.8) .. (17.0,13.0)
+      .. controls (13.6,12.4) and (11.4,10.4) .. (13.2,8.0) -- cycle;
+    \draw[xiaonao,line width=0.85pt]
+      (14.8,7.6) .. controls (17.6,6.6) and (20.4,6.8) .. (22.2,8.2)
+      (14.4,9.6) .. controls (17.4,8.6) and (20.2,8.8) .. (22.0,10.2)
+      (15.0,11.4) .. controls (17.6,10.4) and (19.8,10.6) .. (21.0,11.6);
+  \end{tikzpicture}%
+}
+\newtcolorbox{xiaonao}[1][]{
+  enhanced,
+  breakable,
+  arc=2.4mm,
+  boxrule=0.6pt,
+  colframe=xiaonao,
+  colback=xiaonao!8,
+  left=3.15em,
+  right=0.95em,
+  top=0.7em,
+  bottom=0.7em,
+  before skip=0.9\baselineskip,
+  after skip=0.75\baselineskip,
+  overlay={
+    \begin{scope}
+      \clip[rounded corners=2.4mm]
+        (frame.north west) rectangle (frame.south east);
+      \fill[xiaonao]
+        (frame.north west) rectangle ([xshift=2.55em]frame.south west);
+    \end{scope}
+    \node[anchor=center, inner sep=0pt]
+      at ([xshift=1.28em]frame.west) {\xiaonaoicon};
+  },
+  before upper={%
+    {\bfseries\color{xiaonao}AI小脑思维\ifstrempty{#1}{}{之#1}}%
+    \par\vspace{0.2em}%
+  },
+}
+
 \newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
 
 \title{科研中的技能技巧}

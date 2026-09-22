@@ -126,11 +126,12 @@
 
 
 
-\section{科研导师的选择}
+\section{科研导师}
 明确定位很重要：拿学位找工作和继续深造拿博士学位，完全不一样。是否继续读博士，会直接影响自己的方向和导师培养。
 
 \begin{enumerate}
 \item 必须步骤：人品和性格匹配调查，可靠来源为现任组里成员，最好为新老成员。
+\item 可以怀疑导师的人品，但是不要怀疑导师的能力。能是导师，都是硬能力上来的。
 \end{enumerate}
 
 
@@ -712,9 +713,9 @@
 
 
 
-\chapter{AI助手——你的第二小脑}
+\chapter{AI助手（agent）——你的第二小脑}
 \section{基本认识}
-AI 助手不替代你想清楚问题，但能少写重复操作、少翻手册。写代码、改 \LaTeX、查报错、整理 git，都可以先问它。
+AI 助手（agent）不替代你想清楚问题，但能少写重复操作、少翻手册。写代码、改 \LaTeX、查报错、整理 git，都可以先问它。
 
 当前常见的三类入口：
 \begin{itemize}
@@ -724,473 +725,469 @@ AI 助手不替代你想清楚问题，但能少写重复操作、少翻手册�
 \end{itemize}
 三者都要联网、要有各自账号。具体收费和地区可用性以官网为准，安装命令也会变，以官网为准。
 
-\section{Cursor}
-Cursor 是带 AI 的代码编辑器，从 VS Code 长出来。打开本地仓库后，可以选中文件或让 Agent 改一整处功能。适合「项目就在眼前、一边看一边改」。
 
-官网与安装：\url{https://cursor.com}
 
-Linux（Debian / Ubuntu，官方 apt 源）：
-\begin{verbatim}
-curl -fsSL https://downloads.cursor.com/keys/anysphere.asc | \
-  gpg --dearmor | sudo tee /etc/apt/keyrings/cursor.gpg > /dev/null
-echo "deb [arch=amd64,arm64 signed-by=/etc/apt/keyrings/cursor.gpg] \
-  https://downloads.cursor.com/aptrepo stable main" | \
-  sudo tee /etc/apt/sources.list.d/cursor.list > /dev/null
-sudo apt update
-sudo apt install cursor
-\end{verbatim}
-Fedora / RHEL 用 dnf 源，见 \url{https://cursor.com/docs} 。也可以从官网下 AppImage。装好后打开项目文件夹，登录账号即可。
 
 \section{Claude Code}
-Claude Code 是 Anthropic 的编程代理，主要在终端里用（也有桌面版）。在仓库目录里启动后，可以读代码、改文件、跑 git 和编译命令。没有完整 IDE 界面，更像「在项目里雇一个会用命令行的助手」。
+Claude Code 是 Anthropic 的编程 agent，主要在终端里用（也有桌面版）。在项目目录里启动后，可以读代码、改文件、跑 git 和编译命令。它没有完整的 IDE 界面，更像在项目里雇一个会用命令行的助手。本机需要已安装 git，并且能访问外网。
 
-官网：\url{https://code.claude.com/docs}
+官方客户端默认登录 Anthropic 账号。这里不走这条路，而是继续用 Claude Code，把请求转到 DeepSeek 的兼容接口。DeepSeek 按调用计费，先到 \url{https://platform.deepseek.com} 申请 API Key，并确认账户有余额；余额不足时会返回 402。
 
-Linux / macOS / WSL（官方推荐）：
+\paragraph{安装（Windows）}
+先安装 Node.js 18 或更新版本：\url{https://nodejs.org/en/download/}。打开命令行，执行
 \begin{verbatim}
-curl -fsSL https://claude.ai/install.sh | bash
+npm install -g @anthropic-ai/claude-code
+claude --version
 \end{verbatim}
-Homebrew：\verb|brew install --cask claude-code|。
+显示出版本号即安装成功。再执行一次 \verb|claude| 并立刻退出，让它生成配置目录；目录没有出现就自己新建。
 
-装好后在项目目录执行 \verb|claude|，按提示登录 Anthropic 账号。需要 git、能访问外网。
+\paragraph{接到 DeepSeek}
+先打开网页版 DeepSeek，把这句原样发给它：
+\begin{quote}
+windows下 claude code 如何使用 deepseek 的 api key
+\end{quote}
+让它按你的系统说明怎么配 API Key。接口和模型名会变，以它当次的回答为准；对不上就继续问。下面只是一份目前能用的对照。
+
+请求发往 DeepSeek，而不是 Anthropic。Windows 下的配置文件是
+\begin{center}
+\verb|C:\Users\<用户名>\.claude\settings.json|
+\end{center}
+\verb|.claude| 文件夹不存在就先建。把其中的 Key 换成自己的：
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  upquote=true,
+  basicstyle=\ttfamily\footnotesize,
+  literate={"}{{\textquotedbl}}1
+]
+{
+  "env": {
+    "ANTHROPIC_BASE_URL": "https://api.deepseek.com/anthropic",
+    "ANTHROPIC_AUTH_TOKEN": "你的DeepSeek_API_Key",
+    "ANTHROPIC_MODEL": "deepseek-v4-pro[1m]",
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "deepseek-v4-pro[1m]",
+    "ANTHROPIC_DEFAULT_SONNET_MODEL": "deepseek-v4-pro[1m]",
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "deepseek-v4-flash",
+    "CLAUDE_CODE_SUBAGENT_MODEL": "deepseek-v4-flash",
+    "CLAUDE_CODE_EFFORT_LEVEL": "max"
+  },
+  "hasCompletedOnboarding": true
+}
+\end{lstlisting}
+三项需要看懂：
+\begin{itemize}
+\item \verb|ANTHROPIC_BASE_URL| 指向 DeepSeek 的 Anthropic 兼容地址。
+\item \verb|ANTHROPIC_AUTH_TOKEN| 填在 DeepSeek 开放平台申请的 Key。
+\item \verb|hasCompletedOnboarding| 设为 \verb|true|，跳过首次启动时的官方登录，避免因没有 Anthropic 账号而中断。
+\end{itemize}
+
+\paragraph{确认是否接上}
+进入项目目录，执行 \verb|claude|，问它「你是谁」。回答里能看出当前模型来自 DeepSeek，就说明已经切过去了。
+
+Linux 与 macOS 的配置文件在 \verb|~/.claude/settings.json|，字段与上面相同。
+
+
+\section{Cursor}
+Cursor 是带 AI 的代码编辑器，从 VS Code 长出来。打开本地仓库后，可以选中文件或让 Agent 改一整处功能。适合「项目就在眼前、一边看一边改」。 直接去官网安装：\url{https://cursor.com}。 Cursor 是以马斯克的grok模型为主，通过token付费用其他模型。
+
+
 
 \section{ChatGPT 与 Codex}
 ChatGPT 是 OpenAI 的聊天应用，网页 \url{https://chatgpt.com} ，桌面版见 \url{https://chatgpt.com/download} 。
 其中的 \textbf{Codex} 是编程代理：可以在 ChatGPT 里用，也可以单独装命令行，在本地仓库里改代码。
 
-Codex CLI 官网：\url{https://developers.openai.com/codex/cli}
 
-Linux / macOS：
-\begin{verbatim}
-curl -fsSL https://chatgpt.com/codex/install.sh | sh
-\end{verbatim}
-也可用 \verb|npm install -g @openai/codex| 或 \verb|brew install --cask codex|。
 
-装好后在项目目录执行 \verb|codex|，按提示用 ChatGPT 账号登录。
+\section{AI agent常用Skills}
+Skill 是写给 agent 的操作说明，一般是一个目录里的 \verb|SKILL.md|。模型可以更换，这份说明留在本机：任务对得上时，agent 先读它，再按其中的步骤做。自己的固定流程以后也可以写成 skill。
 
-\section{怎么选}
+\subsection{Superpowers}
+Superpowers 是一套面向「让 agent 改项目」的 skills，仓库见 \url{https://github.com/obra/superpowers}。它把常见动作排成固定顺序：动手前先把需求问清楚，再写成可以执行的计划；修改时按计划进行；出错时先查原因；宣称完成前先核对结果。Cursor、Claude Code、Codex 要各自安装一次。命令会变，以该仓库的 README 为准。
+
+\paragraph{Claude Code}
+在已经打开的 \verb|claude| 对话里输入：
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+/plugin install superpowers@claude-plugins-official
+\end{lstlisting}
+
+\paragraph{Cursor}
+在 Agent 对话里输入 \verb|/add-plugin superpowers|，也可以在插件市场中搜索 superpowers。
+
+\paragraph{Codex}
+在命令行对话里输入 \verb|/plugins|，搜索 superpowers，选择 Install Plugin。桌面版打开侧栏的 Plugins，在 Coding 一组里点 Superpowers 旁边的加号。
+
+装好后新开一轮对话，让它列出已有的 skills。能看到 brainstorming、writing-plans、systematic-debugging，就说明已经接上。
+
+\begin{xiaonao}
+你直接让 AI agent 帮你装。
+\end{xiaonao}
+
+\paragraph{怎么用}
+用平常的话交代任务。任务对得上时，agent 会自己去读对应的 skill。要指定某一条时，直接点名，例如「用 brainstorming」，或「按 writing-plans 拆开」。
+
+\paragraph{一般流程}
+让它改一个项目时，默认按下面的顺序走。你点头，它才进入下一步。
+\begin{enumerate}
+\item \verb|brainstorming|：先问清楚要做什么，把设计分成几小段给你看。
+\item \verb|using-git-worktrees|：设计通过后，另开一个工作区再改。
+\item \verb|writing-plans|：把设计拆成可以逐条执行的小任务。
+\item 按计划实现，两条路：
 \begin{itemize}
-\item 已经习惯 VS Code、要对着文件改：先装 Cursor。
-\item 习惯终端、任务比较整段：Claude Code 或 Codex CLI，选你已有账号的那一家即可。
-\item 先讨论、还没打开仓库：用 ChatGPT 网页或桌面应用也行。
+\item \verb|subagent-driven-development|：一项一项做，做完一项查一项。
+\item \verb|executing-plans|：按计划把任务做完，最后统一看一遍。
 \end{itemize}
-同一件事用哪一个都能做完。先把一个跑通，比三个都浅装更有用。
+\item \verb|test-driven-development|：先写一个会失败的测试，再写刚好能通过的代码。
+\item \verb|requesting-code-review|：对照计划看改动。有严重问题就停下来改。
+\item \verb|finishing-a-development-branch|：验证通过后，再决定合并、提交 PR，或丢掉这次分支。
+\end{enumerate}
+
+\paragraph{其余 skills}
+\begin{itemize}
+\item \verb|systematic-debugging|：报错、测试失败或结果不对时用。先把原因找出来。
+\item \verb|verification-before-completion|：它准备说「已经好了」时用。先跑验证，看过输出再下结论。
+\item \verb|receiving-code-review|：收到评审意见时用。先核对意见是否成立，再改。
+\item \verb|dispatching-parallel-agents|：有几件互不相干的事时用，分头同时做。
+\item \verb|diagnosing-superpowers|：这次没有按上面的流程走时用。让它根据对话记录说明偏在哪里。
+\item \verb|writing-skills|：要新写或修改一条 skill 时用。
+\item \verb|using-superpowers|：一轮对话开始时用，先确定该读哪一条 skill。
+\end{itemize}
+名单会随仓库更新，以 \url{https://github.com/obra/superpowers} 的 README 为准。
+
 
 
 \chapter{Git——程序和文档的版本管理}
 \section{基本认识}
+改程序、改论文、改笔记，文件名往往会变成「终稿」「终稿2」「真的终稿」。Git 把每一次有意义的修改记下来，需要时可以回到某一次，也可以把修改交给别人。它有图形界面，也有命令行。后文用命令行：步骤少，和 AI 助手对话时也可以直接把命令交给它。
+
+Git 是 Linus Torvalds（林纳斯·托瓦兹）在 2005 年写的。他更早的作品是 Linux 内核。内核从 2002 年起用商业软件 BitKeeper 管理代码，对方当时给内核社区免费许可。2005 年，这份许可被收回。内核不能没有版本管理，Linus 决定自己写一套。这个名字是 Linus 的自嘲，不是一组英文单词的缩写。第一次提交的说明是：the information manager from hell。
+
+2005 年 4 月 7 日的第一次提交，已经能用 Git 管理 Git 自己的代码。他后来回忆，写到这一步大约用了两周，具体天数自己也记不准。2005 年 7 月 27 日，他宣布把维护工作交给滨野纯（Junio C Hamano）。滨野纯一直维护到现在。
+
+当时要替换的，是能撑住 Linux 内核这种规模的工具。\emph{Pro Git} 记下了他们给新系统定的目标：快，设计简单，支持大量并行分支，每台电脑都有完整历史，并且扛得住超大项目。对初学，先抓住三件事。
+
+\begin{enumerate}
+\item 每台电脑上都有完整历史。克隆下来的不只是最新的文件，而是全部提交。没有网络也可以提交。要和别人协作时，再把历史同步出去。GitHub、GitLab、Gitee（码云）是存放远程仓库的网站，它们不是 Git 本身。
+
+\item 一次提交是当时整个项目的一份快照，用内容的哈希值命名。内容变了，哈希就变，历史就对不上，所以记录不容易被悄悄改掉。分支只是指向某一次提交的名字。新开一条分支，不必把文件再复制一份。
+
+\item 修改先留在本地，确认之后才写入历史。同一份文件会经过三个地方：工作区是正在修改的目录；暂存区是这次准备提交的内容；本地库是已经写下的历史，放在项目里的 \verb|.git| 目录，不要删，也不要手改。远程仓库是本地库的另一份，用来和别人共享。
+\end{enumerate}
+
+参考文献：
 \begin{itemize}
-\item Git 是程序和文档的版本控制软件，有图形界面，也有命令行界面，命令行更简单。
-\item GitHub、GitLab、Gitee（码云）是程序托管网络云平台。
+\item Scott Chacon, Ben Straub. \emph{Pro Git}. 第 2 版. 「Git 简史」：\href{https://git-scm.com/book/zh/v2/\%E8\%B5\%B7\%E6\%AD\%A5-Git-\%E7\%AE\%80\%E5\%8F\%B2}{git-scm.com/book/zh/v2}。
+\item Linus Torvalds. 关于 Git 何时开始自己管理自己的代码. git 邮件列表, 2007-02-26. \url{https://public-inbox.org/git/Pine.LNX.4.64.0702261650120.12485@woody.linux-foundation.org/}
+\item Linus Torvalds. Meet the new maintainer. git 邮件列表, 2005-07-27. \url{https://public-inbox.org/git/Pine.LNX.4.58.0507262004320.3227@g5.osdl.org/}
+\item Linus Torvalds. Google Tech Talk: Git. 2007. \url{https://www.youtube.com/watch?v=4XpnKHJAok8}
 \end{itemize}
 
-\section{学习参考资料}
+
+\begin{xiaonao}[如何学习git]
+不用专门学，问AI助手、让AI助手帮你做
+\end{xiaonao}
+
+希望每位学习本文档的同学：
 \begin{itemize}
-\item Git 官网：\url{http://git-scm.com}
-
-\item Github 官网：\url{https://github.com}
-
-\item 廖雪峰个人网站：\url{http://www.liaoxuefeng.com} 对Git的作用，历史，诞生都讲的比较清楚，入门很有用。
-
-\item 视频解说参考：Bilibili 搜索git，如\href{https://www.bilibili.com/video/BV1pW411A7a5?from=search&seid=3815767452396308043}{尚硅谷官方}、庄七。
-
-\item \url{https://www.deployhq.com/git}
-\end{itemize}
-
-
-\section{推荐的学习步骤与目标}
-\begin{itemize}
-\item 先看尚硅谷的git\&github视频教程1-42集，目标：
-	\begin{itemize}
-	\item 做好笔记；
-	\item 完成git的安装；
-	\item 基本操作跟随视频演练一边；
-	\item 注册gitee账户
- 	\end{itemize}
 \item Fork本文档 \url{https://gitee.com/xuanleng/SiSR}，并用 git clone <自己远程库的地址> 建立本地库。
 \item 并推送一条修改。修改内容为：编辑本文档“前言”章节中“第一次推送打卡”小节，记录下自己的第一次推送和感言。
-\item 由于本章节是文档协作之本，希望大家踊跃补充本章节忽视的内容。目标是，在看完推荐视频后，所有不熟悉的git相关操作都能在本章节中找到，不需要再花时间找第三方资料。
+\item 希望大家踊跃补充本文档忽视的内容。
 \end{itemize}
 
 
-\section{基本思想和历史}
-以我们的量子耗散动力学、光谱计算为例
+
+
+\section{安装与使用}
+\begin{xiaonao}[如何安装使用git]
+你其实不用管，直接让你的AI助手帮你搞定。但是你需要简单了解git的基本用法和思想。
+\end{xiaonao}
+
+到官网下载安装：\url{https://git-scm.com/downloads}。
+
+Debian / Ubuntu 也可以执行 \verb|sudo apt install git|。装好后运行 \verb|git --version|，能看到版本号即可。命令记不住就问 AI 助手。下面只留每天会碰到的几步。
+
+\paragraph{签名}
+每次提交都带名字和邮箱，一台电脑设一次：
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  upquote=true,
+  basicstyle=\ttfamily\footnotesize,
+  literate={"}{{\textquotedbl}}1
+]
+git config --global user.name "你的名字"
+git config --global user.email "你的邮箱"
+\end{lstlisting}
+写提交说明时若要换编辑器，再执行 \verb|git config --global core.editor vim|。
+
+\paragraph{提交}
+在项目目录里：
 \begin{enumerate}
-\item 找个合适的模型作为标准模型；
-\item 只要新增内容，就新复制一个，说明改进；
-\item 所有新功能先在标准模型上实现，再应用；
-\item 结合git版本控制。
+\item \verb|git init| 建立本地库，目录里会出现 \verb|.git|。clone 下来的仓库不用再 init。
+\item \verb|git status| 看哪些文件改过。
+\item \verb|git add 文件| 放进暂存区。\verb|git restore --staged 文件| 从暂存区撤回，磁盘上的文件还在。
+\item \verb|git rm --cached 文件| 是停止跟踪这个文件，文件本身不删。
+\item \verb|git commit -m "说明"| 写入本地库。\verb|git commit -a -m "说明"| 把已经跟踪的文件的修改直接提交；新文件仍然要先 add。
 \end{enumerate}
 
+\paragraph{查看与回到旧版本}
+\verb|git log| 看提交历史，\verb|git reflog| 连回退本身也记着。\verb|git diff| 比较工作区和暂存区；\verb|git diff 某次提交| 比较工作区和那一次快照。不写文件名就是整个项目。
 
-Git基本概念
-\begin{itemize}
-\item 本地电脑
-\begin{itemize}
-\item 工作区：写代码
-\item 暂存区：临时存储
-\item 本地库：历史版本
-\end{itemize}
+\verb|git reset 某次提交| 回到那次提交，文件上还没提交的修改留着。加上 \verb|--hard| 会丢掉这些修改，执行前先看清 \verb|git status|。已经进过本地库的版本，可以用 \verb|git reflog| 再找回来。
 
-\item 远程服务器：远程仓库（与别人共享）
-\end{itemize}
+\paragraph{分支}
+\verb|git branch| 查看，\verb|git branch 名字| 新建，\verb|git checkout 名字| 切换。较新的写法是 \verb|git switch|。\verb|git branch -m 旧名 新名| 改名。
+
+合并时先切到要接收改动的分支，再 \verb|git merge 另一分支|。若发生冲突，打开文件，删掉冲突标记，改到满意，然后 \verb|git add|，再 \verb|git commit|。这次提交不要在命令末尾再写文件名。
 
 
 
 
+\section{远程仓库}
+\begin{xiaonao}[感觉好复杂怎么办？]
+不用担心，你的AI助手会帮你或指导你搞定。你脑子里有些大概的概念就行。Just do it.
+\end{xiaonao}
 
+GitHub、GitLab、Gitee 都是存放远程仓库的网站，命令相同。本地库和远程仓库各自独立。下图里蓝框是本机，橙框是远程。
 
-\section{软件安装}
-\subsection{Linux版本安装}
-\url{https://git-scm.com/download/linux}
-
-
-\subsection{Windows版本安装}
-
-
-\section{配置与操作}
-\subsection{初始化}
-\begin{itemize}
-\item[(1)] 本地库初始化（建立本地库）
-\begin{itemize}
-\item git init\\
-进入项目目录，在命令行输入 git init，会产生一个.git的子目录，存放的是本地库相关的目录和文件，不要删除和胡乱修改。
-\end{itemize}
-
-\item[(2)] 设置签名
-\begin{itemize}
-\item git config user.name XX
-\item git config user.email XX
-\end{itemize}
-
-\item [(3)] 配置
-\begin{itemize}
-\item \verb|git config --global core.editor  "vim"| : 使用Vim作为编辑器
-\end{itemize}
-
-\end{itemize}
-
-
-
-\subsection{提交}
-\begin{enumerate}
-\item git status: 查看状态
-\item \verb|git add <file>|： 添加追踪文件到缓存区 
-\item  \verb|git rm --cached <file>| ：移除缓（暂）存区追踪文件
-\begin{itemize}
-\item \textbf{清空缓存区文件}：所谓暂存区实质是.git目录下的index文件，只要将此文件删除，那么就可以认为暂存区被清空。于是可以采用命令：\verb|rm .git/index|
-\end{itemize}
-\item \verb|git commit <file>|：提交文件到库
-\begin{itemize}
-\item \verb|git commit -a |：直接将所有修改文件提交到库（也可以分成两步，先git add更新缓存区，再git commit提交到库）
-\item \verb|git commit -m ``xxx'' <file>|：跳过消息编辑器步骤，直接提交“xxx”更新记录
-\item \verb|git commit -a -m ``xxx''|：综合前两个命令
-\end{itemize}
-\end{enumerate}
-
-
-
-\subsection{版本穿梭}
-\begin{enumerate}
-\item \verb|git reflog|：精炼形式历史记录查询。完整形式：\verb|git log| 
-
-\item \verb|git reset --hard <index>|：历史版本选择\\
-注意，还有其他两个参数\verb|--soft|、\verb|--mixed|。基于这个功能，可以实现删除文件并找回，但前提是文件存在时的状态必须提交到了本地库。
-\end{enumerate}
-
-
-
-\subsection{比较文件差异}
-\begin{enumerate}
-\item git diff <file> ：将工作区中的文件和暂存区进行比较
-\item git diff <本地库中某个历史版本> <file>：将工作区中的文件和本地库中历史文件进行比较
-\item 不带文件名则比较多个文件
-\end{enumerate}
-
-
-
-\subsection{分支管理}
-\begin{itemize}
-\item \verb|git branch -v |：查看分支
-\item \verb|git branch <name>| ：创建分支
-\item \verb|git checkout <name>|：切换分支
-\item 合并分支
-\begin{enumerate}
-\item 切换到要合并到的分支
-\item \verb|git merge <branch name>|：
-\end{enumerate}
-\item 解决合并冲突
-\begin{enumerate}
-\item  编辑文件，删除特殊符号
-\item 把文件修改到满意的程度，保存退出
-\item \verb|git commit -m | ``日志信息''。注意此时不能带文件名。
-\end{enumerate}
-
-\item 修改分支名称
-\begin{enumerate}
-\item 切换到要修改名称的分支
-\item \verb|git branch -m <原分支名>  <新分支名>|
-\end{enumerate}
-\end{itemize}
-
-
-
-\subsection{以分支的方式同时管理多个项目}
-\url{https://blog.csdn.net/yishengzhiai005/article/details/51096813}
-
-既然Git在创建是默认给我们的新分支指定了父亲，那么可不可以在创建是不需要呢？
-
-\begin{itemize}
-\item 强大的Git同样提供了解决方法(创建时提供--orphan 参数即可)：\\
-\verb| git checkout --orphan <分支名>|
-\item 尽管创建分支时没有了父分支，但创建成功后，原分支的文件会在创建时添加到当前暂存区的，所以需要移除（不需要的情况下）
-\item 然后再将原分支的文件从当前分支仓库中移除，这样你的分支里的文件对于其他分支来说就是独一无二的了(即使不移除原分支的文件，此文件也是新添加到当前分支的，所以跟其他分支没有任何关系)
-而其他分支也完全不可能会影响你当前分支的工作(不存在依赖关系的前提下)
-\item 不同的分支其实就是不同的目录和文件，跟其他分支没有关系的
-\item 分支间切换需要：\verb|git checkout -f <其他分支>|
-\end{itemize}
-
-{\color{red} 我没搞成功，切换分支总会把其他分支给删掉。}
-
-
-
-
-\section{远程仓库Github/Gitee/Gitlab}
-网上的git远程仓库很多，但是操作流程基本一样。这里以Github为主，Gitee可以参考：\url{https://www.bilibili.com/video/BV1mb411n7Nw?p=4}
-
-
-\subsection{协作基本流程}
-\begin{figure}[h!]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.9\textwidth]{pictures/git.png}
-\caption{Git 工作流程\footnote{\url{https://www.bilibili.com/video/BV1mb411n7Nw?p=3}}}
-%\label{fig:by:table}
+\begin{tikzpicture}
+  \node[gitbox] (w) {工作区};
+  \node[gitbox, right=7mm of w] (s) {暂存区};
+  \node[gitbox, right=7mm of s] (l) {本地库};
+  \node[gitremote, right=10mm of l] (r) {远程仓库};
+  \draw[gitarr] (w) -- node[gitlab, above] {add} (s);
+  \draw[gitarr] (s) -- node[gitlab, above] {commit} (l);
+  \draw[gitarr] (l) -- node[gitlab, above] {push} (r);
+  \draw[gitback] (r.south) to[out=-75, in=-105, looseness=0.55]
+    node[gitlab, below] {pull} (l.south);
+  \draw[gitback] (l.115) to[out=115, in=65, looseness=0.55]
+    node[gitlab, above] {checkout} (w.65);
+\end{tikzpicture}
+\caption{一次修改如何进入远程仓库，以及如何取回}
 \end{figure}
 
-\begin{enumerate}
-\item  主管人创建主远程仓库。
-\item 协作人克隆主远程仓库，并拉取到本地。
-\item 协作人在本地修改，上传到协作人的克隆远程仓库。
-\item 协作人立即（或积累一定程度后），回到主远程仓库网页上，通过 Github 页面提交 pull requests。
 \begin{itemize}
-\item 首先，找到绿色的 New pull requests 按钮并点击，然后点击图中的 compare across forks；
-\item 选择要提交的内容，通过比较文件差异，确认无误之后，点击绿色的eate pull request 即可。
+\item \verb|git clone 地址|：把远程仓库整份复制到本地，包含全部历史。
+\item \verb|git fetch|：下载远程的新提交，不并进当前分支。
+\item \verb|git pull|：先 fetch，再合并到当前分支。
+\item \verb|git push|：把本地分支送到远程。
 \end{itemize}
-\item 主管人在接到推送通知后，首先保证自己本地库与主远程仓库一致，否在合并时仍需回到这一步。
-\item 主管人拉取协作人的远程仓库到本地，形成一个分支。
-\item 主管人合并协作人的分支到主分支上。
-\item 主管人再将合并后的最新版本推送到主远程仓库，至此完成一次协作。
-\end{enumerate}
-注意：无论是创始人还是协作人的远程仓库和本地库，都是相互独立的。
 
 
-\subsection{创建远程仓库}
-在相关网站上注册账户，并根据指示创建远程仓库。
+\subsection{第一次推送}
+在网页上注册，新建一个空仓库。先不要勾选用 README 初始化，远程才是空的，本地可以直接推上去。
 
-
-
-\subsection{推送到远程仓库}
-\url{https://www.bilibili.com/video/BV1pW411A7a5?p=35}
-\begin{enumerate}
-\item 添加远程仓库地址并设置别名：\verb|git remote add <name> <https://address> |，其中“name”为别名。
-\item 查看远程仓库：\verb|git remote -v|。
-\item 推送分支：\verb|git push <name> <branch>|，其中“name”为远程仓库别名，“branch”为要推送分支的名称，一般为主分支“master”。第一次推送还需要参数：\verb|-u|。
-\begin{itemize}
-\item 特别注意： 当在网页上创建远程仓库的时候，如果勾选了相关初始文件选项，那么直接推送时会报错，如\\
-“failed to push some refs to https://github.com/guyibang/TEST2.git”\\
-这是由于新创建的远程仓库中的初始文件不在本地仓库目录中。
-\item 这时需要先进行合并再推送，即：\verb|git pull --rebase <name> <branch>|。
-\item 如果具有不同的提交历史，则需进行强制合并：\\ 
-\verb|git pull <name> <branch> --allow-unrelated-histories |
-\end{itemize}
-\end{enumerate}
-
-
-Git 全局设置：
-
-git config --global user.name "xuanleng"
-
-git config --global user.email "lengxuan2008@qq.com"
-
-创建 git 仓库：
-
-mkdir magnetic-filed-visualizion-doc
-
-cd magnetic-filed-visualizion-doc
-
-git init
-
-touch README.md
-
-git add README.md
-
-git commit -m "first commit"
-
-git remote add origin https://gitee.com/nbu-lengxuan/mfv.git
-
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+git remote add origin 仓库地址
 git push -u origin master
+\end{lstlisting}
+\verb|-u| 只需第一次。之后在这个分支上执行 \verb|git push| 即可。用 \verb|git remote -v| 核对地址。本书的例子用 \verb|master|。GitHub 新建仓库时常默认 \verb|main|，分支名要和网页上的一致。
 
-已有仓库？
+网页上若已经有了初始提交，直接 push 会被拒绝。先执行下面这行，再 push。
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+git pull --rebase origin master
+\end{lstlisting}
+两边各自已经有一段互不相关的历史时，才用下面这行。不要用 \verb|git push --force| 盖掉远程上已有的提交。
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+git pull origin master --allow-unrelated-histories
+\end{lstlisting}
 
-cd magnetic-filed-visualizion-doc
+\subsection{两种 clone 地址}
+在仓库网页上复制地址时有两种，见下图。按钮名称会变，地址的样子不变。Gitee 也是这两种。
 
-git remote add origin https://gitee.com/nbu-lengxuan/mfv.git
-
-git push -u origin master
-
-
-
-
-\subsection{SSH免密推送设置}
-参考：\url{https://blog.csdn.net/lonyw/article/details/75392410}
-
-因为git支持两种传输协议，ssh和https方式，我们可以从github上进入项目上查看两种方式。
-\begin{figure}[h!]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.7\textwidth]{pictures/20170719225827865.jpeg}
-\caption{Git传输ttps方式}
-%\label{fig:by:table}
+\begin{minipage}[t]{0.48\textwidth}
+\centering
+\includegraphics[width=\linewidth]{pictures/20170719225827865.jpeg}\\[0.4em]
+{\small HTTPS}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.48\textwidth}
+\centering
+\includegraphics[width=\linewidth]{pictures/20170719225703754.jpeg}\\[0.4em]
+{\small SSH}
+\end{minipage}
+\caption{复制仓库地址的两种形式}
 \end{figure}
 
-\begin{figure}[h!]
+HTTPS 以 \verb|https://| 开头，中间是斜杠。不用先配密钥就能 clone：
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+git clone https://github.com/用户名/仓库.git
+\end{lstlisting}
+推送时按网站要求填写口令。GitHub 这里要填 Personal Access Token。适合先把仓库拿下来。
+
+SSH 以 \verb|git@| 开头，主机名和仓库路径之间是冒号，不是斜杠：
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+git clone git@github.com:用户名/仓库.git
+\end{lstlisting}
+Gitee 把主机名换成 \verb|gitee.com|，写成 \verb|git@gitee.com:用户名/仓库.git|。这台电脑要先配好公钥。配好之后，clone、pull、push 都不再询问密码。
+
+\subsection{用 SSH 推送}
+要用上一小节的 SSH 地址，先在本机生成密钥，把公钥交给网站。
+
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  upquote=true,
+  basicstyle=\ttfamily\footnotesize,
+  literate={"}{{\textquotedbl}}1
+]
+ssh-keygen -t ed25519 -C "你的邮箱"
+\end{lstlisting}
+提示时一路回车，使用默认文件名。公钥是一整行，从 \verb|ssh-ed25519| 开头，到邮箱结尾：
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+cat ~/.ssh/id_ed25519.pub
+\end{lstlisting}
+
+GitHub 在头像里的 Settings → SSH and GPG keys → New SSH key 粘贴。Gitee 的入口是 \url{https://gitee.com/profile/sshkeys}。
+
+然后验证：
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+ssh -T git@github.com
+ssh -T git@gitee.com
+\end{lstlisting}
+出现 Hi 或欢迎，公钥就已被接受。GitHub 不提供登录 shell，提示里会写 does not provide shell access，这仍是成功。
+
+把仓库地址改成 SSH 形式。Gitee 把主机名换成 \verb|gitee.com|。
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+git remote set-url origin git@github.com:用户名/仓库.git
+\end{lstlisting}
+再用 \verb|git remote -v|，地址以 \verb|git@| 开头即已改完。已有的 \verb|id_rsa| 可以继续用。密钥请保持默认文件名；改了名字，ssh 找不到它，就会报 Permission denied (publickey)。
+
+\subsection{两种协作}
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.7\textwidth]{pictures/20170719225703754.jpeg}
-\caption{Git传输ssh方式}
-\label{fig:g239}
+\begin{tikzpicture}
+  \node[font=\small\bfseries, text=structurecolor, anchor=west] (h1) at (0,0.95) {有推送权};
+  \node[gitremote] (m1) at (3.15,0) {主仓库};
+  \node[gitbox] (c1) at (6.7,0) {合作者本地};
+  \node[gitremote] (m2) at (10.25,0) {主仓库};
+  \draw[gitarr] (m1) -- node[gitlab, above] {clone} (c1);
+  \draw[gitarr] (c1) -- node[gitlab, above] {push} (m2);
+
+  \node[font=\small\bfseries, text=second, anchor=west] at (0,-1.85) {无推送权};
+  \node[gitremote] (o1) at (3.15,-2.55) {主仓库};
+  \node[gitremote] (f1) at (6.7,-2.55) {对方仓库};
+  \node[gitbox] (d1) at (6.7,-4.15) {对方本地};
+  \node[gitremote] (o2) at (10.25,-2.55) {主仓库};
+  \draw[gitarr] (o1) -- node[gitlab, above] {Fork} (f1);
+  \draw[gitarr] (f1) -- node[gitlab, right] {clone} (d1);
+  \draw[gitback] (d1.west) to[out=180, in=200, looseness=1.35]
+    node[gitlab, left] {push} (f1.west);
+  \draw[gitarr] (f1) -- node[gitlab, above] {合并 PR} (o2);
+\end{tikzpicture}
+\caption{修改回到主仓库的两条路}
 \end{figure}
 
-ssh方式实现免密pull、push步骤如下：
+\paragraph{有推送权}
+在仓库设置里邀请对方。GitHub 称为 Collaborators，Gitee 称为仓库成员，入口名称以网页为准。对方 clone 之后直接改，再 push 回主仓库。你在合并前先 \verb|git pull|，让自己的本地和主仓库一致。
 
-1、在本地生成ssh密钥对。\\
-在\verb|~/.ssh|目录下，输入命令：\verb|ssh-keygen -t rsa -C ``XXX@qq.com''|。
-换成自己的邮箱，出现提示一直回车，全部设置成默认值即可。
+\paragraph{没有推送权}
+对方先 Fork，得到自己名下的一份，clone 到本地，改完 push 到他自己的远程仓库，再在网页上向主仓库提交 Pull Request。你看过差异后，在网页上合并。
 
-2、把在本地生成ssh公玥复制到github上。\\
-输入\verb|cat id_ras.pub|。把出现的内容包括ssh开头和已邮箱结尾的全部内容复制下来，打开github，登录进入自己的账户，点击自己账号的头像，点击setting，在打开的网页中点击屏幕左边的SSH and GPG keys，在出现的界面下，点击New SSH key,然后把之前赋值的内容复制进key下面的框内即可，title随便你取。账号头像->setting->SSH and GPG keys->New SSH key->添加title名字和公玥->Add SSH key
+若要在本地合并对方的分支：
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+git fetch 对方仓库地址 master
+git merge FETCH_HEAD
+git push origin master
+\end{lstlisting}
 
-3、验证添加的key是否成功。\\
-\verb|ssh -T git@github.com|，如果出现提示，
-“Hi lxxxxxxx6! You’ve successfully authenticated, but GitHub does not provide shell access.”
-则表明key添加成功。
-ssh会默认查找id\_rsa、id\_dsa、id\_ecdsa这三个文件。
-如果修改生成密钥名，可能会报Permission denied (publickey)的错误，建议采用默认生成的名字。
+\subsection{同时推到 GitHub 和 Gitee}
+一个 \verb|origin| 可以有多条 push 地址，fetch 仍指向其中一处。第一行填当前仓库的 SSH 地址，第二行填另一个网站的地址。只加第二行的话，原来的推送地址会被换掉。
 
-4、本地提交代码免密码提交（ssh方式）。\\
-使用如下命令：git remote -v，会出现如下内容：
-\begin{verbatim}
-$ git remote -v
-origin https://github.com/lony2016/myLeetcode.git (fetch)
-origin https://github.com/lony2016/myLeetcode.git (push)
-\end{verbatim}
-出现上述内容说明还是通过https方式访问的。下面把访问方式改为ssh方式，输入如下命令：
-\begin{verbatim}
-$ git remote set-url origin git@github.com:lony2016/myLeetcode.git
-\end{verbatim}
-git@github.com:lony2016/myLeetcode.git：是你自己项目的地址，登录你的github，如图（\ref{fig:g239}）所示。找到你的上述图片红框中的地址，复制出来即可。再用git remote -v查看一下，是否设置成功，当地址出现以git@开始的就是设置成功。
-\begin{verbatim}
-$ git remote -v
-origin git@github.com:lony2016/myLeetcode.git (fetch)
-origin git@github.com:lony2016/myLeetcode.git (push)
-\end{verbatim}
-
-
-
-
-
-\subsection{拉取和获取远程仓库}
-\begin{itemize}
-\item git pull：从远程仓库拉取最新版本到本地，并自动合并。
-\item git fetch：从远程仓库获取最新版本到本地，但不会自动合并。
-\end{itemize}
-
-
-\subsection{主分支合并}
-例如：
-\begin{itemize}
-\item[Step 1:] From your project repository, check out a new branch and test the changes.
-\begin{enumerate}
-\item \verb|git checkout -b Limingtan11-master master|
-
-\item \verb|git pull https://github.com/Limingtan11/SiSR.git master|
-\end{enumerate}
-
-\item [Step 2:] Merge the changes and update on GitHub.
-\begin{enumerate}
-\item  \verb|git checkout master|
-
-\item \verb|git merge --no-ff Limingtan11-master|
-
-\item \verb|git push origin master|
-\end{enumerate}
-\end{itemize}
-
-
-
-\subsection{邀请合作者}
-\begin{enumerate}
-\item 进入自己的远程仓库主页，点击“Settings”；
-\item 点击左侧“Options”栏目下的“Manage access”；
-\item 就可以用“用户名”、“邮箱”等形式邀请了。
-\end{enumerate}
-
-
-
-\subsection{Github和Gitee同步提交的方法}
-ref: \url{https://zhuanlan.zhihu.com/p/143666689}
-
-有时候我们需要把项目提交到远程仓库，如GitHub、Gitee(码云)、coding等等，但一个个的提交方式实在是太慢了，而且这繁琐的操作在未来，依旧需要自己手动一个个的进行提交。
-那有什么办法可以同时(同步)提交多个仓库呢？
-
-
-\begin{enumerate}
-\item 在项目目录找到.git隐藏文件夹，如果在项目目录找不到.git隐藏文件夹，文件夹右上角打开查看然后找到隐藏的项目并勾选即可
-
-\item 用记事本打开config文件，把Gitee(码云)的仓库地址填进去即可，如下所示
-\begin{verbatim}
-[core]
-    repositoryformatversion = 0
-    filemode = false
-    bare = false
-    logallrefupdates = true
-    symlinks = false
-    ignorecase = true
-[remote "origin"]
-    url = https://gitee.com/lete114/lete114.git
-    url = https://github.com/lete114/lete114.github.io.git
-    fetch = +refs/heads/*:refs/remotes/origin/*
-[branch "master"]
-    remote = origin
-    merge = refs/heads/master
-\end{verbatim}
-
-\item 最后重新push即可，如果Gitee(码云)仓库有过提交，使用此方法第一次提交请使用强行提交，避免报错：\verb| git push -f origin master | 
-\end{enumerate}
-
-
-\subsection{gitee Permission denied问题}
-Refs:
-\begin{itemize}
-\item \url{https://blog.csdn.net/dyy_csdn/article/details/81508809}
-\item \url{http://git.mydoc.io/?t=154712}
-\end{itemize}
-在gitbash中输入命令就可以。
-\begin{itemize}
-\item 重新生成ssh\\
-\verb|ssh-keygen -t rsa -C “xxxxx@xxxxx.com”|
-
-\item 查看你的 public key\\
-\verb|cat ~/.ssh/id_rsa.pub|
-（以ssh-rsa 开头，以账号的注册邮箱结尾的）
-
-\item 将它添加到码云，添加地址 https://gitee.com/profile/sshkeys
-
-\item 终端输入: \verb|ssh -T git@gitee.com|
-\end{itemize}
-
-
-
-
-
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+git remote set-url --add --push origin 当前仓库的SSH地址
+git remote set-url --add --push origin 另一个网站的SSH地址
+git remote -v
+\end{lstlisting}
+\verb|git remote -v| 里应有一条 fetch、两条 push。之后一次 \verb|git push| 会送到两边。历史对不齐时，用前面的 \verb|git pull --rebase|，不要用 \verb|git push --force|。
 
 \chapter{\LaTeX{}——编译型文档排版系统}
 \section{学习参考资料}
