@@ -1,34 +1,26 @@
 \chapter{Linux基本概念}
-\section{学习及参考资料}
-\textbf{参考书}
+
+
+
+\section{Linux历史背景}
+日常说的 Linux，多半是一整套操作系统。严格地说，Linux 只是其中的内核：它负责管 CPU、内存、磁盘和网络，让程序能跑起来。外壳上的命令、编译器、库，是别人写的，再和内核打在一起，才成为能安装的系统。
+
+这条线可以分成三段。
+
+UNIX 是 1969 年在贝尔实验室做出来的，设计干净，但源码归公司，学生拿不到、也不能随便改。1983 年 Richard Stallman 发起 GNU，想做一套可以自由使用、研究、修改和再发布的 UNIX 式系统。到 1991 年，GNU 已经有了编译器 gcc、shell 和各种工具，内核却还不能用。同一时期，Andrew Tanenbaum 写了教学系统 MINIX，源码能看，许可却不让人把它改成自己的产品。
+
+1991 年，赫尔辛基大学的学生 Linus Torvalds 在自己的 PC 上从头写了一个内核，8 月 25 日在 MINIX 邮件列表里发了一则公告，说这只是个人爱好。它学的是 UNIX 和 MINIX 的想法，并不是从 UNIX 源码改出来的。名字原先想叫 Freax，放上 FTP 时目录被建成了 \verb|linux|，名字就留下来了。1992 年起，内核改用 GNU GPL 发布：可以免费使用，也可以收费发放；改了之后若再散发，必须继续提供源码。人们把这个内核和 GNU 的工具配在一起，系统才能完整工作，所以也有人坚持叫 GNU/Linux。口头上说 Linux，通常指整套系统。
+
+创始人自己的读音接近「里纳克斯」。读成别的也不会有人纠正，知道是同一样东西即可。
+
+发行版做的事，是把内核、基础工具、软件包管理器和安装程序包成一份可以装上电脑的系统。各家目录结构和命令大体相同，真正要记住的差别是用哪套包管理器。科研里常见的是这两支：
 \begin{itemize}
-\item 《鸟哥的Linux私房菜：基础学习篇》鸟哥，王世江；
-\item 《Linux就是这个范儿》赵鑫磊，张洁；
-\item 《Linux命令行与Shell脚本编程大全》Richard Blum，Christine Bresnahan，武海峰（译）；
-\item 《Unix\&Linux大学教程》Harley Hahn，张杰良（译）
+\item Debian 一支：Debian、Ubuntu。自己的电脑上最常见，用 \verb|apt| 装软件。
+\item Red Hat 一支：Fedora 是试验新东西的上游；RHEL 是商业版；CentOS Linux 已经停更，社区里对应的重建版是 Rocky Linux 和 AlmaLinux。实验室集群上常见，用 \verb|dnf|（早期叫 \verb|yum|）。
 \end{itemize}
+openSUSE / SLES 在一部分超算上还能见到。选发行版时，先跟导师或集群已经在用的那一套，不必从名单里另起炉灶。
 
-\textbf{不错的学习网站}
-\begin{itemize}
-\item \url{http://www.92csz.com/study/linux/}
-
-\item \url{http://vbird.dic.ksu.edu.tw/}
-
-\item Python学习：\url{http://www.w3cschool.cc/python/python-tutorial.html}
-\end{itemize}
-
-
-
-\section{发音}
-对Linux的发音大致有这么几种： “里那克斯”、“里你克斯”与“里扭克斯”等。其实官方的标准发音为 \verb|['li:nэks]|，因为这个发音是创始人Linus的发音。如果你不认识这个音标，那么就读成“里那克斯”。当然你发音成什么，并没有人会说你，完全是一个人的习惯而已。
-
-
-\section{来源}
-Linux是根据UNIX演变过来的。当年linus就是因为接触到了UNIX而后才自己想开发一个简易的系统内核的，他开发的简易系统内核其实就是Linux。当时linus把开发的这个系统内核丢到网上提供大家下载，由于它的精致小巧，越来越多的爱好者去研究它。人们对这个内核添枝加叶，而后成为了一个系统。Linux是免费的。其实这里的免费只是说Linux的内核免费。在Linux内核的基础上而产生了众多Linux的版本。
-
-
-\section{发行版}
-Linux的发行版说简单点就是将Linux内核与应用软件做一个打包。较知名的发行版有：Ubuntu、RedHat、CentOS、Debain、Fedora、SuSE、OpenSUSE、TurboLinux、BluePoint、RedFlag、Xterm、SlackWare等。
+内核历史见 \url{https://www.kernel.org/}，GNU 与 GPL 见 \url{https://www.gnu.org/gnu/linux-and-gnu.html}。
 
 
 \section{系统目录结构}
