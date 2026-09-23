@@ -1191,20 +1191,68 @@ git remote -v
 
 \chapter{\LaTeX{}——编译型文档排版系统}
 \section{学习参考资料}
+\begin{xiaonao}[怎么安装、学习？]
+Texlive 安装包比较大，建议通过 torrent下载。至于安装，你的AI助手会帮你搞定。怎么输入确实要简单学习了解一下，参考下面的推荐，简单浏览一遍。不清楚的问你的AI助手。至于初始模板创建，也可以叫你的AI助手创建。
+\end{xiaonao}
+
+
 \begin{itemize}
-\item \LaTeX{}模板：\url{https://github.com/ElegantLaTeX/ElegantBook}
-\item 一份简短的关于\LaTeX{}安装的介绍：\url{https://github.com/OsbertWang/install-latex}
-\item 一份（不太）简短的~\LaTeXe{}~介绍：\url{https://github.com/CTeX-org/lshort-zh-cn}
-\item Herbert Voß*，  Mathmode: \url{http://tug.ctan.org/obsolete/info/math/voss/mathmode/Mathmode.pdf}
-\item \TeX Live 指南：\url{https://www.tug.org/texlive/doc/texlive-zh-cn/texlive-zh-cn.pdf}
+\item \LaTeX{} BooK模板推荐：\url{https://github.com/ElegantLaTeX/ElegantBook}
+\item \LaTeX{}安装的介绍：\url{https://github.com/OsbertWang/install-latex}
+\item 公式输入的中文入门，看第四章《排版数学公式》：\url{https://github.com/CTeX-org/lshort-zh-cn}
+\item 公式写法的简短专册 Short Math Guide：\url{https://ctan.org/pkg/short-math-guide}
 \end{itemize}
+
+装好 \TeX{} Live 之后，这两份就在本机，直接打开：
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+texdoc lshort-zh-cn
+texdoc short-math-guide
+\end{lstlisting}
 
 
 \section{基本思想和历史}
+\TeX{} 是 Donald E. Knuth（高德纳）写的排版系统，起因是他的《计算机程序设计艺术》（TAOCP）。
+
+1976 年，他改完第二卷，出版社把校样寄了回来。前几卷用铅字排版（Monotype），由排数学书的工人操作。这一回为了省钱，改成计算机照排。他看着不满意，不想把这套书继续写下去。
+
+1977 年 2 月 1 日，他见到另一本书的数字排版，印出来和铅字几乎分不出来，于是决定用学术休假自己做这件事。同年 5 月开始设计 \TeX{}，并一起写字体程序 METAFONT。名字来自希腊语 techne，意思是技艺，读作「泰赫」。1978 年第一版已经能用，但只能在斯坦福的机器上跑。1982 年他重写了程序，这一版可以移植，后来流传的是这一版。配套字体 Computer Modern 的样子，从 TAOCP 原来用的 Monotype Modern 来。程序、算法和字体都公开了。
+
+1989 年，欧洲用户请他把输入从 7 位扩到 8 位，以便排带重音的欧洲文字。1990 年他宣布，此后只修正严重错误，不再加功能。版本号写成 $3.14159\cdots$，逐次靠近圆周率 $\pi$。程序停在这里，隔许多年再编译，版面仍然一致。
+
+直接用 \TeX{} 写稿，要自己处理字体、间距和换行，像在对排字工人下指令。1980 年代初，Leslie Lamport（莱斯利·兰波特）在 \TeX{} 上写了一层宏，称为 \LaTeX{}。作者在稿子里声明结构，例如章节和强调，版式交给文档类去定。这一层的想法来自 Brian Reid 的 Scribe。广泛流传的第一版编号是 2.09，出现在 1985 年。一条 \LaTeX{} 命令展开之后，是若干条甚至上百条 \TeX{} 命令。
+
+\LaTeX{} 很快成为数学和理工文献的通用写法。各地又在 2.09 上各自加功能，格式互不兼容，同一篇稿子换一处就编不过。1993 年，Frank Mittelbach、Rainer Schöpf、Chris Rowley 等人组成 \LaTeX{} 项目组，把这些扩展收回到同一套格式里。1994 年发布的就是现在仍在使用的 \LaTeXe。2020 年，项目组把后来写成的编程层并进内核。日常编译用的仍是 \LaTeXe。
+
+格式和引擎是两层。格式是预先装好的宏，plain \TeX{} 和 \LaTeX{} 都是格式。引擎是执行这些宏的程序。终端里的命令把两者写在一起：
+
 \begin{itemize}
-\item \TeX：一种宏语言。作者 Donald E. Knuth（高德纳），为写作 TAOCP（《计算机程序设计艺术》）而发明。
-\item \LaTeX：\TeX 中的一个宏集合，是\TeX 中的一种格式，建立在\TeX 基础上；每一个\LaTeX 命令最后都会被解释成若干甚至上百个\TeX 命令。
-\item pdf\LaTeX、Xe\LaTeX 等是排版引擎，用来编译用\LaTeX 格式写的 \texttt{.tex} 文件。
+\item \verb|pdflatex|：\LaTeX{} 格式，引擎是 pdf\TeX{}。pdf\TeX{} 是 Hàn Thế Thành 在 1990 年代中期的硕士学位论文，可以直接输出 PDF。
+\item \verb|xelatex|：\LaTeX{} 格式，引擎是 Xe\TeX{}。Xe\TeX{} 是 Jonathan Kew 在 2004 年发布的，按 Unicode 读入文字，并能使用电脑里已经安装的字体。写中文走这条路。本书用 Xe\LaTeX{} 编译。
+\item \verb|lualatex|：\LaTeX{} 格式，引擎是 Lua\TeX{}，排版过程中可以运行 Lua。
+\end{itemize}
+
+对初学，先抓住三件事。
+
+\begin{enumerate}
+\item 稿子是一份说明。你写下内容怎样组织，程序再把它排成版面。
+\item \LaTeX{} 负责结构。章节、列表、公式都是命令，版式放在文档类和宏包里。换一套模板，正文可以不动。
+\item 引擎负责怎么读文字、用哪套字体、输出什么文件。命令选错时，字体和中文会先出问题。
+\end{enumerate}
+
+参考文献：
+\begin{itemize}
+\item Barbara Beeton, Karl Berry, David Walden. \TeX: A branch in desktop publishing evolution, Part 1. IEEE Annals of the History of Computing, 2018. \url{https://www.ams.org/publications/dtp-tex-part-1.pdf}
+\item Donald E. Knuth. The future of \TeX{} and METAFONT. TUGboat, 11(4), 1990. \url{https://tug.org/TUGboat/tb11-4/tb30knut.pdf}
+\item Frank Mittelbach. A brief history (of nearly half a century). TUGboat, 44(1), 2023. \url{https://tug.org/TUGboat/tb44-1/tb136mitt-history.pdf}
+\item Frank Mittelbach. E-\TeX: Guidelines for Future \TeX{} Extensions---revisited. TUGboat, 34(1), 2013. \url{https://www.latex-project.org/publications/2012-FMi-TUB-tb106mittelbach-e-tex-revisited.pdf}
+\item Jonathan Kew. Xe\TeX, the Multilingual Lion. TUGboat, 26(2), 2005. \url{https://tug.org/TUGboat/tb26-2/kew.pdf}
 \end{itemize}
 
 应用思路：
@@ -1222,273 +1270,44 @@ git remote -v
 
 
 
-\section{主体发行版——\TeX{} Live }
-主体地址：\url{https://www.tug.org/texlive/acquire-iso.html}
+\section{TeXworks}
+\begin{xiaonao}[怎么安装？]
+Texworks 是一款 latex编辑器。简单轻便，够用了。 至于怎么安装，请教你的AI助手。 需要注意的是设置里要配置latex编译器路径。总之 运行出错也问你的AI助手。
+\end{xiaonao}
+
+写一份稿子要经过三层。
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}
+  \node[gitbox] (ed) {TeXworks\\{\scriptsize 编辑器}};
+  \node[gitbox, right=8mm of ed] (cmd) {\texttt{xelatex}\\{\scriptsize 编译命令}};
+  \node[gitremote, right=8mm of cmd] (dist) {\TeX{} Live\\{\scriptsize 发行版}};
+  \draw[gitarr] (ed) -- node[gitlab, above] {调用} (cmd);
+  \draw[gitarr] (cmd) -- node[gitlab, above] {来自} (dist);
+\end{tikzpicture}
+\caption{编辑器调用编译命令，命令来自发行版}
+\end{figure}
+
+\TeX{} Live 是发行版，把引擎、\LaTeX{} 格式、宏包和字体装进电脑。Windows、Linux、macOS 都能用。同一层还有别的：MiKTeX 在 Windows 上很常见，缺哪个宏包就现装哪一个；MacTeX 是配在 macOS 上的 \TeX{} Live。Linux 软件源里名为 texlive 的包也是 \TeX{} Live，常常拆成许多小包。发行版装好以后，终端里才有 \verb|xelatex|。
+
+\verb|xelatex| 读 \verb|.tex|，用 Xe\TeX{} 引擎按 \LaTeX{} 格式排版，写出 PDF。发行版里同时有 \verb|pdflatex| 和 \verb|lualatex|。写中文时，TeXworks 的排版选项选 Xe\LaTeX{}，按下之后跑的就是 \verb|xelatex|。
+
+TeXworks 是编辑器，也是 Jonathan Kew 写的。它负责打开稿子、打字、按一次排版、旁边看 PDF。排版由发行版里的命令完成。设置里要填的编译器路径，就是发行版 \verb|bin| 目录，\verb|xelatex| 在那里。
+
+不打开编辑器，在终端里也可以编译：
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+xelatex 文件名.tex
+\end{lstlisting}
+换 TeXstudio 或其他编辑器时，稿子不用改，仍让它调用同一条 \verb|xelatex|。
 
-地址：\url{https://mirrors.ustc.edu.cn/CTAN/systems/texlive/Images/}
-
-\textbf{特别注意：} 下载 \TeX{} Live 镜像后，需要进行MD5校验一下。出现过安装成功后，编译莫名出错的情况，重新下载安装才错误消失。
-
-\verb| md5sum texlive2021.iso|
-
-
-\subsection{Win10下安装}
-注意要点：
-\begin{itemize}
-\item 全部安装占用空间比较大，。。。
-\item 手动添加编译器路径到路径环境变量：
-This PC->Advanced system settings->Advanced->Environment Variables...(右下角)->System variables->Path，点开。添加C:/texlive/2020/bin/win32。大家安装的路径可能不一样，但是选择\LaTeX{}相关编译器的路径就行。要点是，一定是编译器所在路径，上一级都不行。
-\end{itemize}
-
-
-
-\subsection{Ubuntu下安装}
-（1）下载镜像
-直接下载DVD光盘镜像的。不建议网络安装。官网主页:\url{http://www.tug.org/texlive/}
-
-
-（2）安装
-\paragraph{(a)文字界面安装}
-%安装过程我没用图形界面，因为图形界面还要先安装一个包，觉得麻烦。
-文字界面也简单，在终端中运行 Perl 脚本install-tl。 这就是在终端中运行一个文件。 运行一个文件， 当然需要告诉电脑文件在哪里了，于是在终端输入该脚本的全路径就行了，如：\\
-\verb*|perl /home/phileas/texlive/install-tl|\\
-或先转到相应的目录下，再执行，如：\\
-\verb*|cd /home/phileas/texlive|\\
-\verb*|perl install-tl|
-
-运行后，会出现各种选项和提示。可以看到，texlive是装在文件系统中的，你可以更改安装的路径，或开启终端中的超级用户的权限，再来运行这个脚本。开启超级用户权限的方法是：在终端中输入命令：sudo -i。这样就可以安装了。
-
-\paragraph{（b）图形界面安装}
-建议使用图形安装界面，因为宏包用图形界面管理很方便，过程如下：
-\begin{enumerate}
-\item \verb*|sudo -i| 开启超级用户权限，这是因为默认安装到文件系统中，而改动文件系统是需要超级用户权限的，也可以不开启，到时选个可以安装的路径就行了。
-\item  \verb*|apt-get install perl-tk| 安装 perl-tk 包才能用图形安装界面
-\item 挂载镜像\\
-先将光盘镜像挂载到一个文件夹中，如：/home/phileas/texlive，意思是：根目录/下的home文件夹phileas中的texlive文件夹。先找出光盘镜像的全路径，很简单，选中你的光盘镜像右键属性中有写，这个路径或许当你拷贝进这个文件时你就已经知道了，我放的位置是，\\
-/home/phileas/desktop/texlive2011-20110705.iso，
-最后一项是该文件名。挂载方法是在终端中，敲命令：\\
-sudo mount /home/phileas/Desktop/texlive2011-20110705.iso/~~ /home/phileas/texlive ，
-注意两个路径之间有空格。这样就挂载好了。(注意路径区分大小写)
-\item cd挂载的镜像文件夹下，终端输入\verb|sudo perl install-tl  - -gui|。
-\item 有些选项，自己看着办。注意勾选建立符号链接(symbol link)，很简单，勾选上就有了，不建立这个，之后在终端开启图形管理宏包界面的命令tlmgr - - gui就会报错说没有这个命令，其实还是要再加链接。所以这里记得勾选。（安装时没勾选也没关系，这部分内容在texlive相应版本的说明文档中说的很清楚。）
-\item 点击安装
-
-\item 如果安装时忘了勾选符号链接，则需添加环境变量。在\verb|~/.bashrc|文件中添加\\
-\verb|export PATH=$PATH:/usr/local/texlive/2018/bin/x86_64-linux|\\
-\verb|export MANPATH=$MANPATH:/usr/local/texlive/2018/texmf-dist/doc/man|\\
-\verb|export INFOPATH=$INFOPATH:/usr/local/texlive/2018/texmf-dist/doc/info|\\
-然后在终端中使环境变量生效：\\
-\verb|source ~/.bashrc|
-
-\item 调出图形管理宏包界面，在终端输入tlmgr - -gui，这时要改宏包更新源，在option选项改成网络为默认更新源。不然还是更新不了。
-\end{enumerate}
-
-
-\subsection{MacOS下安装}
-\begin{itemize}
-\item 命令行下安装 HomeBrew, 主页是:\url{https://brew.sh/}
-\item 安装 MacTex, 命令行下使用 \emph{brew cask install mactex} 安装, 参考: \url{https://formulae.brew.sh/cask/mactex}
-\item 选择一个写 \LaTeX{} 的文本编辑器，比如 Emacs、Sublime、VS Code
-\end{itemize}
-
-\section{Texworks}
-注意：有时候Texworks没有自动找到\LaTeX{}相关编译器的路径。这时需要手动添加
-Edit->Perference->Tyepsetting，添加
-C:/texlive/2020/bin/win32（win10系统）。要点是，一定要是编译器所在目录，上一级都不行。
-
-
-\subsection{安装}
-官网：\url{https://www.tug.org/texworks/}\\
-\verb|sudo add-apt-repository ppa:texworks/stable|\\
-\verb|sudo apt-get update|\\
-\verb|sudo apt-get install texworks|
-
-
-\subsection{简述}
-[转] \url{http://blog.sina.com.cn/s/blog_630306a50101fjwy.html}
-
-Texworks 是目前我用的最多的\LaTeX 编辑软件，不是跟 ddswhu 交流，我还一直不知道，里面还蕴含着很多方便快捷的缩写。这里就是主要谈谈这些快捷缩写。这些缩写都在一个叫completion 的文件中，到 Texworks 安装目录下找找。
-
-首先，对 TeXworks 的自动补全功能解释一下：
-
-1、在 TeXworks 的编辑窗里面键入 xa，按下tab，出现了 \verb|\alpha|，这就是最简单的补全，对简单命令的补全。
-
-2、在 TeXworks 键入usep，按下tab建，得到了 \verb|\usepackage{}|，这就是最普通的补全，给出命令后的必须参数括号，并且光标停留在括号内。
-
-3、在TeXworks键入usepo，按下tab，得到了 \verb|\usepackage[]{•}|，这是对含有可选参数的命令的补全，光标停在可选参数的中括号内，当我们把可选参数补完之后，按下ctrl+tab组合键，光标进入后面的必需参数括号内（后面的位置称为placeholder）。其中ctrl+tab是移向往下最接近的一个placeholder，shift+tab是移向往上最近的一个placeholder。
- 
-在刚才的例子中，我们只按了一次tab，假如我们键入的引导词是若干个命令的引导词的前部分，则继续按下tab键会在这几个命令中切换，得到你想要的命令。
- 
-好了，为了使用自动补全，我们需要记住引导词。在TeXworks中，已经定义了很多的引导词，而且也允许用户自己定义新的引导词。
- 
-下面对常用的引导词归类。
- 
-\subsection{环境类}
-对于环境的补全，引导词第一个字母均为b，后面字母个数不定，但是，对绝大多数的环境，只需要使用环境名的前三个字母就行，即为"b+xyz+[tab]"。
- 
-比如 itemize 环境，根据规则，我们需要键入 "bite"，然后按下tab键，即得到了
-\begin{verbatim}
-\begin{itemize}
-\item
- 
-\end{itemize}•	
-\end{verbatim}
-
-符合此规则的环境有document，abstract，align，tabular，appendix，bmatrix，pmatrix，cases，
-description，center，equation，enumerate，eqnarray，figure，flalign，
-gather，item，letter，list，minipage，multiline，picture，split，subequations，
-theorem，titlepage，trivlist，varwidth，verbatim，等。
- 
-注意事项：如果环境名开头带有the，则xyz为除去the之后的环境名的前三个字母。比如bind=theindex环境、bbib=thebibliography环境。
- 
-另外需要注意的是：星号环境在原来引导词后加s，即为"b+xyz+s+[tab]"，如果环境有可选项，需要使用可选项，则需要在末尾加上o(option的意思)，即为"b+xyz+o+[tab]"。
- 
-几个特殊的环境:
-
-align    :b+ali(s)
-alignat   :b+ali+at(s)
-aligned  :b+ali+ed
-alignedat :b+ali+edat(o)
- 
-verbatim  :bver
-verse    :bvers
-tabular   :b+tab
-tabularx  :b+tabx
-tabbing  :b+tabb
-table    :b+tabl、b+tbl (s,o,so)
- 
-居左、居右环境、居中
-flushleft+flushright ：b+fl+l/r
-\verb|\centering|         : cen
- 
- 
- 
- \subsection{字体}
-（1）普通字体命令
-
-（1.1）\verb|\textbf, \texttt, \textsf, \textsc, \textsl, \textit, \textup|
-
-   方法一、由字体属性的两个关键字构成，比如 sc+[tab键]，textit有问题，em表示\verb|\emph{}|
-   
-   方法二、\verb|\text(b/t/s/i/w...)+[tab键]|
-   
-   注意：\verb|\textwidth| 也是 \verb|\textw|
-
-（1.2）属性的第二种表示方式、"属性关键字+d"
-
-    bfd: \verb|\bfseries|
-    ttd: \verb|\ttfamily|
-    sfd: \verb|\sffamily|
-    scd: \verb|\scshape|
-    sld:  \verb|\slshape|
-    itd:  \verb|\itshape|
-    upd: \verb|\upshape|
-    emd: \verb|\em|
- 
-（2）数学字体命令：
-    
-  \verb|\mathbf, \mathrm, \mathcal, \mathsf, \mathtt, \mattit|
-  
-    引导词为"m+字体属性关键字"。比如：mbf\verb|\mcal|
- 
-
- 
- \subsection{希腊字母类}
-方法：”x+[c(大写符号)]+符号首字母”
-
-适用的字母有:
-\begin{verbatim}
-\alpha, \beta , \chi, \delta, \gamma, \Gamma, \iota, \mu, \lambada,
-\Lambda, \mu, \nu, \omega, \Omega, \pi, \sigma, \zeta, \rho, \tau,
-\upsilon, \xi, \Xi
-\end{verbatim}
-
-注意以下相同首字母的写法(特殊)：
-
-\verb|\epsilon|: x+e
-\verb|\varepsilon|: x+v+e
-\verb|\eta|: x+et
-\verb|\phi| :x+p
-\verb|\varphi| :x+v+p
-\verb|\phi| :x+ph
-\verb|\Phi| :x+c+ph
-\verb|\varphi| :x+v+ph
-\verb|\psi| :x+ps
-\verb|\Psi| :x+c+ps
-\verb|\tau| :x+t
-\verb|\theta| :x+th
- 
- 
- 
- \subsection{章节命令}
-cha     =\verb|\chapter{}|
-
-sec(o)   =\verb|\section{}|
-
-ssec(o)  =\verb|\subsection{}|
-
-sssec(o) =\verb|\subsubsection{}|
-
- 
-\subsection{参考文献}
-bbib      =\verb|\begin{thebibliography}|
-bibitem   =\verb|\bibitem|
-bibitemo  =\verb|\bibitem[]|
-bibstyle   =\verb|\bibliographystyle{}|
-biblio     =\verb|\bibliography{}|
- 
-  
- \subsection{杂项与普通命令}
-1、括号
-
-dd : \verb|\( \)|
-
-\verb|d+希腊字母表达式=\(希腊字母\)|
-
-例如：dxa = \verb|\(\alpha\)|
- 
-2、普通命令
-
-usep   =\verb|\usepackage{}|
-
-foot    =\verb|footnote foot|
-
-frac    =\verb|\frac|
-
-fbox   =\verb|\fbox|
-
-fboxo  =\verb|\framebox|
-
-href   =\verb|\href|
-
-incg   =\verb|\includegraphics{}|
-
-incgo  =\verb|\includegraphics[]{•}|
-
-ncol(newcolumn) = \verb|&|
-
-newc  =\verb|\newcommand{}{•}|
-
-newe  =\verb|\newenvironment{}{•}{•}|
-
-newpg =\verb|\newpage|
-
-pgref  =\verb|\pageref{}|
-
-pgs   =\verb|\pagestyle{}|
-
-sqrt   =\verb|\sqrt{}|
-
-toc   =\verb|\tableofcontents|
-
-listf   =\verb|\listoffigures|
-
-list   =\verb|\listoftables|
-multic =\verb|\multicolumn{}{•}{•}|
-
-
-
-%\section{Sublime Text}
 
 
 \chapter{Vim——终端里的文本编辑器}
