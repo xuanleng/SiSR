@@ -865,6 +865,168 @@ Superpowers 是一套面向「让 agent 改项目」的 skills，仓库见 \url{
 
 
 
+\subsection{Academic Research Skills}
+Academic Research Skills（ARS）是一套面向写论文的 skills，作者 Cheng-I Wu（吴政宜），仓库见 \url{https://github.com/imbad0202/Academic-Research-Skills}。它把一篇论文分成几段来做：先把问题和文献问清楚，再起草，然后审，再改。每一段都停下来等你确认。它可以起草文字，主张由你负责。简体中文说明在该仓库的 \verb|README.zh-CN.md|。命令会变，以 README 为准。
+
+\paragraph{Claude Code}
+在已经打开的 \verb|claude| 对话里输入：
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+/plugin marketplace add Imbad0202/academic-research-skills
+/plugin install academic-research-skills
+\end{lstlisting}
+装好后执行 \verb|/ars-plan|，用正在写的题目走一遍章节结构。也可以试 \verb|/ars-lit-review|，后面接一个主题。
+
+\paragraph{Cursor}
+把四个 skill 目录各自放进 Cursor 的 skills 目录，让 \verb|SKILL.md| 就在每个目录的第一层。本机所有项目都能用时，放到 \verb|~/.cursor/skills/|。Windows 上是用户主目录下的 \verb|.cursor\skills|。
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+git clone https://github.com/Imbad0202/academic-research-skills.git ~/academic-research-skills
+mkdir -p ~/.cursor/skills
+cp -R ~/academic-research-skills/deep-research ~/.cursor/skills/deep-research
+cp -R ~/academic-research-skills/academic-paper ~/.cursor/skills/academic-paper
+cp -R ~/academic-research-skills/academic-paper-reviewer ~/.cursor/skills/academic-paper-reviewer
+cp -R ~/academic-research-skills/academic-pipeline ~/.cursor/skills/academic-pipeline
+\end{lstlisting}
+新开一轮 Agent 对话，输入 \verb|/|，能搜到 deep-research、academic-paper、academic-paper-reviewer、academic-pipeline，就说明已经接上。\verb|/ars-plan| 是 Claude Code 里的命令，Cursor 里点这些 skill 的名字。
+
+\paragraph{Codex}
+Codex 用另一个仓库，内容相同，打包方式按 Codex 来：\url{https://github.com/Imbad0202/academic-research-skills-codex}。安装命令以那个仓库的 README 为准。
+
+\begin{xiaonao}
+你直接让 AI agent 帮你装。
+\end{xiaonao}
+
+\paragraph{怎么用}
+用平常的话交代任务，例如「带我写一篇关于……的论文」，或「审一下这篇」。要指定某一步时，用上面的斜杠命令。已经有稿子、或已经收到审稿意见，直接说从哪里接着做。
+
+\paragraph{一般流程}
+让它陪你写一篇论文时，默认按下面的顺序走。你点头，它才进入下一步。
+\begin{enumerate}
+\item 研究：把问题和文献问清楚。
+\item 写作：按结构起草。\verb|/ars-plan| 先用问答把章节走一遍。
+\item 核对：查引用是否存在，主张和所引文献是否对得上。
+\item 审稿：从几个角度读这篇稿子，其中一路专门挑毛病。
+\item 修改：对着意见改。收到外审意见时，从这里进入。
+\item 收尾：再核对一次，并留下这次写作过程的记录。
+\end{enumerate}
+实验在外面做完，再把结果交回写作这一步。
+
+\paragraph{四条 skills}
+\begin{itemize}
+\item \verb|deep-research|：检索和梳理文献。可以做简报、文献综述，或一步步把问题问清楚。
+\item \verb|academic-paper|：起草、改稿、转引文格式、检查引用。
+\item \verb|academic-paper-reviewer|：按几路审稿人来读，包括专门唱反调的一路。
+\item \verb|academic-pipeline|：把上面几步串成一次完整的写作。
+\end{itemize}
+名单和模式会随仓库更新，以 README 为准。许可证是 CC BY-NC 4.0：可以复制和改写，需要标明出处，不用于商业用途。
+
+
+\subsection{blader/humanizer}
+Humanizer 把读起来像模型生成的文字改得像人写的，意思保持不变。仓库见 \url{https://github.com/blader/humanizer}。它是一份 \verb|SKILL.md|，支持 skills 的 agent 都能用。中文稿用下一小节。规则会变，以 README 为准。
+
+\paragraph{安装}
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+npx skills add blader/humanizer --global
+\end{lstlisting}
+去掉 \verb|--global|，就只装在当前项目。要指定某一个 agent，按 README 加上 \verb|--agent|。装好后重载 skills，对话里用 \verb|/humanizer|。
+
+Claude Code 2.1.142 及以后，也可以在已经打开的 \verb|claude| 对话里输入：
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+/plugin marketplace add blader/humanizer
+/plugin install humanizer@humanizer
+\end{lstlisting}
+这条用 \verb|/humanizer:humanizer| 调用。
+
+Cursor 把仓库克隆到 skills 目录。\verb|SKILL.md| 在仓库根上，所以目录名就是 skill 的名字：
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+git clone https://github.com/blader/humanizer.git ~/.cursor/skills/humanizer
+\end{lstlisting}
+Windows 上放到用户主目录的 \verb|.cursor\skills\humanizer|。新开一轮 Agent 对话，输入 \verb|/|，能搜到 humanizer 就接上了。
+
+\begin{xiaonao}
+你直接让 AI agent 帮你装。
+\end{xiaonao}
+
+\paragraph{怎么用}
+贴上原文，或给出文件路径。想靠近自己的口气时，先贴两三段自己写过的文字，再贴要改的稿子。它先标出痕迹，改一稿，再核对原来的主张还在不在，然后给出终稿。名字、数字、日期和引文必须来自原文，或来自你补上的材料。原文里没有的细节，它会问。
+
+许可证是 MIT。
+
+
+\subsection{op7418/Humanizer-zh}
+Humanizer-zh 润色中文稿：去掉空话、重复和套话，保留事实、话说到什么程度，以及原来的口气。它从上一小节的 Humanizer 改来，并加上中文里常见的写法，例如长定语和套话收尾。仓库见 \url{https://github.com/op7418/Humanizer-zh}。它是给 agent 读的编辑说明。它不判断文章出自谁的手，也不保证通过某种检测器。规则会变，以 README 为准。
+
+\paragraph{安装}
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+npx skills add https://github.com/op7418/Humanizer-zh.git
+\end{lstlisting}
+也可以克隆到 Claude Code 的 skills 目录。Cursor 同样会读这里：
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+git clone https://github.com/op7418/Humanizer-zh.git ~/.claude/skills/humanizer-zh
+\end{lstlisting}
+Windows 上是用户主目录下的 \verb|.claude\skills\humanizer-zh|。只给 Cursor 用时，把同一仓库克隆到 \verb|~/.cursor/skills/humanizer-zh|。重载 skills 后，对话里输入 \verb|/humanizer-zh|。
+
+\begin{xiaonao}
+你直接让 AI agent 帮你装。
+\end{xiaonao}
+
+\paragraph{怎么用}
+贴上文章，或给出文件路径，并说清要保留的语气。只看不改时，写明给出建议、不修改文件。可以附一段自己的文字，供它参考口气。那段里的经历、数据和观点留在原处，不写进待改的稿子。
+
+没有问题的句子可以不改。缺证据时它向你要，不在润色里补出数字。原文里的「可能」「计划」「尚未」保持原意。
+
+许可证是 MIT。
+
+
+
 \chapter{Git——程序和文档的版本管理}
 \section{基本认识}
 改程序、改论文、改笔记，文件名往往会变成「终稿」「终稿2」「真的终稿」。Git 把每一次有意义的修改记下来，需要时可以回到某一次，也可以把修改交给别人。它有图形界面，也有命令行。后文用命令行：步骤少，和 AI 助手对话时也可以直接把命令交给它。
