@@ -1293,34 +1293,36 @@ git remote set-url origin git@github.com:用户名/仓库.git
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}
-  \node[font=\small\bfseries, text=structurecolor, anchor=west] (h1) at (0,0.95) {有推送权};
-  \node[gitremote] (m1) at (3.15,0) {主仓库};
-  \node[gitbox] (c1) at (6.7,0) {合作者本地};
-  \node[gitremote] (m2) at (10.25,0) {主仓库};
-  \draw[gitarr] (m1) -- node[gitlab, above] {clone} (c1);
-  \draw[gitarr] (c1) -- node[gitlab, above] {push} (m2);
+  \node[gitremote] (main) at (8.35,-1.85) {主仓库};
 
-  \node[font=\small\bfseries, text=second, anchor=west] at (0,-1.85) {无推送权};
-  \node[gitremote] (o1) at (3.15,-2.55) {主仓库};
-  \node[gitremote] (f1) at (6.7,-2.55) {对方仓库};
-  \node[gitbox] (d1) at (6.7,-4.15) {对方本地};
-  \node[gitremote] (o2) at (10.25,-2.55) {主仓库};
-  \draw[gitarr] (o1) -- node[gitlab, above] {Fork} (f1);
-  \draw[gitarr] (f1) -- node[gitlab, right] {clone} (d1);
-  \draw[gitback] (d1.west) to[out=180, in=200, looseness=1.35]
-    node[gitlab, left] {push} (f1.west);
-  \draw[gitarr] (f1) -- node[gitlab, above] {合并 PR} (o2);
+  \node[font=\small\bfseries, text=structurecolor, anchor=west] at (0,0.85) {有推送权};
+  \node[gitbox] (co) at (3.15,0) {本地};
+  \draw[gitarr] (main.150) to[out=165, in=15]
+    node[gitlab, above] {clone} (co.15);
+  \draw[gitback] (co.-15) to[out=-15, in=195]
+    node[gitlab, below] {push} (main.195);
+
+  \node[font=\small\bfseries, text=second, anchor=west] at (0,-2.7) {无推送权};
+  \node[gitremote] (fk) at (3.15,-3.35) {自己的仓库};
+  \node[gitbox] (lc) at (3.15,-5.15) {本地};
+  \draw[gitarr] (main.220) to[out=205, in=12]
+    node[gitlab, above] {Fork} (fk.12);
+  \draw[gitarr] (fk.-12) to[out=-8, in=235]
+    node[gitlab, below] {发起 PR} (main.250);
+  \draw[gitarr] (fk) -- node[gitlab, right] {clone} (lc);
+  \draw[gitback] (lc.west) to[out=180, in=200, looseness=1.25]
+    node[gitlab, left] {push} (fk.west);
 \end{tikzpicture}
 \caption{修改回到主仓库的两条路}
 \end{figure}
 
 \paragraph{有推送权}
-在仓库设置里邀请对方。GitHub 称为 Collaborators，Gitee 称为仓库成员，入口名称以网页为准。对方 clone 之后直接改，再 push 回主仓库。你在合并前先 \verb|git pull|，让自己的本地和主仓库一致。
+主仓库的主人在设置里邀请你。GitHub 称为 Collaborators，Gitee 称为仓库成员，入口名称以网页为准。你 clone 到本地，改完直接 push 回主仓库。push 之前先 \verb|git pull|，让本地和主仓库一致。
 
 \paragraph{没有推送权}
-对方先 Fork，得到自己名下的一份，clone 到本地，改完 push 到他自己的远程仓库，再在网页上向主仓库提交 Pull Request。你看过差异后，在网页上合并。
+你先 Fork，得到自己名下的仓库，clone 到本地，改完 push 回自己的仓库，再在网页上向主仓库发起 Pull Request。主人看过差异后，在网页上合并。
 
-若要在本地合并对方的分支：
+主人要在自己的电脑上合并时，地址填 Fork 出去的那份仓库：
 \begin{lstlisting}[
   numbers=none,
   xleftmargin=2mm,
@@ -1329,7 +1331,7 @@ git remote set-url origin git@github.com:用户名/仓库.git
   breaklines=true,
   basicstyle=\ttfamily\footnotesize
 ]
-git fetch 对方仓库地址 master
+git fetch Fork出去的仓库地址 master
 git merge FETCH_HEAD
 git push origin master
 \end{lstlisting}
