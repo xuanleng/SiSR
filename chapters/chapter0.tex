@@ -1083,6 +1083,114 @@ git clone https://github.com/awesome-skills/code-review-skill.git ~/.cursor/skil
 许可证是 MIT。
 
 
+\subsection{addyosmani/agent-skills}
+Agent Skills 是 Addy Osmani 整理的一套工程流程，仓库见 \url{https://github.com/addyosmani/agent-skills}。它把写软件分成几段：先写清楚要做什么，再拆成小任务，然后一小段一小段实现，用测试证明能用，审查之后再发布。一共大约 25 条 skill，每条都是 \verb|skills/| 下一个目录里的 \verb|SKILL.md|。任务对得上时，agent 会自己去读。斜杠命令会变，以 README 为准。和前面的 Superpowers 怎么取舍，见该仓库的 \verb|docs/comparison.md|。
+
+\paragraph{安装}
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+npx skills add addyosmani/agent-skills
+\end{lstlisting}
+一次装全部。先看名单再挑，把上面的命令换成 \verb|npx skills add addyosmani/agent-skills --list|。只要其中一条时，加上 \verb|--skill| 和名字，例如 \verb|test-driven-development|。只装一条时，仓库根上的 \verb|references/| 不会一起复制过来；要用那些共用清单，就装整仓。
+
+Claude Code 在已经打开的 \verb|claude| 对话里输入：
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+/plugin marketplace add addyosmani/agent-skills
+/plugin install agent-skills@addy-agent-skills
+\end{lstlisting}
+
+Cursor 要让每条 \verb|SKILL.md| 都在 skills 目录的第一层。\verb|npx| 会自己放好。用手拷时，把仓库里 \verb|skills/| 下的每个子目录复制到 \verb|~/.cursor/skills/|。Windows 上是用户主目录下的 \verb|.cursor\skills|。
+
+\begin{xiaonao}
+你直接让 AI agent 帮你装。
+\end{xiaonao}
+
+\paragraph{怎么用}
+用斜杠命令点明这一步，例如 \verb|/spec|、\verb|/plan|、\verb|/build|、\verb|/test|、\verb|/review|、\verb|/ship|。也可以直接说 skill 的名字。\verb|/build auto| 在你点头一次之后，按计划把任务做完；每项仍然先写测试、单独提交，失败或有风险时停下来。
+
+\paragraph{一般流程}
+\begin{enumerate}
+\item \verb|/spec|：先写成规格，再写代码。对应 \verb|spec-driven-development|。需求还含糊时，用 \verb|interview-me|，一次只问一个问题。
+\item \verb|/plan|：拆成可以逐条验证的小任务。对应 \verb|planning-and-task-breakdown|。
+\item \verb|/build|：一小段实现、测试、再提交。对应 \verb|incremental-implementation| 和 \verb|test-driven-development|。
+\item \verb|/test|：用测试和运行结果证明能用。出错时用 \verb|debugging-and-error-recovery|。
+\item \verb|/review|：合并前审查。对应 \verb|code-review-and-quality|。安全用 \verb|security-and-hardening|，性能用 \verb|performance-optimization|。
+\item \verb|/ship|：发布前核对清单、分阶段上线、准备回退。
+\end{enumerate}
+另有 \verb|/constraints| 把质量标准写下来，\verb|/code-simplify| 在行为不变的前提下把代码改简单，\verb|/webperf| 先测量再谈优化。名单会随仓库更新，以 README 为准。
+
+许可证是 MIT。
+
+
+\subsection{mattpocock/skills}
+这是 Matt Pocock 每天在用的一套小 skill，仓库见 \url{https://github.com/mattpocock/skills}。每条都可以单独拿来改。它们对着几件常见的事：动手前先问清楚，项目里用同一套词，先写会失败的测试再改代码，以及隔几天看一次模块是否还够深。命令会变，以 README 为准。
+
+\paragraph{安装}
+两条路选一条。两条都装，同一条 skill 会出现两份。
+
+Claude Code 在已经打开的 \verb|claude| 对话里输入：
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+/plugin install mattpocock-skills
+\end{lstlisting}
+这是官方市场里的插件，以后会跟着更新。
+
+Cursor、Codex 和其他 agent 用：
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+npx skills@latest add mattpocock/skills
+\end{lstlisting}
+安装时自己勾选。务必带上 \verb|setup-matt-pocock-skills|。文件写进项目里，可以改。要拉作者的新版本时，再执行 \verb|npx skills update|。
+
+\begin{xiaonao}
+你直接让 AI agent 帮你装。
+\end{xiaonao}
+
+\paragraph{怎么用}
+每个仓库先跑一次 \verb|/setup-matt-pocock-skills|。它会问用哪套议题跟踪（GitHub、Linear，或本地文件）、分诊时用什么标签、文档放在哪里。
+
+动手改之前，用 \verb|/grill-me| 把方案问清楚。要同时整理项目里的用词，并写下 \verb|CONTEXT.md| 和决策记录时，用 \verb|/grill-with-docs|。已经谈妥的内容收成规格，用 \verb|/to-spec|；拆成一张张小票，用 \verb|/to-tickets|；按规格实现，用 \verb|/implement|，中间走 \verb|/tdd|，提交前走 \verb|/code-review|。
+
+\paragraph{常用 skills}
+\begin{itemize}
+\item \verb|grill-me|、\verb|grilling|：把计划和设计问到每个分支都有着落。
+\item \verb|grill-with-docs|、\verb|domain-modeling|：整理项目用词，更新 \verb|CONTEXT.md| 和架构决策记录。
+\item \verb|tdd|：先写一个会失败的测试，再写刚好能通过的代码。
+\item \verb|diagnosing-bugs|：难查的错误和性能回退。先做出能复现的反馈，再缩小、假设、测量、修复，并留下回归测试。
+\item \verb|code-review|：从两条线看 diff。一条对照仓库的标准和常见坏味道，一条对照原来的规格。两条分开看。
+\item \verb|improve-codebase-architecture|：找出可以加深的模块，做成一份 HTML 报告，再挑一条问下去。隔几天跑一次。
+\item \verb|ask-matt|：不确定该用哪一条时，先问它。
+\end{itemize}
+名单会随仓库更新，以 README 为准。
+
+许可证是 MIT。
+
+
 
 \chapter{Git——程序和文档的版本管理}
 \section{基本认识}
