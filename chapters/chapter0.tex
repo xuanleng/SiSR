@@ -1026,6 +1026,63 @@ Windows 上是用户主目录下的 \verb|.claude\skills\humanizer-zh|。只给 
 许可证是 MIT。
 
 
+\subsection{awesome-skills/code-review-skill}
+Code Review Skill 把代码审查写成固定步骤：先弄清这次改动要做什么，再看架构、性能和测试，然后逐行看逻辑、安全和边界，最后按严重程度给出意见。仓库见 \url{https://github.com/awesome-skills/code-review-skill}。它是一份 \verb|SKILL.md|，支持 skills 的 agent 都能用。语言指南放在 \verb|reference/|，用到哪一种再读哪一份，核心说明保持很短。覆盖二十多种语言和框架，包括 React、Vue、TypeScript、Python、Java、Go、Rust、C/C++。规则会变，以 README 为准。
+
+\paragraph{安装}
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+npx skills add awesome-skills/code-review-skill
+\end{lstlisting}
+\verb|SKILL.md| 在仓库根上。Cursor 把仓库克隆到 skills 目录：
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+git clone https://github.com/awesome-skills/code-review-skill.git ~/.cursor/skills/code-review-skill
+\end{lstlisting}
+只给 Claude Code 用时，把同一仓库克隆到 \verb|~/.claude/skills/code-review-skill|。Windows 上是用户主目录下的 \verb|.cursor\skills\code-review-skill|。重载 skills 后，对话里输入 \verb|/code-review-skill|。
+
+\begin{xiaonao}
+你直接让 AI agent 帮你装。
+\end{xiaonao}
+
+\paragraph{怎么用}
+指出要审的改动：当前分支相对主干的 diff、一次 pull request，或若干文件。可以说侧重点，例如安全、性能、可维护性。它按语言去读 \verb|reference/| 里对应的指南。格式和拼写交给已有的检查工具，审查意见集中在逻辑、边界、安全和设计。
+
+\paragraph{四步}
+\begin{enumerate}
+\item 先看范围：这次改动解决什么问题，改动是否过大，测试是否已经通过。
+\item 再看整体：方案是否对得上问题，有没有明显的性能和测试缺口。
+\item 然后逐段看：逻辑、安全、可维护性、边界情况。
+\item 最后汇总：必须改的、建议改的、可以表扬的，并给出是否可以合并。
+\end{enumerate}
+
+\paragraph{意见怎么分级}
+每条意见带一个标记：
+\begin{itemize}
+\item \verb|blocking|：合并前要改。
+\item \verb|important|：应当改，是否挡住合并视情况。
+\item \verb|nit|：风格或偏好上的小事。
+\item \verb|suggestion|：可以考虑的另一种写法。
+\item \verb|learning|：解释给作者看，不必改。
+\item \verb|praise|：这段写得好，点出来。
+\end{itemize}
+口气用提问和建议，并说明会在什么情况下出错。
+
+许可证是 MIT。
+
+
 
 \chapter{Git——程序和文档的版本管理}
 \section{基本认识}
