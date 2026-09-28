@@ -224,7 +224,7 @@
 \item 文档结构：前言章节为固定结构，由文档定位、组织形式、历任主副编、经历分享和第一次推送打卡等构成。
 \begin{enumerate}
 \item 经历分享：基于文档定位，这是一个避坑文档，所以鼓励大家分享踩坑、脱坑经历，写在经历分享中。
-\item 第一次推送打卡：记录自己的称呼和第一次推送感言。
+\item 2026-09-28： huoxingyang 第一次使用Ubuntu遇到了许多困难在这分享一下，首先双系统问题，华硕电脑windows装在三星硬盘上是按打开VMD安装的，所以关着VMD找不到启动盘，而ubuntu装在七彩虹硬盘上，本来就是在 VMD 关闭时安装的，所以出现一个很尴尬的事情，每次切换双系统开机时需要连点f2改变vmn这样无疑非常麻烦，我问了豆包它让我这样操作最稳妥不容易损坏windows系统，然后我就找导师寻求帮助，导师让我去问grok，果然给我一个非常好的一劳永逸的解决方法先打开windows（VMN要开），然后用管理员身份打开命令提示符，执行：bcdedit /set {current} safeboot minimal，然后马上重启关掉VMN这时候windows进入安全模式，此时再用管理员身份打开终端是开不了的，需要用任务管理器来开然后再执行bcdedit /deletevalue {current} safeboot重启问题就完美解决了
 \end{enumerate}
 \end{itemize}
 
