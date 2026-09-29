@@ -865,6 +865,129 @@ Superpowers 是一套面向「让 agent 改项目」的 skills，仓库见 \url{
 
 
 
+\subsection{claude-scientific-writer}
+Claude Scientific Writer 是一套面向科研写作的 skills，作者 K-Dense Inc.，仓库见 \url{https://github.com/K-Dense-AI/claude-scientific-writer}。它先检索文献，再起草论文、综述、基金申请、会议海报和幻灯片，并处理引用和图表。它可以起草文字，引用和主张由你核对。许可证是 MIT。命令会变，以 README 为准。
+
+需要 Python 3.10 或更新，以及 \verb|ANTHROPIC_API_KEY|。文献检索还要 \verb|parallel-cli login|，或设置 \verb|PARALLEL_API_KEY|。出 PDF 需要本机装有 LaTeX。配图可以再设 \verb|OPENROUTER_API_KEY|。
+
+\paragraph{Claude Code}
+在已经打开的 \verb|claude| 对话里输入：
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+/plugin marketplace add https://github.com/K-Dense-AI/claude-scientific-writer
+/plugin install claude-scientific-writer
+\end{lstlisting}
+按提示重启后，在项目里执行 \verb|/claude-scientific-writer:scientific-writer-init|。它会写入 \verb|CLAUDE.md| 和 \verb|AGENTS.md|，并带上一组选定的 skills。
+
+也可以装命令行：\verb|pip install scientific-writer|，然后执行 \verb|scientific-writer|。
+
+\paragraph{Cursor}
+skills 在仓库的 \verb|skills/| 下，每个目录第一层有 \verb|SKILL.md|。本机所有项目都能用时，放到 \verb|~/.cursor/skills/|。Windows 上是用户主目录下的 \verb|.cursor\skills|。
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+git clone https://github.com/K-Dense-AI/claude-scientific-writer.git ~/claude-scientific-writer
+mkdir -p ~/.cursor/skills
+cp -R ~/claude-scientific-writer/skills/* ~/.cursor/skills/
+\end{lstlisting}
+新开一轮 Agent 对话，输入 \verb|/|，能搜到 research-lookup、peer-review，就说明已经接上。插件初始化那条命令是 Claude Code 里的。
+
+\begin{xiaonao}
+你直接让 AI agent 帮你装。
+\end{xiaonao}
+
+\paragraph{怎么用}
+用平常的话交代要写的文稿，并指明数据和图片，例如「用 \verb|data/| 里的结果写一篇关于……的论文」。要指定某一步时，点名对应的 skill，例如 \verb|research-lookup| 或 \verb|peer-review|。已有稿子就说从哪里接着改。
+
+\paragraph{一般流程}
+\begin{enumerate}
+\item 把数据和图片放进项目的 \verb|data/|。图片和数据文件会按类型分开。
+\item 说明要哪一类文稿：论文、综述、基金申请、海报或幻灯片。
+\item 它先检索文献，再起草。引用要你再核对一遍。
+\item 要审时点名 \verb|peer-review|。改稿直接接着说。
+\end{enumerate}
+
+\paragraph{常见 skills}
+插件安装时带上一组选定的 skills，完整名单以 README 和 \verb|skills.lock.json| 为准。常用的有：
+\begin{itemize}
+\item \verb|research-lookup|：检索文献。
+\item \verb|peer-review|：按审稿的方式读稿。
+\item \verb|citation-management|：处理 BibTeX 和参考文献。
+\item \verb|research-grants|：基金申请，含 NSF、NIH 等格式。
+\item \verb|clinical-reports|：临床病例和相关报告。
+\item \verb|scientific-slides|：研究报告用的幻灯片。
+\item \verb|latex-posters|：用 LaTeX 做会议海报。
+\item \verb|hypothesis-generation|：整理可检验的假设。
+\item \verb|scientific-schematics|：画示意图。
+\item \verb|market-research-reports|：写市场分析报告。
+\end{itemize}
+
+
+\subsection{document-skills}
+document-skills 是 Anthropic 官方 Agent Skills 仓库里的文档插件，仓库见 \url{https://github.com/anthropics/skills}。它管四类文件：Word、PDF、PowerPoint、Excel。付费的 Claude.ai 里这四条已经自带。本地 agent 要单独安装。这四条源码公开，许可证是专有的，供对照参考。命令会变，以 README 为准。
+
+\paragraph{Claude Code}
+在已经打开的 \verb|claude| 对话里输入：
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+/plugin marketplace add anthropics/skills
+/plugin install document-skills@anthropic-agent-skills
+\end{lstlisting}
+装好后用平常的话交代，例如「用 pdf 把这个文件里的表单字段提出来」。
+
+\paragraph{Cursor}
+四条 skill 各自放进 Cursor 的 skills 目录，让 \verb|SKILL.md| 就在每个目录的第一层。本机所有项目都能用时，放到 \verb|~/.cursor/skills/|。Windows 上是用户主目录下的 \verb|.cursor\skills|。
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+git clone https://github.com/anthropics/skills.git ~/anthropics-skills
+mkdir -p ~/.cursor/skills
+cp -R ~/anthropics-skills/skills/docx ~/.cursor/skills/docx
+cp -R ~/anthropics-skills/skills/pdf ~/.cursor/skills/pdf
+cp -R ~/anthropics-skills/skills/pptx ~/.cursor/skills/pptx
+cp -R ~/anthropics-skills/skills/xlsx ~/.cursor/skills/xlsx
+\end{lstlisting}
+新开一轮 Agent 对话，输入 \verb|/|，能搜到 docx、pdf、pptx、xlsx，就说明已经接上。
+
+\begin{xiaonao}
+你直接让 AI agent 帮你装。
+\end{xiaonao}
+
+\paragraph{怎么用}
+说出文件类型和要做的事，例如「把这份纪要做成 Word」「把这几页 PDF 合成一份」「按这些数据做一页幻灯片」「把这张表做成带公式的 Excel」。要指定某一条时，点名 docx、pdf、pptx 或 xlsx。
+
+\paragraph{四条 skills}
+\begin{itemize}
+\item \verb|docx|：新建、阅读和修改 Word（\verb|.docx|），含标题、目录、批注和修订。
+\item \verb|pdf|：抽取文字和表格，合并或拆分，填写表单，加水印。
+\item \verb|pptx|：做和改 PowerPoint。
+\item \verb|xlsx|：做和改 Excel，保留公式和格式。
+\end{itemize}
+同一仓库里还有示例 skills，安装插件时选的是 \verb|document-skills|。名单以 README 为准。
+
+
 \subsection{Academic Research Skills}
 Academic Research Skills（ARS）是一套面向写论文的 skills，作者 Cheng-I Wu（吴政宜），仓库见 \url{https://github.com/imbad0202/Academic-Research-Skills}。它把一篇论文分成几段来做：先把问题和文献问清楚，再起草，然后审，再改。每一段都停下来等你确认。它可以起草文字，主张由你负责。简体中文说明在该仓库的 \verb|README.zh-CN.md|。命令会变，以 README 为准。
 
