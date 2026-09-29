@@ -1340,6 +1340,19 @@ Windows 上是用户主目录下的 \verb|.claude\skills\humanizer-zh|。只给 
 许可证是 MIT。
 
 
+\section{跟 AI 聊聊股票}
+股票也有人做成 skill，仍是一个目录里的 \verb|SKILL.md|。下面四套按 GitHub 星标从高到低。星标会变，数字是 2026 年 9 月 29 日查到的。它们把看公司、看行情、记交易写成步骤，供 agent 按步骤整理材料。下单在你自己的券商账户里完成。安装命令以各仓库的 README 为准。
+
+\begin{xiaonao}
+跟 AI 聊聊股票，学习基本知识，了解前沿科技。
+\end{xiaonao}
+
+\begin{itemize}
+\item \verb|tradermonty/claude-trading-skills|，2913 星，\url{https://github.com/tradermonty/claude-trading-skills}。给时间不多的个人用：看当天市场、每周看持仓、条件允许时筛波段、记下每笔交易。部分步骤要用行情接口；没有接口时，可以用公开数据和图表截图走基本路径。
+\item \verb|agiprolabs/claude-trading-skills|，398 星，\url{https://github.com/agiprolabs/claude-trading-skills}。大约 68 条，Cursor 可以直接用。内容以加密货币、链上数据和量化流程为主。
+\item \verb|zubair-trabzada/ai-trading-claude|，263 星，\url{https://github.com/zubair-trabzada/ai-trading-claude}。给出股票代码后，从技术面、基本面、消息、风险和论点几路整理，打 0 到 100 分，并标成 Strong Buy、Buy、Hold、Caution 或 Avoid。安装方式按 Claude Code 来写。
+\item \verb|yennanliu/InvestSkill|，227 星，\url{https://github.com/yennanliu/InvestSkill}。大约 30 套美股分析框架，不另接行情 API。安装时可以指定 Cursor。\verb|stock-eval| 按护城河、资本回报等打分，并写出买入、持有或卖出的倾向。
+\end{itemize}
 
 
 
