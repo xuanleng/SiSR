@@ -1386,52 +1386,7 @@ Git 弹出 Vim 让你写提交说明时，同样是：按 \verb|i| 写完，\ver
 
 \chapter{MinerU——文档解析工具}
 \section{基本认识}
-
-MinerU 由上海人工智能实验室的 OpenDataLab 团队开发，实验室做书生·浦语，书生·万象时，需要从大量文献里抽出高质量文本，现成工具对中文论文，双栏，公式和表格都不稳，于是做了这个提取工具，抽出来的数据先用在这些模型的训练里。
-
-\begin{center}
-\begin{tabular}{|p{0.22\textwidth}|p{0.16\textwidth}|p{0.52\textwidth}|}
-\hline
-\centering\arraybackslash 时间 &
-\centering\arraybackslash 版本 &
-\centering\arraybackslash 变化 \\
-\hline
-2024 年 7 月 5 日 & 首次开源 & 面向 PDF 的版面分析和公式、表格识别 \\
-\hline
-2025 年 1 月 & 1.0 & 上线网站和客户端；加入语言识别和本地 API \\
-\hline
-2025 年 6 月 13 日 & 2.0 & 整套重写；包名改为 \texttt{mineru}；去掉对 PyMuPDF 的依赖；加入不足 10 亿参数的专用解析模型 \\
-\hline
-2026 年 3 月 29 日 & 3.0 & 长文档按窗口处理，支持多卡；去掉几套许可证不适合商用的旧模型 \\
-\hline
-现在 & 4.0 & 分成四档精度；增加 Word、PPT、Excel 等原生格式；分成“整份转换”和“文档库阅读”两条命令 \\
-\hline
-\end{tabular}
-\end{center}
-
 MinerU 是 OpenDataLab 做的文档解析工具，它把 PDF，扫描件，图片，以及 Word，PPT，Excel 转成 Markdown 或 JSON，方便后面检索、抽取，或交给大模型使用，它主要解决的是“版面复杂，不好直接复制”的问题，比如按人的阅读顺序抽出正文，并去掉页眉，页脚，页码，公式转成 LaTeX，表格转成 HTML，跨页的表格可以接回去，图片，标题，段落，列表会分开保留，图片单独抽出，并带上图注，扫描版，乱码 PDF，手写体会走 OCR。最常见的用法是把一篇论文或一份报告丢进去，得到一份可以直接编辑或喂给模型的文本。
-
-\section{安装方式}
-
-可以用AI帮助安装，也可以使用官方安装方式手动安装，具体过程如下：
-
-在终端依次执行
-\begin{lstlisting}[
-  numbers=none,
-  xleftmargin=2mm,
-  framexleftmargin=2mm,
-  columns=fullflexible,
-  breaklines=true,
-  basicstyle=\ttfamily\footnotesize
-]
-cd ~
-mkdir -p mineru && cd mineru
-uv venv --python 3.12 .venv
-source .venv/bin/activate
-uv pip install -U "mineru>=4.0,<5" -i https://mirrors.aliyun.com/pypi/simple
-mineru version --json
-\end{lstlisting}
-国内用阿里云镜像，装好后解析一个 PDF，mineru-kit parse /home/hxy/Desktop/SiSR.pdf -o /home/hxy/Desktop/SiSR.md --tier flash，--tier flash 只抽取 PDF 里已有的文字，速度快，扫描版看不清字时，改成 --tier standard，第一次会下载模型，会慢一些。
 
 \section{常见用途}
 
@@ -1463,60 +1418,6 @@ mineru version --json
 \hline
 \end{tabular}
 \end{center}
-
-\section{把一份 PDF 转成 Markdown}
-以下所有***代表文件存放磁盘路径
-整份转换，文字型 PDF 在终端输入：
-\begin{lstlisting}[
-  numbers=none,
-  xleftmargin=2mm,
-  framexleftmargin=2mm,
-  columns=fullflexible,
-  breaklines=true,
-  basicstyle=\ttfamily\footnotesize
-]
-mineru-kit parse /***.pdf -o /***-mineru.md --tier flash
-\end{lstlisting}
-
-只要其中几页。页码从 1 开始，两端都包括，r1 表示最后一页：
-\begin{lstlisting}[
-  numbers=none,
-  xleftmargin=2mm,
-  framexleftmargin=2mm,
-  columns=fullflexible,
-  breaklines=true,
-  basicstyle=\ttfamily\footnotesize
-]
-mineru-kit parse /***.pdf /-o /***/--tier flash
-\end{lstlisting}
-
--o 必须写,单个文件时，-o 是输出文件的路径，目录或多文件时，-o 必须是一个文件夹。
-扫描件：
-\begin{lstlisting}[
-  numbers=none,
-  xleftmargin=2mm,
-  framexleftmargin=2mm,
-  columns=fullflexible,
-  breaklines=true,
-  basicstyle=\ttfamily\footnotesize
-]
-mineru-kit parse 扫描件.pdf -o 扫描件.md --tier standard --ocr-mode ocr
-\end{lstlisting}
-
---ocr-mode 有三个值，auto 由程序判断，txt 只用文字层，ocr 强制识别，一次转一个文件夹，结果打成压缩包：
-
-\begin{lstlisting}[
-  numbers=none,
-  xleftmargin=2mm,
-  framexleftmargin=2mm,
-  columns=fullflexible,
-  breaklines=true,
-  basicstyle=\ttfamily\footnotesize
-]
-mineru-kit parse ./documents -o ./output --format zip --tier flash
-\end{lstlisting}
-
---format 可以是 markdown，middle\_json，zip。middle\_json 是中间结构，每一块都带类型和位置，适合再写程序处理，zip 里会带上图片和多种结果。
 
 \section{搜索和接着读}
 这条线用 mineru，不带 -kit，登记一个文件并解析，PDF 不写页码时只有前 10 页，整本要加 --pages all。第一次若在下模型，60 秒往往不够，把等待时间加长。
