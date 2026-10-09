@@ -135,6 +135,23 @@
 \end{enumerate}
 
 
+\section{冷轩课题组研究生培养方式}
+也不限于研究生，入组的本科生也是这样，只是刚入组的人扶持更密。研究是探索知识的边界，充满黑暗和未知。研究就是要习惯与未知打交道，在不断走岔路、踩坑的过程中，还能把方向拉回到目标点。
+
+导师先给一个方向。可以把研究生阶段看成沿着这个方向走100米。60米是及格线，导师承诺陪你走到这里：问题是否还值得做、这条路是不是已经走死、做到什么程度算完成，这些判断在导师。100米是培养目标。超出100米、走出自己的路，节奏完全交给你。
+
+步子要自己走。导师不每步扶着你，也不是 baby mother，不会替你做下一步，也不会天天催。动手、读文献、把上次任务做完，主动权在你。自己能走的步数会变多，这是练出来的，不是进来时就定死的。刚入组的几个月，任务拆得更小、讨论更密；能独立走一段之后，扶持再放开。本科生、硕士和博士不是同一档。拿学位就业，先保证走到及格线并完成约定目标；继续读博，才要求往100米以外走。
+
+学生遇到问题，导师避免直接给答案，而是给方向，让学生自己找到答案。来讨论时先说已经试了什么、卡在哪里。导师指出下一步该看的地方：去对哪一篇、去查哪一个函数、先把哪一个量画出来。方向要落到你马上能动手的那一步，不会只说「再想想」。刚入组的几个月，可以先看导师做一遍同类的小例子，再自己做真正的那一题；方法看过一次，同样的题就不再演示。
+
+有三类问题会直接说。工具和流程里已经确定的事实，比如环境怎么配、文件在哪、这个报错对应哪一种已知用法。安全、仪器时间和已经临近的截止。文献和代码里都没有、只有导师知道的那一层，比如这套数据里某个参数为什么不能信、这条路以前走过并且是死的。
+
+讨论有两条线。固定的短讨论，两周一次，到点就开，不依赖你鼓起勇气来敲门。多出来的讨论由你发起，节奏快就多找。每次先核对上次任务，再给建议，然后是完善或新任务。任务带着大概完成时间，时间到了就在固定讨论里对一下：做完了往下走，没做完就说明卡在哪里。
+
+卡住和停住要分开。约定的天数里没有进展（没另约的话，默认一周），或者到了固定讨论你不来，导师会主动联系一次，只确认你是在有效地挣扎，还是已经停住、自己看不出下一步。确认之后，下一步仍要你自己走。若是停住，导师把方向收到你能迈出的那一步，不把答案补上。更紧的方向给过仍迈不出，就改成演示一个更小的例子，然后把原题还给你。你一直不走，导师不会推着你毕业，60米也可能走不到。你走得快，导师跟得快。超出及格线之后，你走得慢，导师也按你的节奏慢：慢的是你在深入，不是把困惑耗成习惯。
+
+
+
 
 \section{起步准备：账号与备份}
 科研起步先把常用账号和备份渠道备好即可，不必在每个网站上停留太久。
@@ -802,9 +819,16 @@ ChatGPT 是 OpenAI 的聊天应用，网页 \url{https://chatgpt.com} ，桌面�
 
 
 \section{AI agent常用Skills}
-Skill 是写给 agent 的操作说明，一般是一个目录里的 \verb|SKILL.md|。模型可以更换，这份说明留在本机：任务对得上时，agent 先读它，再按其中的步骤做。自己的固定流程以后也可以写成 skill。
+Skill 是留在本机的操作说明，一般是一个目录里的 \verb|SKILL.md|。模型可以更换，这份说明还在：任务对得上时，agent 先读它，再按其中的步骤做。下面九套按用途来看，用途重叠的只装一套。安装命令会变，各小节以该仓库的 README 为准。
 
-\subsection{Superpowers}
+\begin{itemize}
+\item \verb|obra/superpowers|、\verb|addyosmani/agent-skills|、\verb|mattpocock/skills|：改项目。三套流程重叠，选一套。
+\item \verb|K-Dense-AI/claude-scientific-writer|、\verb|imbad0202/Academic-Research-Skills|：写论文。两套里选一套。
+\item \verb|blader/humanizer|：改英文。\verb|op7418/Humanizer-zh|：改中文。
+\item \verb|awesome-skills/code-review-skill|：审代码。\verb|anthropics/skills| 里的 document-skills：做 Word、PDF、幻灯片和 Excel。
+\end{itemize}
+
+\subsection{obra/superpowers}
 Superpowers 是一套面向「让 agent 改项目」的 skills，仓库见 \url{https://github.com/obra/superpowers}。它把常见动作排成固定顺序：动手前先把需求问清楚，再写成可以执行的计划；修改时按计划进行；出错时先查原因；宣称完成前先核对结果。Cursor、Claude Code、Codex 要各自安装一次。命令会变，以该仓库的 README 为准。
 
 \paragraph{Claude Code}
@@ -862,6 +886,483 @@ Superpowers 是一套面向「让 agent 改项目」的 skills，仓库见 \url{
 \item \verb|using-superpowers|：一轮对话开始时用，先确定该读哪一条 skill。
 \end{itemize}
 名单会随仓库更新，以 \url{https://github.com/obra/superpowers} 的 README 为准。
+
+
+
+\subsection{addyosmani/agent-skills}
+Agent Skills 是 Addy Osmani 整理的一套工程流程，仓库见 \url{https://github.com/addyosmani/agent-skills}。它把写软件分成几段：先写清楚要做什么，再拆成小任务，然后一小段一小段实现，用测试证明能用，审查之后再发布。一共大约 25 条 skill，每条都是 \verb|skills/| 下一个目录里的 \verb|SKILL.md|。任务对得上时，agent 会自己去读。斜杠命令会变，以 README 为准。和前面的 Superpowers 怎么取舍，见该仓库的 \verb|docs/comparison.md|。
+
+\paragraph{安装}
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+npx skills add addyosmani/agent-skills
+\end{lstlisting}
+一次装全部。先看名单再挑，把上面的命令换成 \verb|npx skills add addyosmani/agent-skills --list|。只要其中一条时，加上 \verb|--skill| 和名字，例如 \verb|test-driven-development|。只装一条时，仓库根上的 \verb|references/| 不会一起复制过来；要用那些共用清单，就装整仓。
+
+Claude Code 在已经打开的 \verb|claude| 对话里输入：
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+/plugin marketplace add addyosmani/agent-skills
+/plugin install agent-skills@addy-agent-skills
+\end{lstlisting}
+
+Cursor 要让每条 \verb|SKILL.md| 都在 skills 目录的第一层。\verb|npx| 会自己放好。用手拷时，把仓库里 \verb|skills/| 下的每个子目录复制到 \verb|~/.cursor/skills/|。Windows 上是用户主目录下的 \verb|.cursor\skills|。
+
+\begin{xiaonao}
+你直接让 AI agent 帮你装。
+\end{xiaonao}
+
+\paragraph{怎么用}
+用斜杠命令点明这一步，例如 \verb|/spec|、\verb|/plan|、\verb|/build|、\verb|/test|、\verb|/review|、\verb|/ship|。也可以直接说 skill 的名字。\verb|/build auto| 在你点头一次之后，按计划把任务做完；每项仍然先写测试、单独提交，失败或有风险时停下来。
+
+\paragraph{一般流程}
+\begin{enumerate}
+\item \verb|/spec|：先写成规格，再写代码。对应 \verb|spec-driven-development|。需求还含糊时，用 \verb|interview-me|，一次只问一个问题。
+\item \verb|/plan|：拆成可以逐条验证的小任务。对应 \verb|planning-and-task-breakdown|。
+\item \verb|/build|：一小段实现、测试、再提交。对应 \verb|incremental-implementation| 和 \verb|test-driven-development|。
+\item \verb|/test|：用测试和运行结果证明能用。出错时用 \verb|debugging-and-error-recovery|。
+\item \verb|/review|：合并前审查。对应 \verb|code-review-and-quality|。安全用 \verb|security-and-hardening|，性能用 \verb|performance-optimization|。
+\item \verb|/ship|：发布前核对清单、分阶段上线、准备回退。
+\end{enumerate}
+另有 \verb|/constraints| 把质量标准写下来，\verb|/code-simplify| 在行为不变的前提下把代码改简单，\verb|/webperf| 先测量再谈优化。名单会随仓库更新，以 README 为准。
+
+许可证是 MIT。
+
+
+
+
+\subsection{mattpocock/skills}
+这是 Matt Pocock 每天在用的一套小 skill，仓库见 \url{https://github.com/mattpocock/skills}。每条都可以单独拿来改。它们对着几件常见的事：动手前先问清楚，项目里用同一套词，先写会失败的测试再改代码，以及隔几天看一次模块是否还够深。命令会变，以 README 为准。
+
+\paragraph{安装}
+两条路选一条。两条都装，同一条 skill 会出现两份。
+
+Claude Code 在已经打开的 \verb|claude| 对话里输入：
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+/plugin install mattpocock-skills
+\end{lstlisting}
+这是官方市场里的插件，以后会跟着更新。
+
+Cursor、Codex 和其他 agent 用：
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+npx skills@latest add mattpocock/skills
+\end{lstlisting}
+安装时自己勾选。务必带上 \verb|setup-matt-pocock-skills|。文件写进项目里，可以改。要拉作者的新版本时，再执行 \verb|npx skills update|。
+
+\begin{xiaonao}
+你直接让 AI agent 帮你装。
+\end{xiaonao}
+
+\paragraph{怎么用}
+每个仓库先跑一次 \verb|/setup-matt-pocock-skills|。它会问用哪套议题跟踪（GitHub、Linear，或本地文件）、分诊时用什么标签、文档放在哪里。
+
+动手改之前，用 \verb|/grill-me| 把方案问清楚。要同时整理项目里的用词，并写下 \verb|CONTEXT.md| 和决策记录时，用 \verb|/grill-with-docs|。已经谈妥的内容收成规格，用 \verb|/to-spec|；拆成一张张小票，用 \verb|/to-tickets|；按规格实现，用 \verb|/implement|，中间走 \verb|/tdd|，提交前走 \verb|/code-review|。
+
+\paragraph{常用 skills}
+\begin{itemize}
+\item \verb|grill-me|、\verb|grilling|：把计划和设计问到每个分支都有着落。
+\item \verb|grill-with-docs|、\verb|domain-modeling|：整理项目用词，更新 \verb|CONTEXT.md| 和架构决策记录。
+\item \verb|tdd|：先写一个会失败的测试，再写刚好能通过的代码。
+\item \verb|diagnosing-bugs|：难查的错误和性能回退。先做出能复现的反馈，再缩小、假设、测量、修复，并留下回归测试。
+\item \verb|code-review|：从两条线看 diff。一条对照仓库的标准和常见坏味道，一条对照原来的规格。两条分开看。
+\item \verb|improve-codebase-architecture|：找出可以加深的模块，做成一份 HTML 报告，再挑一条问下去。隔几天跑一次。
+\item \verb|ask-matt|：不确定该用哪一条时，先问它。
+\end{itemize}
+名单会随仓库更新，以 README 为准。
+
+许可证是 MIT。
+
+
+
+
+\subsection{anthropics/skills}
+document-skills 是 Anthropic 官方 Agent Skills 仓库里的文档插件，仓库见 \url{https://github.com/anthropics/skills}。它管四类文件：Word、PDF、PowerPoint、Excel。付费的 Claude.ai 里这四条已经自带。本地 agent 要单独安装。这四条源码公开，许可证是专有的，供对照参考。命令会变，以 README 为准。
+
+\paragraph{Claude Code}
+在已经打开的 \verb|claude| 对话里输入：
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+/plugin marketplace add anthropics/skills
+/plugin install document-skills@anthropic-agent-skills
+\end{lstlisting}
+装好后用平常的话交代，例如「用 pdf 把这个文件里的表单字段提出来」。
+
+\paragraph{Cursor}
+四条 skill 各自放进 Cursor 的 skills 目录，让 \verb|SKILL.md| 就在每个目录的第一层。本机所有项目都能用时，放到 \verb|~/.cursor/skills/|。Windows 上是用户主目录下的 \verb|.cursor\skills|。
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+git clone https://github.com/anthropics/skills.git ~/anthropics-skills
+mkdir -p ~/.cursor/skills
+cp -R ~/anthropics-skills/skills/docx ~/.cursor/skills/docx
+cp -R ~/anthropics-skills/skills/pdf ~/.cursor/skills/pdf
+cp -R ~/anthropics-skills/skills/pptx ~/.cursor/skills/pptx
+cp -R ~/anthropics-skills/skills/xlsx ~/.cursor/skills/xlsx
+\end{lstlisting}
+新开一轮 Agent 对话，输入 \verb|/|，能搜到 docx、pdf、pptx、xlsx，就说明已经接上。
+
+\begin{xiaonao}
+你直接让 AI agent 帮你装。
+\end{xiaonao}
+
+\paragraph{怎么用}
+说出文件类型和要做的事，例如「把这份纪要做成 Word」「把这几页 PDF 合成一份」「按这些数据做一页幻灯片」「把这张表做成带公式的 Excel」。要指定某一条时，点名 docx、pdf、pptx 或 xlsx。
+
+\paragraph{四条 skills}
+\begin{itemize}
+\item \verb|docx|：新建、阅读和修改 Word（\verb|.docx|），含标题、目录、批注和修订。
+\item \verb|pdf|：抽取文字和表格，合并或拆分，填写表单，加水印。
+\item \verb|pptx|：做和改 PowerPoint。
+\item \verb|xlsx|：做和改 Excel，保留公式和格式。
+\end{itemize}
+同一仓库里还有示例 skills，安装插件时选的是 \verb|document-skills|。名单以 README 为准。
+
+
+
+\subsection{awesome-skills/code-review-skill}
+Code Review Skill 把代码审查写成固定步骤：先弄清这次改动要做什么，再看架构、性能和测试，然后逐行看逻辑、安全和边界，最后按严重程度给出意见。仓库见 \url{https://github.com/awesome-skills/code-review-skill}。它是一份 \verb|SKILL.md|，支持 skills 的 agent 都能用。语言指南放在 \verb|reference/|，用到哪一种再读哪一份，核心说明保持很短。覆盖二十多种语言和框架，包括 React、Vue、TypeScript、Python、Java、Go、Rust、C/C++。规则会变，以 README 为准。
+
+\paragraph{安装}
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+npx skills add awesome-skills/code-review-skill
+\end{lstlisting}
+\verb|SKILL.md| 在仓库根上。Cursor 把仓库克隆到 skills 目录：
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+git clone https://github.com/awesome-skills/code-review-skill.git ~/.cursor/skills/code-review-skill
+\end{lstlisting}
+只给 Claude Code 用时，把同一仓库克隆到 \verb|~/.claude/skills/code-review-skill|。Windows 上是用户主目录下的 \verb|.cursor\skills\code-review-skill|。重载 skills 后，对话里输入 \verb|/code-review-skill|。
+
+\begin{xiaonao}
+你直接让 AI agent 帮你装。
+\end{xiaonao}
+
+\paragraph{怎么用}
+指出要审的改动：当前分支相对主干的 diff、一次 pull request，或若干文件。可以说侧重点，例如安全、性能、可维护性。它按语言去读 \verb|reference/| 里对应的指南。格式和拼写交给已有的检查工具，审查意见集中在逻辑、边界、安全和设计。
+
+\paragraph{四步}
+\begin{enumerate}
+\item 先看范围：这次改动解决什么问题，改动是否过大，测试是否已经通过。
+\item 再看整体：方案是否对得上问题，有没有明显的性能和测试缺口。
+\item 然后逐段看：逻辑、安全、可维护性、边界情况。
+\item 最后汇总：必须改的、建议改的、可以表扬的，并给出是否可以合并。
+\end{enumerate}
+
+\paragraph{意见怎么分级}
+每条意见带一个标记：
+\begin{itemize}
+\item \verb|blocking|：合并前要改。
+\item \verb|important|：应当改，是否挡住合并视情况。
+\item \verb|nit|：风格或偏好上的小事。
+\item \verb|suggestion|：可以考虑的另一种写法。
+\item \verb|learning|：解释给作者看，不必改。
+\item \verb|praise|：这段写得好，点出来。
+\end{itemize}
+口气用提问和建议，并说明会在什么情况下出错。
+
+许可证是 MIT。
+
+
+
+
+
+
+
+\subsection{K-Dense-AI/claude-scientific-writer}
+Claude Scientific Writer 是一套面向科研写作的 skills，作者 K-Dense Inc.，仓库见 \url{https://github.com/K-Dense-AI/claude-scientific-writer}。它先检索文献，再起草论文、综述、基金申请、会议海报和幻灯片，并处理引用和图表。它可以起草文字，引用和主张由你核对。许可证是 MIT。命令会变，以 README 为准。
+
+需要 Python 3.10 或更新，以及 \verb|ANTHROPIC_API_KEY|。文献检索还要 \verb|parallel-cli login|，或设置 \verb|PARALLEL_API_KEY|。出 PDF 需要本机装有 LaTeX。配图可以再设 \verb|OPENROUTER_API_KEY|。
+
+\paragraph{Claude Code}
+在已经打开的 \verb|claude| 对话里输入：
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+/plugin marketplace add https://github.com/K-Dense-AI/claude-scientific-writer
+/plugin install claude-scientific-writer
+\end{lstlisting}
+按提示重启后，在项目里执行 \verb|/claude-scientific-writer:scientific-writer-init|。它会写入 \verb|CLAUDE.md| 和 \verb|AGENTS.md|，并带上一组选定的 skills。
+
+也可以装命令行：\verb|pip install scientific-writer|，然后执行 \verb|scientific-writer|。
+
+\paragraph{Cursor}
+skills 在仓库的 \verb|skills/| 下，每个目录第一层有 \verb|SKILL.md|。本机所有项目都能用时，放到 \verb|~/.cursor/skills/|。Windows 上是用户主目录下的 \verb|.cursor\skills|。
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+git clone https://github.com/K-Dense-AI/claude-scientific-writer.git ~/claude-scientific-writer
+mkdir -p ~/.cursor/skills
+cp -R ~/claude-scientific-writer/skills/* ~/.cursor/skills/
+\end{lstlisting}
+新开一轮 Agent 对话，输入 \verb|/|，能搜到 research-lookup、peer-review，就说明已经接上。插件初始化那条命令是 Claude Code 里的。
+
+\begin{xiaonao}
+你直接让 AI agent 帮你装。
+\end{xiaonao}
+
+\paragraph{怎么用}
+用平常的话交代要写的文稿，并指明数据和图片，例如「用 \verb|data/| 里的结果写一篇关于……的论文」。要指定某一步时，点名对应的 skill，例如 \verb|research-lookup| 或 \verb|peer-review|。已有稿子就说从哪里接着改。
+
+\paragraph{一般流程}
+\begin{enumerate}
+\item 把数据和图片放进项目的 \verb|data/|。图片和数据文件会按类型分开。
+\item 说明要哪一类文稿：论文、综述、基金申请、海报或幻灯片。
+\item 它先检索文献，再起草。引用要你再核对一遍。
+\item 要审时点名 \verb|peer-review|。改稿直接接着说。
+\end{enumerate}
+
+\paragraph{常见 skills}
+插件安装时带上一组选定的 skills，完整名单以 README 和 \verb|skills.lock.json| 为准。常用的有：
+\begin{itemize}
+\item \verb|research-lookup|：检索文献。
+\item \verb|peer-review|：按审稿的方式读稿。
+\item \verb|citation-management|：处理 BibTeX 和参考文献。
+\item \verb|research-grants|：基金申请，含 NSF、NIH 等格式。
+\item \verb|clinical-reports|：临床病例和相关报告。
+\item \verb|scientific-slides|：研究报告用的幻灯片。
+\item \verb|latex-posters|：用 LaTeX 做会议海报。
+\item \verb|hypothesis-generation|：整理可检验的假设。
+\item \verb|scientific-schematics|：画示意图。
+\item \verb|market-research-reports|：写市场分析报告。
+\end{itemize}
+
+
+
+
+\subsection{imbad0202/Academic-Research-Skills}
+Academic Research Skills（ARS）是一套面向写论文的 skills，作者 Cheng-I Wu（吴政宜），仓库见 \url{https://github.com/imbad0202/Academic-Research-Skills}。它把一篇论文分成几段来做：先把问题和文献问清楚，再起草，然后审，再改。每一段都停下来等你确认。它可以起草文字，主张由你负责。简体中文说明在该仓库的 \verb|README.zh-CN.md|。命令会变，以 README 为准。
+
+\paragraph{Claude Code}
+在已经打开的 \verb|claude| 对话里输入：
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+/plugin marketplace add Imbad0202/academic-research-skills
+/plugin install academic-research-skills
+\end{lstlisting}
+装好后执行 \verb|/ars-plan|，用正在写的题目走一遍章节结构。也可以试 \verb|/ars-lit-review|，后面接一个主题。
+
+\paragraph{Cursor}
+把四个 skill 目录各自放进 Cursor 的 skills 目录，让 \verb|SKILL.md| 就在每个目录的第一层。本机所有项目都能用时，放到 \verb|~/.cursor/skills/|。Windows 上是用户主目录下的 \verb|.cursor\skills|。
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+git clone https://github.com/Imbad0202/academic-research-skills.git ~/academic-research-skills
+mkdir -p ~/.cursor/skills
+cp -R ~/academic-research-skills/deep-research ~/.cursor/skills/deep-research
+cp -R ~/academic-research-skills/academic-paper ~/.cursor/skills/academic-paper
+cp -R ~/academic-research-skills/academic-paper-reviewer ~/.cursor/skills/academic-paper-reviewer
+cp -R ~/academic-research-skills/academic-pipeline ~/.cursor/skills/academic-pipeline
+\end{lstlisting}
+新开一轮 Agent 对话，输入 \verb|/|，能搜到 deep-research、academic-paper、academic-paper-reviewer、academic-pipeline，就说明已经接上。\verb|/ars-plan| 是 Claude Code 里的命令，Cursor 里点这些 skill 的名字。
+
+\paragraph{Codex}
+Codex 用另一个仓库，内容相同，打包方式按 Codex 来：\url{https://github.com/Imbad0202/academic-research-skills-codex}。安装命令以那个仓库的 README 为准。
+
+\begin{xiaonao}
+你直接让 AI agent 帮你装。
+\end{xiaonao}
+
+\paragraph{怎么用}
+用平常的话交代任务，例如「带我写一篇关于……的论文」，或「审一下这篇」。要指定某一步时，用上面的斜杠命令。已经有稿子、或已经收到审稿意见，直接说从哪里接着做。
+
+\paragraph{一般流程}
+让它陪你写一篇论文时，默认按下面的顺序走。你点头，它才进入下一步。
+\begin{enumerate}
+\item 研究：把问题和文献问清楚。
+\item 写作：按结构起草。\verb|/ars-plan| 先用问答把章节走一遍。
+\item 核对：查引用是否存在，主张和所引文献是否对得上。
+\item 审稿：从几个角度读这篇稿子，其中一路专门挑毛病。
+\item 修改：对着意见改。收到外审意见时，从这里进入。
+\item 收尾：再核对一次，并留下这次写作过程的记录。
+\end{enumerate}
+实验在外面做完，再把结果交回写作这一步。
+
+\paragraph{四条 skills}
+\begin{itemize}
+\item \verb|deep-research|：检索和梳理文献。可以做简报、文献综述，或一步步把问题问清楚。
+\item \verb|academic-paper|：起草、改稿、转引文格式、检查引用。
+\item \verb|academic-paper-reviewer|：按几路审稿人来读，包括专门唱反调的一路。
+\item \verb|academic-pipeline|：把上面几步串成一次完整的写作。
+\end{itemize}
+名单和模式会随仓库更新，以 README 为准。许可证是 CC BY-NC 4.0：可以复制和改写，需要标明出处，不用于商业用途。
+
+
+\subsection{blader/humanizer}
+Humanizer 把读起来像模型生成的文字改得像人写的，意思保持不变。仓库见 \url{https://github.com/blader/humanizer}。它是一份 \verb|SKILL.md|，支持 skills 的 agent 都能用。中文稿用下一小节。规则会变，以 README 为准。
+
+\paragraph{安装}
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+npx skills add blader/humanizer --global
+\end{lstlisting}
+去掉 \verb|--global|，就只装在当前项目。要指定某一个 agent，按 README 加上 \verb|--agent|。装好后重载 skills，对话里用 \verb|/humanizer|。
+
+Claude Code 2.1.142 及以后，也可以在已经打开的 \verb|claude| 对话里输入：
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+/plugin marketplace add blader/humanizer
+/plugin install humanizer@humanizer
+\end{lstlisting}
+这条用 \verb|/humanizer:humanizer| 调用。
+
+Cursor 把仓库克隆到 skills 目录。\verb|SKILL.md| 在仓库根上，所以目录名就是 skill 的名字：
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+git clone https://github.com/blader/humanizer.git ~/.cursor/skills/humanizer
+\end{lstlisting}
+Windows 上放到用户主目录的 \verb|.cursor\skills\humanizer|。新开一轮 Agent 对话，输入 \verb|/|，能搜到 humanizer 就接上了。
+
+\begin{xiaonao}
+你直接让 AI agent 帮你装。
+\end{xiaonao}
+
+\paragraph{怎么用}
+贴上原文，或给出文件路径。想靠近自己的口气时，先贴两三段自己写过的文字，再贴要改的稿子。它先标出痕迹，改一稿，再核对原来的主张还在不在，然后给出终稿。名字、数字、日期和引文必须来自原文，或来自你补上的材料。原文里没有的细节，它会问。
+
+许可证是 MIT。
+
+
+\subsection{op7418/Humanizer-zh}
+Humanizer-zh 润色中文稿：去掉空话、重复和套话，保留事实、话说到什么程度，以及原来的口气。它从上一小节的 Humanizer 改来，并加上中文里常见的写法，例如长定语和套话收尾。仓库见 \url{https://github.com/op7418/Humanizer-zh}。它是给 agent 读的编辑说明。它不判断文章出自谁的手，也不保证通过某种检测器。规则会变，以 README 为准。
+
+\paragraph{安装}
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+npx skills add https://github.com/op7418/Humanizer-zh.git
+\end{lstlisting}
+也可以克隆到 Claude Code 的 skills 目录。Cursor 同样会读这里：
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+git clone https://github.com/op7418/Humanizer-zh.git ~/.claude/skills/humanizer-zh
+\end{lstlisting}
+Windows 上是用户主目录下的 \verb|.claude\skills\humanizer-zh|。只给 Cursor 用时，把同一仓库克隆到 \verb|~/.cursor/skills/humanizer-zh|。重载 skills 后，对话里输入 \verb|/humanizer-zh|。
+
+\begin{xiaonao}
+你直接让 AI agent 帮你装。
+\end{xiaonao}
+
+\paragraph{怎么用}
+贴上文章，或给出文件路径，并说清要保留的语气。只看不改时，写明给出建议、不修改文件。可以附一段自己的文字，供它参考口气。那段里的经历、数据和观点留在原处，不写进待改的稿子。
+
+没有问题的句子可以不改。缺证据时它向你要，不在润色里补出数字。原文里的「可能」「计划」「尚未」保持原意。
+
+许可证是 MIT。
+
+
+\section{跟 AI 聊聊股票}
+股票也有人做成 skill，仍是一个目录里的 \verb|SKILL.md|。下面四套按 GitHub 星标从高到低。星标会变，数字是 2026 年 9 月 29 日查到的。它们把看公司、看行情、记交易写成步骤，供 agent 按步骤整理材料。下单在你自己的券商账户里完成。安装命令以各仓库的 README 为准。
+
+\begin{xiaonao}
+跟 AI 聊聊股票，学习基本知识，了解前沿科技。
+\end{xiaonao}
+
+\begin{itemize}
+\item \verb|tradermonty/claude-trading-skills|，2913 星，\url{https://github.com/tradermonty/claude-trading-skills}。给时间不多的个人用：看当天市场、每周看持仓、条件允许时筛波段、记下每笔交易。部分步骤要用行情接口；没有接口时，可以用公开数据和图表截图走基本路径。
+\item \verb|agiprolabs/claude-trading-skills|，398 星，\url{https://github.com/agiprolabs/claude-trading-skills}。大约 68 条，Cursor 可以直接用。内容以加密货币、链上数据和量化流程为主。
+\item \verb|zubair-trabzada/ai-trading-claude|，263 星，\url{https://github.com/zubair-trabzada/ai-trading-claude}。给出股票代码后，从技术面、基本面、消息、风险和论点几路整理，打 0 到 100 分，并标成 Strong Buy、Buy、Hold、Caution 或 Avoid。安装方式按 Claude Code 来写。
+\item \verb|yennanliu/InvestSkill|，227 星，\url{https://github.com/yennanliu/InvestSkill}。大约 30 套美股分析框架，不另接行情 API。安装时可以指定 Cursor。\verb|stock-eval| 按护城河、资本回报等打分，并写出买入、持有或卖出的倾向。
+\end{itemize}
 
 
 
@@ -1131,34 +1632,36 @@ git remote set-url origin git@github.com:用户名/仓库.git
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}
-  \node[font=\small\bfseries, text=structurecolor, anchor=west] (h1) at (0,0.95) {有推送权};
-  \node[gitremote] (m1) at (3.15,0) {主仓库};
-  \node[gitbox] (c1) at (6.7,0) {合作者本地};
-  \node[gitremote] (m2) at (10.25,0) {主仓库};
-  \draw[gitarr] (m1) -- node[gitlab, above] {clone} (c1);
-  \draw[gitarr] (c1) -- node[gitlab, above] {push} (m2);
+  \node[gitremote] (main) at (8.35,-1.85) {主仓库};
 
-  \node[font=\small\bfseries, text=second, anchor=west] at (0,-1.85) {无推送权};
-  \node[gitremote] (o1) at (3.15,-2.55) {主仓库};
-  \node[gitremote] (f1) at (6.7,-2.55) {对方仓库};
-  \node[gitbox] (d1) at (6.7,-4.15) {对方本地};
-  \node[gitremote] (o2) at (10.25,-2.55) {主仓库};
-  \draw[gitarr] (o1) -- node[gitlab, above] {Fork} (f1);
-  \draw[gitarr] (f1) -- node[gitlab, right] {clone} (d1);
-  \draw[gitback] (d1.west) to[out=180, in=200, looseness=1.35]
-    node[gitlab, left] {push} (f1.west);
-  \draw[gitarr] (f1) -- node[gitlab, above] {合并 PR} (o2);
+  \node[font=\small\bfseries, text=structurecolor, anchor=west] at (0,0.85) {有推送权};
+  \node[gitbox] (co) at (3.15,0) {本地};
+  \draw[gitarr] (main.150) to[out=165, in=15]
+    node[gitlab, above] {clone} (co.15);
+  \draw[gitback] (co.-15) to[out=-15, in=195]
+    node[gitlab, below] {push} (main.195);
+
+  \node[font=\small\bfseries, text=second, anchor=west] at (0,-2.7) {无推送权};
+  \node[gitremote] (fk) at (3.15,-3.35) {自己的仓库};
+  \node[gitbox] (lc) at (3.15,-5.15) {本地};
+  \draw[gitarr] (main.220) to[out=205, in=12]
+    node[gitlab, above] {Fork} (fk.12);
+  \draw[gitarr] (fk.-12) to[out=-8, in=235]
+    node[gitlab, below] {发起 PR} (main.250);
+  \draw[gitarr] (fk) -- node[gitlab, right] {clone} (lc);
+  \draw[gitback] (lc.west) to[out=180, in=200, looseness=1.25]
+    node[gitlab, left] {push} (fk.west);
 \end{tikzpicture}
 \caption{修改回到主仓库的两条路}
 \end{figure}
 
 \paragraph{有推送权}
-在仓库设置里邀请对方。GitHub 称为 Collaborators，Gitee 称为仓库成员，入口名称以网页为准。对方 clone 之后直接改，再 push 回主仓库。你在合并前先 \verb|git pull|，让自己的本地和主仓库一致。
+主仓库的主人在设置里邀请你。GitHub 称为 Collaborators，Gitee 称为仓库成员，入口名称以网页为准。你 clone 到本地，改完直接 push 回主仓库。push 之前先 \verb|git pull|，让本地和主仓库一致。
 
 \paragraph{没有推送权}
-对方先 Fork，得到自己名下的一份，clone 到本地，改完 push 到他自己的远程仓库，再在网页上向主仓库提交 Pull Request。你看过差异后，在网页上合并。
+你先 Fork，得到自己名下的仓库，clone 到本地，改完 push 回自己的仓库，再在网页上向主仓库发起 Pull Request。主人看过差异后，在网页上合并。
 
-若要在本地合并对方的分支：
+主人要在自己的电脑上合并时，地址填 Fork 出去的那份仓库：
 \begin{lstlisting}[
   numbers=none,
   xleftmargin=2mm,
@@ -1167,7 +1670,7 @@ git remote set-url origin git@github.com:用户名/仓库.git
   breaklines=true,
   basicstyle=\ttfamily\footnotesize
 ]
-git fetch 对方仓库地址 master
+git fetch Fork出去的仓库地址 master
 git merge FETCH_HEAD
 git push origin master
 \end{lstlisting}
