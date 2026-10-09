@@ -1384,13 +1384,214 @@ Git 弹出 Vim 让你写提交说明时，同样是：按 \verb|i| 写完，\ver
 
 
 
+\chapter{MinerU——文档解析工具}
+\section{基本认识}
 
+MinerU 由上海人工智能实验室的 OpenDataLab 团队开发，实验室做书生·浦语，书生·万象时，需要从大量文献里抽出高质量文本，现成工具对中文论文，双栏，公式和表格都不稳，于是做了这个提取工具，抽出来的数据先用在这些模型的训练里。
 
+\begin{center}
+\begin{tabular}{|p{0.22\textwidth}|p{0.16\textwidth}|p{0.52\textwidth}|}
+\hline
+\centering\arraybackslash 时间 &
+\centering\arraybackslash 版本 &
+\centering\arraybackslash 变化 \\
+\hline
+2024 年 7 月 5 日 & 首次开源 & 面向 PDF 的版面分析和公式、表格识别 \\
+\hline
+2025 年 1 月 & 1.0 & 上线网站和客户端；加入语言识别和本地 API \\
+\hline
+2025 年 6 月 13 日 & 2.0 & 整套重写；包名改为 \texttt{mineru}；去掉对 PyMuPDF 的依赖；加入不足 10 亿参数的专用解析模型 \\
+\hline
+2026 年 3 月 29 日 & 3.0 & 长文档按窗口处理，支持多卡；去掉几套许可证不适合商用的旧模型 \\
+\hline
+现在 & 4.0 & 分成四档精度；增加 Word、PPT、Excel 等原生格式；分成“整份转换”和“文档库阅读”两条命令 \\
+\hline
+\end{tabular}
+\end{center}
 
+MinerU 是 OpenDataLab 做的文档解析工具，它把 PDF，扫描件，图片，以及 Word，PPT，Excel 转成 Markdown 或 JSON，方便后面检索、抽取，或交给大模型使用，它主要解决的是“版面复杂，不好直接复制”的问题，比如按人的阅读顺序抽出正文，并去掉页眉，页脚，页码，公式转成 LaTeX，表格转成 HTML，跨页的表格可以接回去，图片，标题，段落，列表会分开保留，图片单独抽出，并带上图注，扫描版，乱码 PDF，手写体会走 OCR。最常见的用法是把一篇论文或一份报告丢进去，得到一份可以直接编辑或喂给模型的文本。
 
+\section{安装方式}
 
+可以用AI帮助安装，也可以使用官方安装方式手动安装，具体过程如下：
 
+在终端依次执行
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+cd ~
+mkdir -p mineru && cd mineru
+uv venv --python 3.12 .venv
+source .venv/bin/activate
+uv pip install -U "mineru>=4.0,<5" -i https://mirrors.aliyun.com/pypi/simple
+mineru version --json
+\end{lstlisting}
+国内用阿里云镜像，装好后解析一个 PDF，mineru-kit parse /home/hxy/Desktop/SiSR.pdf -o /home/hxy/Desktop/SiSR.md --tier flash，--tier flash 只抽取 PDF 里已有的文字，速度快，扫描版看不清字时，改成 --tier standard，第一次会下载模型，会慢一些。
 
+\section{常见用途}
 
+1.把论文或讲义变成可编辑文本，例如把桌面上的 pdf 转成 Markdown，再用编辑器修改，这和 TeXworks 不同，TeXworks 改的是原来的 .tex；MinerU 是从 PDF 反推一份新文本，公式和版式不会和原 LaTeX 完全一致。
 
+2.做知识库，转成 Markdown 后切成小段，放进检索系统，让模型按文档回答问题。
 
+3.给程序抽取字段，JSON 里保留每一块在第几页，什么类型，方便批量抽标题，表格和公式。
+
+4.做训练数据。，这是它最初的用途，从大量论文书籍里抽出干净文本。
+
+4.0 把事情拆成两个命令，不要混用，mineru-kit：整份转换。，不建库、不缓存，给它一个文件，它写出完整的 Markdown，你要把 PDF 变成一份可以保存、可以编辑的稿子，用这个。mineru：本地文档库， 文件会登记进库，结果会缓存，以后可以搜索、按页接着读，它默认只处理 PDF 的前 10 页，适合让程序一段一段读，不适合当“转出整本书”。使用前要先确定可用，在终端输入mineru version --json应看到 "\verb|mineru_version": "4.0.10|"。如今分成四档精度，增加了Word，ppt，excel等原生格式，具体如下：
+
+\begin{center}
+\begin{tabular}{|p{0.10\textwidth}|p{0.16\textwidth}|p{0.34\textwidth}|p{0.28\textwidth}|}
+\hline
+\centering\arraybackslash 档位 &
+\centering\arraybackslash 命令里的名字 &
+\centering\arraybackslash 做什么 &
+\centering\arraybackslash 什么时候用 \\
+\hline
+快速 & \texttt{flash} & 直接读 PDF 里已经存在的文字层，基本不跑模型 & 文字型 PDF，例如 LaTeX 编译出来的讲义 \\
+\hline
+基础 & \texttt{basic} & 小模型做版面分析和 OCR & 扫描件、拍照件，机器没有大显存 \\
+\hline
+标准 & \texttt{standard} & 小模型和视觉模型配合，公式、表格、多栏更稳 & 正式论文，想要较好质量 \\
+\hline
+高级 & \texttt{advanced} & 以视觉语言模型为主做整页理解 & 版面很乱、手写、表格特别复杂 \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{把一份 PDF 转成 Markdown}
+以下所有***代表文件存放磁盘路径
+整份转换，文字型 PDF 在终端输入：
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+mineru-kit parse /***.pdf -o /***-mineru.md --tier flash
+\end{lstlisting}
+
+只要其中几页。页码从 1 开始，两端都包括，r1 表示最后一页：
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+mineru-kit parse /***.pdf /-o /***/--tier flash
+\end{lstlisting}
+
+-o 必须写,单个文件时，-o 是输出文件的路径，目录或多文件时，-o 必须是一个文件夹。
+扫描件：
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+mineru-kit parse 扫描件.pdf -o 扫描件.md --tier standard --ocr-mode ocr
+\end{lstlisting}
+
+--ocr-mode 有三个值，auto 由程序判断，txt 只用文字层，ocr 强制识别，一次转一个文件夹，结果打成压缩包：
+
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+mineru-kit parse ./documents -o ./output --format zip --tier flash
+\end{lstlisting}
+
+--format 可以是 markdown，middle\_json，zip。middle\_json 是中间结构，每一块都带类型和位置，适合再写程序处理，zip 里会带上图片和多种结果。
+
+\section{搜索和接着读}
+这条线用 mineru，不带 -kit，登记一个文件并解析，PDF 不写页码时只有前 10 页，整本要加 --pages all。第一次若在下模型，60 秒往往不够，把等待时间加长。
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+mineru parse /***.pdf \
+  --pages all \
+  -o /***.md \
+  --tier flash \
+  --wait 600
+\end{lstlisting}
+--wait 600 只是客户端最多等 10 分钟，超时后任务仍在库里继续，再执行同一条命令即可接着等，--no-wait 会立刻返回，不在终端里等。
+已经解析过，只想强制重做：
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+mineru parse /***.pdf --pages all --force --tier flash
+\end{lstlisting}
+在已经解析的内容里搜：
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+mineru search "内容" --json
+\end{lstlisting}
+只搜文件名、不搜正文：mineru find ***，列出库里有什么，看某一条的详情：mineru list  mineru show parse，
+从上次停下的位置继续读。程序输出末尾会给一个位置标记，把它填进 --after：
+
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+mineru read "doc:文档ID/tier:flash/page:页码"
+\end{lstlisting}
+read 只读已经解析好的结果，不会重新做更高精度的解析。把整个目录登记进库，或监视一个目录，新文件自动入库：
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+mineru scan /***
+mineru watch --help
+\end{lstlisting}
+清掉缓存或从库里忘掉某个文件：
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+mineru invalidate /***.pdf
+mineru forget /***.pdf
+mineru cleanup
+\end{lstlisting}
