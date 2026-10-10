@@ -1893,15 +1893,35 @@ MinerU 是 OpenDataLab 做的文档解析工具，它把 PDF、扫描件、图�
 
 \section{常见用途}
 
-1.把论文或讲义变成可编辑文本，例如把桌面上的 pdf 转成 Markdown，再用编辑器修改。这和 TeXworks 不同，TeXworks 改的是原来的 .tex；MinerU 是从 PDF 反推一份新文本，公式和版式不会和原 LaTeX 完全一致。
+\begin{enumerate}
+\item 把论文或讲义变成可编辑文本。例如把桌面上的 PDF 转成 Markdown，再用编辑器修改。这和 TeXworks 不同。TeXworks 改的是原来的 \verb|.tex|。MinerU 是从 PDF 反推一份新文本，公式和版式不会和原来的 \LaTeX{} 完全一致。
+\item 做知识库。转成 Markdown 后切成小段，放进检索系统，让模型按文档回答问题。
+\item 给程序抽取字段。JSON 里保留每一块在第几页、什么类型，方便批量抽标题、表格和公式。
+\item 做训练数据。这是它最初的用途：从大量论文和书籍里抽出干净文本。
+\end{enumerate}
 
-2.做知识库，转成 Markdown 后切成小段，放进检索系统，让模型按文档回答问题。
+\section{4.0 的两条命令}
+4.0 是 MinerU 现在的版本。这一版把整份转换和文档库拆成两条命令，不要混用。精度分成四档，并增加了 Word、PPT、Excel。
 
-3.给程序抽取字段，JSON 里保留每一块在第几页，什么类型，方便批量抽标题，表格和公式。
+\begin{itemize}
+\item \verb|mineru-kit| 做整份转换。它不建库，也不缓存。给它一个文件，它写出完整的 Markdown。要把 PDF 变成一份可以保存、可以编辑的稿子，用这条。
+\item \verb|mineru| 是本地文档库。文件会登记进库，结果会缓存，以后可以搜索，也可以按页接着读。它默认只处理 PDF 的前 10 页，适合让程序一段一段读，不适合把整本书一次转出来。
+\end{itemize}
 
-4.做训练数据。，这是它最初的用途，从大量论文书籍里抽出干净文本。
+使用前先确认版本。在终端输入
+\begin{lstlisting}[
+  numbers=none,
+  xleftmargin=2mm,
+  framexleftmargin=2mm,
+  columns=fullflexible,
+  breaklines=true,
+  basicstyle=\ttfamily\footnotesize
+]
+mineru version --json
+\end{lstlisting}
+输出里应看到 \verb|“mineru_version”: “4.0.10”|。
 
-4.0 把事情拆成两个命令不要混用。mineru-kit是整份转换不建库不缓存，给它一个文件，它写出完整的 Markdown，你要把 PDF 变成一份可以保存可以编辑的稿子。mineru是本地文档库， 文件会登记进库，结果会缓存，以后可以搜索按页接着读，它默认只处理 PDF 的前 10 页，适合让程序一段一段读，不适合“转出整本书”。使用前要先确定可用，在终端输入mineru version --json应看到 "\verb|mineru_version": "4.0.10|"。如今分成四档精度，增加了Word、ppt、excel等原生格式，具体如下：
+四档精度如下：
 
 \begin{center}
 \begin{tabular}{|p{0.10\textwidth}|p{0.16\textwidth}|p{0.34\textwidth}|p{0.28\textwidth}|}
@@ -1922,80 +1942,17 @@ MinerU 是 OpenDataLab 做的文档解析工具，它把 PDF、扫描件、图�
 \end{tabular}
 \end{center}
 
-\section{搜索和接着读}
-这条线用 mineru不带 -kit，登记一个文件并解析，PDF 不写页码时只有前 10 页，整本要加 --pages all。第一次若在下载模型，60 秒往往不够，把等待时间加长。
-\begin{lstlisting}[
-  numbers=none,
-  xleftmargin=2mm,
-  framexleftmargin=2mm,
-  columns=fullflexible,
-  breaklines=true,
-  basicstyle=\ttfamily\footnotesize
-]
-mineru parse /***.pdf \
-  --pages all \
-  -o /***.md \
-  --tier flash \
-  --wait 600
-\end{lstlisting}
---wait 600 只是客户端最多等 10 分钟，超时后任务仍在库里继续，再执行同一条命令即可接着等。--no-wait 会立刻返回，不在终端里等。
-已经解析过，只想强制重做：
-\begin{lstlisting}[
-  numbers=none,
-  xleftmargin=2mm,
-  framexleftmargin=2mm,
-  columns=fullflexible,
-  breaklines=true,
-  basicstyle=\ttfamily\footnotesize
-]
-mineru parse /***.pdf --pages all --force --tier flash
-\end{lstlisting}
-在已经解析的内容里搜：
-\begin{lstlisting}[
-  numbers=none,
-  xleftmargin=2mm,
-  framexleftmargin=2mm,
-  columns=fullflexible,
-  breaklines=true,
-  basicstyle=\ttfamily\footnotesize
-]
-mineru search "内容" --json
-\end{lstlisting}
-只搜文件名不搜正文：mineru find ***，列出库里有什么，看某一条的详情：mineru list  mineru show parse。
-从上次停下的位置继续读，程序输出末尾会给一个位置标记，把它填进 --after：
+\section{文档库}
+文档库记在本机，给反复阅读、也给程序接着读用。一次把 PDF 转成可以保存的完整稿子，用上一节的 \verb|mineru-kit|，不进库，也不缓存。
 
-\begin{lstlisting}[
-  numbers=none,
-  xleftmargin=2mm,
-  framexleftmargin=2mm,
-  columns=fullflexible,
-  breaklines=true,
-  basicstyle=\ttfamily\footnotesize
-]
-mineru read "doc:文档ID/tier:flash/page:页码"
-\end{lstlisting}
-read 只读已经解析好的结果，不会重新做更高精度的解析。把整个目录登记进库，或监视一个目录，新文件自动入库：
-\begin{lstlisting}[
-  numbers=none,
-  xleftmargin=2mm,
-  framexleftmargin=2mm,
-  columns=fullflexible,
-  breaklines=true,
-  basicstyle=\ttfamily\footnotesize
-]
-mineru scan /***
-mineru watch --help
-\end{lstlisting}
-清掉缓存或从库里忘掉某个文件：
-\begin{lstlisting}[
-  numbers=none,
-  xleftmargin=2mm,
-  framexleftmargin=2mm,
-  columns=fullflexible,
-  breaklines=true,
-  basicstyle=\ttfamily\footnotesize
-]
-mineru invalidate /***.pdf
-mineru forget /***.pdf
-mineru cleanup
-\end{lstlisting}
+库里保存三样东西：这份文件是谁、已经解析出的结果，以及可供搜索的正文。
+
+\begin{itemize}
+\item 同一份文件再读时，用库里的结果，不必重新解析。读取已有结果时，不会自动换成更高精度再跑一遍。
+\item 长文档可以分段读。默认只处理 PDF 的前 10 页。一次读不完时，结果里留下位置标记，下次从停下的地方继续。程序不必把整本书放进一次对话。
+\item 每个位置有稳定标记，写明文档、档位、页码和块号。要回到某一页、某一块，用这个标记，不必靠大约在第几段去对。
+\item 已经解析进库的文件可以搜正文，也可以只按文件名找。没进库的文件，正文搜不到。
+\item 一个目录可以登记进库，新放进去的文件可以自动入库。从库里忘掉某个文件，不会删除硬盘上的原文件。清掉缓存之后，下次会重新解析。
+\end{itemize}
+
+适合论文、报告和一叠本地文件：解析一次，以后搜索、翻页、引用，或让模型按页接着读。
