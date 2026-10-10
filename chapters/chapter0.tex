@@ -1889,11 +1889,11 @@ Git 弹出 Vim 让你写提交说明时，同样是：按 \verb|i| 写完，\ver
 
 \chapter{MinerU——文档解析工具}
 \section{基本认识}
-MinerU 是 OpenDataLab 做的文档解析工具，它把 PDF，扫描件，图片，以及 Word，PPT，Excel 转成 Markdown 或 JSON，方便后面检索、抽取，或交给大模型使用，它主要解决的是“版面复杂，不好直接复制”的问题，比如按人的阅读顺序抽出正文，并去掉页眉，页脚，页码，公式转成 LaTeX，表格转成 HTML，跨页的表格可以接回去，图片，标题，段落，列表会分开保留，图片单独抽出，并带上图注，扫描版，乱码 PDF，手写体会走 OCR。最常见的用法是把一篇论文或一份报告丢进去，得到一份可以直接编辑或喂给模型的文本。
+MinerU 是 OpenDataLab 做的文档解析工具，它把 PDF、扫描件、图片，以及 Word、PPT、Excel 转成 Markdown 或 JSON，方便后面检索抽取或交给大模型使用。它主要解决的是“版面复杂，不好直接复制”的问题。比如：按人的阅读顺序抽出正文，并去掉页眉、页脚、页码，公式转成 LaTeX，表格转成 HTML，跨页的表格可以接回去，图片、标题、段落、列表会分开保留，图片单独抽出，并带上图注。扫描版、乱码 PDF、手写体会走 OCR。最常见的用法是把一篇论文或一份报告丢进去，得到一份可以直接编辑或喂给模型的文本。
 
 \section{常见用途}
 
-1.把论文或讲义变成可编辑文本，例如把桌面上的 pdf 转成 Markdown，再用编辑器修改，这和 TeXworks 不同，TeXworks 改的是原来的 .tex；MinerU 是从 PDF 反推一份新文本，公式和版式不会和原 LaTeX 完全一致。
+1.把论文或讲义变成可编辑文本，例如把桌面上的 pdf 转成 Markdown，再用编辑器修改。这和 TeXworks 不同，TeXworks 改的是原来的 .tex；MinerU 是从 PDF 反推一份新文本，公式和版式不会和原 LaTeX 完全一致。
 
 2.做知识库，转成 Markdown 后切成小段，放进检索系统，让模型按文档回答问题。
 
@@ -1901,7 +1901,7 @@ MinerU 是 OpenDataLab 做的文档解析工具，它把 PDF，扫描件，图�
 
 4.做训练数据。，这是它最初的用途，从大量论文书籍里抽出干净文本。
 
-4.0 把事情拆成两个命令，不要混用，mineru-kit：整份转换。，不建库、不缓存，给它一个文件，它写出完整的 Markdown，你要把 PDF 变成一份可以保存、可以编辑的稿子，用这个。mineru：本地文档库， 文件会登记进库，结果会缓存，以后可以搜索、按页接着读，它默认只处理 PDF 的前 10 页，适合让程序一段一段读，不适合当“转出整本书”。使用前要先确定可用，在终端输入mineru version --json应看到 "\verb|mineru_version": "4.0.10|"。如今分成四档精度，增加了Word，ppt，excel等原生格式，具体如下：
+4.0 把事情拆成两个命令不要混用。mineru-kit是整份转换不建库不缓存，给它一个文件，它写出完整的 Markdown，你要把 PDF 变成一份可以保存可以编辑的稿子。mineru是本地文档库， 文件会登记进库，结果会缓存，以后可以搜索按页接着读，它默认只处理 PDF 的前 10 页，适合让程序一段一段读，不适合“转出整本书”。使用前要先确定可用，在终端输入mineru version --json应看到 "\verb|mineru_version": "4.0.10|"。如今分成四档精度，增加了Word、ppt、excel等原生格式，具体如下：
 
 \begin{center}
 \begin{tabular}{|p{0.10\textwidth}|p{0.16\textwidth}|p{0.34\textwidth}|p{0.28\textwidth}|}
@@ -1923,7 +1923,7 @@ MinerU 是 OpenDataLab 做的文档解析工具，它把 PDF，扫描件，图�
 \end{center}
 
 \section{搜索和接着读}
-这条线用 mineru，不带 -kit，登记一个文件并解析，PDF 不写页码时只有前 10 页，整本要加 --pages all。第一次若在下模型，60 秒往往不够，把等待时间加长。
+这条线用 mineru不带 -kit，登记一个文件并解析，PDF 不写页码时只有前 10 页，整本要加 --pages all。第一次若在下载模型，60 秒往往不够，把等待时间加长。
 \begin{lstlisting}[
   numbers=none,
   xleftmargin=2mm,
@@ -1938,7 +1938,7 @@ mineru parse /***.pdf \
   --tier flash \
   --wait 600
 \end{lstlisting}
---wait 600 只是客户端最多等 10 分钟，超时后任务仍在库里继续，再执行同一条命令即可接着等，--no-wait 会立刻返回，不在终端里等。
+--wait 600 只是客户端最多等 10 分钟，超时后任务仍在库里继续，再执行同一条命令即可接着等。--no-wait 会立刻返回，不在终端里等。
 已经解析过，只想强制重做：
 \begin{lstlisting}[
   numbers=none,
@@ -1961,8 +1961,8 @@ mineru parse /***.pdf --pages all --force --tier flash
 ]
 mineru search "内容" --json
 \end{lstlisting}
-只搜文件名、不搜正文：mineru find ***，列出库里有什么，看某一条的详情：mineru list  mineru show parse，
-从上次停下的位置继续读。程序输出末尾会给一个位置标记，把它填进 --after：
+只搜文件名不搜正文：mineru find ***，列出库里有什么，看某一条的详情：mineru list  mineru show parse。
+从上次停下的位置继续读，程序输出末尾会给一个位置标记，把它填进 --after：
 
 \begin{lstlisting}[
   numbers=none,
