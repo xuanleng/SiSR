@@ -1,0 +1,762 @@
+\chapter{常用命令（Ubuntu系统为例）}
+
+\section{命令行如何修改密码}
+
+在 Ubuntu 系统中，可通过 \texttt{passwd} 命令在命令行修改用户密码。
+
+\subsection{修改当前用户密码}
+
+在终端中执行：
+
+\begin{lstlisting}[language=sh]
+passwd
+\end{lstlisting}
+
+系统会依次提示输入当前密码和新密码（新密码需输入两次以确认）。输入时屏幕上不会显示字符，属正常现象。
+
+\subsection{修改其他用户密码（需管理员权限）}
+
+若需为其他用户修改密码，使用 \texttt{sudo}：
+
+\begin{lstlisting}[language=sh]
+sudo passwd <用户名>
+\end{lstlisting}
+
+例如，将用户 \texttt{alice} 的密码修改为新的密码：
+
+\begin{lstlisting}[language=sh]
+sudo passwd alice
+\end{lstlisting}
+
+\subsection{修改 root 用户密码}
+
+\begin{lstlisting}[language=sh]
+sudo passwd root
+\end{lstlisting}
+
+\subsection{注意事项}
+
+\begin{itemize}
+    \item 新密码应足够复杂，建议包含大小写字母、数字和特殊字符。
+    \item 普通用户只能修改自己的密码；修改他人密码需要 \texttt{sudo} 权限。
+    \item 若忘记密码且无法登录，需通过恢复模式或 Live USB 等方式重置。
+\end{itemize}
+
+\section{添加与删除用户}
+
+Ubuntu 上添加、删除用户各有两套命令：面向管理员的 \texttt{adduser} / \texttt{deluser}，以及底层通用的 \texttt{useradd} / \texttt{userdel}。日常在服务器上\textbf{手动添加普通用户，推荐 \texttt{adduser}}；写脚本批量创建时用 \texttt{useradd}。
+
+\subsection{\texttt{adduser} 与 \texttt{useradd} 的区别}
+
+\begin{itemize}
+    \item \textbf{\texttt{adduser}}：Debian/Ubuntu 提供的\textbf{交互式封装脚本}，用法简单。运行后会逐步提示设置密码、姓名（可回车跳过）等；默认创建家目录（\texttt{/home/用户名}）、从 \texttt{/etc/skel} 复制默认配置文件、分配用户组。适合人工操作。
+    \item \textbf{\texttt{useradd}}：\texttt{shadow} 套件中的\textbf{底层命令}，各发行版通用，默认\textbf{非交互}。不加参数时往往\textbf{不会}创建家目录（Ubuntu 上尤其需注意），需用 \texttt{-m}、\texttt{-s}、\texttt{-G} 等选项显式指定；密码须另用 \texttt{passwd} 设置。适合脚本与自动化。
+    \item \textbf{关系}：在 Ubuntu 上，\texttt{adduser} 内部仍会调用 \texttt{useradd} 等底层工具完成实际创建；二者不是两套互斥系统，而是「友好前端」与「底层接口」的关系。
+\end{itemize}
+
+\subsection{添加用户}
+
+\textbf{推荐方式（交互式）：}
+
+\begin{lstlisting}[language=sh]
+sudo adduser alice
+\end{lstlisting}
+
+按提示设置密码及可选信息即可。若需同时赋予 \texttt{sudo} 权限：
+
+\begin{lstlisting}[language=sh]
+sudo adduser alice sudo
+\end{lstlisting}
+
+\textbf{底层方式（脚本/精确控制）：}
+
+\begin{lstlisting}[language=sh]
+# -m 创建家目录，-s 指定登录 shell，-G 附加组（如 sudo）
+sudo useradd -m -s /bin/bash -G sudo alice
+sudo passwd alice    # 必须单独设置密码
+\end{lstlisting}
+
+创建系统服务用账户（无登录 shell、无家目录）示例：
+
+\begin{lstlisting}[language=sh]
+sudo useradd -r -s /usr/sbin/nologin serviceacct
+\end{lstlisting}
+
+其中 \texttt{-r} 表示系统账户（UID 通常较小）。
+
+\subsection{删除用户}
+
+对应地，删除用户也有 \texttt{deluser} 与 \texttt{userdel} 两套命令。
+
+\textbf{推荐方式（\texttt{deluser}）：}
+
+\begin{lstlisting}[language=sh]
+# 仅删除用户，保留家目录
+sudo deluser alice
+
+# 删除用户并一并删除家目录及邮件 spool（常用）
+sudo deluser --remove-home alice
+
+# 若用户尚有进程在运行，可先备份再强制删除（慎用）
+sudo deluser --remove-home --backup alice
+\end{lstlisting}
+
+\textbf{底层方式（\texttt{userdel}）：}
+
+\begin{lstlisting}[language=sh]
+# 仅删除用户条目
+sudo userdel alice
+
+# 同时删除家目录及邮件目录（类似 deluser --remove-home）
+sudo userdel -r alice
+\end{lstlisting}
+
+若提示用户正在使用（例如仍有登录会话或进程），需先终止相关进程，或使用 \texttt{userdel -f} 强制删除（\textbf{慎用}，可能导致数据或进程异常）。
+
+\subsection{添加用户到附加组}
+
+用户已存在，仅追加组（如 \texttt{docker}、\texttt{sudo}）时：
+
+\begin{lstlisting}[language=sh]
+sudo usermod -aG docker alice
+sudo usermod -aG sudo alice
+\end{lstlisting}
+
+\texttt{-aG} 表示\textbf{追加}组；勿用 \texttt{-G} 单独替换，否则会覆盖用户原有附加组。修改后用户需重新登录生效。
+
+\subsection{常用场景速查}
+
+\begin{itemize}
+    \item 手动新建普通用户：\texttt{sudo adduser <用户名>}
+    \item 新建用户并允许 sudo：\texttt{sudo adduser <用户名> sudo}
+    \item 脚本中批量创建：\texttt{sudo useradd -m -s /bin/bash <用户名>}，再 \texttt{sudo passwd <用户名>}
+    \item 删除用户及家目录：\texttt{sudo deluser --remove-home <用户名>} 或 \texttt{sudo userdel -r <用户名>}
+    \item 查看当前用户所属组：\texttt{groups} 或 \texttt{id <用户名>}
+\end{itemize}
+
+\subsection{注意事项}
+
+\begin{itemize}
+    \item 以上操作均需 \texttt{sudo} 权限；不要删除正在使用的账户或系统内置账户（如 \texttt{root}、\texttt{daemon}）。
+    \item 删除用户前确认家目录无需要保留的数据；\texttt{--remove-home} / \texttt{-r} 会删除 \texttt{/home/用户名}。
+    \item 共享服务器上创建用户后，建议及时设置密码策略并告知用户修改初始密码（见上一节 \texttt{passwd}）。
+    \item \texttt{adduser} / \texttt{deluser} 为 Debian 系特有；在 RHEL/CentOS 等系统上通常只有 \texttt{useradd} / \texttt{userdel}，或提供不同的封装工具。
+\end{itemize}
+
+\section{终端后台执行程序}
+
+在服务器上运行耗时较长的任务时，通常需要让程序在后台执行，以便关闭终端后任务仍能继续运行。
+
+\subsection{使用 \texttt{\&} 在后台运行}
+
+在命令末尾添加 \texttt{\&}，可将程序放到当前 shell 的后台执行：
+
+\begin{lstlisting}[language=sh]
+./my_program &
+\end{lstlisting}
+
+终端会立即返回提示符，并显示该后台任务的作业编号（Job ID）和进程号（PID）。关闭终端后，该进程通常会被终止。
+
+\subsection{使用 \texttt{nohup} 防止终端关闭后进程终止}
+
+\texttt{nohup}（no hang up）可使程序忽略挂断信号，在退出终端后仍继续运行。输出默认写入当前目录下的 \texttt{nohup.out}：
+
+\begin{lstlisting}[language=sh]
+nohup ./my_program &
+\end{lstlisting}
+
+指定输出文件：
+
+\begin{lstlisting}[language=sh]
+nohup ./my_program > output.log 2>&1 &
+\end{lstlisting}
+
+其中 \texttt{2>\&1} 表示将标准错误重定向到标准输出，便于统一查看日志。
+
+\subsection{作业控制（\texttt{jobs}、\texttt{fg}、\texttt{bg}）}
+
+查看当前 shell 中的后台作业：
+
+\begin{lstlisting}[language=sh]
+jobs -l
+\end{lstlisting}
+
+将已在后台暂停的作业恢复到前台运行：
+
+\begin{lstlisting}[language=sh]
+fg %1
+\end{lstlisting}
+
+将已在后台暂停的作业继续在后台运行：
+
+\begin{lstlisting}[language=sh]
+bg %1
+\end{lstlisting}
+
+\texttt{\%1} 表示作业编号为 1 的任务，可用 \texttt{jobs} 查看对应编号。
+
+\subsection{使用 \texttt{tmux} 管理会话（简要）}
+
+\texttt{tmux} 与 \texttt{screen} 类似，也是终端复用工具。若更熟悉 \texttt{screen}，可优先使用下一节的 \texttt{screen}；二者任选其一即可。
+
+\begin{lstlisting}[language=sh]
+tmux new -s myjob        # 创建名为 myjob 的会话
+./my_program             # 在会话中运行程序
+# 按 Ctrl+B 再按 D 分离会话
+tmux attach -t myjob     # 重新连接会话
+\end{lstlisting}
+
+\texttt{screen} 的完整用法见下一节《\texttt{screen} 常用操作》。
+
+\subsection{查看与管理后台进程}
+
+查看正在运行的进程：
+
+\begin{lstlisting}[language=sh]
+ps aux | grep my_program
+\end{lstlisting}
+
+按 PID 终止进程：
+
+\begin{lstlisting}[language=sh]
+kill <PID>               # 正常终止
+kill -9 <PID>            # 强制终止（仅在普通 kill 无效时使用）
+\end{lstlisting}
+
+\subsection{注意事项}
+
+\begin{itemize}
+    \item 单纯使用 \texttt{\&} 时，关闭终端可能导致进程被终止；长时间任务建议配合 \texttt{nohup} 或 \texttt{screen}/\texttt{tmux}。
+    \item 使用 \texttt{nohup} 时，注意检查输出日志文件是否持续增长，避免占满磁盘。
+    \item 在共享服务器上终止进程前，请确认 PID 属于本人任务，避免误杀他人进程。
+\end{itemize}
+
+\section{\texttt{screen} 常用操作}
+
+\texttt{screen} 可在 SSH 断开后保持其中程序继续运行，并随时重新连接查看输出。服务器上长时间任务（如 \texttt{vllm serve}、训练脚本）推荐用 \texttt{screen} 托管。
+
+\subsection{安装与基本概念}
+
+Ubuntu 通常已预装 \texttt{screen}。若命令不存在：
+
+\begin{lstlisting}[language=sh]
+sudo apt update
+sudo apt install screen
+\end{lstlisting}
+
+\begin{itemize}
+    \item \textbf{会话（session）}：一个独立的虚拟终端，可命名（如 \texttt{vllm}）。
+    \item \textbf{分离（detach）}：离开会话但程序继续跑；关 SSH 也不影响。
+    \item \textbf{连接（attach）}：重新进入已有会话，继续查看或操作。
+\end{itemize}
+
+\subsection{创建会话并运行程序}
+
+\begin{lstlisting}[language=sh]
+screen -S vllm           # 创建名为 vllm 的会话，进入新窗口
+# 在 screen 内正常执行命令，例如：
+source ~/vllm-env/bin/activate
+vllm serve ...
+\end{lstlisting}
+
+程序启动后，\textbf{分离会话}（程序继续在后台运行）：
+
+\begin{lstlisting}[language=sh]
+# 按键：先按 Ctrl+A，松开后再按 D（Detach）
+\end{lstlisting}
+
+此时可安全关闭 SSH 窗口。
+
+\subsection{查看与连接已有会话}
+
+列出当前用户所有 \texttt{screen} 会话：
+
+\begin{lstlisting}[language=sh]
+screen -ls
+\end{lstlisting}
+
+示例输出：
+
+\begin{lstlisting}[language=sh]
+There are screens on:
+        2156016.vllm    (06/08/2026 10:30:15 AM)        (Detached)
+        2209184.latex   (05/20/2026 03:12:00 PM)        (Attached)
+\end{lstlisting}
+
+格式为 \texttt{<PID>.<会话名>}。\texttt{Detached} 表示未连接；\texttt{Attached} 表示正被某终端占用。
+
+重新连接指定会话：
+
+\begin{lstlisting}[language=sh]
+screen -r vllm                    # 按会话名
+screen -r 2156016                 # 按 PID
+screen -r 2156016.vllm            # 按 PID.名称（最明确）
+\end{lstlisting}
+
+若提示 \texttt{Attached} 无法连接（会话已在另一终端打开），先强制分离再连接：
+
+\begin{lstlisting}[language=sh]
+screen -d -r vllm
+\end{lstlisting}
+
+\subsection{退出与关闭会话}
+
+\begin{itemize}
+    \item \textbf{仅退出当前窗口、结束 screen}：在 screen 内执行 \texttt{exit}，或按 \texttt{Ctrl+D}。
+    \item \textbf{结束其中正在运行的程序}：在 screen 内对前台程序按 \texttt{Ctrl+C}，等待其正常退出后再 \texttt{exit}。
+    \item \textbf{不要混淆}：\texttt{Ctrl+A D} 是\textbf{分离}（程序继续跑）；\texttt{Ctrl+C} 是\textbf{中断程序}；\texttt{exit} 是\textbf{关闭 shell/会话}。
+\end{itemize}
+
+\subsection{会话内滚动与复制}
+
+\texttt{screen} 默认不回滚很长输出。进入\textbf{复制/滚动模式}：
+
+\begin{lstlisting}[language=sh]
+# 按键：Ctrl+A 再按 [
+# 用方向键或 PageUp/PageDown 滚动
+# 按 Esc 或 Q 退出滚动模式
+\end{lstlisting}
+
+\subsection{常用快捷键（前缀键 Ctrl+A）}
+
+\texttt{screen} 先按 \texttt{Ctrl+A}（松开），再按下列键：
+
+\begin{itemize}
+    \item \texttt{D}：分离当前会话（Detach）
+    \item \texttt{?}：显示帮助
+    \item \texttt{[}：进入滚动/复制模式
+    \item \texttt{c}：新建窗口（同一 session 内多窗口，较少用）
+    \item \texttt{n} / \texttt{p}：切换到下一个/上一个窗口
+    \item \texttt{k}：关闭当前窗口（需确认）
+\end{itemize}
+
+\subsection{管理员查看他用户的 screen}
+
+他人家目录下的 \texttt{screen} 会话须用对应用户身份操作：
+
+\begin{lstlisting}[language=sh]
+sudo -u tianci screen -ls           # 列出 tianci 的会话
+sudo -u tianci screen -r vllm       # 连接 tianci 的 vllm 会话
+\end{lstlisting}
+
+在他人 screen 内停服务时，优先 \texttt{Ctrl+C} 优雅退出，确认 \texttt{nvidia-smi} 显存释放后再 \texttt{exit}。
+
+\subsection{清理无效会话}
+
+异常断开后可能留下 \texttt{(Dead ???)} 会话，可清理：
+
+\begin{lstlisting}[language=sh]
+screen -wipe
+# 或指定用户：
+sudo -u tianci screen -wipe
+\end{lstlisting}
+
+\subsection{vLLM 典型流程示例}
+
+\begin{lstlisting}[language=sh]
+# 1. 创建并进入会话
+screen -S vllm
+
+# 2. 启动服务（示例）
+source /home/tianci/vllm/bin/activate
+cd /home/tianci/model/qwen3.6-27b
+vllm serve . --tensor-parallel-size 2 --served-model-name qwen3.6-27b ...
+
+# 3. 确认启动正常后分离：Ctrl+A D
+
+# 4. 之后随时重连查看日志
+screen -r vllm
+
+# 5. 需要停服：在 screen 内 Ctrl+C，等 Shutdown complete，再 exit
+\end{lstlisting}
+
+\subsection{常见问题}
+
+\begin{itemize}
+    \item \textbf{分离后程序还在吗？} 在。只要没按 \texttt{Ctrl+C} 且没 \texttt{exit}，程序持续运行。
+    \item \textbf{\texttt{screen -r} 提示 There is no screen to be resumed}：会话名或 PID 不对，先用 \texttt{screen -ls} 核对；或会话已被 \texttt{exit} 关闭。
+    \item \textbf{误按 \texttt{Ctrl+C} 后 GPU 仍被占用}：主进程已退出但 Worker 可能变成孤儿进程（\texttt{PPID=1}）。用 \texttt{nvidia-smi} 查 PID，再 \texttt{kill} 或 \texttt{kill -9} 清理。
+    \item \textbf{终端出现 \texttt{\textasciicircum[[A]} 等乱码}：在普通 shell 执行 \texttt{reset} 或 \texttt{stty sane} 恢复。
+    \item \textbf{多用户服务器}：接管前先 \texttt{screen -ls} 确认会话归属，避免连错他人任务。
+\end{itemize}
+
+\section{查看硬盘剩余空间}
+
+迁移模型、下载数据或写日志前，应先确认磁盘是否够用。
+
+\subsection{查看各分区容量与剩余空间}
+
+\texttt{df}（disk free）按\textbf{文件系统/挂载点}统计，最常用：
+
+\begin{lstlisting}[language=sh]
+df -h
+\end{lstlisting}
+
+\texttt{-h} 表示以人类可读单位（GB、TB）显示。输出中重点关注 \texttt{Size}（总容量）、\texttt{Used}（已用）、\texttt{Avail}（可用）、\texttt{Use\%}（使用率）及 \texttt{Mounted on}（挂载点，如 \texttt{/}、\texttt{/home}、\texttt{/data}）。
+
+查看指定目录所在分区的剩余空间：
+
+\begin{lstlisting}[language=sh]
+df -h /
+df -h /home
+df -h /data
+\end{lstlisting}
+
+仅显示本地磁盘（排除 \texttt{tmpfs} 等临时文件系统）：
+
+\begin{lstlisting}[language=sh]
+df -h -x tmpfs -x devtmpfs
+\end{lstlisting}
+
+\subsection{查看目录占用大小}
+
+\texttt{du}（disk usage）按\textbf{目录}统计实际占用，适合定位「谁占用了空间」。
+
+查看某目录总大小：
+
+\begin{lstlisting}[language=sh]
+du -sh /home/xuan
+du -sh /data/models
+\end{lstlisting}
+
+查看某目录下各子目录占用（一层）：
+
+\begin{lstlisting}[language=sh]
+du -h --max-depth=1 /data | sort -h
+\end{lstlisting}
+
+查看当前目录下各子项占用并排序：
+
+\begin{lstlisting}[language=sh]
+du -sh * | sort -h
+\end{lstlisting}
+
+\textbf{说明}：\texttt{df} 看的是分区级「还剩多少」；\texttt{du} 看的是目录级「用了多少」。二者统计口径不同，属正常现象。
+
+\subsection{查看各用户占用空间}
+
+Linux 上每个用户通常有独立家目录 \texttt{/home/<用户名>}。统计各用户占用，即统计各人家目录大小（家目录外的大文件需单独排查）。
+
+查看 \texttt{/home} 下每个用户家目录占用，并按大小排序：
+
+\begin{lstlisting}[language=sh]
+sudo du -sh /home/* 2>/dev/null | sort -h
+\end{lstlisting}
+
+更易读的表格形式（用户名与大小分列）：
+
+\begin{lstlisting}[language=sh]
+sudo du -h --max-depth=1 /home 2>/dev/null | sort -h
+\end{lstlisting}
+
+查看指定用户占用：
+
+\begin{lstlisting}[language=sh]
+sudo du -sh /home/tianci
+sudo du -sh /home/xuan
+\end{lstlisting}
+
+查看某用户家目录下哪一层子目录最大：
+
+\begin{lstlisting}[language=sh]
+sudo du -h --max-depth=1 /home/tianci 2>/dev/null | sort -h
+\end{lstlisting}
+
+若机房启用了\textbf{磁盘配额}（quota），可直接查看各用户限额与已用量：
+
+\begin{lstlisting}[language=sh]
+sudo repquota -as          # 所有文件系统汇总
+sudo quota -u tianci       # 指定用户
+\end{lstlisting}
+
+未配置 quota 时上述命令可能无输出或报错，以 \texttt{du} 方式为准。
+
+\textbf{说明}：
+\begin{itemize}
+    \item 他人家目录权限多为 \texttt{700}，须用 \texttt{sudo du}，否则会得到 \texttt{Permission denied} 或偏小结果。
+    \item \texttt{/home/*} 只统计家目录；用户若在 \texttt{/data}、\texttt{/tmp} 等路径存放大文件，需对相应目录再执行 \texttt{du}。
+    \item 遍历所有用户家目录可能较慢，属正常现象。
+\end{itemize}
+
+\subsection{查看磁盘与分区结构}
+
+查看块设备、分区及挂载关系：
+
+\begin{lstlisting}[language=sh]
+lsblk
+\end{lstlisting}
+
+更详细的文件系统类型与 UUID：
+
+\begin{lstlisting}[language=sh]
+lsblk -f
+\end{lstlisting}
+
+\subsection{交互式浏览（可选）}
+
+若已安装 \texttt{ncdu}，可交互式查看并进入子目录：
+
+\begin{lstlisting}[language=sh]
+ncdu /data
+\end{lstlisting}
+
+未安装时可执行 \texttt{sudo apt install ncdu}。
+
+\subsection{注意事项}
+
+\begin{itemize}
+    \item 根分区 \texttt{/} 使用率长期超过 85\% 时，应清理日志或迁移大文件，避免系统异常。
+    \item 大模型常放在 \texttt{/data} 等独立分区；迁移前同时用 \texttt{df -h /data} 与 \texttt{du -sh <模型目录>} 确认目标分区空间充足。
+    \item \texttt{du} 遍历大目录可能较慢；对无权限路径会提示 \texttt{Permission denied}，可用 \texttt{sudo du -sh <路径>}。
+\end{itemize}
+
+\section{查看 NVIDIA 显卡状态}
+
+服务器安装 NVIDIA 驱动后，可使用 \texttt{nvidia-smi} 查看显卡信息。该工具由 NVIDIA 驱动自带，无需额外安装。
+
+\subsection{实时运行状态}
+
+当显卡正在运行任务时，可用以下命令查看 GPU 利用率、显存占用、温度及正在使用 GPU 的进程。
+
+\textbf{查看当前快照：}
+
+\begin{lstlisting}[language=sh]
+nvidia-smi
+\end{lstlisting}
+
+输出包含各 GPU 的利用率、显存使用量、温度、功耗，以及占用 GPU 的进程列表（PID、进程名、显存占用）。
+
+\textbf{每秒刷新（实时监控）：}
+
+\begin{lstlisting}[language=sh]
+nvidia-smi -l 1
+\end{lstlisting}
+
+\texttt{-l} 表示按固定间隔循环输出，后面的 \texttt{1} 为刷新间隔（秒）。将 \texttt{1} 改为其他数字可调整频率，例如 \texttt{nvidia-smi -l 5} 每 5 秒刷新一次。
+
+进入持续循环后，按 \texttt{Ctrl+C} 即可退出并返回命令行。
+
+\textbf{持续输出设备指标（适合长时间观察）：}
+
+\begin{lstlisting}[language=sh]
+nvidia-smi dmon -s pucvmet
+\end{lstlisting}
+
+各字母含义：\texttt{p} 功耗、\texttt{u} 利用率、\texttt{c} 时钟频率、\texttt{v} 电压、\texttt{m} 显存、\texttt{e} ECC 错误、\texttt{t} 温度。按 \texttt{Ctrl+C} 退出。
+
+\textbf{查看各进程对 GPU 的占用：}
+
+\begin{lstlisting}[language=sh]
+nvidia-smi pmon -c 1
+\end{lstlisting}
+
+每秒刷新一次各进程的 SM 利用率与显存占用。
+
+\subsection{空闲时的详细硬件状态}
+
+显卡未运行任务时，可查看驱动版本、显存容量、功耗上限、温度阈值等静态与当前硬件信息。
+
+\textbf{查看完整详细信息：}
+
+\begin{lstlisting}[language=sh]
+nvidia-smi -q
+\end{lstlisting}
+
+输出涵盖 GPU 型号、序列号、驱动版本、CUDA 版本、显存总量与空闲量、温度、功耗限制、时钟频率、PCIe 信息等。信息较多，可配合 \texttt{grep} 筛选：
+
+\begin{lstlisting}[language=sh]
+nvidia-smi -q | grep -E "Product Name|Driver Version|CUDA Version|Total|Free|Temperature|Power"
+\end{lstlisting}
+
+\textbf{按字段查询（推荐，输出简洁）：}
+
+\begin{lstlisting}[language=sh]
+nvidia-smi --query-gpu=index,name,driver_version,memory.total,memory.free,temperature.gpu,power.draw,power.limit,utilization.gpu --format=csv
+\end{lstlisting}
+
+\textbf{列出所有 GPU 编号与型号：}
+
+\begin{lstlisting}[language=sh]
+nvidia-smi -L
+\end{lstlisting}
+
+\textbf{查看指定 GPU 的详细信息（多卡时 \texttt{0} 为第一张卡）：}
+
+\begin{lstlisting}[language=sh]
+nvidia-smi -i 0 -q
+\end{lstlisting}
+
+\subsection{指定 GPU 与多卡并行任务}
+
+服务器有多张显卡（如两张 V100）时，\texttt{nvidia-smi} 左上角会显示 \texttt{GPU 0}、\texttt{GPU 1} 等编号，后续命令中的卡号与此一致。
+
+\subsubsection{指定单张卡运行}
+
+最通用的方式是设置环境变量 \texttt{CUDA\_VISIBLE\_DEVICES}，程序只能看到被指定的卡：
+
+\begin{lstlisting}[language=sh]
+# 只在 GPU 0 上运行
+CUDA_VISIBLE_DEVICES=0 python train.py
+
+# 只在 GPU 1 上运行
+CUDA_VISIBLE_DEVICES=1 python train.py
+\end{lstlisting}
+
+\texttt{CUDA\_VISIBLE\_DEVICES=1} 时，程序内部通常将该卡视为 \texttt{cuda:0}（编号从 0 重新映射），无需在代码里写 \texttt{cuda:1}。
+
+部分框架也支持命令行参数，例如：
+
+\begin{lstlisting}[language=sh]
+python train.py --gpu 0
+python train.py --device cuda:1    # 未设置环境变量时，直接指定物理卡号
+\end{lstlisting}
+
+具体参数名因框架而异，以所用程序的帮助文档为准。推荐优先使用 \texttt{CUDA\_VISIBLE\_DEVICES}，对各框架通用。
+
+\subsubsection{两张卡各跑一个独立任务}
+
+两个子任务互不干扰、各占一张卡时，分别绑定不同 GPU 并在后台启动即可：
+
+\begin{lstlisting}[language=sh]
+# 任务 A 使用 GPU 0
+CUDA_VISIBLE_DEVICES=0 nohup python task_a.py > task_a.log 2>&1 &
+
+# 任务 B 使用 GPU 1
+CUDA_VISIBLE_DEVICES=1 nohup python task_b.py > task_b.log 2>&1 &
+\end{lstlisting}
+
+也可开两个终端，各执行一条命令（不加 \texttt{\&} 则前台运行，便于看输出）。
+
+启动后用 \texttt{nvidia-smi} 确认：两张卡的 Utilization 和 Memory-Usage 应分别被占用，底部进程表中各进程对应不同 GPU。
+
+\subsubsection{示例：同一脚本在两卡上跑不同数据}
+
+\begin{lstlisting}[language=sh]
+CUDA_VISIBLE_DEVICES=0 python train.py --data dataset_A --output out_A/ &
+CUDA_VISIBLE_DEVICES=1 python train.py --data dataset_B --output out_B/ &
+wait    # 等待两个后台任务都结束（可选）
+\end{lstlisting}
+
+\subsubsection{注意事项}
+
+\begin{itemize}
+    \item 未设置 \texttt{CUDA\_VISIBLE\_DEVICES} 时，多数程序默认使用 \texttt{GPU 0}；多卡机器上容易误占同一张卡。
+    \item 单进程一般无法自动把两个独立任务分到两张卡，需手动指定或改代码；若一个任务要用多卡协同训练，属于另一话题（如 PyTorch \texttt{DataParallel}、\texttt{DistributedDataParallel}）。
+    \item 提交 Slurm 作业时，集群通常通过 \texttt{CUDA\_VISIBLE\_DEVICES} 或 \texttt{--gres=gpu:1} 分配卡，需遵循集群文档。
+\end{itemize}
+
+\subsection{常用场景速查}
+
+\begin{itemize}
+    \item 快速确认显卡是否可用、驱动是否正常：\texttt{nvidia-smi}
+    \item 训练/推理过程中监控利用率与显存：\texttt{nvidia-smi -l 1}
+    \item 排查某进程是否占用 GPU：\texttt{nvidia-smi} 底部进程表，或 \texttt{nvidia-smi pmon}
+    \item 查看显存总量、驱动版本等硬件信息：\texttt{nvidia-smi -q} 或 \texttt{--query-gpu}
+    \item 指定单卡运行：\texttt{CUDA\_VISIBLE\_DEVICES=0 python script.py}
+    \item 两卡各跑一任务：两条命令分别设 \texttt{CUDA\_VISIBLE\_DEVICES=0} 和 \texttt{=1}，后台并行启动
+\end{itemize}
+
+\subsection{注意事项}
+
+\begin{itemize}
+    \item 若提示 \texttt{command not found}，说明未安装 NVIDIA 驱动或驱动未正确加载，需先安装驱动并确认内核模块已加载（\texttt{lsmod | grep nvidia}）。
+    \item 普通用户通常可直接运行 \texttt{nvidia-smi}；若权限不足，联系管理员。
+    \item \texttt{nvidia-smi -q} 输出较长，建议重定向到文件后查看：\texttt{nvidia-smi -q > gpu\_info.txt}。
+\end{itemize}
+
+\section{查看风扇转速（服务器）}
+
+服务器机箱风扇、CPU 风扇等通常由主板 BMC（基板管理控制器）管理。在 Ubuntu 上，\textbf{优先使用 \texttt{ipmitool}}；部分风扇也可通过 \texttt{lm-sensors} 查看。并非所有风扇接口都会上报转速，属常见情况。
+
+\subsection{使用 ipmitool（推荐）}
+
+安装并加载 IPMI 模块：
+
+\begin{lstlisting}[language=sh]
+sudo apt install ipmitool
+sudo modprobe ipmi_devintf    # 若本机访问 BMC 报错可尝试
+\end{lstlisting}
+
+查看所有风扇传感器：
+
+\begin{lstlisting}[language=sh]
+sudo ipmitool sensor list | grep -i fan
+\end{lstlisting}
+
+仅列出风扇类传感器：
+
+\begin{lstlisting}[language=sh]
+sudo ipmitool sdr type fan
+\end{lstlisting}
+
+\subsection{如何读懂输出}
+
+\texttt{ipmitool sensor list} 每行大致包含：传感器名称、当前读数、单位、状态、各级阈值。
+
+示例（双路服务器上较常见的形态）：
+
+\begin{lstlisting}[language=sh]
+FAN1             | na         |            | na    | ...
+FAN2             | na         |            | na    | ...
+FAN3             | 2380.000   | RPM        | ok    | 280.000   | 420.000   | ...
+FAN4             | 3220.000   | RPM        | ok    | 280.000   | 420.000   | ...
+FAN5             | na         |            | na    | ...
+FAN6             | 2380.000   | RPM        | ok    | 280.000   | 420.000   | ...
+FANA             | na         |            | na    | ...
+FANB             | 980.000    | RPM        | ok    | 280.000   | 420.000   | ...
+\end{lstlisting}
+
+\textbf{上述输出可视为正常，理由如下：}
+
+\begin{itemize}
+    \item \textbf{有读数且状态为 \texttt{ok}}：FAN3、FAN4、FAN6（约 2380--3220 RPM）、FANB（约 980 RPM）均在运转，转速高于下限告警阈值（示例中 \texttt{420} RPM），BMC 判定正常。
+    \item \textbf{不同风扇转速不同属正常}：机箱风道、CPU 风扇、辅助风扇（如 FANA/FANB 区）转速曲线不同；大扇叶或低噪风扇可能仅数百至一千多 RPM，不必与 2000+ RPM 的风扇一致。
+    \item \textbf{\texttt{na} 表示无读数}：FAN1、FAN2、FAN5、FANA 显示 \texttt{na}，通常表示该接口\textbf{未接风扇}、接了\textbf{无转速线（tach）的风扇}，或 BMC 预留了传感器位但未使用。\textbf{若机器运行稳定、无过热告警，一般无需处理。}
+    \item \textbf{需警惕的情况}：有风扇接口曾长期有读数，突然变为 \texttt{na}；或读数长期为 \texttt{0}、\texttt{ok} 变为 \texttt{cr}（critical）/ \texttt{nr}（non-recoverable）；或整机温度持续升高。此时检查风扇是否停转、积灰或线缆松动。
+\end{itemize}
+
+风扇传感器的下限阈值（示例中 \texttt{280}、\texttt{420} RPM）表示：转速低于该值时 BMC 可能告警，用于检测风扇停转或转速过低。
+
+\subsection{使用 lm-sensors（补充）}
+
+部分主板还会把风扇暴露给 Linux 内核：
+
+\begin{lstlisting}[language=sh]
+sudo apt install lm-sensors
+sudo sensors-detect    # 首次使用按提示探测
+sensors
+\end{lstlisting}
+
+查看内核识别的风扇节点：
+
+\begin{lstlisting}[language=sh]
+grep -H . /sys/class/hwmon/hwmon*/fan*_input 2>/dev/null
+\end{lstlisting}
+
+若 \texttt{sensors} 与 \texttt{ipmitool} 结果不一致，\textbf{以 \texttt{ipmitool} 为准}（服务器上通常更全）。
+
+\subsection{显卡风扇}
+
+GPU 风扇不属于主板 BMC 风扇接口，需单独查看：
+
+\begin{lstlisting}[language=sh]
+nvidia-smi --query-gpu=index,name,fan.speed --format=csv
+\end{lstlisting}
+
+\subsection{常用场景速查}
+
+\begin{itemize}
+    \item 查看机箱/CPU 风扇转速：\texttt{sudo ipmitool sensor list | grep -i fan}
+    \item 判断是否正常：有读数的项状态为 \texttt{ok}，且 RPM 明显高于下限阈值；\texttt{na} 多为未接或未上报转速的接口
+    \item 持续观察：\texttt{watch -n 2 "sudo ipmitool sensor list | grep -i fan"}（按 \texttt{Ctrl+C} 退出）
+    \item 查看 GPU 风扇：\texttt{nvidia-smi --query-gpu=fan.speed --format=csv}
+\end{itemize}
+
+\subsection{注意事项}
+
+\begin{itemize}
+    \item 需要 \texttt{sudo} 权限；远程带外管理（iDRAC、iLO、IPMI Web）中往往也能看到更完整的热管理信息。
+    \item 虚拟机内通常无法读取物理风扇传感器。
+    \item 风扇数量与命名（FAN1--FAN6、FANA/FANB 等）因主板厂商而异，以实际 \texttt{ipmitool} 输出为准。
+\end{itemize}
+
